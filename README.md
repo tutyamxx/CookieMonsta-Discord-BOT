@@ -18,7 +18,7 @@
 * If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.
 
 
-## You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these in the bot folder *(copy and passte one command at a time, in your terminal)*:
+## You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these in the bot folder *(copy and paste one command at a time, in your terminal)*:
 
 ```
 sudo npm install -g node-gyp
