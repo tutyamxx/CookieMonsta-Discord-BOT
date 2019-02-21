@@ -66,5 +66,7 @@ brew upgrade graphicsmagick
 
 ```npm install forever -g```
 
-You can start the BOT by using this command: ``**forever start** ***CookieMonstaBOT.js***``
-To stop the BOT, type: ``**forever stopall**``
+##Usage:
+* ``forever start CookieMonstaBOT.js``
+* ``forever stopall``
+* ``forever list``
