@@ -2,7 +2,7 @@
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 
-const szAPIKey = "n4Yxy4JmhRIbLrQnO2IvKyzntAJwKkQAfTrW1Mkr";
+const szAPIKey = "Your NASA Api Key here";
 
 module.exports.run = async (bot, message, args) =>
 {
