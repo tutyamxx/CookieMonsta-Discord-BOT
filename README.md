@@ -19,15 +19,22 @@
 sudo npm install -g node-gyp
 npm i node-gyp better-sqlite3
 npm install --save better-sqlite3
+
 npm install node-opus
 npm i opusscript
+
 npm install --save discord.js
 npm install --save jimp
+npm install gm
 npm install dblapi.js
 
-npm install get-json && npm install ignore-case && npm install gm && npm install flip-text && npm install moji-translate
+npm install get-json
+npm install ignore-case
+npm install flip-text
+npm install moji-translate
 
 sudo npm install long
+
 npm install moment
 npm install --save word-wrap
 npm install chalk
@@ -39,6 +46,7 @@ npm install chalk
 
 ```
 apt-get install ffmpeg
+
 sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
 sudo apt-get install imagemagick
 ```
