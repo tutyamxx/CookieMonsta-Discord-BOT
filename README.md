@@ -6,10 +6,9 @@
 
 # CookieMonsta Discord BOT
 
-* This was my private Discord BOT. Written using Discord.JS library
-* It might not be perfectly coded, but...
+* This was my private **Discord BOT** and has been written using [Discord.JS library](https://discord.js.org/#/)
 * To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
-* BOT is offline, if you want to run it or host it, make sure you read the files, you might need some API keys here and there.
+* **BOT is OFFLINE**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there.
 * Max servers that the BOT has been present in: ***167***
 
 
@@ -19,7 +18,7 @@
 * If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.
 
 
-## You need [NPM (Node Package Manager)](https://www.npmjs.com/) and Node.JS. After that, install these in the bot folder:
+## You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these in the bot folder:
 
 ```
 sudo npm install -g node-gyp
