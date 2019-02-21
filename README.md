@@ -1,10 +1,13 @@
 # CookieMonsta Discord BOT
 
 ## This was my private Discord BOT. Written using Discord.JS library
-## MIGHT NOT BE THE PERFECTLY CODED BOT, BUT HERE IT IS...
+## It might not be perfectly coded, but...
 ## To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
-## GL & HF
-## Things you need:
+
+
+
+
+## Now, a few things you need first:
 
 * **Linux** or **Mac OS X**
 * If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.
