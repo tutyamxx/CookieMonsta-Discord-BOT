@@ -1,5 +1,6 @@
-# CookieMonsta-Discord-BOT
+# CookieMonsta Discord BOT
 
+## This was my private Discord BOT. Written using Discord.JS library
 ## MIGHT NOT BE THE PERFECTLY CODED BOT, BUT HERE IT IS...
 ## To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
 ## GL & HF
