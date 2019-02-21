@@ -13,7 +13,7 @@
 * If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.
 
 
-## You need Node.JS installed on your machine, also npm (Node Package Manager). After you installed them, install these in the BOT folder. I suggest you run these commands from start to the end.
+## You need NPM (Node Package Manager) and Node.JS. After that, install these in the bot folder:
 
 ```
 sudo npm install -g node-gyp
