@@ -11,12 +11,14 @@
 * **BOT is OFFLINE**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there.
 * Max servers that the BOT has been present in: ***167***
 * **WARNING! INDENTATION ON GITHUB MIGHT BE BAD, I CODED IN ATOM!**
+* I won't update it anymore, it is as it is!
 
 
 ## Now, a few things you need first:
 
 * **Linux** or **Mac OS X**
-* If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.
+* *If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.*
+* [**Discord**](https://discordapp.com/) installed.
 
 
 ## You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these in the bot folder *(copy and paste one command at a time, in your terminal)*:
