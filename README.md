@@ -66,7 +66,7 @@ brew upgrade graphicsmagick
 
 ```npm install forever -g```
 
-##Usage:
+## Usage:
 * ``forever start CookieMonstaBOT.js``
 * ``forever stopall``
 * ``forever list``
