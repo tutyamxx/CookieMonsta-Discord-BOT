@@ -12,30 +12,39 @@
 
 ## You need Node.JS installed on your machine, also npm (Node Package Manager). After you installed them, install these in the BOT folder. I suggest you run these commands from start to the end.
 
-* `sudo npm install -g node-gyp`
-* `npm i node-gyp better-sqlite3`
-* `npm install --save better-sqlite3`
-* `npm install node-opus`
-* `npm i opusscript`
-* `npm install --save discord.js`
-* `npm install --save jimp`
-* `npm install dblapi.js`
-* `npm install get-json && npm install ignore-case && npm install gm && npm install flip-text && npm install moji-translate`
-* `sudo npm install long`
-* `npm install moment`
-* `npm install --save word-wrap`
-* `npm install chalk`
+```
+sudo npm install -g node-gyp
+npm i node-gyp better-sqlite3
+npm install --save better-sqlite3
+npm install node-opus
+npm i opusscript
+npm install --save discord.js
+npm install --save jimp
+npm install dblapi.js
+
+npm install get-json && npm install ignore-case && npm install gm && npm install flip-text && npm install moji-translate
+
+sudo npm install long
+npm install moment
+npm install --save word-wrap
+npm install chalk
+```
 
 # Tools needed to be installed in order to run the BOT properly:
 
 ## For Linux:
-* `apt-get install ffmpeg`
-* `sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev`
-* `sudo apt-get install imagemagick`
+
+```
+apt-get install ffmpeg
+sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
+sudo apt-get install imagemagick
+```
 
 # For Mac:
-* `brew install graphicsmagick`
-* `brew upgrade graphicsmagick`
+```
+brew install graphicsmagick
+brew upgrade graphicsmagick
+```
 
 ## BOT Uses these images gathered by me, in 2 albums. Links are below:
 
@@ -44,7 +53,7 @@
 
 ## If you want to run the BOT script forever, install this:
 
-* `npm install forever -g`
+```npm install forever -g```
 
 You can start the BOT by using this command: **forever start** ***CookieMonstaBOT.js***
 To stop the BOT, type: **forever stopall**
