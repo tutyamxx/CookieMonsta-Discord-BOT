@@ -60,7 +60,7 @@ sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-de
 sudo apt-get install imagemagick
 ```
 
-# For Mac:
+## For Mac:
 ```
 brew install graphicsmagick
 brew upgrade graphicsmagick
