@@ -1,8 +1,8 @@
 # CookieMonsta Discord BOT
 
-## This was my private Discord BOT. Written using Discord.JS library
-## It might not be perfectly coded, but...
-## To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
+* This was my private Discord BOT. Written using Discord.JS library
+* It might not be perfectly coded, but...
+* To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
 
 
 
