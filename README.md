@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://i.imgur.com/5WDYzyG.png"><br/>
+</p>
+<br/><br/>
+
+
 # CookieMonsta Discord BOT
 
 * This was my private Discord BOT. Written using Discord.JS library
