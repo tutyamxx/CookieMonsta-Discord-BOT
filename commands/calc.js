@@ -44,7 +44,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             return await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
-	});
+    });
 };
 
 module.exports.help =
