@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) =>
 {
     var user = message.author;
 
-	message.channel.startTyping();
+    message.channel.startTyping();
 
     await getJSON('https://some-random-api.ml/dogfact', async function(error, response)
     {
@@ -18,14 +18,14 @@ module.exports.run = async (bot, message, args) =>
         // --| Remove "" from start and end of string
         var DogFactToString = JSON.stringify(response.fact).replace(/"/g, '').replace(/\\/g, "``");
 
-		const embed = new Discord.RichEmbed()
-		.setAuthor("Cookie Monsta | Dog Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-		.setColor("#A0522D")
-		.setDescription(DogFactToString)
-		.setThumbnail("https://i.imgur.com/ssEFccy.png")
-	   	.setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        const embed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Dog Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor("#A0522D")
+        .setDescription(DogFactToString)
+        .setThumbnail("https://i.imgur.com/ssEFccy.png")
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-		await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 	});
 };
 
