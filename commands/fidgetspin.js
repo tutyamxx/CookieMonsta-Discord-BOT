@@ -36,28 +36,27 @@ module.exports.run = async (bot, message, args) =>
 		if(iSpinTimeout.toFixed(0) >= 40)
 		{
 			const embed = new Discord.RichEmbed()
-	        .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-	        .setColor(szEmbedColor)
-	        .setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:\n\nAs a reward, it got **400** cookies :cookie: !`)
-	        .setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
-	        .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+			.setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+			.setColor(szEmbedColor)
+			.setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:\n\nAs a reward, it got **400** cookies :cookie: !`)
+			.setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
+			.setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 			.setTimestamp()
 
-	        await SpinningMessage.edit({embed});
+			await SpinningMessage.edit({embed});
 			await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 400);
 		}
 
 		else
 		{
 			const embed = new Discord.RichEmbed()
-	        .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-	        .setColor(szEmbedColor)
-	        .setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:`)
-	        .setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
-	        .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+			.setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+			.setColor(szEmbedColor)
+			.setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:`)
+			.setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
+			.setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 			.setTimestamp()
-
-	        await SpinningMessage.edit({embed});
+			await SpinningMessage.edit({embed});
 		}
 
         UserAlreadySpinningFidget[user.id] = false;
