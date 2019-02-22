@@ -8,19 +8,19 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     var user = message.author;
 
-	if(CustomFunctions.isEmpty(szArgs[0]))
-	{
-		return await message.reply(" :no_entry: eyy, try to add some math expressions or someshit :1234:  :no_entry:" );
-	}
+    if(CustomFunctions.isEmpty(szArgs[0]))
+    {
+        return await message.reply(" :no_entry: eyy, try to add some math expressions or someshit :1234:  :no_entry:" );
+    }
 
     message.channel.startTyping();
 
-	var MathEquation = szArgs.slice(0).join(' ').trim();
+    var MathEquation = szArgs.slice(0).join(' ').trim();
 
-	await Needle.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`, async function(error, response)
-	{
-		if(!error && response.statusCode == 200)
-		{
+    await Needle.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`, async function(error, response)
+    {
+        if(!error && response.statusCode == 200)
+        {
             var MathCalc = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
 
             const embed = new Discord.RichEmbed()
