@@ -49,7 +49,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
 		return await message.reply("available colors :art: are :arrow_right: " + ColorList);
 	}
-
+	
     if(CookieMonsta.UserDatabaseData.cookies < 150)
     {
         return await message.reply(" :no_entry: you don't have enough cookies :cookie: to buy a color! :art:  :no_entry:" );
@@ -60,44 +60,44 @@ module.exports.run = async (bot, message, szArgs) =>
 
     var user = message.author;
 
-		for(i = 0; i < ColorRoles.length; i++)
+	for(i = 0; i < ColorRoles.length; i++)
+	{
+		if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
 		{
-			if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
+			// --| If role exists // role => role.name
+			ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+
+			if(!ColorRoleFind)
 			{
-				// --| If role exists // role => role.name
-				ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
-
-				if(!ColorRoleFind)
+				for(x = 0; x < ColorRoles.length; x++)
 				{
-					for(x = 0; x < ColorRoles.length; x++)
-					{
-						const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+					const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
-						if(role && !message.member.roles.has(ColorRoleFind))
-						{
-							message.member.removeRole(role);
-						}
+					if(role && !message.member.roles.has(ColorRoleFind))
+					{
+						message.member.removeRole(role);
 					}
-
-					// --| Create new Color Cookie if doesn't exist
-					await message.guild.createRole(
-					{
-						name: ColorRoles[i][0] + " Cookie",
-						color: ColorRoles[i][1].toString(),
-						hoist: true,
-						mentionable: false,
-						permissions: CookieRolesPermissions
-						// I assume the above roles are the default ones... Possibly
-					}).then(async () =>
-					{
-						var FindNewColor = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
-
-						await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
-
-						message.member.addRole(FindNewColor).catch(console.error);
-						message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
-					});
 				}
+
+				// --| Create new Color Cookie if doesn't exist
+				await message.guild.createRole(
+				{
+					name: ColorRoles[i][0] + " Cookie",
+					color: ColorRoles[i][1].toString(),
+					hoist: true,
+					mentionable: false,
+					permissions: CookieRolesPermissions
+					// I assume the above roles are the default ones... Possibly
+				}).then(async () =>
+				{
+					var FindNewColor = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+
+					await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
+
+					message.member.addRole(FindNewColor).catch(console.error);
+					message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
+				});
+			}
 
 			else
 			{
