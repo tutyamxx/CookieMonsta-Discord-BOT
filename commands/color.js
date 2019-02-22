@@ -42,13 +42,13 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[0] === "list")
     {
-        for(i = 0; i < ColorRoles.length; i++)
+		for(i = 0; i < ColorRoles.length; i++)
 		{
 			ColorList += "***" + ColorRoles[i][0] + "***, ";
 		}
 
 		return await message.reply("available colors :art: are :arrow_right: " + ColorList);
-    }
+	}
 
     if(CookieMonsta.UserDatabaseData.cookies < 150)
     {
@@ -64,8 +64,8 @@ module.exports.run = async (bot, message, szArgs) =>
 	{
 		if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
 		{
-            // --| If role exists // role => role.name
-            ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+			// --| If role exists // role => role.name
+			ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
 			if(!ColorRoleFind)
 			{
