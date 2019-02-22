@@ -15,7 +15,7 @@ var CritPercent = 5;
 module.exports.run = async (bot, message, args) =>
 {
 	var GuildGetID = message.guild.id;
-    var user = message.author;
+	var user = message.author;
 
 	let GuildMember = message.mentions.members.first();
 
