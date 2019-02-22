@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!tts** ``<your text here>`` :no_entry:");
 	}
 
-	if(bAlreadyPlayingTTS === true)
+    if(bAlreadyPlayingTTS === true)
     {
         return await message.reply(" :no_entry: man you're too spicy! I am already translating a **TTS** :loud_sound:  :no_entry:" );
     }
@@ -48,17 +48,20 @@ module.exports.run = async (bot, message, szArgs) =>
 		await voiceChannel.join().then(async function (connection)
 		{
             bAlreadyPlayingTTS = true;
+
 			var iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
 			iDispatcher.on("end", end =>
-			{
+            {
                 bAlreadyPlayingTTS = false;
+
 				voiceChannel.leave();
 			});
 
 			iDispatcher.on("error", end =>
-			{
+            {
                 bAlreadyPlayingTTS = false;
+                
 				voiceChannel.leave();
 			});
 		})
