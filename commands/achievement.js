@@ -15,17 +15,17 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: please don't exceed **21** characters in your achievement description! :no_entry:");
     }
 
-	if(message.mentions.members.first())
-	{
-		return await message.reply(" :no_entry: please don't mention people in your achievement description! :no_entry:");
-	}
+    if(message.mentions.members.first())
+    {
+    	return await message.reply(" :no_entry: please don't mention people in your achievement description! :no_entry:");
+    }
 
     message.channel.startTyping();
 
     var iRandomIcon = Math.floor((Math.random() * 39) + 0);
     var ArgumentText = szArgs.join(" ");
 
-	var RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
+    var RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
 
     var AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";
 
