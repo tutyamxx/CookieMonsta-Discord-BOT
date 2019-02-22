@@ -24,32 +24,32 @@ module.exports.run = async (bot, message, szArgs) =>
             return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-		// --| Exterior wear of the skin in its float representation
+        // --| Exterior wear of the skin in its float representation
         var SkinFloatValue = JSON.stringify(response.iteminfo.floatvalue).replace(/"/g, '');
 
-		// --| Paint ID of the weapon (skin)
+        // --| Paint ID of the weapon (skin)
         var SkinPaintIndex = JSON.stringify(response.iteminfo.paintindex).replace(/"/g, '');
 
-		// --| Seed for the RNG that defines how to place the skin texture
+        // --| Seed for the RNG that defines how to place the skin texture
         var SkinPaintSeed = JSON.stringify(response.iteminfo.paintseed).replace(/"/g, '');
 
-		// --| ID of the item
+        // --| ID of the item
         var SkinItemID = JSON.stringify(response.iteminfo.itemid).replace(/"/g, '');
 
-		// --| Optional: Name of the skin
+        // --| Optional: Name of the skin
         var SkinName = JSON.stringify(response.iteminfo.item_name).replace(/"/g, '');
 
-		// --| Wear name (Factory New, Minimal Wear, etc...)
-		var SkinWearName = JSON.stringify(response.iteminfo.wear_name).replace(/"/g, '');
+        // --| Wear name (Factory New, Minimal Wear, etc...)
+        var SkinWearName = JSON.stringify(response.iteminfo.wear_name).replace(/"/g, '');
 
-		// --| Weapon type name
+        // --| Weapon type name
         var SkinWeaponName = JSON.stringify(response.iteminfo.weapon_type).replace(/"/g, '');
 
-		// --| Quality name (Souvenir, Stattrak, etc...)
-		var SkinQuality = JSON.stringify(response.iteminfo.quality_name).replace(/"/g, '');
+        // --| Quality name (Souvenir, Stattrak, etc...)
+        var SkinQuality = JSON.stringify(response.iteminfo.quality_name).replace(/"/g, '');
 
-		// --| Origin name (Trade-Up, Dropped, etc...)
-		var SkinOrigin = JSON.stringify(response.iteminfo.origin_name).replace(/"/g, '');
+        // --| Origin name (Trade-Up, Dropped, etc...)
+        var SkinOrigin = JSON.stringify(response.iteminfo.origin_name).replace(/"/g, '');
 
         var SkinImageURL = JSON.stringify(response.iteminfo.imageurl).replace(/"/g, '');
 
