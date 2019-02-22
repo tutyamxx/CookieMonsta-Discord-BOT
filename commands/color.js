@@ -60,14 +60,14 @@ module.exports.run = async (bot, message, szArgs) =>
 
     var user = message.author;
 
-    for(i = 0; i < ColorRoles.length; i++)
-    {
-        if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
-        {
+	for(i = 0; i < ColorRoles.length; i++)
+	{
+		if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
+		{
             // --| If role exists // role => role.name
             ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
-            if(!ColorRoleFind)
+			if(!ColorRoleFind)
 			{
 				for(x = 0; x < ColorRoles.length; x++)
 				{
