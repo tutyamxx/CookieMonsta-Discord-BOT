@@ -43,11 +43,11 @@ module.exports.run = async (bot, message, szArgs) =>
     if(szArgs[0] === "list")
     {
         for(i = 0; i < ColorRoles.length; i++)
-        {
+		{
 			ColorList += "***" + ColorRoles[i][0] + "***, ";
 		}
 
-        return await message.reply("available colors :art: are :arrow_right: " + ColorList);
+		return await message.reply("available colors :art: are :arrow_right: " + ColorList);
     }
 
     if(CookieMonsta.UserDatabaseData.cookies < 150)
@@ -88,7 +88,6 @@ module.exports.run = async (bot, message, szArgs) =>
 					mentionable: false,
 					permissions: CookieRolesPermissions
 					// I assume the above roles are the default ones... Possibly
-
 				}).then(async () =>
 				{
 					var FindNewColor = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
@@ -103,27 +102,27 @@ module.exports.run = async (bot, message, szArgs) =>
 			else
 			{
 				if(message.member.roles.has(ColorRoleFind.id))
-	            {
-	                return await message.reply(" :no_entry: you already have this color applied! :art:  :no_entry:");
-	            }
+				{
+					return await message.reply(" :no_entry: you already have this color applied! :art:  :no_entry:");
+				}
 
-	            for(x = 0; x < ColorRoles.length; x++)
-	            {
-	                const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+				for(x = 0; x < ColorRoles.length; x++)
+				{
+					const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
-	                if(role && !message.member.roles.has(ColorRoleFind.id))
-	                {
-	                    message.member.removeRole(role);
-	                }
-	            }
+					if(role && !message.member.roles.has(ColorRoleFind.id))
+					{
+						message.member.removeRole(role);
+					}
+				}
 
 				await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
 
-	            message.member.addRole(ColorRoleFind).catch(console.error);
-	            message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
+				message.member.addRole(ColorRoleFind).catch(console.error);
+				message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
 			}
-        }
-    }
+		}
+	}
 };
 
 module.exports.help =
