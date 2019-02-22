@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, szArgs) =>
 	{
 		return await message.reply(" :no_entry: please don't mention people in your text! :no_entry:");
 	}
-	
+
 	const voiceChannel = message.member.voiceChannel;
 
 	if(!voiceChannel)
