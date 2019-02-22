@@ -68,7 +68,7 @@ module.exports.run = async (bot, message, szArgs) =>
             ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
             if(!ColorRoleFind)
-            {
+			{
 				for(x = 0; x < ColorRoles.length; x++)
 				{
 					const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
