@@ -31,10 +31,10 @@ module.exports.run = async (bot, message, szArgs) =>
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
             await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-		}
+        }
 
-		else
-		{
+        else
+        {
             const embed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Calculator Error", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#FF0000")
@@ -43,7 +43,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
             return await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-		}
+        }
 	});
 };
 
