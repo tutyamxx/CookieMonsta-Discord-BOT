@@ -17,12 +17,12 @@ module.exports.run = async (bot, message, args) =>
 
 	let szEmbedColor = "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
 
-    const embed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-    .setColor(szEmbedColor)
-    .setDescription(user + " is spinning a fidget spinner... :ok_hand::joy:")
-    .setThumbnail("https://i.imgur.com/4r5GF8R.gif")
-    .setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+	const embed = new Discord.RichEmbed()
+	.setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+	.setColor(szEmbedColor)
+	.setDescription(user + " is spinning a fidget spinner... :ok_hand::joy:")
+	.setThumbnail("https://i.imgur.com/4r5GF8R.gif")
+	.setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 	.setTimestamp()
 
     var SpinningMessage = await message.channel.send({embed});
@@ -31,8 +31,8 @@ module.exports.run = async (bot, message, args) =>
 
     UserAlreadySpinningFidget[user.id] = true;
 
-    iSpinnerTimer[user.id] = setInterval (async function ()
-    {
+	iSpinnerTimer[user.id] = setInterval (async function ()
+	{
 		if(iSpinTimeout.toFixed(0) >= 40)
 		{
 			const embed = new Discord.RichEmbed()
@@ -59,10 +59,10 @@ module.exports.run = async (bot, message, args) =>
 			await SpinningMessage.edit({embed});
 		}
 
-        UserAlreadySpinningFidget[user.id] = false;
-        bot.clearInterval(iSpinnerTimer[user.id]);
+		UserAlreadySpinningFidget[user.id] = false;
+		bot.clearInterval(iSpinnerTimer[user.id]);
 
-    }, iSpinTimeout * 1000);
+	}, iSpinTimeout * 1000);
 };
 
 module.exports.help =
