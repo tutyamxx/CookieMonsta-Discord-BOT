@@ -9,7 +9,7 @@ var RandomLaughEmoji =
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+    var user = message.author;
 
     message.channel.startTyping();
 
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) =>
         .setColor(10526880)
         .setDescription(RandomJokeToString + " " + RandomLaughEmoji[Math.floor(Math.random() * RandomLaughEmoji.length)])
         .setThumbnail("https://i.imgur.com/Fx73HXI.png")
-		.setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
