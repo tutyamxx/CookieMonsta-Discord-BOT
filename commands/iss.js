@@ -25,9 +25,9 @@ module.exports.run = async (bot, message, args) =>
 		.setThumbnail("https://i.imgur.com/T3zXl0F.png")
 		.setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 		.setTimestamp();
-		
+
 		await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-    });
+	});
 };
 
 module.exports.help =
