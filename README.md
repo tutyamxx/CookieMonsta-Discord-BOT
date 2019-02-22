@@ -9,7 +9,7 @@
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
 * **BOT is OFFLINE**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there.
-* Max servers that the BOT has been present in: ***167***
+* Max servers that the BOT has been present in: ***170***
 
 * **WARNING! INDENTATION ON GITHUB MIGHT LOOK LIKE A POTATO, IF YOU CLONE THIS REPO AND OPEN IT WITH ANY DECENT TEXT EDITOR, IT WILL BE INDENTED PROPERLY!**
 
