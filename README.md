@@ -10,7 +10,7 @@
 * To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
 * **BOT is OFFLINE**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there.
 * Max servers that the BOT has been present in: ***170***
-* Thanks to my friend *CoachAprax* for the banners and some images.
+* Thanks to my friend [CoachAprax](https://www.youtube.com/user/freeAEgraphics) for the banners and some images.
 
 ## Now, a few things you need first:
 
