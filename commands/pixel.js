@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
 
 	message.channel.startTyping();
 
-	var GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+	let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
 	await Jimp.read(GetUserAvatar).then(async function (image)
 	{

@@ -6,10 +6,10 @@ const szAPIKey = "Your NASA Api Key here";
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
-	var szRandomEarthEmoji = [":earth_africa:", ":earth_americas:", ":earth_asia:"];
-	var szRandomEarthObjects = [":comet:", ":eight_pointed_black_star:", ":black_circle:", ":sparkler:", ":space_invader:"];
+	const szRandomEarthEmoji = [":earth_africa:", ":earth_americas:", ":earth_asia:"];
+	const szRandomEarthObjects = [":comet:", ":eight_pointed_black_star:", ":black_circle:", ":sparkler:", ":space_invader:"];
 
     message.channel.startTyping();
 
@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) =>
 			return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}
 
-		var iCountObjects = JSON.stringify(response.element_count).replace(/"/g, '');
+		let iCountObjects = JSON.stringify(response.element_count).replace(/"/g, '');
 
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Cookie Monsta | NASA Near Earth Object", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

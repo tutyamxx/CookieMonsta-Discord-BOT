@@ -4,21 +4,21 @@ const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const EmojiConvert = require("../functions/emojiconvert.js");
 
-var UserAlreadyRolling = {};
-var iRollTheDiceInterval = {};
+let UserAlreadyRolling = {};
+let iRollTheDiceInterval = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-	var GuildGetID = message.guild.id;
-    var user = message.author;
+	let GuildGetID = message.guild.id;
+    const user = message.author;
 
 	if(UserAlreadyRolling[user.id] === true)
 	{
 		return await message.reply(":no_entry: You are already **Rolling the dice** :game_die:, please wait until is finished! :no_entry:");
 	}
 
-	var RandomDice = Math.floor(( Math.random() * 6 ) + 1);
-	var RandomNewNumber = Math.floor(( Math.random() * 6 ) + 1);
+	const RandomDice = Math.floor(( Math.random() * 6 ) + 1);
+	const RandomNewNumber = Math.floor(( Math.random() * 6 ) + 1);
 
 	UserAlreadyRolling[user.id] = true;
 
@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) =>
 
 	iRollTheDiceInterval[user.id] = setInterval (async function ()
 	{
-		if( RandomDice === RandomNewNumber )
+		if(RandomDice === RandomNewNumber)
 		{
 			await message.channel.send( `:four_leaf_clover: ${user} has rolled the dice and it won! **40** cookies :cookie: awarded! :four_leaf_clover:`);
 			await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 40);

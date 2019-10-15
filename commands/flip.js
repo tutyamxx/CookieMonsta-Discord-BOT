@@ -3,10 +3,10 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
-    var CoinFlip = Math.round(Math.random());
-    var CoinImageNumber, CoinTextNumber;
+    const CoinFlip = Math.round(Math.random());
+    let CoinImageNumber, CoinTextNumber;
 
     switch(CoinFlip)
     {

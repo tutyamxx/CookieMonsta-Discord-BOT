@@ -6,7 +6,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	message.channel.startTyping();
 
@@ -17,9 +17,9 @@ module.exports.run = async (bot, message, args) =>
 			return await message.channel.send(":no_entry: Sorry, but somehow I can't fetch any jokes at the moment... :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}
 
-		var GetJokeType = JSON.stringify(response.type).replace(/"/g, '');
-		var GetRandomJoke = JSON.stringify(response.setup).replace(/"/g, '').replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
-		var GetJokePunchline = JSON.stringify(response.punchline).replace(/"/g, '').replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
+		let GetJokeType = JSON.stringify(response.type).replace(/"/g, '');
+		let GetRandomJoke = JSON.stringify(response.setup).replace(/"/g, '').replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
+		let GetJokePunchline = JSON.stringify(response.punchline).replace(/"/g, '').replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
 
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Cookie Monsta | Punchline Jokes | " + CustomFunctions.capitalizeFirstLetter(GetJokeType), (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

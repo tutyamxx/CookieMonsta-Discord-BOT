@@ -10,11 +10,11 @@ const iDiscordBotsToken = "your DiscordBots.org token here";
 const DBL = require("dblapi.js");
 const dbl = new DBL(iDiscordBotsToken, CookieMonsta.iDiscordClient);
 
-var AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
+let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
-var AvatarUpdateTime = 5			// BOT Avatar change every 5 minutes
+const AvatarUpdateTime = 5			// BOT Avatar change every 5 minutes
 
-var RandomBotAvatars =
+const RandomBotAvatars =
 [
 	"./BOTImages/BOTAvatar/cookie1.png",
 	"./BOTImages/BOTAvatar/cookie2.jpg",
@@ -41,7 +41,7 @@ module.exports = bot =>
 
     iAvatarUpdateInterval = setInterval (function ()
 	{
-		var iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
+		let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
 
 		bot.user.setAvatar(iRandomAvatar);
 		console.log(chalk.yellowBright(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar));
@@ -50,7 +50,7 @@ module.exports = bot =>
 
     iStatusUpdateInterval = setInterval (function ()
 	{
-		var ActivityUpdate =
+		const ActivityUpdate =
 		[
 			["If you type !help for info.", 'WATCHING'],
 			["On: (" + bot.guilds.size + ") servers.", 'WATCHING'],

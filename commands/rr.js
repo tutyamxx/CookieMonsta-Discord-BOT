@@ -4,8 +4,8 @@ const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
-var UserAlreadyPlayingRusR = {};
-var iRouletteTime = {};
+let UserAlreadyPlayingRusR = {};
+let iRouletteTime = {};
 
 var szWinMessages =
 [
@@ -26,21 +26,21 @@ var szWinMessages =
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
 	if(UserAlreadyPlayingRusR[user.id] === true)
 	{
 		return await message.reply(":no_entry: You are already playing, please wait until you die **LUL**! :no_entry:");
 	}
 
-	var BulletSLot = 2;
+	const BulletSLot = 2;
 	UserAlreadyPlayingRusR[user.id] = true;
 
 	const szGunMessage = await message.channel.send(":flag_ru:   :regional_indicator_r::regional_indicator_u::regional_indicator_s::regional_indicator_s::regional_indicator_i::regional_indicator_a::regional_indicator_n:  :regional_indicator_r::regional_indicator_o::regional_indicator_u::regional_indicator_l::regional_indicator_e::regional_indicator_t::regional_indicator_t::regional_indicator_e:   :flag_ru:\n\n:bust_in_silhouette: 						:gun: 	***Gun clicks***");
 
 	let kickMember = message.guild.member(user);
 
-	var CantKickMessages =
+	const CantKickMessages =
 	[
 		":anger: Whoops! You totally lost, but I can't KICK you. Just pretend it was blanks, I guess.",
 		":anger: YOU LOST! I can't kick you, are you an admin or someshit?",

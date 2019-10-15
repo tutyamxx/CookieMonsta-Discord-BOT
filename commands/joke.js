@@ -2,14 +2,14 @@
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 
-var RandomLaughEmoji =
+const RandomLaughEmoji =
 [
     ":laughing:", ":rofl:", ":call_me:", ":joy:", ":scream:", ":clap:", ":ok_hand:", ":rofl:", ":thumbsup:", ":upside_down:"
 ];
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string and also replace &quot; with ""
-        var RandomJokeToString = JSON.stringify(response.value.joke).replace(/"/g, '').replace(/&quot;/g, '\\"');
+        let RandomJokeToString = JSON.stringify(response.value.joke).replace(/"/g, '').replace(/&quot;/g, '\\"');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

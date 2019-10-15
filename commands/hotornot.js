@@ -5,12 +5,12 @@ const GetDatabaseData = require("../functions/getuserdata.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
-	var HotPercentage = Math.floor(( Math.random() * 100 ) + 1);
+	const HotPercentage = Math.floor(( Math.random() * 100 ) + 1);
 
-	var EmoticonHotOrNot;
-	var ColorHotOrNot;
+	let EmoticonHotOrNot;
+	let ColorHotOrNot;
 
 	if(HotPercentage < 55)
 	{

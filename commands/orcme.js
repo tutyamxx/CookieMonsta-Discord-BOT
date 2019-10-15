@@ -5,13 +5,13 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var RandomOrcName1 = CustomFunctions.GenerateOrcName();
-    var RandomOrcName2 = CustomFunctions.GenerateOrcName();
-    var RandomOrcName3 = CustomFunctions.GenerateOrcName();
+    let RandomOrcName1 = CustomFunctions.GenerateOrcName();
+    let RandomOrcName2 = CustomFunctions.GenerateOrcName();
+    let RandomOrcName3 = CustomFunctions.GenerateOrcName();
 
-    var ThreeOrcNames = Math.floor(( Math.random() * 3 ) + 1);
+    let ThreeOrcNames = Math.floor(( Math.random() * 3 ) + 1);
 
-    var OrcNameGenerated;
+    let OrcNameGenerated;
 
     if(ThreeOrcNames === 3)
     {
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) =>
         OrcNameGenerated = "<:orc:535863331781869568> **" + RandomOrcName1 + " " + RandomOrcName2 + "** <:orc:535863331781869568>";
     }
 
-    var user = message.author;
+    const user = message.author;
 
     const embed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Your Orc Name Is", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

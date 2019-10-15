@@ -6,11 +6,11 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
-	var BTCUSD;
-	var BtcDollar, BtcGBP, BtcEuro, BtcYen;
-	var BtcChainDollar, BtcChainGBP, BtcChainEuro, BtcChainYen;
+	let BTCUSD;
+	let BtcDollar, BtcGBP, BtcEuro, BtcYen;
+	let BtcChainDollar, BtcChainGBP, BtcChainEuro, BtcChainYen;
 
 	message.channel.startTyping();
 

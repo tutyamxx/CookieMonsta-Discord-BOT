@@ -17,7 +17,7 @@ let iCheckIfOpenGift = {};
 
 module.exports = async (bot, message) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(user.bot)
 	{
@@ -29,7 +29,7 @@ module.exports = async (bot, message) =>
 		return message.channel.send(":no_entry: Sorry, I don't reply to **Direct Messages** :upside_down: :no_entry:");
 	}
 
-	var GuildGetID = message.guild.id;
+	let GuildGetID = message.guild.id;
 	await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 0);
 
 	if(message.guild)
@@ -44,10 +44,10 @@ module.exports = async (bot, message) =>
 		{
 			await CookieMonsta.UserDatabaseData.level++;
 
-			var GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+			let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-			var i1 = Jimp.read(GetUserAvatar);
-			var i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
+			let i1 = Jimp.read(GetUserAvatar);
+			let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
 
 			Promise.all([i1, i2]).then(async images =>
 			{
@@ -127,7 +127,7 @@ module.exports = async (bot, message) =>
     const szArgs = message.content.slice(szPrefix).trim().split(/ +/g);
     const szCommand = szArgs.shift();
 
-	var KittyRegex = new RegExp(/!kit+y$/); // !kitty
+	let KittyRegex = new RegExp(/!kit+y$/); // !kitty
 
 	if(szCommand.match(KittyRegex))
 	{
@@ -152,7 +152,7 @@ module.exports = async (bot, message) =>
 			szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/catbody.png");
 		}
 
-		var szCatFileName = szCatCommand.substring(1) + ".png";
+		let szCatFileName = szCatCommand.substring(1) + ".png";
 
 		szCatImage
 		.in("-page", "+" + iPos + "+0")
@@ -184,7 +184,7 @@ module.exports = async (bot, message) =>
 
 	if(iCmdCooldown.has(user.id))
 	{
-		var szWaitMessages =
+		const szWaitMessages =
 		[
 			"Oy! Stop spamming! Wait **" + iCooldownTime + "** seconds :angry:",
 			"Whoah there, you're being too spicy for me. Could you just chill? :angry:",

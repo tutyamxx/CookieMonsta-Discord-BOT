@@ -15,10 +15,10 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: this isn't a plain text you m0ng0l! :face_palm:  :no_entry:");
 	}
 
-	var user = message.author;
-	var ArgumentText = szArgs.join(" ");
+	const user = message.author;
+	let ArgumentText = szArgs.join(" ");
 
-	var TextToQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&bgcolor=" + (Math.random() * 0xFFFFFF << 0).toString(16) + "&data=" + ArgumentText;
+	let TextToQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&bgcolor=" + (Math.random() * 0xFFFFFF << 0).toString(16) + "&data=" + ArgumentText;
 
 	await message.channel.send("Your :regional_indicator_q::regional_indicator_r:  :arrow_heading_down:", new Discord.Attachment(encodeURI(TextToQR), "qrcode.png"));
 };

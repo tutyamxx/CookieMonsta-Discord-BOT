@@ -1,11 +1,11 @@
 
 const CustomFunctions = require("../functions/funcs.js");
 
-var bAlreadyPlayingTTS = false;
+let bAlreadyPlayingTTS = false;
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
+    const user = message.author;
 
 	if(CustomFunctions.isEmpty(szArgs[0]))
 	{
@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: man you're too spicy! I am already translating a **TTS** :loud_sound:  :no_entry:" );
     }
 
-	var ArgumentText = szArgs.join(" ");
+	let ArgumentText = szArgs.join(" ");
 
 	if(ArgumentText.length >= 1024)
 	{
@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: I can't join the channel you're in :mute:  :no_entry:" );
 	}
 
-	var szTextToSpeech = "http://tts.cyzon.us/tts?text=" + ArgumentText;
+	let szTextToSpeech = "http://tts.cyzon.us/tts?text=" + ArgumentText;
 
 	if(voiceChannel)
 	{
@@ -49,21 +49,21 @@ module.exports.run = async (bot, message, szArgs) =>
 		{
             bAlreadyPlayingTTS = true;
 
-			var iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
+			let iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
-			iDispatcher.on("end", end =>
+            iDispatcher.on("end", end =>
             {
                 bAlreadyPlayingTTS = false;
 
-				voiceChannel.leave();
-			});
+                voiceChannel.leave();
+            });
 
-			iDispatcher.on("error", end =>
+            iDispatcher.on("error", end =>
             {
                 bAlreadyPlayingTTS = false;
                 
-				voiceChannel.leave();
-			});
+                voiceChannel.leave();
+            });
 		})
 		.catch(err => console.log(err));
 

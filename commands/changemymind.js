@@ -8,7 +8,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	let SearchQuery = szArgs.slice(0).join(' ');
 
@@ -29,10 +29,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
 	message.channel.startTyping();
 
-	var GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+	let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-	var i1 = Jimp.read(GetUserAvatar);
-	var i2 = Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
+	let i1 = Jimp.read(GetUserAvatar);
+	let i2 = Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
 
 	Promise.all([i1, i2]).then(async images =>
 	{

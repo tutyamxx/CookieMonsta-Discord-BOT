@@ -5,7 +5,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(CustomFunctions.isEmpty(szArgs[0]))
 	{
@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: please don't mention people in your search query! :no_entry:");
 	}
 
-	var GoogleSearchQuery = szArgs.slice(0).join(' ').trim();
+	let GoogleSearchQuery = szArgs.slice(0).join(' ').trim();
 
 	const embed = new Discord.RichEmbed()
 	.setAuthor("Cookie Monsta | Let Me Google That For You!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

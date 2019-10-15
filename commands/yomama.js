@@ -4,7 +4,7 @@ const Needle = require("needle");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
     {
 		if(!error && response.statusCode == 200)
 		{
-			var StringYoMama = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
+			let StringYoMama = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
 
             const embed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Yo momma joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

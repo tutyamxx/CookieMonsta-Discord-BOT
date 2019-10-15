@@ -4,18 +4,18 @@ const Discord = require("discord.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 
-var UserAlreadyBattling = {};
-var UserHealthColor = {};
-var iFightLogInterval = {};
-var Player1Health = {};
-var Player2Health = {};
+let UserAlreadyBattling = {};
+let UserHealthColor = {};
+let iFightLogInterval = {};
+let Player1Health = {};
+let Player2Health = {};
 
-var CritPercent = 5;
+let CritPercent = 5;
 
 module.exports.run = async (bot, message, args) =>
 {
-	var GuildGetID = message.guild.id;
-	var user = message.author;
+	const GuildGetID = message.guild.id;
+	const user = message.author;
 
 	let GuildMember = message.mentions.members.first();
 
@@ -39,10 +39,10 @@ module.exports.run = async (bot, message, args) =>
 		return await message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
 	}
 
-	var HitDetection = Math.floor((Math.random() * 2) + 1);
+	const HitDetection = Math.floor((Math.random() * 2) + 1);
 
-	var Damage;
-	var RandomCrit;
+	let Damage;
+	let RandomCrit;
 
 	Player1Health[user.id] = 100;
 	Player2Health[GuildMember.user.id] = 100;
@@ -61,8 +61,8 @@ module.exports.run = async (bot, message, args) =>
 
 	await message.channel.send({embed}).then(msg =>
 	{
-		var szBattleLog = {};
-		var szThumbnail = {};
+		let szBattleLog = {};
+		let szThumbnail = {};
 
 		szThumbnail[user.id] = "https://i.imgur.com/RACcRMv.jpg";
 

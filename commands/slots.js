@@ -5,14 +5,14 @@ const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const EmojiConvert = require("../functions/emojiconvert.js");
 
-var UserAlreadySlotting = {};
-var iSlotTimeInterval = {};
-var UserCoinsWon = {};
+let UserAlreadySlotting = {};
+let iSlotTimeInterval = {};
+let UserCoinsWon = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-	var GuildGetID = message.guild.id;
-    var user = message.author;
+	let GuildGetID = message.guild.id;
+    const user = message.author;
 
 	if(CookieMonsta.UserDatabaseData.cookies < 10)
 	{
@@ -24,8 +24,8 @@ module.exports.run = async (bot, message, args) =>
 		return await message.reply(":no_entry: you are already using the **Rolling Slots** machine! :no_entry:");
 	}
 
-	var SlotNumbers = new Array(3); 											// 0 - 1 - 2
-	var SlotColumn, b, c;
+	let SlotNumbers = new Array(3); 											// 0 - 1 - 2
+	let SlotColumn, b, c;
 
 	for(SlotColumn = 0; SlotColumn < SlotNumbers.length; SlotColumn++)
 	{
@@ -36,9 +36,9 @@ module.exports.run = async (bot, message, args) =>
 
 
 	const szSlotsMessage = await message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
-	var szSlotsMessageEdit = ":slot_machine:  **Rolling Slots!** :slot_machine:\n\n";
+	let szSlotsMessageEdit = ":slot_machine:  **Rolling Slots!** :slot_machine:\n\n";
 
-	var i = 0;
+	let i = 0;
 
 	UserAlreadySlotting[user.id] = true;
 

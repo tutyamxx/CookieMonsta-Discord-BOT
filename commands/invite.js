@@ -1,7 +1,7 @@
 
 const Discord = require("discord.js");
 
-var iBotPermissions =
+const iBotPermissions =
 [
 	'MANAGE_ROLES', 'MANAGE_CHANNELS',
 	'KICK_MEMBERS', 'CREATE_INSTANT_INVITE',
@@ -15,7 +15,7 @@ var iBotPermissions =
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	let szGeneratedInvite = await bot.generateInvite(iBotPermissions).catch(console.error);
 

@@ -8,14 +8,14 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(CustomFunctions.isEmpty(szArgs[0]))
 	{
 		return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!truth** ``<your text here>`` :no_entry:");
 	}
 
-	var ArgumentText = szArgs.join(" ");
+	let ArgumentText = szArgs.join(" ");
 
 	if(ArgumentText.length >= 158)
 	{
@@ -29,9 +29,9 @@ module.exports.run = async (bot, message, szArgs) =>
 
 	message.channel.startTyping();
 
-	var TruthImagePath = "./BOTImages/Truth/truth.jpg";
-	var FontSize = (ArgumentText.length >= 50) ? 16 : 22;
-	var FormattedArgumentText = ArgumentText.replace(/'/g, "`").trim();
+	let TruthImagePath = "./BOTImages/Truth/truth.jpg";
+	let FontSize = (ArgumentText.length >= 50) ? 16 : 22;
+	let FormattedArgumentText = ArgumentText.replace(/'/g, "`").trim();
 
 	await gm(TruthImagePath)
 	.font("./BOTFonts/MangaSpeak.ttf", FontSize)

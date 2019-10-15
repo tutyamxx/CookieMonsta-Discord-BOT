@@ -3,7 +3,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     await getJSON('https://randomfox.ca/floof/', async function(error, response)
     {
@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        var FoxImageToString = JSON.stringify(response.image).replace(/"/g, '');
+        let FoxImageToString = JSON.stringify(response.image).replace(/"/g, '');
 
         await message.channel.send(
         {

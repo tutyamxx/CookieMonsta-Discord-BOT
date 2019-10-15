@@ -61,7 +61,7 @@ fs.readdir("./commands/", (err, files) =>
 
 	// Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
 	// exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
-	var iCommandNumber = (jsFiles.length + 3) - 4;
+	let iCommandNumber = (jsFiles.length + 3) - 4;
 	exports.iCommandNumber = iCommandNumber;
 
     jsFiles.forEach((f, i) =>

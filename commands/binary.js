@@ -4,17 +4,17 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!binary** ``<your text here>`` :no_entry:");
     }
 
-    var ArgumentText = szArgs.join(" ");
+    let ArgumentText = szArgs.join(" ");
 
-    var i;
-    var OutputBinary = "";
+    let i;
+    let OutputBinary = "";
 
     for(i = 0; i < ArgumentText.length; i++)
     {

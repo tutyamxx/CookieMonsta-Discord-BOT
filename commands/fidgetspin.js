@@ -3,12 +3,12 @@ const Discord = require("discord.js");
 
 const GetDatabaseData = require("../functions/getuserdata.js");
 
-var UserAlreadySpinningFidget = {};
-var iSpinnerTimer = {};
+let UserAlreadySpinningFidget = {};
+let iSpinnerTimer = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
     if(UserAlreadySpinningFidget[user.id] === true)
     {
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
 	.setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 	.setTimestamp()
 
-    var SpinningMessage = await message.channel.send({embed});
+    let SpinningMessage = await message.channel.send({embed});
 
     let iSpinTimeout = (Math.random() * (60 - 5 + 1)) + 5;
 

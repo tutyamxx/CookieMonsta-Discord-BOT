@@ -3,14 +3,14 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
-    var iRandomPokemon1 = Math.floor(( Math.random() * 151 ) + 1);
-    var iRandomPokemon2 = Math.floor(( Math.random() * 151 ) + 1);
+    let iRandomPokemon1 = Math.floor(( Math.random() * 151 ) + 1);
+    let iRandomPokemon2 = Math.floor(( Math.random() * 151 ) + 1);
 
-    var GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2 + ".png";
+    let GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2 + ".png";
 
     const embed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

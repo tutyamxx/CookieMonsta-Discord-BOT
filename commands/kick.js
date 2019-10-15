@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
 	}
 
-	var user = message.author;
+	const user = message.author;
 	let KickMember = message.mentions.members.first();
 
 	if(!KickMember)

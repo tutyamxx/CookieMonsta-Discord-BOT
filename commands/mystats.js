@@ -7,27 +7,27 @@ const Jimp = require("jimp");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
 // --| level | png file | username color | stats color & cookies color
-var StatsCollection =
+const StatsCollection =
 [
-	["5", "01.png", "#ADD8E6", "#DCDCDC"],
-	["10", "02.png", "#ADD8E6", "#F5F5DC"],
-	["15", "03.png", "#32CD32", "#FFFAFA"],
-	["25", "04.png", "#32CD32", "#FFFAFA"],
-	["35", "05.png", "#8B4513", "#000000"],
-	["45", "06.png", "#1E90FF", "#FFFAFA"],
-	["55", "07.png", "#800000", "#CD5C5C"],
-	["70", "08.png", "#FFA500", "#FF7F50"],
-	["80", "09.png", "#ADD8E6", "#FFFFFF"],
-	["100", "10.png", "#FFFF00", "#FFFFFF"],
-	["9999999999", "11.png", "#FFFF00", "#000000"]
+    ["5", "01.png", "#ADD8E6", "#DCDCDC"],
+    ["10", "02.png", "#ADD8E6", "#F5F5DC"],
+    ["15", "03.png", "#32CD32", "#FFFAFA"],
+    ["25", "04.png", "#32CD32", "#FFFAFA"],
+    ["35", "05.png", "#8B4513", "#000000"],
+    ["45", "06.png", "#1E90FF", "#FFFAFA"],
+    ["55", "07.png", "#800000", "#CD5C5C"],
+    ["70", "08.png", "#FFA500", "#FF7F50"],
+    ["80", "09.png", "#ADD8E6", "#FFFFFF"],
+    ["100", "10.png", "#FFFF00", "#FFFFFF"],
+    ["9999999999", "11.png", "#FFFF00", "#000000"]
 ];
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
-	var GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-	var GetUserName = user.username.replace(/'/g, "`").trim();
+	let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+	let GetUserName = user.username.replace(/'/g, "`").trim();
 
 	message.channel.startTyping();
 
@@ -45,11 +45,11 @@ module.exports.run = async (bot, message, args) =>
 					{
 						if(err)
 						{
-							return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+							return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 						}
 
-						var szUserStats = "Level: " + await CookieMonsta.UserDatabaseData.level + "  |  XP: " + await CookieMonsta.UserDatabaseData.points;
-						var iCookiesAmount = "Cookies: " + await CookieMonsta.UserDatabaseData.cookies;
+						let szUserStats = "Level: " + await CookieMonsta.UserDatabaseData.level + "  |  XP: " + await CookieMonsta.UserDatabaseData.points;
+						let iCookiesAmount = "Cookies: " + await CookieMonsta.UserDatabaseData.cookies;
 
 						await gm(buffer)
 						.font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 18) ? 14 : 29 )

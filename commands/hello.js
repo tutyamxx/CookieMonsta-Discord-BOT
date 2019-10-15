@@ -1,5 +1,5 @@
 
-var RandomHello =
+const RandomHello =
 [
 	"Greetings!", "Hi.", "Howdy!", "Hello there!", "Hi to you too.",
 	"Hi sunshine,", "BEEP. BOOP. Hi.", "Hi to you too!", "Greetings to you too!",
@@ -11,7 +11,7 @@ var RandomHello =
 
 module.exports.run = async (bot, message, args) =>
 {
-    var szRandomGreet = RandomHello[Math.floor(Math.random() * RandomHello.length)];
+    let szRandomGreet = RandomHello[Math.floor(Math.random() * RandomHello.length)];
 
     await message.channel.send( szRandomGreet + " I am a funny <:cookiemonsta:414433388104253450>  **Cookie Monsta**  <:cookiemonsta:414433388104253450> that can do stuff :smile:\nType **!help** so I can teach you what I can do!\nBtw, want a cookie :cookie: ?");
 };

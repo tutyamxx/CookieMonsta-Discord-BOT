@@ -6,7 +6,7 @@ const Jimp = require("jimp");
 
 const DefChannel = require("../functions/defaultchannel.js");
 
-var szRandomGreetBanners =
+const szRandomGreetBanners =
 [
 	"/BOTImages/Banner/01.png",
 	"/BOTImages/Banner/02.png",
@@ -26,8 +26,8 @@ module.exports = async (bot, member, guild) =>
 {
 	if(member)
 	{
-		var GetUserAvatar = (member.user.avatarURL === null) ? member.user.defaultAvatarURL : member.user.avatarURL;
-		var GetUserName = member.user.username.replace(/'/g, "`").trim();
+		let GetUserAvatar = (member.user.avatarURL === null) ? member.user.defaultAvatarURL : member.user.avatarURL;
+		let GetUserName = member.user.username.replace(/'/g, "`").trim();
 
 		await Jimp.read(__basedir + szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)]).then(async (image) =>
 		{

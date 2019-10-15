@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
 	{
 		if(!error && response.statusCode == 200)
 		{
-			var ZenWords = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
+			let ZenWords = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
 
 			await message.channel.send("``Cookie Monsta | GitHub Zen`` :tanabata_tree:\n" + "```diff\n- " + ZenWords + "```").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}

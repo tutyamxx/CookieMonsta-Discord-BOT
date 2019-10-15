@@ -6,8 +6,8 @@ module.exports.run = async (bot, message, args) =>
 {
     message.channel.startTyping();
 
-    var iRandomComic = Math.floor((Math.random() * 1958) + 1);
-    var user = message.author;
+    const iRandomComic = Math.floor((Math.random() * 1958) + 1);
+    let user = message.author;
 
     await getJSON("https://xkcd.com/" + iRandomComic + "/info.0.json", async function(error, response)
     {
@@ -16,9 +16,9 @@ module.exports.run = async (bot, message, args) =>
             return await message.channel.send(":no_entry: Comics are dead... well, at least for now... :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        var ComicTitle = JSON.stringify(response.title).replace(/"/g, '');
-        var ComicDescription = JSON.stringify(response.alt).replace(/"/g, '').replace(/\\/g, "'");
-        var ComicImageURL = JSON.stringify(response.img).replace(/"/g, '');
+        let ComicTitle = JSON.stringify(response.title).replace(/"/g, '');
+        let ComicDescription = JSON.stringify(response.alt).replace(/"/g, '').replace(/\\/g, "'");
+        let ComicImageURL = JSON.stringify(response.img).replace(/"/g, '');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | XKCD Comic Number: #" + iRandomComic + " | " + ComicTitle, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

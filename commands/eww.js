@@ -6,7 +6,7 @@ const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 	let GuildMember = message.mentions.members.first();
 
 	if(!GuildMember)
@@ -21,10 +21,10 @@ module.exports.run = async (bot, message, args) =>
 
 	message.channel.startTyping();
 
-	var EwwImagePath = "./BOTImages/DankEww";
-	var EwwImage = "ewww.png";
+	let EwwImagePath = "./BOTImages/DankEww";
+	let EwwImage = "ewww.png";
 
-	var FontSize = (GuildMember.user.username.length >= 20) ? 14 : 20;
+	let FontSize = (GuildMember.user.username.length >= 20) ? 14 : 20;
 
 	await gm(EwwImagePath + "/" + EwwImage)
 	.font("Helvetica.ttf", FontSize)

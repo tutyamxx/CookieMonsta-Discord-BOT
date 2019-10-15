@@ -1,10 +1,10 @@
 
 const RandomFacts =  require("../json/randomfacts.json");
 
-var bBoolLoopStarded = false;
+let bBoolLoopStarded = false;
 
-var TimeDelayLoop 		= 45;		// Every 45 minutes
-var RandomDiscordClockEmojis = [":clock1:", ":clock10:", ":clock1030:", ":clock11:", ":clock12:", ":clock2:", ":clock930:"];
+const TimeDelayLoop 		= 45;		// Every 45 minutes
+const RandomDiscordClockEmojis = [":clock1:", ":clock10:", ":clock1030:", ":clock11:", ":clock12:", ":clock2:", ":clock930:"];
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -13,20 +13,20 @@ module.exports.run = async (bot, message, args) =>
         return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
 
-    var user = message.author;
+    const user = message.author;
 
     if(bBoolLoopStarded === false)
     {
         bBoolLoopStarded = true;
 
-        var RandomClockEmoji = RandomDiscordClockEmojis[Math.floor(Math.random() * RandomDiscordClockEmojis.length)];
+        let RandomClockEmoji = RandomDiscordClockEmojis[Math.floor(Math.random() * RandomDiscordClockEmojis.length)];
 
         await message.channel.send(":clapper: Random Facts Captain started! :clapper:\nDisplaying random facts to everyone every " + TimeDelayLoop + " minutes " + RandomClockEmoji);
         console.log(`[+] Log Report [+] --> @${user.username} has used the command '!loop' and started the Random Facts Captain`);
 
         iFactsInterval = setInterval (function ()
         {
-            var iRandFact = RandomFacts[Math.floor(Math.random() * RandomFacts.length)];
+            let iRandFact = RandomFacts[Math.floor(Math.random() * RandomFacts.length)];
             message.channel.send(":nerd: Random Facts Captain here :nerd: :arrow_down:\n" + iRandFact);
 
         }, TimeDelayLoop * 60000);

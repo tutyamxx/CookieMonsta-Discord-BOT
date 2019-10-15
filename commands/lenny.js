@@ -4,7 +4,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	const LennyMessage = await message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
 
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        var LennyFace = JSON.stringify(response[0].face).replace(/"/g, '');
+        let LennyFace = JSON.stringify(response[0].face).replace(/"/g, '');
 
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Cookie Monsta | Your random Lenny", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

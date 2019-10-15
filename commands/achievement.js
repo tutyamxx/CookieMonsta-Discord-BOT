@@ -22,12 +22,12 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    var iRandomIcon = Math.floor((Math.random() * 39) + 0);
-    var ArgumentText = szArgs.join(" ");
+    const iRandomIcon = Math.floor((Math.random() * 39) + 0);
+    let ArgumentText = szArgs.join(" ");
 
-    var RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
+    const RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
 
-    var AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";
+    let AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";
 
     await message.channel.send(new Discord.Attachment(encodeURI(AchievementEncodeGenerate), "achievement.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 };

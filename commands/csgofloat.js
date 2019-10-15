@@ -11,11 +11,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: Please enter the skin Inspect URL :gun: :no_entry:");
     }
 
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
-    var InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ");
+    let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ");
 
     await getJSON(InspectSkinFormatURL, async function(error, response)
     {
@@ -25,33 +25,34 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         // --| Exterior wear of the skin in its float representation
-        var SkinFloatValue = JSON.stringify(response.iteminfo.floatvalue).replace(/"/g, '');
+        let SkinFloatValue = JSON.stringify(response.iteminfo.floatvalue).replace(/"/g, '');
 
         // --| Paint ID of the weapon (skin)
-        var SkinPaintIndex = JSON.stringify(response.iteminfo.paintindex).replace(/"/g, '');
+        let SkinPaintIndex = JSON.stringify(response.iteminfo.paintindex).replace(/"/g, '');
 
         // --| Seed for the RNG that defines how to place the skin texture
-        var SkinPaintSeed = JSON.stringify(response.iteminfo.paintseed).replace(/"/g, '');
+        let SkinPaintSeed = JSON.stringify(response.iteminfo.paintseed).replace(/"/g, '');
 
         // --| ID of the item
-        var SkinItemID = JSON.stringify(response.iteminfo.itemid).replace(/"/g, '');
+        let SkinItemID = JSON.stringify(response.iteminfo.itemid).replace(/"/g, '');
 
         // --| Optional: Name of the skin
-        var SkinName = JSON.stringify(response.iteminfo.item_name).replace(/"/g, '');
+        let SkinName = JSON.stringify(response.iteminfo.item_name).replace(/"/g, '');
 
         // --| Wear name (Factory New, Minimal Wear, etc...)
-        var SkinWearName = JSON.stringify(response.iteminfo.wear_name).replace(/"/g, '');
+        let SkinWearName = JSON.stringify(response.iteminfo.wear_name).replace(/"/g, '');
 
         // --| Weapon type name
-        var SkinWeaponName = JSON.stringify(response.iteminfo.weapon_type).replace(/"/g, '');
+        let SkinWeaponName = JSON.stringify(response.iteminfo.weapon_type).replace(/"/g, '');
 
         // --| Quality name (Souvenir, Stattrak, etc...)
-        var SkinQuality = JSON.stringify(response.iteminfo.quality_name).replace(/"/g, '');
+        let SkinQuality = JSON.stringify(response.iteminfo.quality_name).replace(/"/g, '');
 
         // --| Origin name (Trade-Up, Dropped, etc...)
-        var SkinOrigin = JSON.stringify(response.iteminfo.origin_name).replace(/"/g, '');
+        let SkinOrigin = JSON.stringify(response.iteminfo.origin_name).replace(/"/g, '');
 
-        var SkinImageURL = JSON.stringify(response.iteminfo.imageurl).replace(/"/g, '');
+        // --| Skin image URL
+        let SkinImageURL = JSON.stringify(response.iteminfo.imageurl).replace(/"/g, '');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | CSGO Float", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

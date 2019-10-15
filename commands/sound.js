@@ -6,18 +6,18 @@ const CookieMonsta = require("../CookieMonstaBOT.js");
 const CustomFunctions = require("../functions/funcs.js");
 const SoundEffectsMp3 = require("../json/soundboard.json");
 
-var bBoolAlreadyPlayingSound = false;
+let bBoolAlreadyPlayingSound = false;
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(CustomFunctions.isEmpty(szArgs[0]))
 	{
 		return await message.reply(" :no_entry: ey, invalid parameter entered. Type **!sound** ``list`` to list all available sounds to play :mute:  :no_entry:" );
 	}
 
-	var SoundList = "";
+	let SoundList = "";
 
 	if(szArgs[0] === "list")
 	{
@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: you don't have enough cookies :cookie: to play this sound! :no_entry:");
 	}
 
-	var UserVoiceChannel = message.member.voiceChannel;
+	let UserVoiceChannel = message.member.voiceChannel;
 
 	if(!UserVoiceChannel)
 	{
@@ -51,8 +51,8 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:" );
 	}
 
-	var j, x;
-	var CatchSoundFromArray = "";
+	let j, x;
+	let CatchSoundFromArray = "";
 
 	for(j = 0; j < SoundEffectsMp3.length; j++)
 	{
@@ -67,19 +67,19 @@ module.exports.run = async (bot, message, szArgs) =>
 					bBoolAlreadyPlayingSound = true;
 					await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
 
-					var iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray);
+					let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray);
 
-					iDispatcher.on("end", end =>
-					{
-						bBoolAlreadyPlayingSound = false;
-						UserVoiceChannel.leave();
-					});
+                    iDispatcher.on("end", end =>
+                    {
+                        bBoolAlreadyPlayingSound = false;
+                        UserVoiceChannel.leave();
+                    });
 
-					iDispatcher.on("error", end =>
-					{
-						bBoolAlreadyPlayingSound = false;
-						UserVoiceChannel.leave();
-					});
+                    iDispatcher.on("error", end =>
+                    {
+                        bBoolAlreadyPlayingSound = false;
+                        UserVoiceChannel.leave();
+                    });
 				})
 				.catch(err => console.log(err));
 

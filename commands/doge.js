@@ -3,7 +3,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     await getJSON('http://shibe.online/api/shibes?count=1&httpsUrls=true', async function(error, response)
     {
@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        var DogeToString = JSON.stringify(response[0]).replace(/"/g, '');
+        let DogeToString = JSON.stringify(response[0]).replace(/"/g, '');
 
         await message.channel.send(
         {

@@ -4,14 +4,14 @@ const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 const GetChannelDefault = require("../functions/defaultchannel.js");
 
-var RandomEmojiNews =
+const RandomEmojiNews =
 [
 	":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
 ];
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(user.id !== "266677298051153920")
 	{
@@ -23,8 +23,8 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: you need to enter a message in order to send it! :no_entry:");
 	}
 
-	var NewsTextFromDev = szArgs.join(" ");
-	var guildList = bot.guilds.array();
+	let NewsTextFromDev = szArgs.join(" ");
+	let guildList = bot.guilds.array();
 
 	try
 	{

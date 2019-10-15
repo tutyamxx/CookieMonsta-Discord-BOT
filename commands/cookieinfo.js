@@ -3,9 +3,9 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
-    var FormatMessage = ":cookie:  ***OMM NOM, NOM NOM***   **-- Cookie Monsta**  :cookie:\n\n\n \
+    let FormatMessage = ":cookie:  ***OMM NOM, NOM NOM***   **-- Cookie Monsta**  :cookie:\n\n\n \
     :small_blue_diamond:   You will automatically receive **150** cookies ``(One time only)``!\n \
     :small_blue_diamond:   You will pay **150** cookies every time you buy a **color**\n \
     :small_blue_diamond:   If you are **100%** HOT, you will receive **15** cookies\n \

@@ -6,8 +6,8 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
-    var szQuestion = szArgs.join(" ").trim();
+    const user = message.author;
+    let szQuestion = szArgs.join(" ").trim();
 
     if(CustomFunctions.isEmpty(szQuestion))
     {
@@ -27,8 +27,8 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         // --| Remove "" from start and end of string
-        var ReplyJson = JSON.stringify(response.image).replace(/"/g, '');
-        var AnswerJson = JSON.stringify(response.answer).replace(/"/g, '');
+        let ReplyJson = JSON.stringify(response.image).replace(/"/g, '');
+        let AnswerJson = JSON.stringify(response.answer).replace(/"/g, '');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Yes/No", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

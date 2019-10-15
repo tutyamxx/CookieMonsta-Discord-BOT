@@ -4,7 +4,7 @@ const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 	let GuildMember = message.mentions.members.first();
 
 	if(!GuildMember)
@@ -19,12 +19,12 @@ module.exports.run = async (bot, message, args) =>
 
 	message.channel.startTyping();
 
-	var GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-	var GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+	let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+	let GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-	var i1 = Jimp.read(GetTargetAvatar);
-	var i2 = Jimp.read(GetUserAvatar);
-	var i3 = Jimp.read("./BOTImages/Hugs/hugpat.png");
+	let i1 = Jimp.read(GetTargetAvatar);
+	let i2 = Jimp.read(GetUserAvatar);
+	let i3 = Jimp.read("./BOTImages/Hugs/hugpat.png");
 
 	Promise.all([i1, i2, i3]).then(async images =>
 	{

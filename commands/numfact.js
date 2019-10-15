@@ -6,7 +6,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
-        var NumberFactString = JSON.stringify(data.text).replace(/"/g, '').replace(/\\/g, '"');
+        let NumberFactString = JSON.stringify(data.text).replace(/"/g, '').replace(/\\/g, '"');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random fact about number: #" + szArgs[0], (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

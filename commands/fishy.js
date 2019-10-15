@@ -4,7 +4,7 @@ const CookieMonsta = require("../CookieMonstaBOT.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
 	if(CookieMonsta.UserDatabaseData.cookies < 20)
     {
@@ -19,8 +19,8 @@ module.exports.run = async (bot, message, args) =>
         ":battery:", ":snake:", ":bug:", ":dolphin:"
     ];
 
-    var iRandomFish = RandomFishList[Math.floor(Math.random() * RandomFishList.length)];
-    var iRandomFishPrize = Math.floor((Math.random() * 60) + 1);
+    let iRandomFish = RandomFishList[Math.floor(Math.random() * RandomFishList.length)];
+    let iRandomFishPrize = Math.floor((Math.random() * 60) + 1);
 
 	GetDatabaseData.CookiesRemove(message.guild.id, user.id, 20);
 

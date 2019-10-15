@@ -1,10 +1,10 @@
 
-var UserAlreadyRps = {};
-var iRockPaperScissorsTimer = {};
+let UserAlreadyRps = {};
+let iRockPaperScissorsTimer = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     if(UserAlreadyRps[user.id] === true)
     {
@@ -13,8 +13,8 @@ module.exports.run = async (bot, message, args) =>
 
     UserAlreadyRps[user.id] = true;
 
-    var szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
-    var szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
+    let szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
+    let szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
 
     iRockPaperScissorsTimer[user.id] = setInterval (async function ()
     {

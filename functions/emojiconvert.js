@@ -1,7 +1,7 @@
 
 function SlotNumberToIcon(iNumber)
 {
-	var ReturnSlotIcon;
+	let ReturnSlotIcon;
 
 	switch(iNumber)
 	{
@@ -47,7 +47,7 @@ function SlotNumberToIcon(iNumber)
 
 function NumberToDiscordEmoji(iNumber)
 {
-	var ReturnEmojiNumber;
+	let ReturnEmojiNumber;
 
 	switch(iNumber)
 	{

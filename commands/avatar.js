@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
     let GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
@@ -13,10 +13,10 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    var MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-    var PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
-    var RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
+    const PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
+    const RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
 
     const embed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Avatar ", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

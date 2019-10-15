@@ -12,9 +12,9 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
 	}
 
-	var user = message.author;
+	const user = message.author;
 
-	var GuildGetID = message.guild.id;
+	let GuildGetID = message.guild.id;
 	let GuildMember = message.mentions.members.first();
 
 	if(!GuildMember)
@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: I know sky is the limit, but try a number between ``1``and ``999999`` :no_entry:" );
 	}
 
-	var CookieAmount = parseInt(szArgs[1]);
+	let CookieAmount = parseInt(szArgs[1]);
 	await GetDatabaseData.CookiesRemove(GuildGetID, GuildMember.user.id, CookieAmount);
 
 	const embed = new Discord.RichEmbed()

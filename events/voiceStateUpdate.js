@@ -6,7 +6,7 @@ module.exports = async (oldMember, newMember) =>
 	let newUserChannel = newMember.voiceChannel
 	let oldUserChannel = oldMember.voiceChannel
 
-	var GuildID = newMember.guild.id;
+	let GuildID = newMember.guild.id;
 
 	// --| Left voice channel
 	if(oldUserChannel === undefined && newUserChannel !== undefined)

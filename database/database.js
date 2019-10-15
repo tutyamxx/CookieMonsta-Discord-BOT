@@ -9,7 +9,7 @@ function InitialiseDatabase()
     // --| DB Stuff
 	const DBTable = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'CookiesTable';").get();
 
-	if (!DBTable['count(*)'])
+	if(!DBTable['count(*)'])
 	{
 		sql.prepare("CREATE TABLE CookiesTable (id TEXT PRIMARY KEY, user TEXT, guild TEXT, cookies INTEGER, points INTEGER, level INTEGER);").run();
 	    sql.prepare("CREATE UNIQUE INDEX idx_CookiesTable_id ON CookiesTable (id);").run();

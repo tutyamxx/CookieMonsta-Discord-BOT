@@ -3,7 +3,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     await getJSON('http://aws.random.cat/meow', async function(error, response)
     {
@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        var CatImageToString = JSON.stringify(response.file).replace(/"/g, '');
+        let CatImageToString = JSON.stringify(response.file).replace(/"/g, '');
 
         await message.channel.send(
         {

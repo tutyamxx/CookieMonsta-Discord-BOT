@@ -4,7 +4,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        var DogFactToString = JSON.stringify(response.fact).replace(/"/g, '').replace(/\\/g, "``");
+        let DogFactToString = JSON.stringify(response.fact).replace(/"/g, '').replace(/\\/g, "``");
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Dog Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

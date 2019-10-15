@@ -6,26 +6,26 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
-    var ServerGuild = message.guild;
+    const user = message.author;
+    let ServerGuild = message.guild;
 
     if(ServerGuild.available)
     {
-        var ServerName = ServerGuild.name;
-        var ServerID = ServerGuild.id;
-        var ServerOwner = ServerGuild.owner.user.tag;
-        var ServerCreationDate = moment(ServerGuild.createdAt).format('lll');
+        let ServerName = ServerGuild.name;
+        let ServerID = ServerGuild.id;
+        let ServerOwner = ServerGuild.owner.user.tag;
+        let ServerCreationDate = moment(ServerGuild.createdAt).format('lll');
 
-        var ServerUserCount = ServerGuild.members.filter(member => member.user).size;
-        var ServerBotsCount  = ServerGuild.members.filter(member => member.user.bot).size;
-        var ServerUserOnlineCount = ServerGuild.members.filter(member => !member.user.bot && member.presence.status === "online").size;
+        let ServerUserCount = ServerGuild.members.filter(member => member.user).size;
+        let ServerBotsCount  = ServerGuild.members.filter(member => member.user.bot).size;
+        let ServerUserOnlineCount = ServerGuild.members.filter(member => !member.user.bot && member.presence.status === "online").size;
 
-        var ServerChannels = message.guild.channels.size;
-        var ServerVoiceChannelsCount = ServerGuild.channels.filter(ctype => ctype.type === "voice").size;
-        var ServerTextChannelCount = ServerGuild.channels.filter(ctype => ctype.type === "text").size;
-        var ServerCategories = ServerGuild.channels.filter(ctype => ctype.type === "category").size;
+        let ServerChannels = message.guild.channels.size;
+        let ServerVoiceChannelsCount = ServerGuild.channels.filter(ctype => ctype.type === "voice").size;
+        let ServerTextChannelCount = ServerGuild.channels.filter(ctype => ctype.type === "text").size;
+        let ServerCategories = ServerGuild.channels.filter(ctype => ctype.type === "category").size;
 
-        var szDescription = ":white_medium_small_square: Server Name: **" + ServerName +
+        let szDescription = ":white_medium_small_square: Server Name: **" + ServerName +
         "**\n:white_medium_small_square: Server ID: **" + ServerID +
         "**\n:white_medium_small_square: Owner: **" + ServerOwner +
         "**\n:white_medium_small_square: Location: **" + await CustomFunctions.GuildLocation(ServerGuild) +

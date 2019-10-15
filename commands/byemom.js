@@ -8,7 +8,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	let GuildMember = message.mentions.members.first();
 
@@ -31,11 +31,11 @@ module.exports.run = async (bot, message, szArgs) =>
 
 	message.channel.startTyping();
 
-	var GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+	let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-	var i1 = Jimp.read(GetUserAvatar);
-	var i2 = Jimp.read(GetUserAvatar);
-	var i3 = Jimp.read("./BOTImages/ByeMom/byemom.png");
+	let i1 = Jimp.read(GetUserAvatar);
+	let i2 = Jimp.read(GetUserAvatar);
+	let i3 = Jimp.read("./BOTImages/ByeMom/byemom.png");
 
 	Promise.all([i1, i2, i3]).then(async images =>
 	{

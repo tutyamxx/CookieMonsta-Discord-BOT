@@ -4,7 +4,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	message.channel.startTyping();
 
@@ -15,8 +15,8 @@ module.exports.run = async (bot, message, args) =>
 			return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA ISS location... :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}
 
-		var iLocLatitude = JSON.stringify(response.iss_position.latitude).replace(/"/g, '');
-		var iLocLongitude = JSON.stringify(response.iss_position.longitude).replace(/"/g, '');
+		let iLocLatitude = JSON.stringify(response.iss_position.latitude).replace(/"/g, '');
+		let iLocLongitude = JSON.stringify(response.iss_position.longitude).replace(/"/g, '');
 
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Cookie Monsta | International Space Station Location", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

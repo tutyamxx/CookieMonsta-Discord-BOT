@@ -6,7 +6,7 @@ const szAPIKey = "Your NASA api key here";
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	message.channel.startTyping();
 
@@ -24,10 +24,10 @@ module.exports.run = async (bot, message, args) =>
 			return await NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}
 
-		var szCopyRight = JSON.stringify(response.copyright).replace(/"/g, '').replace(/\\n/g, ' ');
-		var szTitle = JSON.stringify(response.title).replace(/"/g, '');
+		let szCopyRight = JSON.stringify(response.copyright).replace(/"/g, '').replace(/\\n/g, ' ');
+		let szTitle = JSON.stringify(response.title).replace(/"/g, '');
 
-		var szImageHDURL = JSON.stringify(response.hdurl).replace(/"/g, '');
+		let szImageHDURL = JSON.stringify(response.hdurl).replace(/"/g, '');
 
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Cookie Monsta | Astronomy Picture of the Day", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

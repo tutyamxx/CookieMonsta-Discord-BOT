@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: argument can't be empty! :no_entry:");
 	}
 
-	var GetGuild = bot.guilds.get(szArgs[0].trim());
+	let GetGuild = bot.guilds.get(szArgs[0].trim());
 
 	if(GetGuild === undefined)
 	{

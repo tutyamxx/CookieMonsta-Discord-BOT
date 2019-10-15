@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, szArgs) =>
 		return await message.reply(" :no_entry: this isn't a plain text you m0ng0l! :face_palm:  :no_entry:");
 	}
 
-	var ArgumentText = szArgs.join(" ");
+	let ArgumentText = szArgs.join(" ");
 
 	await message.channel.send(CustomFunctions.reverseString(ArgumentText) + "  :track_previous:  **v(▀̿Ĺ̯▀̿*)**");
 };

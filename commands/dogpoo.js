@@ -13,11 +13,11 @@ module.exports.run = async (bot, message, args) =>
 
 	message.channel.startTyping();
 
-	var RandomDegrees = Math.floor((Math.random() * 360) + 0);
-	var GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+	const RandomDegrees = Math.floor((Math.random() * 360) + 0);
+	let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-	var i1 = Jimp.read(GetUserAvatar);
-	var i2 = Jimp.read("./BOTImages/DogPoo/dogpoop.png");
+	let i1 = Jimp.read(GetUserAvatar);
+	let i2 = Jimp.read("./BOTImages/DogPoo/dogpoop.png");
 
 	Promise.all([i1, i2]).then(async images =>
 	{

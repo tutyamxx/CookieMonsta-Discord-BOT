@@ -1,7 +1,7 @@
 
 const Discord = require("discord.js");
 
-var RandomKillGifs =
+const RandomKillGifs =
 [
 	"https://i.imgur.com/B1wbSq6.gif", "https://i.imgur.com/wVeo8RI.gif",
 	"https://i.imgur.com/UtjQAIq.gif", "https://i.imgur.com/1z6UlXX.gif",
@@ -23,7 +23,7 @@ var RandomKillGifs =
 	"https://i.imgur.com/CNzflH0.gif", "https://i.imgur.com/nqbpu5T.gif"
 ];
 
-var RandomKillTypes =
+const RandomKillTypes =
 [
 	"DISGRACEFULLY",
 	"WITH FATALITY",
@@ -38,7 +38,7 @@ var RandomKillTypes =
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     let GuildMember = message.mentions.members.first();
 

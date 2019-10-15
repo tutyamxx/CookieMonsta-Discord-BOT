@@ -4,7 +4,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     await getJSON('https://some-random-api.ml/birbimg', async function(error, response)
     {
@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
             return await message.channel.send(":no_entry: Sorry, no birbs to generate. Try again later :bird:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        var RandomBirb = JSON.stringify(response.link).replace(/"/g, '');
+        let RandomBirb = JSON.stringify(response.link).replace(/"/g, '');
 
         await message.channel.send(
         {

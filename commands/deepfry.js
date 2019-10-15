@@ -5,7 +5,7 @@ const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
     let GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
@@ -15,15 +15,15 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    var MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-	var i1 = Jimp.read(MemberAvatar);
+	let i1 = Jimp.read(MemberAvatar);
 
-	var i2 = Jimp.read("./BOTImages/DeepFry/okhand.png");
-	var i3 = Jimp.read("./BOTImages/DeepFry/100emoji.png");
-	var i4 = Jimp.read("./BOTImages/DeepFry/laughingemoji.png");
-	var i5 = Jimp.read("./BOTImages/DeepFry/fireemoji.png");
-	var i6 = Jimp.read("./BOTImages/DeepFry/cry.png");
+	let i2 = Jimp.read("./BOTImages/DeepFry/okhand.png");
+	let i3 = Jimp.read("./BOTImages/DeepFry/100emoji.png");
+	let i4 = Jimp.read("./BOTImages/DeepFry/laughingemoji.png");
+	let i5 = Jimp.read("./BOTImages/DeepFry/fireemoji.png");
+	let i6 = Jimp.read("./BOTImages/DeepFry/cry.png");
 
 	Promise.all([i1, i2, i3, i4, i5, i6]).then(async images =>
 	{

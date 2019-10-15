@@ -6,7 +6,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    var ArgumentText = szArgs.join(" ");
+    let ArgumentText = szArgs.join(" ");
 
     await getJSON('http://yoda-api.appspot.com/api/v1/yodish?text=' + encodeURI(ArgumentText), async function(error, response)
     {
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         // --| Remove "" from start and end of string
-        var YodishString = JSON.stringify(response.yodish).replace(/"/g, '');
+        let YodishString = JSON.stringify(response.yodish).replace(/"/g, '');
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Yoda Talk", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

@@ -11,8 +11,8 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: Please type a valid ***Yu-Gi-Oh!*** card name :flower_playing_cards:  :no_entry:");
     }
 
-    var user = message.author;
-	var CardName = encodeURI(szArgs.join(" "));
+    const user = message.author;
+	let CardName = encodeURI(szArgs.join(" "));
 
 	message.channel.startTyping();
 
@@ -28,16 +28,16 @@ module.exports.run = async (bot, message, szArgs) =>
 			return await message.reply(" :no_entry: No results found for: ***" + decodeURI(CardName) +"***  ! :neutral_face:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 		}
 
-		var szCardName = JSON.stringify(response.data.name).replace(/"/g, '');
-		var szCardDescription = JSON.stringify(response.data.text).replace(/"/g, '').replace(/&quot;/g, '\\"').replace(/\\/g, "``");
-		var CardType = JSON.stringify(response.data.card_type).replace(/"/g, '');
+		let szCardName = JSON.stringify(response.data.name).replace(/"/g, '');
+		let szCardDescription = JSON.stringify(response.data.text).replace(/"/g, '').replace(/&quot;/g, '\\"').replace(/\\/g, "``");
+		let CardType = JSON.stringify(response.data.card_type).replace(/"/g, '');
 
-		var szCardFamily = JSON.stringify(response.data.family).replace(/"/g, '');
-		var szCardSpecies = JSON.stringify(response.data.type).replace(/"/g, '');
+		let szCardFamily = JSON.stringify(response.data.family).replace(/"/g, '');
+		let szCardSpecies = JSON.stringify(response.data.type).replace(/"/g, '');
 
-		var iCardLevel = JSON.stringify(response.data.level).replace(/"/g, '');
-		var iCardAttack = JSON.stringify(response.data.atk).replace(/"/g, '');
-		var iCardDefense = JSON.stringify(response.data.def).replace(/"/g, '');
+		let iCardLevel = JSON.stringify(response.data.level).replace(/"/g, '');
+		let iCardAttack = JSON.stringify(response.data.atk).replace(/"/g, '');
+		let iCardDefense = JSON.stringify(response.data.def).replace(/"/g, '');
 
 		const embed = new Discord.RichEmbed()
 	    .setAuthor("Cookie Monsta | Yu-Gi-Oh!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

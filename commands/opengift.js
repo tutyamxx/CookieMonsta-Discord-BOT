@@ -2,9 +2,9 @@
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 
-var iUnwrapTimer = {};
+let iUnwrapTimer = {};
 
-var iRandomCookiesPresent =
+const iRandomCookiesPresent =
 [
 	"300", "400", "450", "500", "550",
 	"600", "650", "750", "800", "850",
@@ -13,7 +13,7 @@ var iRandomCookiesPresent =
 
 module.exports.run = async (bot, message, args) =>
 {
-	var user = message.author;
+	const user = message.author;
 
 	if(bAlreadyOpeningGift[user.id] === true)
 	{
@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) =>
 	{
 		iUnwrapTimer[user.id] = setInterval (async function ()
 		{
-			var GenerateRandomCookies = parseInt(iRandomCookiesPresent[Math.floor(Math.random() * iRandomCookiesPresent.length)]);
+			let GenerateRandomCookies = parseInt(iRandomCookiesPresent[Math.floor(Math.random() * iRandomCookiesPresent.length)]);
 
 			await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, GenerateRandomCookies);
 

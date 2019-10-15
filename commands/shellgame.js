@@ -4,15 +4,15 @@ const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
-var bPlayingShell = {};
-var UserShuffleShells = {};
-var ShellGameID = {};
-var szShellGameDescription = {};
-var iGameEndTimer = {};
+let bPlayingShell = {};
+let UserShuffleShells = {};
+let ShellGameID = {};
+let szShellGameDescription = {};
+let iGameEndTimer = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
 	if(bPlayingShell[user.id] === true)
 	{

@@ -1,9 +1,9 @@
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    var user = message.author;
+    const user = message.author;
 
-	var RandomCommand = await bot.commands.random();
+	let RandomCommand = await bot.commands.random();
 
 	if(RandomCommand.help.name === "reloadcmd"
     || RandomCommand.help.name === "sendnews"

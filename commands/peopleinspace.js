@@ -2,15 +2,15 @@
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 
-var RandomMoonEmoji =
+const RandomMoonEmoji =
 [
 	":first_quarter_moon:", ":full_moon:", ":last_quarter_moon:", ":new_moon:", ":waning_crescent_moon:", ":waning_gibbous_moon:", ":waxing_crescent_moon:", ":waxing_gibbous_moon:"
 ];
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
-	var GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
+    const user = message.author;
+	let GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
 
 	message.channel.startTyping();
 
@@ -21,11 +21,11 @@ module.exports.run = async (bot, message, args) =>
             return await message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        var PeopleInSpace = JSON.stringify(response.number).replace(/"/g, '');
+        let PeopleInSpace = JSON.stringify(response.number).replace(/"/g, '');
 
-		var szPeopleNames = "";
-		var szDescription = "";
-		var AstroPersonName = "";
+		let szPeopleNames = "";
+		let szDescription = "";
+		let AstroPersonName = "";
 
 		if(parseInt(PeopleInSpace) <= 0
 		|| PeopleInSpace === undefined

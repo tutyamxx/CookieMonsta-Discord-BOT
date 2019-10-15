@@ -11,8 +11,8 @@ module.exports = async (bot, reaction, user) =>
 			return;
 		}
 
-		var GetGuildID = reaction.message.guild.id.toString();
-		var RandomShellPrize = Math.floor(( Math.random() * 10 ) + 1);
+		let GetGuildID = reaction.message.guild.id.toString();
+		let RandomShellPrize = Math.floor(( Math.random() * 10 ) + 1);
 
 		if(reaction.emoji.name === "\u0031\u20E3")
 		{

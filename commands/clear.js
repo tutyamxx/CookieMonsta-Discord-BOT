@@ -1,5 +1,5 @@
 
-var RandomColorsPurge =
+const RandomColorsPurge =
 [
 	9699539,
 	4915330,
@@ -13,14 +13,14 @@ var RandomColorsPurge =
 
 module.exports.run = async (bot, message, args) =>
 {
-    if (!message.member.hasPermission("ADMINISTRATOR"))
+    if(!message.member.hasPermission("ADMINISTRATOR"))
     {
         return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
 
     await message.delete();
 
-    var user = message.author;
+    const user = message.author;
 
     const fetched = await message.channel.fetchMessages({limit: 99});
     await message.channel.bulkDelete(fetched).catch(error => message.reply(`:no_entry_sign: ${error} :no_entry_sign:`));

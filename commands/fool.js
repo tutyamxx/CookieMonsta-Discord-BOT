@@ -18,11 +18,11 @@ module.exports.run = async (bot, message, szArgs) =>
 
 	message.channel.startTyping();
 
-	var GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+	let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-	var i1 = Jimp.read(GetUserAvatar);
-	var i2 = Jimp.read(GetUserAvatar);
-	var i3 = Jimp.read("./BOTImages/CookieFool/fool.png");
+	let i1 = Jimp.read(GetUserAvatar);
+	let i2 = Jimp.read(GetUserAvatar);
+	let i3 = Jimp.read("./BOTImages/CookieFool/fool.png");
 
 	Promise.all([i1, i2, i3]).then(async images =>
 	{

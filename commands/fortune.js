@@ -4,7 +4,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    var user = message.author;
+    const user = message.author;
 
     message.channel.startTyping();
 
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
-        var FortuneToString = JSON.stringify(response.fortune).replace(/"/g, '').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
+        let FortuneToString = JSON.stringify(response.fortune).replace(/"/g, '').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
 
         const embed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Your fortune says...", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
