@@ -4,9 +4,9 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-	const user = message.author;
+    const user = message.author;
 
-	const LennyMessage = await message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
+    const LennyMessage = await message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
 
     await getJSON('http://lenny.today/api/v1/random', async function(error, response)
     {
@@ -18,15 +18,15 @@ module.exports.run = async (bot, message, args) =>
         // --| Remove "" from start and end of string
         let LennyFace = JSON.stringify(response[0].face).replace(/"/g, '');
 
-		const embed = new Discord.RichEmbed()
-		.setAuthor("Cookie Monsta | Your random Lenny", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-		.setColor(0)
-		.setDescription("``" + LennyFace + "``")
-		.setThumbnail("https://i.imgur.com/TxUxdfi.png")
-		.setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        const embed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Your random Lenny", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor(0)
+        .setDescription("``" + LennyFace + "``")
+        .setThumbnail("https://i.imgur.com/TxUxdfi.png")
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-		await LennyMessage.edit({embed});
-	});
+        await LennyMessage.edit({embed});
+    });
 };
 
 module.exports.help =

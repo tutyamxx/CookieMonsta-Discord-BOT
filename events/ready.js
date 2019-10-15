@@ -29,80 +29,80 @@ global.bAlreadyOpeningGift = {};
 
 module.exports = bot =>
 {
-	console.log(chalk.blue(AsciiArt));
+    console.log(chalk.blue(AsciiArt));
 
-	console.log(chalk.yellowBright(`[+] Log Report [+] Cookie Monsta [BOT] has started, with [${bot.users.size}] users, in [${bot.channels.size}] channels of [${bot.guilds.size}] guilds.`));
-	console.log(chalk.yellowBright(`[+] Log Report [+] --> Setting automatic avatar change for [BOT] @` + AvatarUpdateTime + ` minutes interval`));
+    console.log(chalk.yellowBright(`[+] Log Report [+] Cookie Monsta [BOT] has started, with [${bot.users.size}] users, in [${bot.channels.size}] channels of [${bot.guilds.size}] guilds.`));
+    console.log(chalk.yellowBright(`[+] Log Report [+] --> Setting automatic avatar change for [BOT] @` + AvatarUpdateTime + ` minutes interval`));
 
-	//console.log(iDiscordClient.commands);
+    //console.log(iDiscordClient.commands);
 
-	bot.user.setStatus("dnd");
-	bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
+    bot.user.setStatus("dnd");
+    bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
 
     iAvatarUpdateInterval = setInterval (function ()
-	{
-		let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
+    {
+        let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
 
-		bot.user.setAvatar(iRandomAvatar);
-		console.log(chalk.yellowBright(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar));
+        bot.user.setAvatar(iRandomAvatar);
+        console.log(chalk.yellowBright(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar));
 
-	}, AvatarUpdateTime * 60000);
+    }, AvatarUpdateTime * 60000);
 
     iStatusUpdateInterval = setInterval (function ()
-	{
-		const ActivityUpdate =
-		[
-			["If you type !help for info.", 'WATCHING'],
-			["On: (" + bot.guilds.size + ") servers.", 'WATCHING'],
-			["🍪 ME WANT COOKIES 🍪", 'PLAYING'],
-			["If you type !hello to say hi to me", 'LISTENING'],
-			["!help | 🍪  Munching cookies...", 'PLAYING'],
-			["I wonder where is Elmo", 'PLAYING'],
-			["Onion rings are just vegetable donuts.", 'WATCHING'],
-			["OMM NOM NOM NOM.", 'LISTENING'],
-			["Thinking about cookies... 🍪", 'WATCHING'],
-			["#CONTROLMESELF", 'PLAYING'],
-			["Soon new things will come to life.", 'LISTENING'],
-			["Early bird gets the worm. But cookie taste better than worm.", 'LISTENING'],
-			["Sometimes I think, what is friend? 🍪", 'PLAYING'],
-			["COOKIES? 👀", 'WATCHING'],
-			["Over (" + bot.users.size + ") users.", 'WATCHING'],
-			["(" + bot.users.size + ") user requests 👂", 'LISTENING'],
-			["Save the EARTH! It's the only planet with cookies! 🍪", 'PLAYING'],
-			["If you want to steal me cookies?! 🍪🍪🍪 👀", 'WATCHING'],
-			["(Ginger Pubes DUBSTEP) 🔊", 'LISTENING'],
-			["Some questionable command requests", 'WATCHING'],
-			["!sound list | 🔊", 'LISTENING'],
-			["#WITHMESELF", 'PLAYING']
-		];
+    {
+        const ActivityUpdate =
+        [
+            ["If you type !help for info.", 'WATCHING'],
+            ["On: (" + bot.guilds.size + ") servers.", 'WATCHING'],
+            ["🍪 ME WANT COOKIES 🍪", 'PLAYING'],
+            ["If you type !hello to say hi to me", 'LISTENING'],
+            ["!help | 🍪  Munching cookies...", 'PLAYING'],
+            ["I wonder where is Elmo", 'PLAYING'],
+            ["Onion rings are just vegetable donuts.", 'WATCHING'],
+            ["OMM NOM NOM NOM.", 'LISTENING'],
+            ["Thinking about cookies... 🍪", 'WATCHING'],
+            ["#CONTROLMESELF", 'PLAYING'],
+            ["Soon new things will come to life.", 'LISTENING'],
+            ["Early bird gets the worm. But cookie taste better than worm.", 'LISTENING'],
+            ["Sometimes I think, what is friend? 🍪", 'PLAYING'],
+            ["COOKIES? 👀", 'WATCHING'],
+            ["Over (" + bot.users.size + ") users.", 'WATCHING'],
+            ["(" + bot.users.size + ") user requests 👂", 'LISTENING'],
+            ["Save the EARTH! It's the only planet with cookies! 🍪", 'PLAYING'],
+            ["If you want to steal me cookies?! 🍪🍪🍪 👀", 'WATCHING'],
+            ["(Ginger Pubes DUBSTEP) 🔊", 'LISTENING'],
+            ["Some questionable command requests", 'WATCHING'],
+            ["!sound list | 🔊", 'LISTENING'],
+            ["#WITHMESELF", 'PLAYING']
+        ];
 
-		let StatusArray = ActivityUpdate[Math.floor(Math.random() * ActivityUpdate.length)];
+        let StatusArray = ActivityUpdate[Math.floor(Math.random() * ActivityUpdate.length)];
 
-		bot.user.setActivity(StatusArray[0], { type: StatusArray[1] }).catch(() => {});
+        bot.user.setActivity(StatusArray[0], { type: StatusArray[1] }).catch(() => {});
 
-	}, 1 * 60000);
+    }, 1 * 60000);
 
     DatabaseImport.InitialiseDatabase();
 
-	// --| Assign to everyone gift to 0
-	for(user of bot.users)
-	{
-		if(!user[1].bot)
-		{
-		   bUserHasGift[user[1].id] = 0;
-		   bAlreadyOpeningGift[user[1].id] = false;
-	   	}
-	}
+    // --| Assign to everyone gift to 0
+    for(user of bot.users)
+    {
+        if(!user[1].bot)
+        {
+            bUserHasGift[user[1].id] = 0;
+            bAlreadyOpeningGift[user[1].id] = false;
+        }
+    }
 
-	// --| DiscordBots.org Stuff here
-	// --| Update Discord Bots stats every 30 mins
-	setInterval(() =>
-	{
-		dbl.postStats(bot.guilds.size);
+    // --| DiscordBots.org Stuff here
+    // --| Update Discord Bots stats every 30 mins
+    setInterval(() =>
+    {
+        dbl.postStats(bot.guilds.size);
 
     }, 900000);
 
-	dbl.postStats(bot.guilds.size);
+    dbl.postStats(bot.guilds.size);
 };
 
 // --| Optional DiscordBots.org events here

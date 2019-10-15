@@ -6,13 +6,13 @@ const OrcNames =
 
 function bytesToSize(bytes)
 {
-	let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
-	if(bytes == 0) return '0 Byte';
+    if(bytes == 0) return '0 Byte';
 
-	let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
 
-	return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
 function GuildLocation(guild)
@@ -115,14 +115,14 @@ function reverseString(str)
 
 function secondsToString(seconds)
 {
-	seconds = Math.trunc(seconds);
+    seconds = Math.trunc(seconds);
 
-	let numdays = Math.floor((seconds % 31536000) / 86400);
-	let numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-	let numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-	let numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+    let numdays = Math.floor((seconds % 31536000) / 86400);
+    let numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+    let numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+    let numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
 
-	return `**${numdays}** days **${numhours}** hours **${numminutes}** minutes **${numseconds}** seconds`;
+    return `**${numdays}** days **${numhours}** hours **${numminutes}** minutes **${numseconds}** seconds`;
 };
 
 function capitalizeFirstLetter(string)
@@ -132,24 +132,24 @@ function capitalizeFirstLetter(string)
 
 function measureText(font, text)
 {
-	let x = 0;
+    let x = 0;
 
-	for(let i = 0; i < text.length; i++)
-	{
-		if(font.chars[text[i]])
-		{
-			x += font.chars[text[i]].xoffset + (font.kernings[text[i]] && font.kernings[text[i]][text[i + 1]] ? font.kernings[text[i]][text[i + 1]] : 0) + (font.chars[text[i]].xadvance || 0);
-		}
-	}
+    for(let i = 0; i < text.length; i++)
+    {
+        if(font.chars[text[i]])
+        {
+            x += font.chars[text[i]].xoffset + (font.kernings[text[i]] && font.kernings[text[i]][text[i + 1]] ? font.kernings[text[i]][text[i + 1]] : 0) + (font.chars[text[i]].xadvance || 0);
+        }
+    }
 
-	return x;
+    return x;
 };
 
 function isInt(value)
 {
-	let x = parseFloat(value);
+    let x = parseFloat(value);
 
-	return !isNaN(value) && (x | 0) === x;
+    return !isNaN(value) && (x | 0) === x;
 };
 
 function GenerateOrcName()

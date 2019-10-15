@@ -27,15 +27,15 @@ module.exports = async (bot, guild) =>
 
 	//console.log(bot.channels);
 
-	const embed1 = new Discord.RichEmbed()
-	.setAuthor("Cookie Monsta | Left the guild: (" +  guild.name + ")", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-	.setColor(14423100)
-	.setThumbnail((guild.iconURL === null) ? guild.owner.user.defaultAvatarURL : guild.iconURL)
-	.setDescription(":speaking_head::loudspeaker: I have left the guild: **(" + guild.name + ")**")
-	.setFooter("Now in #" + bot.guilds.size + " guilds!")
-	.setTimestamp()
+    const embed1 = new Discord.RichEmbed()
+    .setAuthor("Cookie Monsta | Left the guild: (" +  guild.name + ")", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    .setColor(14423100)
+    .setThumbnail((guild.iconURL === null) ? guild.owner.user.defaultAvatarURL : guild.iconURL)
+    .setDescription(":speaking_head::loudspeaker: I have left the guild: **(" + guild.name + ")**")
+    .setFooter("Now in #" + bot.guilds.size + " guilds!")
+    .setTimestamp()
 
-	await bot.channels.get('412677989185093633').send({ embed: embed1 });
+    await bot.channels.get('412677989185093633').send({ embed: embed1 });
 
-	console.log("[+] Log Report [+] --> Left the guild: (" + guild.name + ")");
+    console.log("[+] Log Report [+] --> Left the guild: (" + guild.name + ")");
 };

@@ -10,9 +10,9 @@ module.exports.run = async (bot, message, args) =>
 
     await Needle.get("https://api.apithis.net/yomama.php", async function(error, response)
     {
-		if(!error && response.statusCode == 200)
-		{
-			let StringYoMama = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
+        if(!error && response.statusCode == 200)
+        {
+            let StringYoMama = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
 
             const embed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Yo momma joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -22,13 +22,13 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
             await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-		}
+        }
 
-		else
-		{
+        else
+        {
             return await message.channel.send(":no_entry: Yo mama so fat, it broke the internet! Try again later :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-		}
-	});
+        }
+    });
 };
 
 module.exports.help =

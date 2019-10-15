@@ -1,82 +1,82 @@
 
 function SlotNumberToIcon(iNumber)
 {
-	let ReturnSlotIcon;
+    let ReturnSlotIcon;
 
-	switch(iNumber)
-	{
-		case 0:
-			ReturnSlotIcon = ":cherries:";
-			break;
+    switch(iNumber)
+    {
+        case 0:
+            ReturnSlotIcon = ":cherries:";
+            break;
 
-		case 1:
-			ReturnSlotIcon = ":peach:";
-			break;
+        case 1:
+            ReturnSlotIcon = ":peach:";
+            break;
 
-		case 2:
-			ReturnSlotIcon = ":moneybag:";
-			break;
+        case 2:
+            ReturnSlotIcon = ":moneybag:";
+            break;
 
-		case 3:
-			ReturnSlotIcon = ":sunflower:";
-			break;
+        case 3:
+            ReturnSlotIcon = ":sunflower:";
+            break;
 
-		case 4:
-			ReturnSlotIcon = ":lemon:";
-			break;
+        case 4:
+            ReturnSlotIcon = ":lemon:";
+            break;
 
-		case 5:
-			ReturnSlotIcon = ":strawberry:";
-			break;
+        case 5:
+            ReturnSlotIcon = ":strawberry:";
+            break;
 
-		case 6:
-			ReturnSlotIcon = ":rabbit:";
-			break;
+        case 6:
+            ReturnSlotIcon = ":rabbit:";
+            break;
 
-		case 7:
-			ReturnSlotIcon = ":alien:";
-			break;
+        case 7:
+            ReturnSlotIcon = ":alien:";
+            break;
 
-		case 8:
-			ReturnSlotIcon = ":grapes:";
-			break;
-	}
+        case 8:
+            ReturnSlotIcon = ":grapes:";
+            break;
+    }
 
-	return ReturnSlotIcon;
+    return ReturnSlotIcon;
 };
 
 function NumberToDiscordEmoji(iNumber)
 {
-	let ReturnEmojiNumber;
+    let ReturnEmojiNumber;
 
-	switch(iNumber)
-	{
-		case 1:
-			ReturnEmojiNumber = ":one:";
-			break;
+    switch(iNumber)
+    {
+        case 1:
+            ReturnEmojiNumber = ":one:";
+            break;
 
-		case 2:
-			ReturnEmojiNumber = ":two:";
-			break;
+        case 2:
+            ReturnEmojiNumber = ":two:";
+            break;
 
-		case 3:
-			ReturnEmojiNumber = ":three:";
-			break;
+        case 3:
+            ReturnEmojiNumber = ":three:";
+            break;
 
-		case 4:
-			ReturnEmojiNumber = ":four:";
-			break;
+        case 4:
+            ReturnEmojiNumber = ":four:";
+            break;
 
-		case 5:
-			ReturnEmojiNumber = ":five:";
-			break;
+        case 5:
+            ReturnEmojiNumber = ":five:";
+            break;
 
-		case 6:
-			ReturnEmojiNumber = ":six:";
-			break;
-	}
+        case 6:
+            ReturnEmojiNumber = ":six:";
+            break;
+    }
 
-	return ReturnEmojiNumber;
+    return ReturnEmojiNumber;
 };
 
 module.exports.SlotNumberToIcon = SlotNumberToIcon;

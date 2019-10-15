@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(message.mentions.members.first())
     {
-    	return await message.reply(" :no_entry: please don't mention people in your achievement description! :no_entry:");
+        return await message.reply(" :no_entry: please don't mention people in your achievement description! :no_entry:");
     }
 
     message.channel.startTyping();

@@ -3,10 +3,10 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-	if(message.author.id !== "266677298051153920")
-	{
-		return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
-	}
+    if(message.author.id !== "266677298051153920")
+    {
+        return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
+    }
 
     if(!szArgs || szArgs.size < 1 || CustomFunctions.isEmpty(szArgs[0]))
     {

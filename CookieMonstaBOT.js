@@ -23,21 +23,21 @@ fs.readdir("./events/", (err, files) =>
         console.error(err);
     }
 
-	files.forEach(file =>
-	{
-		if(!file.endsWith(".js"))
-		{
-			return;
-		}
+    files.forEach(file =>
+    {
+        if(!file.endsWith(".js"))
+        {
+            return;
+        }
 
-		const szEvent = require(`./events/${file}`);
-		const szEventName = file.split(".")[0];
+        const szEvent = require(`./events/${file}`);
+        const szEventName = file.split(".")[0];
 
-		console.log(chalk.magenta(`[+] Log Report [+] --> Loaded event: [${szEventName}] found in (${file}) event`));
+        console.log(chalk.magenta(`[+] Log Report [+] --> Loaded event: [${szEventName}] found in (${file}) event`));
 
-		iDiscordClient.on(szEventName, szEvent.bind(null, iDiscordClient));
-		delete require.cache[require.resolve(`./events/${file}`)];
-	});
+        iDiscordClient.on(szEventName, szEvent.bind(null, iDiscordClient));
+        delete require.cache[require.resolve(`./events/${file}`)];
+    });
 });
 
 // --| Read our custom commands
@@ -56,13 +56,13 @@ fs.readdir("./commands/", (err, files) =>
         return;
     }
 
-	let iStart = Date.now();
+    let iStart = Date.now();
     console.log(chalk.cyanBright(`[+] Log Report [+] --> Loading [${jsFiles.length}] commands!`));
 
-	// Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
-	// exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
-	let iCommandNumber = (jsFiles.length + 3) - 4;
-	exports.iCommandNumber = iCommandNumber;
+    // Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
+    // exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
+    let iCommandNumber = (jsFiles.length + 3) - 4;
+    exports.iCommandNumber = iCommandNumber;
 
     jsFiles.forEach((f, i) =>
     {
@@ -72,7 +72,7 @@ fs.readdir("./commands/", (err, files) =>
         iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
     });
 
-	console.log(chalk.cyanBright(`[+] Log Report [+] --> Loaded commands in (${Date.now() - iStart}) ms.`));
+    console.log(chalk.cyanBright(`[+] Log Report [+] --> Loaded commands in (${Date.now() - iStart}) ms.`));
 });
 
 iDiscordClient.login(iToken);
