@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) =>
     let TargetName = GuildMember.user.username;
 
     let GetGameName = (GuildMember.presence.game === null) ? "Nothing" : GuildMember.presence.game;
-    let GetTargetRegistrationDate =	moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
+    let GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
 
     const embed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Info", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
