@@ -7,18 +7,18 @@ const CustomFunctions = require("../functions/funcs.js");
 
 const ZodiacSigns =
 [
-    ["Aries", 		":aries:"],
-    ["Taurus", 		":taurus:"],
-    ["Gemini",		":gemini:"],
-    ["Cancer",		":cancer:"],
-    ["Leo",			":leo:"],
-    ["Virgo",		":virgo:"],
-    ["Libra",		":libra:"],
-    ["Scorpio",		":scorpius:"],
-    ["Sagittarius",	":sagittarius:"],
-    ["Capricorn",	":capricorn:"],
-    ["Aquarius",	":aquarius:"],
-    ["Pisces",		":pisces:"]
+    ["Aries",       ":aries:"],
+    ["Taurus",      ":taurus:"],
+    ["Gemini",      ":gemini:"],
+    ["Cancer",      ":cancer:"],
+    ["Leo",         ":leo:"],
+    ["Virgo",       ":virgo:"],
+    ["Libra",       ":libra:"],
+    ["Scorpio",     ":scorpius:"],
+    ["Sagittarius", ":sagittarius:"],
+    ["Capricorn",   ":capricorn:"],
+    ["Aquarius",    ":aquarius:"],
+    ["Pisces",      ":pisces:"]
 ];
 
 module.exports.run = async (bot, message, szArgs) =>
