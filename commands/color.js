@@ -7,19 +7,19 @@ const CookieMonsta = require("../CookieMonstaBOT.js");
 
 const ColorRoles =
 [
-    ["Blue",		"#4169E1"], ["Green",		"#27AE60"],
-    ["Orange",		"#FF8C00"], ["Red",			"#FF0000"],
-    ["Pink",		"#FF1493"], ["Violet",		"#8a2be2"],
-    ["Brown",		"#B22222"], ["Lime",		"#00FF00"],
-    ["Aqua",		"#00FFFF"], ["Yellow",		"#FFFF00"],
-    ["White",		"#FFFFFF"], ["Gold",		"#FFD700"],
-    ["Aquamarine",	"#7FFFD4"], ["Tomato",		"#FF6347"],
-    ["Olive",		"#6B8E23"], ["Beige",		"#F5F5DC"],
-    ["Orchid",		"#DA70D6"], ["PaleGreen",	"#98FB98"],
-    ["Maroon",		"#800000"], ["Teal",		"#008080"],
-    ["OrangeRed",	"#FF4500"], ["Purple",		"#911eb4"],
-    ["Apricot",		"#ffd8b1"], ["GreenYellow",	"#ADFF2F"],
-    ["Ruby",		"#E0115F"],	["Magenta",		"#FF00FF"]
+    ["Blue",		"#4169E1"], ["Green",       "#27AE60"],
+    ["Orange",		"#FF8C00"], ["Red",         "#FF0000"],
+    ["Pink",		"#FF1493"], ["Violet",      "#8a2be2"],
+    ["Brown",		"#B22222"], ["Lime",        "#00FF00"],
+    ["Aqua",		"#00FFFF"], ["Yellow",      "#FFFF00"],
+    ["White",		"#FFFFFF"], ["Gold",        "#FFD700"],
+    ["Aquamarine",	"#7FFFD4"], ["Tomato",      "#FF6347"],
+    ["Olive",		"#6B8E23"], ["Beige",       "#F5F5DC"],
+    ["Orchid",		"#DA70D6"], ["PaleGreen",   "#98FB98"],
+    ["Maroon",		"#800000"], ["Teal",        "#008080"],
+    ["OrangeRed",	"#FF4500"], ["Purple",      "#911eb4"],
+    ["Apricot",		"#ffd8b1"], ["GreenYellow", "#ADFF2F"],
+    ["Ruby",		"#E0115F"],	["Magenta",     "#FF00FF"]
 ];
 
 const CookieRolesPermissions =
