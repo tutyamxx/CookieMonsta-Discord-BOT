@@ -19,7 +19,7 @@ const ColorRoles =
     ["Maroon",		"#800000"], ["Teal",        "#008080"],
     ["OrangeRed",	"#FF4500"], ["Purple",      "#911eb4"],
     ["Apricot",		"#ffd8b1"], ["GreenYellow", "#ADFF2F"],
-    ["Ruby",		"#E0115F"],	["Magenta",     "#FF00FF"]
+    ["Ruby",		"#E0115F"], ["Magenta",     "#FF00FF"]
 ];
 
 const CookieRolesPermissions =
