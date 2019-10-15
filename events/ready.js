@@ -16,12 +16,12 @@ const AvatarUpdateTime = 5			// BOT Avatar change every 5 minutes
 
 const RandomBotAvatars =
 [
-	"./BOTImages/BOTAvatar/cookie1.png",
-	"./BOTImages/BOTAvatar/cookie2.jpg",
-	"./BOTImages/BOTAvatar/cookie3.png",
-	"./BOTImages/BOTAvatar/cookie4.png",
-	"./BOTImages/BOTAvatar/cookie5.png",
-	"./BOTImages/BOTAvatar/cookie6.png"
+    "./BOTImages/BOTAvatar/cookie1.png",
+    "./BOTImages/BOTAvatar/cookie2.jpg",
+    "./BOTImages/BOTAvatar/cookie3.png",
+    "./BOTImages/BOTAvatar/cookie4.png",
+    "./BOTImages/BOTAvatar/cookie5.png",
+    "./BOTImages/BOTAvatar/cookie6.png"
 ];
 
 global.bUserHasGift = {};
