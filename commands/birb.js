@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Sorry, no birbs to generate. Try again later :bird:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Sorry, no birbs to generate. Try again later :bird:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         let RandomBirb = JSON.stringify(response.link).replace(/"/g, '');

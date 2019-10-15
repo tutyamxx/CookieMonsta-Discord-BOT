@@ -21,12 +21,12 @@ module.exports.run = async (bot, message, args) =>
             .setThumbnail("https://i.imgur.com/03aDAhq.png")
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         else
         {
-            return await message.channel.send(":no_entry: Yo mama so fat, it broke the internet! Try again later :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Yo mama so fat, it broke the internet! Try again later :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
     });
 };

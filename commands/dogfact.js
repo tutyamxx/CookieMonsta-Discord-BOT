@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Did you know? Dogs can bite internet cables and kill the API connection? :cry:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Did you know? Dogs can bite internet cables and kill the API connection? :cry:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         // --| Remove "" from start and end of string
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/ssEFccy.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

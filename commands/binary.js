@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setThumbnail("https://i.imgur.com/W5oKCle.jpg")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.delete().then(()=>message.channel.send({embed}));
+    await message.delete().then(() => message.channel.send({embed}));
 };
 
 module.exports.help =

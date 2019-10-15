@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
     .setThumbnail("https://i.imgur.com/KaqBWI9.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send(embed).then(()=>message.react("🍪"));
+    await message.channel.send(embed).then(() => message.react("🍪"));
 };
 
 module.exports.help =

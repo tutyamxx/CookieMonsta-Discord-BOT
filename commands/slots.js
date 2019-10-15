@@ -1,6 +1,5 @@
 
 const Discord = require("discord.js");
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const EmojiConvert = require("../functions/emojiconvert.js");

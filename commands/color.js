@@ -1,6 +1,6 @@
 
+const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
-
 const CustomFunctions = require("../functions/funcs.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");

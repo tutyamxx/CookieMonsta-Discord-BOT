@@ -21,10 +21,10 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            await message.channel.send(new Discord.Attachment(buffer, "pixelated.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send(new Discord.Attachment(buffer, "pixelated.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         });
     });
 };

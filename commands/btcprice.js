@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -64,7 +63,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 };
 
 module.exports.help =

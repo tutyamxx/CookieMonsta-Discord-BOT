@@ -1,6 +1,5 @@
 
 const Discord = require("discord.js");
-
 const GetDatabaseData = require("../functions/getuserdata.js");
 
 module.exports.run = async (bot, message, args) =>

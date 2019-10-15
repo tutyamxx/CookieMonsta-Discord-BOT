@@ -68,7 +68,6 @@ fs.readdir("./commands/", (err, files) =>
     {
         let iProps = require(`./commands/${f}`);
 
-        //console.log(`[+] Log Report [+] --> ${i + 1}: (${iProps.help.name}) loaded!`);
         iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
     });
 

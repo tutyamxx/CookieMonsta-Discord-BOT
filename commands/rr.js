@@ -1,6 +1,5 @@
 
 const Discord = require("discord.js");
-
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
@@ -9,19 +8,19 @@ let iRouletteTime = {};
 
 const szWinMessages =
 [
-	"Yeet, you get to survive, my guy.",
-	"Yeet, you get to survive again, my guy.",
-	"Fucking hell! This isn't fair. You should play again...",
-	"Damn, bro, you beat the 16% chance that you'd get beaned (that is if the owners of the server set my role high enough)",
-	"Btw John's a faggot, that's why this exists. And YES, YOU WON.",
-	"You're a superstar! May today's success be the beginning of tomorrow's achievements.",
-	"OMG you did it! Great game!",
-	"You had your moment in the sun! Congrats!",
-	"You got lucky nerd, I will get you next time...",
-	"Ай-ай-ай-ай-ай, что сейчас произошло?! XD You Won",
-	"Это ГГ! YOU WON!",
-	"Это. Просто. Нечто. You won.",
-	"Жил до конца, умер как герой. monkaS You won monkaS"
+    "Yeet, you get to survive, my guy.",
+    "Yeet, you get to survive again, my guy.",
+    "Fucking hell! This isn't fair. You should play again...",
+    "Damn, bro, you beat the 16% chance that you'd get beaned (that is if the owners of the server set my role high enough)",
+    "Btw John's a faggot, that's why this exists. And YES, YOU WON.",
+    "You're a superstar! May today's success be the beginning of tomorrow's achievements.",
+    "OMG you did it! Great game!",
+    "You had your moment in the sun! Congrats!",
+    "You got lucky nerd, I will get you next time...",
+    "Ай-ай-ай-ай-ай, что сейчас произошло?! XD You Won",
+    "Это ГГ! YOU WON!",
+    "Это. Просто. Нечто. You won.",
+    "Жил до конца, умер как герой. monkaS You won monkaS"
 ];
 
 module.exports.run = async (bot, message, args) =>

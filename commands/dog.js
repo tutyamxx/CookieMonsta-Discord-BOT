@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Sorry, but the canine factory isn't generating new dogos at the moment. :dog2:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Sorry, but the canine factory isn't generating new dogos at the moment. :dog2:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         // --| Remove "" from start and end of string

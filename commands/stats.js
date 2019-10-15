@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const os = require("os");
-
 const CustomFunctions = require("../functions/funcs.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 

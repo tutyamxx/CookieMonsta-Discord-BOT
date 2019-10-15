@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -23,7 +22,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: YES it is an error! NO, try again later :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: YES it is an error! NO, try again later :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         // --| Remove "" from start and end of string

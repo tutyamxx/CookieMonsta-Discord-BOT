@@ -1,9 +1,7 @@
 
 const Discord = require("discord.js");
-
 const Jimp = require("jimp");
 const gm = require("gm").subClass({ imageMagick: true });
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -46,7 +44,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
             await gm(buffer)
@@ -57,10 +55,10 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 if(err)
                 {
-                    return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                    return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                 }
 
-                await message.channel.send(new Discord.Attachment(buffer2, "byemom.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.send(new Discord.Attachment(buffer2, "byemom.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             });
         });
     });

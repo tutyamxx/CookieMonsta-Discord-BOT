@@ -1,6 +1,5 @@
 
 const CookieMonsta = require("../CookieMonstaBOT.js");
-
 const DatabaseImport = require("../database/database.js");
 const SpamCmd = require("../events/message.js");
 const chalk = require("chalk");

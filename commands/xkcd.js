@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Comics are dead... well, at least for now... :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Comics are dead... well, at least for now... :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         let ComicTitle = JSON.stringify(response.title).replace(/"/g, '');
@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) =>
         .setImage(ComicImageURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

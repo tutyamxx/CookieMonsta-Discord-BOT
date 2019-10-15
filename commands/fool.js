@@ -33,10 +33,10 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            await message.channel.send(new Discord.Attachment(buffer, "fool.jpeg")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send(new Discord.Attachment(buffer, "fool.jpeg")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         });
     });
 };

@@ -1,6 +1,5 @@
 
 const IgnoreCase = require("ignore-case");
-
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const CustomFunctions = require("../functions/funcs.js");

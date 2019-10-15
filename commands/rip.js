@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const Jimp = require("jimp");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -31,10 +30,10 @@ module.exports.run = async (bot, message, args) =>
                 {
                     if(err)
                     {
-                        return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                        return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                     }
 
-                    await message.channel.send(new Discord.Attachment(buffer, "rip.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                    await message.channel.send(new Discord.Attachment(buffer, "rip.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                 });
             });
         });

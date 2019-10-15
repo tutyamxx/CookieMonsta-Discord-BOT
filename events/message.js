@@ -2,7 +2,6 @@
 const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 

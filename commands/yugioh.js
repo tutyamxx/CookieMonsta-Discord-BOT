@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -20,12 +19,12 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(error)
         {
-            return await message.reply(" :no_entry: No results found! :neutral_face:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.reply(" :no_entry: No results found! :neutral_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         if(response.status === "fail")
         {
-            return await message.reply(" :no_entry: No results found for: ***" + decodeURI(CardName) +"***  ! :neutral_face:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.reply(" :no_entry: No results found for: ***" + decodeURI(CardName) +"***  ! :neutral_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         let szCardName = JSON.stringify(response.data.name).replace(/"/g, '');
@@ -57,7 +56,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .addField(":shield: **DEF:** ", "`" + parseInt(iCardDefense) + "`", true)
         }
 
-        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -21,7 +20,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         // --| Exterior wear of the skin in its float representation
@@ -62,7 +61,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setThumbnail("https://i.imgur.com/BYlrgPn.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

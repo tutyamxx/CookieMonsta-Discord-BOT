@@ -2,7 +2,6 @@
 const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 const ZodiacSigns =
@@ -39,7 +38,7 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 if(error)
                 {
-                    return await message.channel.send(":no_entry: Some kind of error occured! I will email the dev. Try again later :sob:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                    return await message.channel.send(":no_entry: Some kind of error occured! I will email the dev. Try again later :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                 }
 
                 let StringHoroscope = JSON.stringify(response.horoscope).replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '');

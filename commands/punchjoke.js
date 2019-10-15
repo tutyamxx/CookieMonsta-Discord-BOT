@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -14,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(error)
         {
-            return await message.channel.send(":no_entry: Sorry, but somehow I can't fetch any jokes at the moment... :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Sorry, but somehow I can't fetch any jokes at the moment... :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         let GetJokeType = JSON.stringify(response.type).replace(/"/g, '');
@@ -28,7 +27,7 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://static-cdn.jtvnw.net/emoticons/v1/425618/3.0")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

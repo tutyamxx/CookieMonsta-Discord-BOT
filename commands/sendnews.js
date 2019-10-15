@@ -1,12 +1,11 @@
 
 const Discord = require("discord.js");
-
 const CustomFunctions = require("../functions/funcs.js");
 const GetChannelDefault = require("../functions/defaultchannel.js");
 
 const RandomEmojiNews =
 [
-	":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
+    ":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
 ];
 
 module.exports.run = async (bot, message, szArgs) =>

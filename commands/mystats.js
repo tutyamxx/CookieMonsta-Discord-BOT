@@ -1,9 +1,7 @@
 
 const Discord = require("discord.js");
-
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
 // --| level | png file | username color | stats color & cookies color
@@ -65,7 +63,7 @@ module.exports.run = async (bot, message, args) =>
                         {
                             if(err)
                             {
-                                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                             }
 
                             await message.channel.send("<:cookiemonsta:414433388104253450> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, "stats.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

@@ -35,10 +35,10 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            await message.channel.send("<:sadpepe:415491352193794060> Hello darkness my old friend... <:sadpepe:415491352193794060> \n\n**" + user.username + "** sends a hug to **" + GuildMember.user.username + "**!", { files: [buffer] }).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send("<:sadpepe:415491352193794060> Hello darkness my old friend... <:sadpepe:415491352193794060> \n\n**" + user.username + "** sends a hug to **" + GuildMember.user.username + "**!", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         });
     });
 };

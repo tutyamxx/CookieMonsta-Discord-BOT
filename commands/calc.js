@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const Needle = require("needle");
-
 const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -30,7 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .setThumbnail("https://i.imgur.com/AZSvouC.png")
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
         else
@@ -42,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .setThumbnail("https://i.imgur.com/AZSvouC.png")
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            return await message.channel.send({embed}).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
     });
 };

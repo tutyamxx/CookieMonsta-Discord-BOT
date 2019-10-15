@@ -1,6 +1,5 @@
 
 const Discord = require("discord.js");
-
 const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
@@ -10,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
+        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
     }
 
     message.channel.startTyping();
@@ -44,10 +43,10 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            await message.channel.send(new Discord.Attachment(buffer, "deepfry.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send(new Discord.Attachment(buffer, "deepfry.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         });
     });
 }
