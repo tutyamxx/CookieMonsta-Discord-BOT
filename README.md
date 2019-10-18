@@ -52,6 +52,7 @@ npm i get-json
 npm i ignore-case
 npm i flip-text
 npm i moji-translate
+npm i colors
 sudo npm install long
 npm install moment
 npm install --save word-wrap

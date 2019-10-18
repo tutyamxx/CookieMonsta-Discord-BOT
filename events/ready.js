@@ -1,4 +1,5 @@
 const CookieMonsta = require("../CookieMonstaBOT.js");
+const ConsoleColors = require("colors");
 const DatabaseImport = require("../database/database.js");
 const SpamCmd = require("../events/message.js");
 
@@ -21,12 +22,10 @@ global.bAlreadyOpeningGift = {};
 
 module.exports = bot =>
 {
-    console.log(AsciiArt);
+    console.log(ConsoleColors.rainbow(AsciiArt));
 
-    console.log(`[+] Log Report [+] Cookie Monsta [BOT] has started, with [${bot.users.size}] users, in [${bot.channels.size}] channels of [${bot.guilds.size}] guilds.`);
-    console.log(`[+] Log Report [+] --> Setting automatic avatar change for [BOT] @` + AvatarUpdateTime + ` minutes interval`);
-
-    //console.log(iDiscordClient.commands);
+    console.log(`\x1b[31m*\x1b[0m Cookie Monsta [BOT] has started, with \x1b[34m${bot.users.size}\x1b[0m users, in \x1b[32m${bot.channels.size}\x1b[0m channels of \x1b[35m${bot.guilds.size}\x1b[0m guilds.`);
+    console.log(`\x1b[31m*\x1b[0m Setting automatic avatar change for [BOT] at \x1b[32m` + AvatarUpdateTime + `\x1b[0m minutes interval. \x1b[0m`);
 
     bot.user.setStatus("dnd");
     bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
@@ -36,7 +35,7 @@ module.exports = bot =>
         let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
 
         bot.user.setAvatar(iRandomAvatar);
-        console.log(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar);
+        console.log(`\x1b[31m*\x1b[0m Automatic avatar changed to: \x1b[32m` + iRandomAvatar + `\x1b[0m`);
 
     }, AvatarUpdateTime * 60000);
 
