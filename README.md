@@ -57,14 +57,9 @@ npm install moment
 npm install --save word-wrap
 ```
 
-## To avoid node-gyp rebuild all over again after installing node-opus, copy and paste this command in terminal
+## If you messed up your npm package, use this to clean the cache
 ```
 npm cache clean -f
-npm install -g n
-n stable
-npm install npm -g
-
-npm config set unsafe-perm true
 ```
 
 ## BOT Uses these images gathered by me, in 2 albums. Links are below:
