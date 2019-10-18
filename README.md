@@ -19,7 +19,7 @@
 * [**Discord**](https://discordapp.com/) installed.
 
 
-# FIRST - Tools needed to be installed first in order to run the BOT properly:
+# Step 1 - Tools needed to be installed first in order to run the BOT properly
 
 ## For Linux:
 
@@ -37,7 +37,7 @@ brew install graphicsmagick
 brew upgrade graphicsmagick
 ```
 
-## SECOND - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these *IN THE SAME ORDER AS DISPLAYED* on the bot folder *(copy and paste one command at a time, in your terminal)*:
+## Step 2 - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these -- IN THE SAME ORDER AS DISPLAYED -- on the bot folder (copy and paste one command at a time, in your terminal):
 
 ```
 sudo npm install -g node-gyp@^5.0.3
