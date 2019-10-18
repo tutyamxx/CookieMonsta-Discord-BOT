@@ -42,7 +42,7 @@ brew upgrade graphicsmagick
 sudo npm install -g node-gyp@^5.0.3
 npm install --package-lock-only tar@4.4.10 fs-minipass@1.2.6 minipass@2.6.0
 npm install --save better-sqlite3
-npm install ffmpeg-binaries
+npm install ffmpeg
 
 npm install --save discord.js
 npm install --save jimp
