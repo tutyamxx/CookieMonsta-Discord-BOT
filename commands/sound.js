@@ -60,26 +60,25 @@ module.exports.run = async (bot, message, szArgs) =>
 
             if(UserVoiceChannel)
             {
-                UserVoiceChannel.join().then(async function (connection)
+                UserVoiceChannel.join().then(async (connection) =>
                 {
                     bBoolAlreadyPlayingSound = true;
                     await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
 
                     let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray);
 
-                    iDispatcher.on("end", async (end) =>
+                    await iDispatcher.on("end", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
                         await UserVoiceChannel.leave();
                     });
 
-                    iDispatcher.on("error", async (end) =>
+                    await iDispatcher.on("error", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
                         await UserVoiceChannel.leave();
                     });
-                })
-                .catch(err => console.log(err));
+                }).catch(err => console.log(err));
 
                 await message.react("🔊");
             }

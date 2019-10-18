@@ -39,12 +39,11 @@ brew upgrade graphicsmagick
 ## Step 2 - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these -- IN THE SAME ORDER AS DISPLAYED -- on the bot folder (copy and paste one command at a time, in your terminal):
 
 ```
-sudo npm install -g node-gyp@^5.0.3
+sudo npm install -g node-gyp@5.0.3
 npm install --save better-sqlite3
 npm install ffmpeg
-npm i node-opus@^0.2.7
 
-npm install --save discord.js
+npm install discord.js node-opus
 npm install --save jimp
 npm i gm
 npm i needle
