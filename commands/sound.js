@@ -1,4 +1,3 @@
-
 const IgnoreCase = require("ignore-case");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
@@ -20,7 +19,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[0] === "list")
     {
-        for(x = 0; x < SoundEffectsMp3.length; x++)
+        for(let x = 0; x < SoundEffectsMp3.length; x++)
         {
             SoundList += "***" + SoundEffectsMp3[x][0] + "***, ";
         }
@@ -68,21 +67,21 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray);
 
-                    iDispatcher.on("end", end =>
+                    iDispatcher.on("end", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
-                        UserVoiceChannel.leave();
+                        await UserVoiceChannel.leave();
                     });
 
-                    iDispatcher.on("error", end =>
+                    iDispatcher.on("error", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
-                        UserVoiceChannel.leave();
+                        await UserVoiceChannel.leave();
                     });
                 })
                 .catch(err => console.log(err));
 
-                message.react("🔊");
+                await message.react("🔊");
             }
         }
     }

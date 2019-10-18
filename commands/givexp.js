@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
@@ -57,7 +56,7 @@ module.exports.run = async (bot, message, szArgs) =>
     GetTargetData.level = TargetLevel;
     await bot.setScore.run(GetTargetData);
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
     .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + TargetLevel + "** :blush: !")
@@ -65,7 +64,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();
 
-    await message.channel.send({embed});
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

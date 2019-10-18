@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 const gm = require("gm").subClass({ imageMagick: true });

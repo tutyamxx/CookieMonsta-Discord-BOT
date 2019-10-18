@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 
@@ -24,14 +23,14 @@ module.exports.run = async (bot, message, args) =>
 
     const user = message.author;
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Your Orc Name Is", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2263842)
     .setDescription(OrcNameGenerated)
     .setThumbnail("https://i.imgur.com/nygjC55.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({embed})
+    await message.channel.send({ embed: DiscordRichEmbed })
 };
 
 module.exports.help =

@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
@@ -23,7 +22,7 @@ module.exports.run = async (bot, message, args) =>
 
     UserShuffleShells[user.id] = Math.floor(( Math.random() * 3 ) + 1);
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Shell Game", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(12582656)
     .setDescription("**Shell Game**\n\nYou have to guess on which one of the shells is the :egg: hidden.\n\nChoose one of the shells to see if you were right, or click ❎ to end the game!\n\n\n:chestnut:	  :chestnut:     :chestnut:")
@@ -31,7 +30,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(!user.bot)
     {
-        await message.channel.send({embed}).then(async msg =>
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async msg =>
         {
             await msg.react("\u0031\u20E3"); // 1
             await msg.react("\u0032\u20E3"); // 2
@@ -42,14 +41,14 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(bPlayingShell[user.id] === false)
                 {
-                    const embed = new Discord.RichEmbed()
+                    const DiscordRichEmbed1 = new Discord.RichEmbed()
                     .setAuthor("Cookie Monsta | Shell Game", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
                     .setColor(12582656)
                     .setDescription(szShellGameDescription[user.id])
                     .setThumbnail("https://i.imgur.com/HeqXIRR.jpg")
 
                     await msg.clearReactions();
-                    await msg.edit({embed});
+                    await msg.edit({ embed: DiscordRichEmbed1 });
 
                     bot.clearInterval(iGameEndTimer[user.id]);
                 }

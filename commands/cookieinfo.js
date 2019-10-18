@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -18,14 +17,14 @@ module.exports.run = async (bot, message, args) =>
     :small_blue_diamond:   You will lose **20** cookies for casting, win random prize for regular fish and **200** cookies for catching a whale!\n \
     :small_blue_diamond:   Spinning a fidget spinner for more than **40** seconds, will get you **400** cookies";
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Information and Prices", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
     .setDescription(FormatMessage)
     .setThumbnail("https://i.imgur.com/KaqBWI9.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send(embed).then(() => message.react("🍪"));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.react("🍪"));
 };
 
 module.exports.help =

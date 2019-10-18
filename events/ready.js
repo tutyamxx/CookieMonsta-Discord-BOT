@@ -1,13 +1,6 @@
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const DatabaseImport = require("../database/database.js");
 const SpamCmd = require("../events/message.js");
-const chalk = require("chalk");
-
-const iDiscordBotsToken = "your DiscordBots.org token here";
-
-const DBL = require("dblapi.js");
-const dbl = new DBL(iDiscordBotsToken, CookieMonsta.iDiscordClient);
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
@@ -28,10 +21,10 @@ global.bAlreadyOpeningGift = {};
 
 module.exports = bot =>
 {
-    console.log(chalk.blue(AsciiArt));
+    console.log(AsciiArt);
 
-    console.log(chalk.yellowBright(`[+] Log Report [+] Cookie Monsta [BOT] has started, with [${bot.users.size}] users, in [${bot.channels.size}] channels of [${bot.guilds.size}] guilds.`));
-    console.log(chalk.yellowBright(`[+] Log Report [+] --> Setting automatic avatar change for [BOT] @` + AvatarUpdateTime + ` minutes interval`));
+    console.log(`[+] Log Report [+] Cookie Monsta [BOT] has started, with [${bot.users.size}] users, in [${bot.channels.size}] channels of [${bot.guilds.size}] guilds.`);
+    console.log(`[+] Log Report [+] --> Setting automatic avatar change for [BOT] @` + AvatarUpdateTime + ` minutes interval`);
 
     //console.log(iDiscordClient.commands);
 
@@ -43,7 +36,7 @@ module.exports = bot =>
         let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
 
         bot.user.setAvatar(iRandomAvatar);
-        console.log(chalk.yellowBright(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar));
+        console.log(`[+] Log Report [+] --> Automatic avatar changed to: ` + iRandomAvatar);
 
     }, AvatarUpdateTime * 60000);
 
@@ -92,25 +85,4 @@ module.exports = bot =>
             bAlreadyOpeningGift[user[1].id] = false;
         }
     }
-
-    // --| DiscordBots.org Stuff here
-    // --| Update Discord Bots stats every 30 mins
-    setInterval(() =>
-    {
-        dbl.postStats(bot.guilds.size);
-
-    }, 900000);
-
-    dbl.postStats(bot.guilds.size);
 };
-
-// --| Optional DiscordBots.org events here
-dbl.on('error', e =>
-{
- 	console.log(`[+] Log Report [+] --> Whoopsie! DiscordBots.org (DBL) Error: ${e}`);
-});
-
-dbl.on('posted', () =>
-{
-	console.log("[+] Log Report [+] --> DiscordBots.org (DBL) Server Count Updated! :)");
-});

@@ -1,9 +1,4 @@
-
-const chalk = require("chalk");
-
 module.exports = async (error) =>
 {
-    console.log(chalk.magentaBright("[+] ERROR EVENT --> START <-- [+]"));
-    console.log(chalk.redBright("Client error:\n\n" + err.stack));
-    console.log(chalk.magentaBright("[+] ERROR EVENT --> END <-- [+]"));
+    console.log("\x1b[31m*\x1b[0m Client error:\n\n\x1b[31m " + err.stack + "\x1b[0m");
 };

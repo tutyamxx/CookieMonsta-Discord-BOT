@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
@@ -6,18 +5,18 @@ const DefChannel = require("../functions/defaultchannel.js");
 
 const szRandomGreetBanners =
 [
-	"/BOTImages/Banner/01.png",
-	"/BOTImages/Banner/02.png",
-	"/BOTImages/Banner/03.png",
-	"/BOTImages/Banner/04.png",
-	"/BOTImages/Banner/05.png",
-	"/BOTImages/Banner/06.png",
-	"/BOTImages/Banner/07.png",
-	"/BOTImages/Banner/08.png",
-	"/BOTImages/Banner/09.png",
-	//"/BOTImages/Banner/10.png",
-	//"/BOTImages/Banner/11.png",
-	"/BOTImages/Banner/12.png"
+    "/BOTImages/Banner/01.png",
+    "/BOTImages/Banner/02.png",
+    "/BOTImages/Banner/03.png",
+    "/BOTImages/Banner/04.png",
+    "/BOTImages/Banner/05.png",
+    "/BOTImages/Banner/06.png",
+    "/BOTImages/Banner/07.png",
+    "/BOTImages/Banner/08.png",
+    "/BOTImages/Banner/09.png",
+    //"/BOTImages/Banner/10.png",
+    //"/BOTImages/Banner/11.png",
+    "/BOTImages/Banner/12.png"
 ];
 
 module.exports = async (bot, member, guild) =>

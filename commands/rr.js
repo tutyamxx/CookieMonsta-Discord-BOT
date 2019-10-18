@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");

@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 
@@ -21,14 +20,14 @@ module.exports.run = async (bot, message, szArgs) =>
         OutputBinary += ArgumentText[i].charCodeAt(0).toString(2) + " ";
     }
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Your binary", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(1173635)
     .setDescription(OutputBinary)
     .setThumbnail("https://i.imgur.com/W5oKCle.jpg")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.delete().then(() => message.channel.send({embed}));
+    await message.delete().then(() => message.channel.send({ embed: DiscordRichEmbed }));
 };
 
 module.exports.help =

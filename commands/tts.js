@@ -1,4 +1,3 @@
-
 const CustomFunctions = require("../functions/funcs.js");
 
 let bAlreadyPlayingTTS = false;
@@ -51,18 +50,18 @@ module.exports.run = async (bot, message, szArgs) =>
 
             let iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
-            iDispatcher.on("end", end =>
+            iDispatcher.on("end", async (end) =>
             {
                 bAlreadyPlayingTTS = false;
 
-                voiceChannel.leave();
+                await voiceChannel.leave();
             });
 
-            iDispatcher.on("error", end =>
+            iDispatcher.on("error", async (end) =>
             {
                 bAlreadyPlayingTTS = false;
                 
-                voiceChannel.leave();
+                await voiceChannel.leave();
             });
         })
         .catch(err => console.log(err));

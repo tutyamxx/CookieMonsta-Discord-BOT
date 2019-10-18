@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
@@ -44,7 +43,7 @@ module.exports.run = async (bot, message, szArgs) =>
     let CookieAmount = parseInt(szArgs[1]);
     await GetDatabaseData.CookiesRemove(GuildGetID, GuildMember.user.id, CookieAmount);
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#B22222")
     .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + CookieAmount + "** cookies :cookie: !")
@@ -52,7 +51,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();
 
-    await message.channel.send({embed});
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

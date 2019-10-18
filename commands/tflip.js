@@ -1,4 +1,3 @@
-
 const TextFlip = require("flip-text");
 const CustomFunctions = require("../functions/funcs.js");
 

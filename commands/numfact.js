@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 const CustomFunctions = require("../functions/funcs.js");
@@ -25,16 +24,16 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
-        let NumberFactString = JSON.stringify(data.text).replace(/"/g, '').replace(/\\/g, '"');
+        let NumberFactString = JSON.stringify(await data.text).replace(/"/g, '').replace(/\\/g, '"');
 
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random fact about number: #" + szArgs[0], (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(4402687)
         .setDescription(NumberFactString)
         .setThumbnail("https://i.imgur.com/L4RORNr.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed});
+        await message.channel.send({ embed: DiscordRichEmbed });
     });
 };
 

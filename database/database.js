@@ -1,4 +1,3 @@
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
 const SQLite = require("better-sqlite3");

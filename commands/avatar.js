@@ -18,14 +18,14 @@ module.exports.run = async (bot, message, args) =>
     const PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
     const RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Avatar ", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setDescription(RandomPicEmojis + " Here is " + GuildMember.user + "'s avatar :small_red_triangle_down:")
     .setColor(2003199)
     .setImage(MemberAvatar)
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 };
 
 module.exports.help =

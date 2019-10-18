@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
@@ -38,7 +37,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
     }
 
-    const HitDetection = Math.floor((Math.random() * 2) + 1);
+    let HitDetection = Math.floor((Math.random() * 2) + 1);
 
     let Damage;
     let RandomCrit;
@@ -224,13 +223,13 @@ module.exports.run = async (bot, message, args) =>
                 bot.clearInterval(iFightLogInterval[user.id]);
             }
 
-            const embed = new Discord.RichEmbed()
+            const DiscordRichEmbed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Death Battle", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#FF4000")
             .setDescription(szBattleLog[user.id])
             .setThumbnail(szThumbnail[user.id])
 
-            await msg.edit({embed});
+            await msg.edit({ embed: DiscordRichEmbed });
 
         }, 2000);
     });

@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 const CustomFunctions = require("../functions/funcs.js");

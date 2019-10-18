@@ -1,11 +1,11 @@
-
 const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
+const BotConfig = require("../config/botconfig.json");
 
-const szPrefix = "!";
+const szPrefix = BotConfig.DiscordBOT_Prefix.trim();
 
 let iCmdCooldown = new Set();
 let iCooldownTime = 5;

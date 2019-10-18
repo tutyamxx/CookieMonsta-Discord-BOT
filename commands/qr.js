@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 
@@ -14,7 +13,6 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this isn't a plain text you m0ng0l! :face_palm:  :no_entry:");
     }
 
-    const user = message.author;
     let ArgumentText = szArgs.join(" ");
 
     let TextToQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&bgcolor=" + (Math.random() * 0xFFFFFF << 0).toString(16) + "&data=" + ArgumentText;

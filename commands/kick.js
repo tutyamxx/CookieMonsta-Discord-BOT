@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 
@@ -32,7 +31,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await KickMember.kick(szReason).then(member =>
     {
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(2003199)
         .setDescription("**" + user + "** KICKED **" + KickMember.user + "** out from this server :rage:\n\n\n**Reason:**   " + (CustomFunctions.isEmpty(szReason) ? "No reason added." : szReason))
@@ -40,7 +39,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp();
 
-        message.channel.send({embed});
+        message.channel.send({ embed: DiscordRichEmbed });
 
     }).catch(console.error);
 };

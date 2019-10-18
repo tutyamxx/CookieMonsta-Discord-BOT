@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -23,14 +22,14 @@ module.exports.run = async (bot, message, args) =>
             break;
     }
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Coin Flip", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(14667180)
     .setDescription("You got :point_right:  ***" + CoinTextNumber + "***")
     .setImage(CoinImageNumber)
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({embed});
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

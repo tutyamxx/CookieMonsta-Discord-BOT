@@ -1,4 +1,3 @@
-
 const CookieMonsta = require("../CookieMonstaBOT.js");
 
 async function CookiesUpdate(guild, id, amount)

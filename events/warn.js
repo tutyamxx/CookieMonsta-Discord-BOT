@@ -1,9 +1,4 @@
-
-const chalk = require("chalk");
-
 module.exports = async (info) =>
 {
-    console.log(chalk.magentaBright("[+] WARNING EVENT --> START <-- [+]"));
-    console.LOG(chalk.yellowBright(info));
-    console.log(chalk.magentaBright("[+] WARNING EVENT --> END <-- [+]"));
+    console.log("\x1b[31m*\x1b[0m" + info + "\x1b[0m");
 };

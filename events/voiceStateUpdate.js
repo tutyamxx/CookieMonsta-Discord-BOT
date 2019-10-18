@@ -1,4 +1,3 @@
-
 const GetDatabaseData = require("../functions/getuserdata.js");
 
 module.exports = async (oldMember, newMember) =>

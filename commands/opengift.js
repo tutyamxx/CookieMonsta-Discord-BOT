@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 
@@ -25,13 +24,13 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(" you don't have any gift :gift: to open! It probably expired or you haven't received one yet! :pensive:");
     }
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Unwrapping your gift...", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#00BFFF")
     .setDescription("Hang on tight while I'm unwrapping your gift...")
     .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-    await message.channel.send({embed}).then(async msg =>
+    await message.channel.send({ embed: DiscordRichEmbed }).then(async msg =>
     {
         iUnwrapTimer[user.id] = setInterval (async function ()
         {
@@ -39,13 +38,13 @@ module.exports.run = async (bot, message, args) =>
 
             await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, GenerateRandomCookies);
 
-            const embed = new Discord.RichEmbed()
+            const DiscordRichEmbed1 = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Congratulations!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#00BFFF")
             .setDescription("***OMNOMNOMNOM!***\n\n\n" + user + " this gift box :gift: contained **" + GenerateRandomCookies + "** cookies :cookie: !")
             .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-            await msg.edit({embed});
+            await msg.edit({ embed: DiscordRichEmbed1 });
 
             bUserHasGift[user.id] = 0;
             bAlreadyOpeningGift[user.id] = false;

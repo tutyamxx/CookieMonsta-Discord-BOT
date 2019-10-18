@@ -1,4 +1,3 @@
-
 const Long = require("long");
 
 function getDefaultChannel(guild)

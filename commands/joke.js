@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 
@@ -13,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON('https://api.icndb.com/jokes/random', async function(error, response)
+    await getJSON("https://api.icndb.com/jokes/random", async function(error, response)
     {
         if(error)
         {
@@ -21,16 +20,16 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string and also replace &quot; with ""
-        let RandomJokeToString = JSON.stringify(response.value.joke).replace(/"/g, '').replace(/&quot;/g, '\\"');
+        let RandomJokeToString = JSON.stringify(await response.value.joke).replace(/"/g, '').replace(/&quot;/g, '\\"');
 
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(10526880)
         .setDescription(RandomJokeToString + " " + RandomLaughEmoji[Math.floor(Math.random() * RandomLaughEmoji.length)])
         .setThumbnail("https://i.imgur.com/Fx73HXI.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

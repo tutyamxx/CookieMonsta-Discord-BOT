@@ -1,4 +1,3 @@
-
 module.exports.run = async (bot, message, szArgs) =>
 {
     const user = message.author;

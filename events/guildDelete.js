@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 
 module.exports = async (bot, guild) =>
@@ -25,9 +24,7 @@ module.exports = async (bot, guild) =>
 	}
 	*/
 
-	//console.log(bot.channels);
-
-    const embed1 = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Left the guild: (" +  guild.name + ")", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(14423100)
     .setThumbnail((guild.iconURL === null) ? guild.owner.user.defaultAvatarURL : guild.iconURL)
@@ -35,7 +32,5 @@ module.exports = async (bot, guild) =>
     .setFooter("Now in #" + bot.guilds.size + " guilds!")
     .setTimestamp()
 
-    await bot.channels.get('412677989185093633').send({ embed: embed1 });
-
-    console.log("[+] Log Report [+] --> Left the guild: (" + guild.name + ")");
+    await bot.channels.get('412677989185093633').send({ embed: DiscordRichEmbed });
 };

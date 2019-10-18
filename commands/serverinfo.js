@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const moment = require("moment");
 const CustomFunctions = require("../functions/funcs.js");
@@ -33,7 +32,7 @@ module.exports.run = async (bot, message, args) =>
         "\n:white_medium_small_square: Channels: **" + ServerChannels + "** (**" + ServerTextChannelCount + "** Text, **" + ServerVoiceChannelsCount + "** Voice, **" + ServerCategories + "** Categories)" +
         "\n:white_medium_small_square: Verification: **" + await CustomFunctions.GuildVerificationLevel(ServerGuild) + "**";
 
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Server Information", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setDescription(szDescription)
         .setColor(2003199)
@@ -41,7 +40,7 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
         
-        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     }
 };
 

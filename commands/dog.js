@@ -1,11 +1,11 @@
-
+const Discord = require("discord.js");
 const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON('https://dog.ceo/api/breeds/image/random', async function(error, response)
+    await getJSON("https://dog.ceo/api/breeds/image/random", async function(error, response)
     {
         if(error)
         {
@@ -13,35 +13,15 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        let DogImageToString = JSON.stringify(response.message).replace(/"/g, '');
+        let DogImageToString = JSON.stringify(await response.message).replace(/"/g, '');
 
-        await message.channel.send(
-        {
-            embed:
-            {
-                author:
-                {
-                    name: "Cookie Monsta | Random Dog",
-                    icon_url: (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL
-                },
+        const DiscordRichEmbed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Random Dog", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor(16777215)
+        .setImage(DogImageToString)
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                color: 16777215,
-
-                image:
-                {
-                    url: DogImageToString,
-                    width: 800,
-                    height: 800
-                },
-
-                footer:
-                {
-                    icon_url: (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL,
-                    text: "Requested by: @" + user.username
-                }
-            }
-        }).
-        then(function (message)
+        await message.channel.send({ embed: DiscordRichEmbed }).then(function (message)
         {
             message.react("🐶");
         });

@@ -1,4 +1,3 @@
-
 const EmojiTranslate = require("moji-translate");
 const CustomFunctions = require("../functions/funcs.js");
 

@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
 const CustomFunctions = require("../functions/funcs.js");
@@ -42,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[0] === "list")
     {
-        for(i = 0; i < ColorRoles.length; i++)
+        for(let i = 0; i < ColorRoles.length; i++)
         {
             ColorList += "***" + ColorRoles[i][0] + "***, ";
         }

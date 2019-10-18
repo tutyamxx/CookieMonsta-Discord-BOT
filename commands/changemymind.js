@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 const gm = require("gm").subClass({ imageMagick: true });
@@ -29,10 +28,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-    let i1 = Jimp.read(GetUserAvatar);
-    let i2 = Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
+    let i1 = await Jimp.read(GetUserAvatar);
+    let i2 = await Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
 
-    Promise.all([i1, i2]).then(async images =>
+    await Promise.all([i1, i2]).then(async images =>
     {
         await images[0].resize(40, 40).rotate(9);
         await images[1].composite(images[0], 175, 43).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>

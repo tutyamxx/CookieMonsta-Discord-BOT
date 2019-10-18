@@ -1,10 +1,8 @@
-
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
 {
-    const user = message.author;
     let GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
@@ -16,15 +14,15 @@ module.exports.run = async (bot, message, args) =>
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-    let i1 = Jimp.read(MemberAvatar);
+    let i1 = await Jimp.read(MemberAvatar);
 
-    let i2 = Jimp.read("./BOTImages/DeepFry/okhand.png");
-    let i3 = Jimp.read("./BOTImages/DeepFry/100emoji.png");
-    let i4 = Jimp.read("./BOTImages/DeepFry/laughingemoji.png");
-    let i5 = Jimp.read("./BOTImages/DeepFry/fireemoji.png");
-    let i6 = Jimp.read("./BOTImages/DeepFry/cry.png");
+    let i2 = await Jimp.read("./BOTImages/DeepFry/okhand.png");
+    let i3 = await Jimp.read("./BOTImages/DeepFry/100emoji.png");
+    let i4 = await Jimp.read("./BOTImages/DeepFry/laughingemoji.png");
+    let i5 = await Jimp.read("./BOTImages/DeepFry/fireemoji.png");
+    let i6 = await Jimp.read("./BOTImages/DeepFry/cry.png");
 
-    Promise.all([i1, i2, i3, i4, i5, i6]).then(async images =>
+    await Promise.all([i1, i2, i3, i4, i5, i6]).then(async images =>
     {
         await images[0].resize(400, 400).dither565().normalize().opaque()
 

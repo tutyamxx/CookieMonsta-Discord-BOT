@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 
@@ -32,14 +31,14 @@ module.exports.run = async (bot, message, args) =>
         ColorHotOrNot = 14833698;
     }
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | HOT or NOT!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(ColorHotOrNot)
     .setDescription(user + `, you're **${HotPercentage}%** HOT ` + EmoticonHotOrNot)
     .setThumbnail("https://i.imgur.com/yLMzwps.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({embed});
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

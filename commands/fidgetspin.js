@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const GetDatabaseData = require("../functions/getuserdata.js");
 
@@ -16,7 +15,7 @@ module.exports.run = async (bot, message, args) =>
 
     let szEmbedColor = "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(szEmbedColor)
     .setDescription(user + " is spinning a fidget spinner... :ok_hand::joy:")
@@ -24,7 +23,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    let SpinningMessage = await message.channel.send({embed});
+    let SpinningMessage = await message.channel.send({ embed: DiscordRichEmbed });
 
     let iSpinTimeout = (Math.random() * (60 - 5 + 1)) + 5;
 
@@ -34,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(iSpinTimeout.toFixed(0) >= 40)
         {
-            const embed = new Discord.RichEmbed()
+            const DiscordRichEmbed1 = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor(szEmbedColor)
             .setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:\n\nAs a reward, it got **400** cookies :cookie: !`)
@@ -42,20 +41,20 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            await SpinningMessage.edit({embed});
+            await SpinningMessage.edit({ embed: DiscordRichEmbed1 });
             await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 400);
         }
 
         else
         {
-            const embed = new Discord.RichEmbed()
+            const DiscordRichEmbed2 = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Fidget Spinner", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor(szEmbedColor)
             .setDescription(`${user} spinned the fidget spinner for **${iSpinTimeout.toFixed(2)}** seconds!  :stopwatch:`)
             .setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
-            await SpinningMessage.edit({embed});
+            await SpinningMessage.edit({ embed: DiscordRichEmbed2 });
         }
 
         UserAlreadySpinningFidget[user.id] = false;

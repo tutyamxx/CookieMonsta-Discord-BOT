@@ -1,4 +1,3 @@
-
 const GetDatabaseData = require("../functions/getuserdata.js");
 const ShellGame = require("../commands/shellgame.js");
 

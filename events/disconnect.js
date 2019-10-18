@@ -1,11 +1,5 @@
-
-const chalk = require("chalk");
-
 module.exports = async (event) =>
 {
-    console.log(chalk.magentaBright("[+] DISCONNECT EVENT --> START <-- [+]"));
-    console.log(chalk.redBright(`Disconnected with code ${event.code} !`));
-    console.log(chalk.magentaBright("[+] DISCONNECT EVENT --> END <-- [+]"));
-
+    console.log(`\x1b[31m*\x1b[0m Disconnected with code \x1b[31m${event.code}\x1b[0m !`);
     process.exit(0);
 };

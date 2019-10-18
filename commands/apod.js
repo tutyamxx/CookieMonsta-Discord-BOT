@@ -1,8 +1,9 @@
 
 const Discord = require("discord.js");
 const getJSON = require("get-json");
+const BotConfig = require("../config/botconfig.json");
 
-const szAPIKey = "Your NASA api key here";
+const szAPIKey = BotConfig.NASA_API_Key.trim();
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -19,25 +20,23 @@ module.exports.run = async (bot, message, args) =>
             return await NasaMessageEdit.edit(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        if(JSON.stringify(response.media_type).replace(/"/g, '') === "video")
+        if(JSON.stringify(await response.media_type).replace(/"/g, '') === "video")
         {
             return await NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        let szCopyRight = JSON.stringify(response.copyright).replace(/"/g, '').replace(/\\n/g, ' ');
-        let szTitle = JSON.stringify(response.title).replace(/"/g, '');
+        let szTitle = JSON.stringify(await response.title).replace(/"/g, '');
+        let szImageHDURL = JSON.stringify(await response.hdurl).replace(/"/g, '');
 
-        let szImageHDURL = JSON.stringify(response.hdurl).replace(/"/g, '');
-
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Astronomy Picture of the Day", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#8A2BE2")
-        .setDescription(":milky_way: **Picture Name:** `" + szTitle + "`\n\n:bust_in_silhouette: **Copyright:copyright: :** " + szCopyRight + "\n\n\n\n:link: [Download FullHD Image](" + szImageHDURL + ") :link:")
+        .setDescription(":milky_way: **Picture Name:** `" + szTitle + "`\n\n\n\n:link: [Download FullHD Image](" + szImageHDURL + ") :link:")
         .setImage(szImageHDURL)
         .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        return await NasaMessageEdit.edit({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        return await NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

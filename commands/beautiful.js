@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 
@@ -15,11 +14,11 @@ module.exports.run = async (bot, message, args) =>
 
     const GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-    let i1 = Jimp.read(GetUserAvatar);
-    let i2 = Jimp.read(GetUserAvatar);
-    let i3 = Jimp.read("./BOTImages/Beautiful/beautiful.png");
+    let i1 = await Jimp.read(GetUserAvatar);
+    let i2 = await Jimp.read(GetUserAvatar);
+    let i3 = await Jimp.read("./BOTImages/Beautiful/beautiful.png");
 
-    Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async images =>
     {
         await images[0].resize(82, 93).quality(100);
         await images[1].resize(83, 97).quality(100);

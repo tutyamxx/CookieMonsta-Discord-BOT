@@ -1,4 +1,3 @@
-
 const RandomColorsPurge =
 [
     9699539,
@@ -57,8 +56,6 @@ module.exports.run = async (bot, message, args) =>
             }
         }
     });
-
-    console.log(`[+] Log Report [+] --> @${user.username} has used the command '!clear' and chat has been purged`);
 };
 
 module.exports.help =

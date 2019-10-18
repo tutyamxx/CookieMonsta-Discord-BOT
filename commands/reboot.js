@@ -1,4 +1,3 @@
-
 module.exports.run = async (bot, message, szArgs) =>
 {
     if(message.author.id !== "266677298051153920")

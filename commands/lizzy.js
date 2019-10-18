@@ -1,11 +1,11 @@
-
+const Discord = require("discord.js");
 const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON('https://nekos.life/api/lizard', async function(error, response)
+    await getJSON("https://nekos.life/api/lizard", async function(error, response)
     {
         if(error)
         {
@@ -13,35 +13,15 @@ module.exports.run = async (bot, message, args) =>
         }
 
         // --| Remove "" from start and end of string
-        let LizzyImageToString = JSON.stringify(response.url).replace(/"/g, '');
+        let LizzyImageToString = JSON.stringify(await response.url).replace(/"/g, '');
 
-        await message.channel.send(
-        {
-            embed:
-            {
-                author:
-                {
-                    name: "Cookie Monsta | Random Lizzy Boi",
-                    icon_url: (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL
-                },
+        const DiscordRichEmbed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Random Lizzy Boi", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor(4443520)
+        .setImage(LizzyImageToString)
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                color: 4443520,
-
-                image:
-                {
-                    url: LizzyImageToString,
-                    width: 800,
-                    height: 800
-                },
-
-                footer:
-                {
-                    icon_url: (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL,
-                    text: "Requested by: @" + user.username
-                }
-            }
-        }).
-        then(function (message)
+        await message.channel.send({ embed: DiscordRichEmbed }).then(function (message)
         {
             message.react("🦎");
         });

@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const os = require("os");
 
@@ -6,7 +5,7 @@ const CustomFunctions = require("../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | BOT Uptime", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(26367)
     .setDescription(`:robot: **Uptime:** ${CustomFunctions.secondsToString(process.uptime())}\n\n:desktop: **Uptime:** ${CustomFunctions.secondsToString(os.uptime())}`)
@@ -14,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("⏰")
     .setTimestamp()
 
-    await message.channel.send({embed})
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

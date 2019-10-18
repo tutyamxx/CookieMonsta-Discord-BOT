@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 
@@ -21,7 +20,7 @@ module.exports.run = async (bot, message, args) =>
             return await message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        let PeopleInSpace = JSON.stringify(response.number).replace(/"/g, '');
+        let PeopleInSpace = JSON.stringify(await response.number).replace(/"/g, '');
 
         let szPeopleNames = "";
         let szDescription = "";
@@ -51,14 +50,14 @@ module.exports.run = async (bot, message, args) =>
             szPeopleNames += ":busts_in_silhouette: [" + AstroPersonName + "](https://en.wikipedia.org/wiki/" + encodeURI(AstroPersonName) + ")\n";
         }
 
-        const embed = new Discord.RichEmbed()
+        const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | People in Space ISS", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#483D8B")
         .setDescription(szDescription + "\n\n" + szPeopleNames)
         .setThumbnail("https://i.imgur.com/hj6ouTF.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

@@ -1,4 +1,3 @@
-
 const RandomHello =
 [
 	"Greetings!", "Hi.", "Howdy!", "Hello there!", "Hi to you too.",

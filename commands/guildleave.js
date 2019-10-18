@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const CustomFunctions = require("../functions/funcs.js");
 
@@ -23,14 +22,14 @@ module.exports.run = async (bot, message, szArgs) =>
 
     GetGuild.leave();
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Guild Leave Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
     .setDescription("I have left the specified guild\n\n:id:: (**" + szArgs[0] + "**) !")
     .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setTimestamp()
 
-    await message.author.send({embed});
+    await message.author.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

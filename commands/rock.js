@@ -1,4 +1,3 @@
-
 let UserAlreadyRps = {};
 let iRockPaperScissorsTimer = {};
 

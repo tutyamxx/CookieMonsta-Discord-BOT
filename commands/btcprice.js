@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const getJSON = require("get-json");
 const CustomFunctions = require("../functions/funcs.js");
@@ -15,10 +14,10 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async function(response)
     {
-        BtcDollar = JSON.stringify(response.USD["24h"]).replace(/"/g, '');
-        BtcGBP = JSON.stringify(response.GBP["24h"]).replace(/"/g, '');
-        BtcEuro = JSON.stringify(response.EUR["24h"]).replace(/"/g, '');
-        BtcYen = JSON.stringify(response.JPY["24h"]).replace(/"/g, '');
+        BtcDollar = JSON.stringify(await response.USD["24h"]).replace(/"/g, '');
+        BtcGBP = JSON.stringify(await response.GBP["24h"]).replace(/"/g, '');
+        BtcEuro = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
+        BtcYen = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
 
     }).catch(async function(error)
     {
@@ -30,7 +29,7 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async function(response1)
     {
-        BTCUSD = JSON.stringify(response1.price).replace(/"/g, '');
+        BTCUSD = JSON.stringify(await response1.price).replace(/"/g, '');
 
     }).catch(async function(error)
     {
@@ -39,10 +38,10 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://blockchain.info/ticker").then(async function(response2)
     {
-        BtcChainDollar = JSON.stringify(response2.USD["15m"]).replace(/"/g, '');
-        BtcChainGBP = JSON.stringify(response2.GBP["15m"]).replace(/"/g, '');
-        BtcChainEuro = JSON.stringify(response2.EUR["15m"]).replace(/"/g, '');
-        BtcChainYen = JSON.stringify(response2.JPY["15m"]).replace(/"/g, '');
+        BtcChainDollar = JSON.stringify(await response2.USD["15m"]).replace(/"/g, '');
+        BtcChainGBP = JSON.stringify(await response2.GBP["15m"]).replace(/"/g, '');
+        BtcChainEuro = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
+        BtcChainYen = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
 
     }).catch(async function(error)
     {
@@ -52,7 +51,7 @@ module.exports.run = async (bot, message, args) =>
         BtcChainYen = "API Error";
     });
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | ₿itcoin Price", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#FFA500")
     .addField("**BitcoinCharts**", "\n\n:euro: **EUR:** *" + BtcEuro + "*\n:pound: **GBP:** *" + BtcGBP + "*\n:dollar: **USD:** *" + BtcDollar + "*\n:yen: **YEN:** *" + BtcYen + "*", true)
@@ -63,7 +62,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({embed}).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 };
 
 module.exports.help =

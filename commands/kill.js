@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 
 const RandomKillGifs =
@@ -52,14 +51,14 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(`why would you kill yourself? There are plenty of people here available to kill... :face_palm:`);
     }
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Kill Confirmed", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(16711680)
     .setDescription(user + "  ***KILLED***  " + GuildMember.user + " ***" + RandomKillTypes[Math.floor(Math.random() * RandomKillTypes.length)] + "***  !")
     .setImage(RandomKillGifs[Math.floor(Math.random() * RandomKillGifs.length)])
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({embed});
+    await message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

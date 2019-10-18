@@ -1,4 +1,3 @@
-
 function SlotNumberToIcon(iNumber)
 {
     let ReturnSlotIcon;
