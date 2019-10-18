@@ -42,6 +42,7 @@ brew upgrade graphicsmagick
 sudo npm install -g node-gyp@^5.0.3
 npm install --package-lock-only tar@4.4.10 fs-minipass@1.2.6 minipass@2.6.0
 npm install --save better-sqlite3
+npm install ffmpeg-binaries
 
 npm install --save discord.js
 npm install --save jimp
@@ -55,8 +56,7 @@ sudo npm install long
 npm install moment
 npm install --save word-wrap
 
-npm install node-opus
-npm i opusscript
+npm install opusscript
 ```
 
 ## To avoid node-gyp rebuild all over again after installing node-opus, copy and paste this command in terminal
@@ -65,6 +65,7 @@ npm cache clean -f
 npm install -g n
 n stable
 npm install npm -g
+
 npm config set unsafe-perm true
 ```
 
