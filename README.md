@@ -56,6 +56,7 @@ npm install moment
 npm install --save word-wrap
 
 npm install node-opus
+npm i opusscript
 ```
 
 ## To avoid node-gyp rebuild all over again after installing node-opus, copy and paste this command in terminal
