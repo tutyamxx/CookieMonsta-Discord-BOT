@@ -24,7 +24,7 @@ module.exports = async (bot, guild) =>
     .setFooter("Now in #" + bot.guilds.size + " guilds!")
     .setTimestamp()
 
-    await bot.channels.get('412677989185093633').send({ embed: DiscordRichEmbed2 });
+    await bot.channels.get("634842132808597505").send({ embed: DiscordRichEmbed2 });
 
     for(user of bot.users)
     {

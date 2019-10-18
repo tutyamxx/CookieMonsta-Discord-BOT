@@ -84,14 +84,14 @@ module.exports = async (bot, message) =>
         {
             if(bUserHasGift[user.id] === 0)
             {
-                const embed = new Discord.RichEmbed()
+                const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
                 .setColor("#00BFFF")
                 .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **!opengift**")
                 .setThumbnail("https://i.imgur.com/hNALLLd.png")
                 .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
 
-                await message.channel.send({embed}).then(msg =>
+                await message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
                 {
                     iCheckIfOpenGift[user.id] = setInterval (async function ()
                     {
