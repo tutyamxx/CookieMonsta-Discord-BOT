@@ -28,6 +28,10 @@ function GuildLocation(guild)
             ReturnLocation = "Central Europe";
             break;
 
+        case "europe":
+            ReturnLocation = "Europe";
+            break;
+
         case "eu-west":
             ReturnLocation = "Western Europe";
             break;
@@ -48,7 +52,7 @@ function GuildLocation(guild)
             ReturnLocation = "Singapore";
             break;
 
-        case "south-africa":
+        case "southafrica":
             ReturnLocation = "South Africa";
             break;
 
