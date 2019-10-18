@@ -51,13 +51,13 @@ module.exports.run = async (bot, message, args) =>
     UserAlreadyBattling[user.id] = true;
     UserAlreadyBattling[GuildMember.user.id] = true;
 
-    const embed = new Discord.RichEmbed()
+    const DiscordRichEmbed1 = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Death Battle", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#FF4000")
     .setDescription(user + UserHealthColor[user.id] + "(" + Player1Health[user.id] + ")		:vs:		" + GuildMember.user + UserHealthColor[GuildMember.user.id] + "(" + Player2Health[GuildMember.user.id] + ")\n\n\n***The battle will begin in a moment...***")
     .setThumbnail("https://i.imgur.com/RACcRMv.jpg")
 
-    await message.channel.send({embed}).then(msg =>
+    await message.channel.send({ embed: DiscordRichEmbed1 }).then(msg =>
     {
         let szBattleLog = {};
         let szThumbnail = {};
