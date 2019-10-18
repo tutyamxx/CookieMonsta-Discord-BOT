@@ -11,15 +11,15 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
-    // if(GuildMember.user === user)
-    // {
-    //     return await message.reply(`why would you smack yourself? There are plenty of people here available to smack... :face_palm:`);
-    // }
+    if(GuildMember.user === user)
+    {
+        return await message.reply(`why would you smack yourself? There are plenty of people here available to smack... :face_palm:`);
+    }
 
-    // if(GuildMember.user.bot)
-    // {
-    //     return await message.reply(" :no_entry: come on bruh, why BOT's? We are lonely machines... :robot:  :no_entry:");
-    // }
+    if(GuildMember.user.bot)
+    {
+        return await message.reply(" :no_entry: come on bruh, why BOT's? We are lonely machines... :robot:  :no_entry:");
+    }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Smack!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
