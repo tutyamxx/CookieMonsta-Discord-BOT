@@ -6,7 +6,7 @@ const sql = new SQLite('./c00ki3z.sqlite');
 function InitialiseDatabase()
 {
     // --| DB Stuff
-    const DBTable = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'CookiesTable';").get();
+    const DBTable = sql.prepare("SELECT COUNT(*) FROM `sqlite_master` WHERE `type` = 'table' AND `name` = 'CookiesTable';").get();
 
     if(!DBTable['count(*)'])
     {
