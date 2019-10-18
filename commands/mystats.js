@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) =>
                     {
                         if(err)
                         {
-                            return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                            return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                         }
 
                         let szUserStats = "Level: " + await CookieMonsta.UserDatabaseData.level + "  |  XP: " + await CookieMonsta.UserDatabaseData.points;
@@ -62,10 +62,10 @@ module.exports.run = async (bot, message, args) =>
                         {
                             if(err)
                             {
-                                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                             }
 
-                            await message.channel.send("<:cookiemonsta:414433388104253450> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, "stats.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                            await message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, "stats.png")).then(()=> message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                         });
                     });
                 });

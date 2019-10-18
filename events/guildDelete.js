@@ -18,7 +18,7 @@ module.exports = async (bot, guild) =>
 			channel.send({embed}).then(function (message)
 			{
 				message.react("🍪");
-				message.react(":cookiemonsta:414433388104253450");
+				message.react(":cookiemonsta:634866060465537034);
 			});
 		}
 	}

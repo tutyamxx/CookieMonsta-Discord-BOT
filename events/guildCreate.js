@@ -10,7 +10,7 @@ module.exports = async (bot, guild) =>
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setTitle("Cookie Monsta")
         .setColor(2003199)
-        .setDescription("Hello ``" + guild.name + "``! I am <:cookiemonsta:414433388104253450> **Cookie Monsta** <:cookiemonsta:414433388104253450>, a fun bot built and developed by **tuty4amxx#3969**.\nThanks for adding me to your server! Here's a cookie for you :cookie: !\n\nType **!help** and I will send you a list of commands to you in a **Direct Message**. Now where did I put my cookies :cookie: ?")
+        .setDescription("Hello ``" + guild.name + "``! I am <:cookiemonsta:634866060465537034> **Cookie Monsta** <:cookiemonsta:634866060465537034>, a fun bot built and developed by **tuty4amxx#3969**.\nThanks for adding me to your server! Here's a cookie for you :cookie: !\n\nType **!help** and I will send you a list of commands to you in a **Direct Message**. Now where did I put my cookies :cookie: ?")
         .setThumbnail(bot.user.avatarURL)
 
         await channel.send({ embed: DiscordRichEmbed });

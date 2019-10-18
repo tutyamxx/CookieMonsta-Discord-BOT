@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
             await message.channel.send(new Discord.Attachment(buffer, "dogpoo.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

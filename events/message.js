@@ -70,7 +70,7 @@ module.exports = async (bot, message) =>
                             return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err);
                         }
 
-                        await message.channel.send("<:cookiemonsta:414433388104253450> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
+                        await message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
                     });
                 });
             });

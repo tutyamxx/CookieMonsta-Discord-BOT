@@ -10,14 +10,14 @@ function InitialiseDatabase()
 
     if(!DBTable['count(*)'])
     {
-        sql.prepare("CREATE TABLE CookiesTable (id TEXT PRIMARY KEY, user TEXT, guild TEXT, cookies INTEGER, points INTEGER, level INTEGER);").run();
-        sql.prepare("CREATE UNIQUE INDEX idx_CookiesTable_id ON CookiesTable (id);").run();
+        sql.prepare("CREATE TABLE `CookiesTable` (`id` TEXT PRIMARY KEY, `user` TEXT, `guild` TEXT, `cookies` INTEGER, `points` INTEGER, `level` INTEGER);").run();
+        sql.prepare("CREATE UNIQUE INDEX `idx_CookiesTable_id` ON `CookiesTable` (id);").run();
         sql.pragma("synchronous = 1");
         sql.pragma("journal_mode = wal");
     }
 
-    CookieMonsta.iDiscordClient.getScore = sql.prepare("SELECT * FROM CookiesTable WHERE user = ? AND guild = ?");
-    CookieMonsta.iDiscordClient.setScore = sql.prepare("INSERT OR REPLACE INTO CookiesTable (id, user, guild, cookies, points, level) VALUES (@id, @user, @guild, @cookies, @points, @level);");
+    CookieMonsta.iDiscordClient.getScore = sql.prepare("SELECT * FROM `CookiesTable` WHERE `user` = ? AND `guild` = ?");
+    CookieMonsta.iDiscordClient.setScore = sql.prepare("INSERT OR REPLACE INTO `CookiesTable` (`id`, `user`, `guild`, `cookies`, `points`, `level`) VALUES (@id, @user, @guild, @cookies, @points, @level);");
 };
 
 module.exports.InitialiseDatabase = InitialiseDatabase;

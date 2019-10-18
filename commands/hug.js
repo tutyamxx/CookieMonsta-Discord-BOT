@@ -34,10 +34,10 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("[+] Log Report [+] ---> Whoops! There is your error: " + err).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            await message.channel.send("<:peepoComfy:605543817302769687> Hello darkness my old friend... <:peepoComfy:605543817302769687> \n\n**" + user.username + "** sends a hug to **" + GuildMember.user.username + "**!", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send("<:pepoComfy:634867566665400324> Hello darkness my old friend... <:pepoComfy:634867566665400324> \n\n**" + user.username + "** sends a hug to **" + GuildMember.user.username + "**!", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         });
     });
 };
