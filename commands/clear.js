@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>
             [
                 {
                     name: "Chat has been PURGED due to high number of messages",
-                    value: "NOOOOO! My cookies!",
+                    value: "NOOOOO! My cookies! 👀",
                 }
             ],
 
