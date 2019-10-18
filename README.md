@@ -23,7 +23,7 @@
 ## For Linux:
 
 ```
-apt-get install ffmpeg
+sudo apt-get install ffmpeg
 sudo apt-get install build-essential
 
 sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
@@ -40,9 +40,9 @@ brew upgrade graphicsmagick
 
 ```
 sudo npm install -g node-gyp@^5.0.3
-npm install --package-lock-only tar@4.4.10 fs-minipass@1.2.6 minipass@2.6.0
 npm install --save better-sqlite3
 npm install ffmpeg
+npm i node-opus@^0.2.7
 
 npm install --save discord.js
 npm install --save jimp
@@ -56,8 +56,6 @@ npm i colors
 sudo npm install long
 npm install moment
 npm install --save word-wrap
-
-npm install opusscript
 ```
 
 ## To avoid node-gyp rebuild all over again after installing node-opus, copy and paste this command in terminal
