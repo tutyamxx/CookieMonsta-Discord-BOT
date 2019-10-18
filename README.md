@@ -15,8 +15,7 @@
 
 ## Now, a few things you need first:
 
-* **Linux** or **Mac OS X**
-* *If you have Windows, sorry. Might work, but 100% I had trouble running it on Windows.*
+* **Linux** or **Mac OS X** only.
 * [**Discord**](https://discordapp.com/) installed.
 
 
