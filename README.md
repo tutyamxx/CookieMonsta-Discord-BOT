@@ -56,22 +56,3 @@ sudo npm install long
 npm install moment
 npm install --save word-wrap
 ```
-
-## If you messed up your npm package, use this to clean the cache
-```
-npm cache clean -f
-```
-
-## BOT Uses these images gathered by me, in 2 albums. Links are below:
-
-* https://imgur.com/a/gCLpzLJ
-* https://imgur.com/a/mMQYaDq 
-
-## If you want to run the BOT script forever, install this:
-
-```npm install forever -g```
-
-## Usage:
-* ``forever start CookieMonstaBOT.js``
-* ``forever stopall``
-* ``forever list``
