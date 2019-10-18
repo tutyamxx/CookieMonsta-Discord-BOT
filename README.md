@@ -8,7 +8,7 @@
 
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
-* **BOT is ONLINE AGAIN!**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in *botconfig.json*).
+* **BOT is ONLINE AGAIN!**, if you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in **botconfig.json**).
 * Max servers that the BOT has been present in: ***170***
 * Thanks to my friend [CoachAprax](https://www.youtube.com/user/freeAEgraphics) for the banners and some images.
 
@@ -19,8 +19,7 @@
 * [**Discord**](https://discordapp.com/) installed.
 
 
-# Step 1 - Tools needed to be installed first in order to run the BOT properly
-
+## Step 1 - Tools needed to be installed first in order to run the BOT properly
 ## For Linux:
 
 ```
