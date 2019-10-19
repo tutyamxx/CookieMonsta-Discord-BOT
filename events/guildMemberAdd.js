@@ -4,35 +4,46 @@ const Jimp = require("jimp");
 const DefChannel = require("../functions/defaultchannel.js");
 const CustomFunctions = require("../functions/funcs.js");
 
-const szRandomHalloweenBanners = 
+// --| Image path | Font color
+const szRandomHalloweenBanners =
 [
-    "/BOTImages/Banner/halloween_01.png",
-    "/BOTImages/Banner/halloween_02.png",
-    "/BOTImages/Banner/halloween_03.png",
-    "/BOTImages/Banner/halloween_04.png",
-    "/BOTImages/Banner/halloween_05.png",
-    "/BOTImages/Banner/halloween_06.png",
-    "/BOTImages/Banner/halloween_07.png",
+    ["./BOTImages/Banner/halloween_01.png", "#ffffff"],
+    ["./BOTImages/Banner/halloween_02.png", "#ff580a"],
+    ["./BOTImages/Banner/halloween_03.png", "#ffffff"],
+    ["./BOTImages/Banner/halloween_04.png", "#ff580a"],
+    ["./BOTImages/Banner/halloween_05.png", "#ffffff"],
+    ["./BOTImages/Banner/halloween_06.png", "#ff580a"],
+    ["./BOTImages/Banner/halloween_07.png", "#000000"]
 ];
 
-const szRandomChristmasBanners = 
+// --| Image path | Font color
+const szRandomChristmasBanners =
 [
-    "/BOTImages/Banner/christmas_01.png",
-    "/BOTImages/Banner/christmas_02.png",
+    ["./BOTImages/Banner/christmas_01.png", "#3232FF"],
+    ["./BOTImages/Banner/christmas_02.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_03.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_04.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_05.png", "#82d1dd"],
+    ["./BOTImages/Banner/christmas_06.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_07.png", "#ff1a35"],
+    ["./BOTImages/Banner/christmas_08.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_09.png", "#ffffff"],
+    ["./BOTImages/Banner/christmas_10.png", "#ffffff"]
 ];
 
+// --| Image path | Font color
 const szRandomGreetBanners =
 [
-    "/BOTImages/Banner/01.png",
-    "/BOTImages/Banner/02.png",
-    "/BOTImages/Banner/03.png",
-    "/BOTImages/Banner/04.png",
-    "/BOTImages/Banner/05.png",
-    "/BOTImages/Banner/06.png",
-    "/BOTImages/Banner/07.png",
-    "/BOTImages/Banner/08.png",
-    "/BOTImages/Banner/09.png",
-    "/BOTImages/Banner/10.png"
+    ["./BOTImages/Banner/01.png", "#ffffff"],
+    ["./BOTImages/Banner/02.png", "#ffa500"],
+    ["./BOTImages/Banner/03.png", "#000000"],
+    ["./BOTImages/Banner/04.png", "#244c96"],
+    ["./BOTImages/Banner/05.png", "#ffffff"],
+    ["./BOTImages/Banner/06.png", "#1c1c39"],
+    ["./BOTImages/Banner/07.png", "#ffffff"],
+    ["./BOTImages/Banner/08.png", "#ffffff"],
+    ["./BOTImages/Banner/09.png", "#ffffff"]
+    ["./BOTImages/Banner/10.png", "#ff0000"]
 ];
 
 module.exports = async (bot, member, guild) =>
@@ -43,28 +54,31 @@ module.exports = async (bot, member, guild) =>
         let GetUserName = member.user.username.replace(/'/g, "`").trim();
 
         let szRandomBanner = "";
-        let szFontColor = "#ffffff";
-        let szStrokeColor = "none";
+        let szRandomBannerFont = "";
+        let iRandomIndex = [];
 
         if(CustomFunctions.CheckHalloween())
         {
-            szFontColor = "#ff580a";
-            szStrokeColor = "none";
-            szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
+            iRandomIndex[0] = Math.floor(Math.random() * szRandomHalloweenBanners.length);
+
+            szRandomBanner = szRandomHalloweenBanners[iRandomIndex[0]][0];
+            szRandomBannerFont = szRandomHalloweenBanners[iRandomIndex[0]][1];
         }
 
         else if(CustomFunctions.CheckChristmas())
         {
-            szFontColor = "#009150";
-            szStrokeColor = "#28AE7B";
-            szRandomBanner = szRandomChristmasBanners[Math.floor(Math.random() * szRandomChristmasBanners.length)];
+            iRandomIndex[1] = Math.floor(Math.random() * szRandomChristmasBanners.length);
+
+            szRandomBanner = szRandomChristmasBanners[iRandomIndex[1]][0];
+            szRandomBannerFont = szRandomChristmasBanners[iRandomIndex[1]][1];
         }
 
         else
         {
-            szFontColor = "#ffffff";
-            szStrokeColor = "none";
-            szRandomBanner = szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)];
+            iRandomIndex[2] = Math.floor(Math.random() * szRandomGreetBanners.length);
+
+            szRandomBanner = szRandomGreetBanners[iRandomIndex[2]][0];
+            szRandomBannerFont = szRandomGreetBanners[iRandomIndex[2]][1];
         }
 
         await Jimp.read(__basedir + szRandomBanner).then(async (image) =>
@@ -81,12 +95,10 @@ module.exports = async (bot, member, guild) =>
 
                     await gm(buffer)
                     .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 32) ? 28 : 40 )
-                    .fill(szFontColor)
-                    .stroke(szStrokeColor)
+                    .fill(szRandomBannerFont)
                     .draw(["text 264, 115 '" + GetUserName + "'"])
                     .font("./BOTFonts/Agency-FB.ttf", 42)
-                    .fill(szFontColor)
-                    .stroke(szStrokeColor)
+                    .fill(szRandomBannerFont)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])
                     .toBuffer("banner.png", async function (err, buffer2)
                     {
