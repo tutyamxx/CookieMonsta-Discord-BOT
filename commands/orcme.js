@@ -13,12 +13,12 @@ module.exports.run = async (bot, message, args) =>
 
     if(ThreeOrcNames === 3)
     {
-        OrcNameGenerated = "<:orc:535863331781869568> **" + RandomOrcName1 + " " + RandomOrcName2 + " " + RandomOrcName3 + "** <:orc:535863331781869568>";
+        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcName1 + " " + RandomOrcName2 + " " + RandomOrcName3 + "** <:orc:635178458720239617>";
     }
 
     else
     {
-        OrcNameGenerated = "<:orc:535863331781869568> **" + RandomOrcName1 + " " + RandomOrcName2 + "** <:orc:535863331781869568>";
+        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcName1 + " " + RandomOrcName2 + "** <:orc:635178458720239617>";
     }
 
     const user = message.author;
