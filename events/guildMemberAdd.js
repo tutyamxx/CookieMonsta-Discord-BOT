@@ -47,13 +47,13 @@ module.exports = async (bot, member, guild) =>
 
         if(CustomFunctions.CheckHalloween())
         {
-            szFontColor = "#FFA500";
+            szFontColor = "#ff580a";
             szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
         }
 
         else if(CustomFunctions.CheckChristmas())
         {
-            szFontColor = "#ffffff";
+            szFontColor = "#009150";
             szRandomBanner = szRandomChristmasBanners[Math.floor(Math.random() * szRandomChristmasBanners.length)];
         }
 
