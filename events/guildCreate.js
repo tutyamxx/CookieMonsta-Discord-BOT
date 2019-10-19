@@ -35,5 +35,5 @@ module.exports = async (bot, guild) =>
         }
     }
 
-    console.log("[+] Log Report [+] --> Joined a new guild: (" + guild.name + ")");
+    console.log("\x1b[31m*\x1b[0m Joined a new guild: (\x1b[33m" + guild.name + "\x1b[0m)");
 };
