@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) =>
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Meme", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-        .setColor("#" + (Math.random() * 0xFFFFFF << 0).toString(16))
+        .setColor("#66ff33")
         .setImage(szRandomMemeImage)
         .setThumbnail("https://i.imgur.com/VfYk6YT.png")
         .setDescription(szRandomMemeCaption)
