@@ -10,7 +10,7 @@ const szRandomHalloweenBanners =
     ["/BOTImages/Banner/halloween_01.png", "#ffffff"], ["/BOTImages/Banner/halloween_02.png", "#ff580a"],
     ["/BOTImages/Banner/halloween_03.png", "#ffffff"], ["/BOTImages/Banner/halloween_04.png", "#ff580a"],
     ["/BOTImages/Banner/halloween_05.png", "#ffffff"], ["/BOTImages/Banner/halloween_06.png", "#ff580a"],
-    ["/BOTImages/Banner/halloween_07.png", "#000000"]
+    ["/BOTImages/Banner/halloween_07.png", "#ffffff"]
 ];
 
 // --| Image path | Font color
