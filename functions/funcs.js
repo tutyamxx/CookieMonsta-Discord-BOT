@@ -153,7 +153,7 @@ function CheckChristmas()
     const iChristmasDate = moment("25-12", "DD-MM");
     const iDaysTillChristmas = iChristmasDate.diff(iToday, "days");
 
-    // --| If there are 12 days until halloween or actual halloween
+    // --| If there are 12 days until christmas or actual christmas
     if(iDaysTillChristmas <= 12 || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
     {
         return true;
