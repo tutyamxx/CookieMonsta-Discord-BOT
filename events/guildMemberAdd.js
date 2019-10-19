@@ -49,7 +49,7 @@ module.exports = async (bot, member, guild) =>
         if(CustomFunctions.CheckHalloween())
         {
             szFontColor = "#ff580a";
-            szStrokeColor = "#000000";
+            szStrokeColor = "none";
             szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
         }
 
