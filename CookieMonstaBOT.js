@@ -17,7 +17,7 @@ global.__basedir = __dirname;
 // --| Load our events
 fs.readdir("./events/", (err, files) =>
 {
-    console.log("\x1b[31m*\x1b[0m Trying to load all the \x1b[34mevents\x1b[0m from \x1b[32m./events/\x1b[0m folder and all the \x1b[34mcommands\x1b[0m from \x1b[32m./commands/\x1b[0m folder.\n\n");
+    console.log("\x1b[31m*\x1b[0m Trying to load all the \x1b[34mevents\x1b[0m from \x1b[32m./events/\x1b[0m folder and all the \x1b[34mcommands\x1b[0m from \x1b[32m./commands/\x1b[0m folder.\n");
 
     if(err)
     {
