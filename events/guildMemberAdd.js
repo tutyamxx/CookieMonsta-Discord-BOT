@@ -43,19 +43,23 @@ module.exports = async (bot, member, guild) =>
         let GetUserName = member.user.username.replace(/'/g, "`").trim();
 
         let szRandomBanner = "";
+        let szFontColor = "#ffffff";
 
         if(CustomFunctions.CheckHalloween())
         {
+            szFontColor = "#FFA500";
             szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
         }
 
         else if(CustomFunctions.CheckChristmas())
         {
+            szFontColor = "#ffffff";
             szRandomBanner = szRandomChristmasBanners[Math.floor(Math.random() * szRandomChristmasBanners.length)];
         }
 
         else
         {
+            szFontColor = "#ffffff";
             szRandomBanner = szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)];
         }
 
