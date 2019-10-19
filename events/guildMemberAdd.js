@@ -7,43 +7,30 @@ const CustomFunctions = require("../functions/funcs.js");
 // --| Image path | Font color
 const szRandomHalloweenBanners =
 [
-    ["/BOTImages/Banner/halloween_01.png", "#ffffff"],
-    ["/BOTImages/Banner/halloween_02.png", "#ff580a"],
-    ["/BOTImages/Banner/halloween_03.png", "#ffffff"],
-    ["/BOTImages/Banner/halloween_04.png", "#ff580a"],
-    ["/BOTImages/Banner/halloween_05.png", "#ffffff"],
-    ["/BOTImages/Banner/halloween_06.png", "#ff580a"],
+    ["/BOTImages/Banner/halloween_01.png", "#ffffff"], ["/BOTImages/Banner/halloween_02.png", "#ff580a"],
+    ["/BOTImages/Banner/halloween_03.png", "#ffffff"], ["/BOTImages/Banner/halloween_04.png", "#ff580a"],
+    ["/BOTImages/Banner/halloween_05.png", "#ffffff"], ["/BOTImages/Banner/halloween_06.png", "#ff580a"],
     ["/BOTImages/Banner/halloween_07.png", "#000000"]
 ];
 
 // --| Image path | Font color
 const szRandomChristmasBanners =
 [
-    ["/BOTImages/Banner/christmas_01.png", "#3232FF"],
-    ["/BOTImages/Banner/christmas_02.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_03.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_04.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_05.png", "#82d1dd"],
-    ["/BOTImages/Banner/christmas_06.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_07.png", "#ff1a35"],
-    ["/BOTImages/Banner/christmas_08.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_09.png", "#ffffff"],
-    ["/BOTImages/Banner/christmas_10.png", "#ffffff"]
+    ["/BOTImages/Banner/christmas_01.png", "#3232FF"], ["/BOTImages/Banner/christmas_02.png", "#ffffff"],
+    ["/BOTImages/Banner/christmas_03.png", "#ffffff"], ["/BOTImages/Banner/christmas_04.png", "#ffffff"],
+    ["/BOTImages/Banner/christmas_05.png", "#82d1dd"], ["/BOTImages/Banner/christmas_06.png", "#ffffff"],
+    ["/BOTImages/Banner/christmas_07.png", "#ff1a35"], ["/BOTImages/Banner/christmas_08.png", "#ffffff"],
+    ["/BOTImages/Banner/christmas_09.png", "#ffffff"], ["/BOTImages/Banner/christmas_10.png", "#ffffff"]
 ];
 
 // --| Image path | Font color
 const szRandomGreetBanners =
 [
-    ["/BOTImages/Banner/01.png", "#ffffff"],
-    ["/BOTImages/Banner/02.png", "#ffa500"],
-    ["/BOTImages/Banner/03.png", "#000000"],
-    ["/BOTImages/Banner/04.png", "#244c96"],
-    ["/BOTImages/Banner/05.png", "#ffffff"],
-    ["/BOTImages/Banner/06.png", "#1c1c39"],
-    ["/BOTImages/Banner/07.png", "#ffffff"],
-    ["/BOTImages/Banner/08.png", "#ffffff"],
-    ["/BOTImages/Banner/09.png", "#ffffff"]
-    ["/BOTImages/Banner/10.png", "#ff0000"]
+    ["/BOTImages/Banner/01.png", "#ffffff"], ["/BOTImages/Banner/02.png", "#ffa500"],
+    ["/BOTImages/Banner/03.png", "#000000"], ["/BOTImages/Banner/04.png", "#244c96"],
+    ["/BOTImages/Banner/05.png", "#ffffff"], ["/BOTImages/Banner/06.png", "#1c1c39"],
+    ["/BOTImages/Banner/07.png", "#ffffff"], ["/BOTImages/Banner/08.png", "#ffffff"],
+    ["/BOTImages/Banner/09.png", "#ffffff"], ["/BOTImages/Banner/10.png", "#ff0000"]
 ];
 
 module.exports = async (bot, member, guild) =>
