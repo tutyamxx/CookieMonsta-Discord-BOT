@@ -11,10 +11,7 @@ const RandomBotAvatars =
 [
     "./BOTImages/BOTAvatar/cookie1.png",
     "./BOTImages/BOTAvatar/cookie2.jpg",
-    "./BOTImages/BOTAvatar/cookie3.png",
-    "./BOTImages/BOTAvatar/cookie4.png",
-    "./BOTImages/BOTAvatar/cookie5.png",
-    "./BOTImages/BOTAvatar/cookie6.png"
+    "./BOTImages/BOTAvatar/cookie3.png"
 ];
 
 global.bUserHasGift = {};
