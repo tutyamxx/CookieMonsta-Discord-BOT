@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(!szArgs || szArgs.size < 1 || CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: you must provide a command name to reload. <:dab:414433388104253450> :no_entry:");
+        return await message.reply(" :no_entry: you must provide a command name to reload. <:FeelsDabMan:634890825230319640> :no_entry:");
     }
 
     const szCommandName = szArgs[0];
