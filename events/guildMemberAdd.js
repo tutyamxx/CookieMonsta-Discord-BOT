@@ -2,6 +2,24 @@ const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
 const DefChannel = require("../functions/defaultchannel.js");
+const CustomFunctions = require("../functions/funcs.js");
+
+const szRandomHalloweenBanners = 
+[
+    "/BOTImages/Banner/halloween_01.png",
+    "/BOTImages/Banner/halloween_02.png",
+    "/BOTImages/Banner/halloween_03.png",
+    "/BOTImages/Banner/halloween_04.png",
+    "/BOTImages/Banner/halloween_05.png",
+    "/BOTImages/Banner/halloween_06.png",
+    "/BOTImages/Banner/halloween_07.png",
+];
+
+const szRandomChristmasBanners = 
+[
+    "/BOTImages/Banner/christmas_01.png",
+    "/BOTImages/Banner/christmas_02.png",
+];
 
 const szRandomGreetBanners =
 [
@@ -14,9 +32,7 @@ const szRandomGreetBanners =
     "/BOTImages/Banner/07.png",
     "/BOTImages/Banner/08.png",
     "/BOTImages/Banner/09.png",
-    //"/BOTImages/Banner/10.png",
-    //"/BOTImages/Banner/11.png",
-    "/BOTImages/Banner/12.png"
+    "/BOTImages/Banner/10.png"
 ];
 
 module.exports = async (bot, member, guild) =>
@@ -26,7 +42,24 @@ module.exports = async (bot, member, guild) =>
         let GetUserAvatar = (member.user.avatarURL === null) ? member.user.defaultAvatarURL : member.user.avatarURL;
         let GetUserName = member.user.username.replace(/'/g, "`").trim();
 
-        await Jimp.read(__basedir + szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)]).then(async (image) =>
+        let szRandomBanner = "";
+
+        if(CustomFunctions.CheckHalloween())
+        {
+            szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
+        }
+
+        else if(CustomFunctions.CheckChristmas())
+        {
+            szRandomBanner = szRandomChristmasBanners[Math.floor(Math.random() * szRandomChristmasBanners.length)];
+        }
+
+        else
+        {
+            szRandomBanner = szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)];
+        }
+
+        await Jimp.read(__basedir + szRandomBanner).then(async (image) =>
         {
             await Jimp.read(GetUserAvatar).then(async (image2) =>
             {

@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const OrcNames =
 [
     'ach', 'adz', 'ak', 'ark', 'az', 'balg', 'bilg', 'blid', 'blig', 'blok', 'blot', 'bolg', 'bot', 'bug', 'burk', 'dokh', 'drik', 'driz', 'duf', 'flug', 'ga', 'gad', 'gag', 'gah', 'gak', 'gar', 'gat', 'gaz', 'ghag', 'ghak', 'git', 'glag', 'glak', 'glat', 'glig', 'gliz', 'glok', 'gnat', 'gog', 'grak', 'grat', 'guk', 'hig', 'irk', 'kak', 'khad', 'krig', 'lag', 'lak', 'lig', 'likk', 'loz', 'luk', 'mak', 'maz', 'miz', 'mub', 'nad', 'nag', 'naz', 'nig', 'nikk', 'nogg', 'nok', 'nukk', 'rag', 'rak', 'rat', 'rok', 'shrig', 'shuk', 'skrag', 'skug', 'slai', 'slig', 'slog', 'sna', 'snag', 'snark', 'snat', 'snig', 'snik', 'snit', 'sog', 'spik', 'stogg', 'tog', 'urf', 'vark', 'yad', 'yagg', 'yak', 'yark', 'yarp', 'yig', 'yip', 'zat', 'zib', 'zit', 'ziz','ag', 'aug', 'bad', 'bag', 'bakh', 'bash', 'baz', 'blag', 'brag', 'brog', 'bruz', 'dag', 'dakk', 'darg', 'dob', 'dog', 'drab', 'dug', 'dur', 'gash', 'ghaz', 'glakh', 'glaz', 'glob', 'glol', 'gluf', 'glur', 'gnarl', 'gnash', 'gnub', 'gob', 'gokh', 'gol', 'golk', 'gor', 'grakh', 'grash', 'grath', 'graz', 'grot', 'grub', 'grud', 'gud', 'gut', 'hag', 'hakk', 'hrat', 'hrog', 'hrug', 'khag', 'khar', 'krag', 'krud', 'lakh', 'lash', 'lob', 'lub', 'lud', 'luf', 'luk', 'molk', 'muk', 'muz', 'nar', 'ogg', 'olg', 'rag', 'rash', 'rogg', 'rorg', 'rot', 'rud', 'ruft', 'rug', 'rut', 'shad', 'shag', 'shak', 'shaz', 'shog', 'skar', 'skulg', 'slur', 'snar', 'snorl', 'snub', 'snurr', 'sod', 'stulg', 'thak', 'trog', 'ug', 'umsh', 'ung', 'uth', 'yakh', 'yash', 'yob', 'zahk', 'zog', 'argh', 'barsh', 'bog', 'burz', 'dof', 'drok', 'drub', 'drug', 'dub', 'dug', 'dul', 'dursh', 'dush', 'duz', 'faug', 'fug', 'ghakh', 'ghar', 'ghash', 'ghol', 'ghor', 'ghukk', 'ghul', 'glub', 'glud', 'glug', 'gluz', 'gom', 'grad', 'grash', 'grob', 'grogg', 'grok', 'grol', 'gru', 'gruf', 'gruk', 'grul', 'grum', 'grumf', 'grut', 'gruz', 'guhl', 'gulv', 'hai', 'hrung', 'hur', 'hurg', 'kai', 'klob', 'krod', 'kug', 'kulk', 'kur', 'lorg', 'lug', 'lukh', 'lum', 'lurz', 'lush', 'luz', 'makh', 'maug', 'molg', 'mud', 'mug', 'mul', 'murk', 'muzd', 'nakh', 'narg', 'obb', 'rolb', 'rukh', 'ruz', 'sharg', 'shruf', 'shud', 'shug', 'shur', 'shuz', 'slub', 'slud', 'slug', 'snad', 'snog', 'thrag', 'thulk', 'thurk', 'trug', 'ulg', 'ur', 'urd', 'urgh', 'urkh', 'uz', 'yug', 'yur', 'zud', 'zug', 'xug', 'grug'
@@ -128,6 +130,38 @@ function secondsToString(seconds)
     return `**${numdays}** days **${numhours}** hours **${numminutes}** minutes **${numseconds}** seconds`;
 };
 
+function CheckHalloween()
+{
+    // --| Halloween checkings
+    const iToday = moment().startOf("day");
+    const iHalloweenDate = moment("31-10", "DD-MM");
+    const iDaysTillHalloween = iHalloweenDate.diff(iToday, "days");
+
+    // --| If there are 12 days until halloween or actual halloween
+    if(iDaysTillHalloween <= 12 || iDaysTillHalloween === 1 || iDaysTillHalloween === 0)
+    {
+        return true;
+    }
+
+    return false;
+};
+
+function CheckChristmas()
+{
+    // --| Christmas checkings
+    const iToday = moment().startOf("day");
+    const iChristmasDate = moment("25-12", "DD-MM");
+    const iDaysTillChristmas = iChristmasDate.diff(iToday, "days");
+
+    // --| If there are 12 days until halloween or actual halloween
+    if(iDaysTillChristmas <= 12 || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
+    {
+        return true;
+    }
+
+    return false;
+};
+
 function capitalizeFirstLetter(string)
 {
 	return string.charAt(0).toUpperCase() + string.slice(1);
@@ -166,6 +200,8 @@ module.exports.GuildVerificationLevel = GuildVerificationLevel;
 module.exports.isEmpty = isEmpty;
 module.exports.reverseString = reverseString;
 module.exports.secondsToString = secondsToString;
+module.exports.CheckHalloween = CheckHalloween;
+module.exports.CheckChristmas = CheckChristmas;
 module.exports.capitalizeFirstLetter = capitalizeFirstLetter;
 module.exports.measureText = measureText;
 module.exports.isInt = isInt;
