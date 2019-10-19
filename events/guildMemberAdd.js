@@ -44,22 +44,26 @@ module.exports = async (bot, member, guild) =>
 
         let szRandomBanner = "";
         let szFontColor = "#ffffff";
+        let szStrokeColor = "none";
 
         if(CustomFunctions.CheckHalloween())
         {
             szFontColor = "#ff580a";
+            szStrokeColor = "#000000";
             szRandomBanner = szRandomHalloweenBanners[Math.floor(Math.random() * szRandomHalloweenBanners.length)];
         }
 
         else if(CustomFunctions.CheckChristmas())
         {
             szFontColor = "#009150";
+            szStrokeColor = "#28AE7B";
             szRandomBanner = szRandomChristmasBanners[Math.floor(Math.random() * szRandomChristmasBanners.length)];
         }
 
         else
         {
             szFontColor = "#ffffff";
+            szStrokeColor = "none";
             szRandomBanner = szRandomGreetBanners[Math.floor(Math.random() * szRandomGreetBanners.length)];
         }
 
@@ -81,6 +85,7 @@ module.exports = async (bot, member, guild) =>
                     .draw(["text 264, 115 '" + GetUserName + "'"])
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szFontColor)
+                    .stroke(szStrokeColor)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])
                     .toBuffer("banner.png", async function (err, buffer2)
                     {
