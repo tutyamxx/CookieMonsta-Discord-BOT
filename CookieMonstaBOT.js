@@ -2,21 +2,23 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const BotConfig = require("./config/botconfig.json");
 
+const szBotToken = BotConfig.DiscordBOT_Token.trim();
+
 const iDiscordClient = new Discord.Client();
 exports.iDiscordClient = iDiscordClient;
 
-global.__basedir = __dirname;
-
 iDiscordClient.commands = new Discord.Collection();
-
-const szBotToken = BotConfig.DiscordBOT_Token.trim();
 
 let UserDatabaseData;
 exports.UserDatabaseData = UserDatabaseData;
 
+global.__basedir = __dirname;
+
 // --| Load our events
 fs.readdir("./events/", (err, files) =>
 {
+    console.log("\x1b[31m*\x1b[0m Trying to load all the \x1b[34mevents\x1b[0m from \x1b[32m./events/\x1b[0m folder and all the \x1b[34mcommands\x1b[0m from \x1b[32m./commands/\x1b[0m folder.\n\n");
+
     if(err)
     {
         console.error(err);
@@ -39,38 +41,34 @@ fs.readdir("./events/", (err, files) =>
     });
 });
 
-// --| Read our custom commands
-fs.readdir("./commands/", (err, files) =>
+const szCommandFolders = ["administrator", "animals", "dev", "fun", "games", "help", "jokes", "memes", "utility"];
+
+szCommandFolders.forEach((command) =>
 {
-    if(err)
+    fs.readdir(`./commands/${command}/`, (err, files) =>
     {
-        console.error(err);
-    }
+        if(err)
+        {
+            console.error(err);
+        }
 
-    let jsFiles = files.filter(f => f.split(".").pop() === "js");
+        if(files.length > 0)
+        {
+            console.log(`\x1b[31m*\x1b[0m Loaded \x1b[33m${files.length}\x1b[0m commands from \x1b[32m./${command}/\x1b[0m folder.`);
 
-    if(jsFiles.length <= 0)
-    {
-        console.log(`\x1b[31m*\x1b[0m No commands to load! :(\x1b[0m`);
-        return;
-    }
+            // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
+            // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
+            let iCommandNumber = (files.length + 3) - 4;
+            exports.iCommandNumber = iCommandNumber;
 
-    let iStart = Date.now();
-    console.log(`\x1b[31m*\x1b[0m Loading \x1b[35m${jsFiles.length}\x1b[0m commands!`);
+            files.forEach((file) =>
+            {
+                let iProps = require(`./commands/${command}/${file}`);
 
-    // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
-    // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
-    let iCommandNumber = (jsFiles.length + 3) - 4;
-    exports.iCommandNumber = iCommandNumber;
-
-    jsFiles.forEach((f, i) =>
-    {
-        let iProps = require(`./commands/${f}`);
-
-        iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
+                iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
+            });
+        }
     });
-
-    console.log(`\x1b[31m*\x1b[0m Loaded commands in (\x1b[33m${Date.now() - iStart} ms\x1b[0m)`);
 });
 
 // --| Authenticate

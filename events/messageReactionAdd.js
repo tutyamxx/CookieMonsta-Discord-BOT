@@ -1,5 +1,5 @@
 const GetDatabaseData = require("../functions/getuserdata.js");
-const ShellGame = require("../commands/shellgame.js");
+const ShellGame = require("../commands/games/shellgame.js");
 
 module.exports = async (bot, reaction, user) =>
 {
