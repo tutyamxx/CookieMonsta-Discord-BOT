@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) =>
         .setAuthor("Cookie Monsta | Random Meme", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#" + (Math.random() * 0xFFFFFF << 0).toString(16))
         .setImage(szRandomMemeImage)
-        .setThumbnail("https://i.imgur.com/PAHa5SU.png")
+        .setThumbnail("https://i.imgur.com/VfYk6YT.png")
         .setDescription(szRandomMemeCaption)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
