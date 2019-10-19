@@ -12,6 +12,8 @@ iDiscordClient.commands = new Discord.Collection();
 let UserDatabaseData;
 exports.UserDatabaseData = UserDatabaseData;
 
+let iCommandNumber = 0;
+
 global.__basedir = __dirname;
 
 // --| Load our events
@@ -56,15 +58,14 @@ szCommandFolders.forEach((command) =>
         {
             console.log(`\x1b[31m*\x1b[0m Loaded \x1b[33m${files.length}\x1b[0m commands from \x1b[32m./${command}/\x1b[0m folder.`);
 
-            // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
-            // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
-            let iCommandNumber = (files.length + 3) - 4;
-            exports.iCommandNumber = iCommandNumber;
-
-            files.forEach((file) =>
+            files.forEach((file, count) =>
             {
-                let iProps = require(`./commands/${command}/${file}`);
+                // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
+                // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
+                iCommandNumber++;
+                exports.iCommandNumber = (iCommandNumber + 3) - 4;
 
+                let iProps = require(`./commands/${command}/${file}`);
                 iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
             });
         }
