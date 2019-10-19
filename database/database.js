@@ -11,7 +11,7 @@ function InitialiseDatabase()
     if(!DBTable['count(*)'])
     {
         sql.prepare("CREATE TABLE IF NOT EXISTS `CookiesTable` (`id` TEXT PRIMARY KEY, `user` TEXT, `guild` TEXT, `cookies` INTEGER, `points` INTEGER, `level` INTEGER);").run();
-        sql.prepare("CREATE UNIQUE INDEX `idx_CookiesTable_id` ON `CookiesTable` (id);").run();
+        sql.prepare("CREATE UNIQUE INDEX IF NOT EXISTS `idx_CookiesTable_id` ON `CookiesTable` (id);").run();
         sql.pragma("synchronous = 1");
         sql.pragma("journal_mode = wal");
     }
