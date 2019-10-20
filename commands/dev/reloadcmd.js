@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 bot.commands.delete(szCommandName);
 
                 const iProps = require(szFile);
-                bot.commands.set(szCommandName, iProps);
+                bot.commands.set(iProps.help.name.toLowerCase(), iProps);
 
                 return message.channel.send(`:recycle: ⇒ I have reloaded the **${szCommandName}** command my Lord! :ok_hand:`);
             }
