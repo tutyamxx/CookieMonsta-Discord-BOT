@@ -5,7 +5,7 @@ module.exports = async (bot, guild) =>
 {
     let cDefaultChannel = DefChannel.getDefaultChannel(guild);
 
-    if(cDefaultChannel && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+    if(cDefaultChannel && cDefaultChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     {
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setTitle("Cookie Monsta")
