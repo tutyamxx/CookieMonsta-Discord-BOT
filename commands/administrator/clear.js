@@ -2,14 +2,8 @@ const Discord = require("discord.js");
 
 const RandomColorsPurge =
 [
-    9699539,
-    4915330,
-    255,
-    65280,
-    16776960,
-    16744192,
-    16711680,
-    13189184
+    9699539, 4915330, 255, 65280,
+    16776960, 16744192, 16711680, 13189184
 ];
 
 module.exports.run = async (bot, message, args) =>
