@@ -18,11 +18,11 @@ module.exports.run = async (bot, message, args) =>
 
     await Jimp.read("./BOTImages/RIP/rip.png").then(async (image) =>
     {
-        Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(async function (font)
+        await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(async function (font)
         {
             let totalWidth = CustomFunctions.measureText(font, UsernameText);
 
-            Jimp.read(GetUserAvatar).then(async (image2) =>
+            await Jimp.read(GetUserAvatar).then(async (image2) =>
             {
                 await image2.resize(70, 70).greyscale();
                 await image.print(font, Math.floor(image.bitmap.width / 2 - totalWidth / 2), 160, UsernameText).composite(image2, (image.bitmap.width / 2) - 37, 190).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>

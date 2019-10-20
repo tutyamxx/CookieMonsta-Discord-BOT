@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
     let i2 = await Jimp.read(GetUserAvatar);
     let i3 = await Jimp.read("./BOTImages/CookieFool/fool.png");
 
-    Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async images =>
     {
         await images[0].resize(170, 150).quality(100);
         await images[1].resize(130, 110).rotate(4).quality(100);
