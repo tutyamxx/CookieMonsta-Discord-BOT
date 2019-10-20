@@ -3,9 +3,9 @@ const DefChannel = require("../functions/defaultchannel.js");
 
 module.exports = async (bot, guild) =>
 {
-    let channel = DefChannel.getDefaultChannel(guild);
+    let cDefaultChannel = DefChannel.getDefaultChannel(guild);
 
-    if(channel && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+    if(cDefaultChannel && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     {
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setTitle("Cookie Monsta")
@@ -13,7 +13,7 @@ module.exports = async (bot, guild) =>
         .setDescription("Hello ``" + guild.name + "``! I am <:cookiemonsta:634866060465537034> **Cookie Monsta** <:cookiemonsta:634866060465537034>, a fun bot built and developed by **tuty4amxx#3969**.\nThanks for adding me to your server! Here's a cookie for you :cookie: !\n\nType **!help** and I will send you a list of commands to you in a **Direct Message**. Now where did I put my cookies :cookie: ?")
         .setThumbnail(bot.user.avatarURL)
 
-        await channel.send({ embed: DiscordRichEmbed });
+        await cDefaultChannel.send({ embed: DiscordRichEmbed });
     }
 
     const DiscordRichEmbed2 = new Discord.RichEmbed()
