@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
     // --| Skip @mention, remove commas from reason argument and also trim it.
     let szReason = szArgs.slice(1).join(' ').trim();
 
-    await KickMember.kick(szReason).then(member =>
+    await KickMember.kick(szReason).then( async (member) =>
     {
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp();
 
-        message.channel.send({ embed: DiscordRichEmbed });
+        await message.channel.send({ embed: DiscordRichEmbed });
 
     }).catch(console.error);
 };
