@@ -10,7 +10,7 @@ const AvatarUpdateTime = 5			// BOT Avatar change every 5 minutes
 const RandomBotAvatars =
 [
     "./BOTImages/BOTAvatar/cookie1.png",
-    "./BOTImages/BOTAvatar/cookie2.jpg",
+    "./BOTImages/BOTAvatar/cookie2.png",
     "./BOTImages/BOTAvatar/cookie3.png"
 ];
 

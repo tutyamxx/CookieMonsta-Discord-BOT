@@ -1,3 +1,4 @@
+const fs = require("fs");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -19,13 +20,31 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(":no_entry: That command does not exist! :no_entry:");
     }
 
-    delete require.cache[require.resolve(`./${szCommandName}.js`)];
-    bot.commands.delete(szCommandName);
+    fs.readdirSync(join(__dirname, "..")).forEach(ResultFile =>
+    {
+        const szFilesPath = fs.readdirSync(join(__dirname, "..", ResultFile));
 
-    const iProps = require(`./${szCommandName}.js`);
-    bot.commands.set(szCommandName, iProps);
+        if(szFilesPath.includes(`${szCommandName}.js`))
+        {
+            const szFile = `../${ResultFile}/${szCommandName}.js`;
 
-    await message.channel.send(`:recycle: ⇒ I have reloaded the **${szCommandName}** command my Lord! :ok_hand:`);
+            try
+            {
+                delete require.cache[require.resolve(szFile)];
+                bot.commands.delete(szCommandName);
+
+                const iProps = require(szFile);
+                bot.commands.set(szCommandName, iProps);
+
+                return message.channel.send(`:recycle: ⇒ I have reloaded the **${szCommandName}** command my Lord! :ok_hand:`);
+            }
+
+            catch(err)
+            {
+                return message.channel.send(`:recycle: ⇒ Could not reload: **${szArgs[0]}** command my Lord! :triumph:`);
+            }
+        }
+    });
 };
 
 module.exports.help =
