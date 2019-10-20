@@ -185,10 +185,10 @@ module.exports = async (bot, message) =>
     {
         const szWaitMessages =
         [
-            "Oy! Stop spamming! Wait **" + iCooldownTime + "** seconds :angry:",
+            "Oy! Stop spamming! <:Bruh:635506622478942219> Wait **" + iCooldownTime + "** seconds :angry:",
             "Whoah there, you're being too spicy for me. Could you just chill? :angry:",
             "I'm eating a :cookie: at the moment, can't help you lel.",
-            "Didn't read LOL! Stop spamming! :angry:"
+            "Didn't read LOL! Stop spamming! <:Bruh:635506622478942219>"
         ];
 
         return await message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then(msg => { msg.delete(1800) }));
