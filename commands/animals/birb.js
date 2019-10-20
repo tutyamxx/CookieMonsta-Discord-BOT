@@ -20,10 +20,10 @@ module.exports.run = async (bot, message, args) =>
         .setImage(RandomBirb)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(function (message)
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
-            message.react("🦉");
-            message.react("🐦");
+            await message.react("🦉");
+            await message.react("🐦");
         });
     });
 };
