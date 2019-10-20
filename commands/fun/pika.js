@@ -5,6 +5,8 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
+    message.channel.startTyping();
+
     await getJSON("https://some-random-api.ml/pikachuimg", async function (error, response)
     {
         if(error)
@@ -18,14 +20,15 @@ module.exports.run = async (bot, message, args) =>
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Pikachu", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#ffd264")
-        .setThumbnail("https://i.imgur.com/zluuCA2.png")
+        .setThumbnail("https://i.imgur.com/5S4Nk2M.jpg")
         .setImage(PikaImageToString)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react(":pika:635524509621026850");
-        });
+
+        }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
     });
 };
 
