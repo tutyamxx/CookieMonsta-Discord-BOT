@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { join } = require("path");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
