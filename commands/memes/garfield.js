@@ -9,9 +9,9 @@ module.exports.run = async (bot, message, args) =>
     const GarFieldComics = [];
     let GarfieldImage = [];
 
-    GarFieldComics[0] = Math.floor(Math.random() * 52);
-    GarFieldComics[1] = Math.floor(Math.random() * 54);
-    GarFieldComics[2] = Math.floor(Math.random() * 52);
+    GarFieldComics[0] = Math.floor((Math.random() * 52) + 1);
+    GarFieldComics[1] = Math.floor((Math.random() * 54) + 1);
+    GarFieldComics[2] = Math.floor((Math.random() * 52) + 1);
 
     GarfieldImage[0] = "http://www.gmiller.net/misc/Garfield/MIXED/A_G_" + GarFieldComics[0] + ".png";
     GarfieldImage[1] = "http://www.gmiller.net/misc/Garfield/MIXED/B_G_" + GarFieldComics[1] + ".png";
