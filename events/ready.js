@@ -5,14 +5,7 @@ const SpamCmd = require("../events/message.js");
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
-const AvatarUpdateTime = 120			// BOT Avatar change every 2 hours
-
-const RandomBotAvatars =
-[
-    "./BOTImages/BOTAvatar/cookie1.png",
-    "./BOTImages/BOTAvatar/cookie2.png",
-    "./BOTImages/BOTAvatar/cookie3.png"
-];
+const BotAvatarPath = "./BOTImages/BOTAvatar/cookie1.png";
 
 global.bUserHasGift = {};
 global.bAlreadyOpeningGift = {};
@@ -26,15 +19,7 @@ module.exports = bot =>
 
     bot.user.setStatus("dnd");
     bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
-
-    iAvatarUpdateInterval = setInterval (function ()
-    {
-        let iRandomAvatar = RandomBotAvatars[Math.floor(Math.random() * RandomBotAvatars.length)];
-
-        bot.user.setAvatar(iRandomAvatar);
-        console.log(`\x1b[31m*\x1b[0m Automatic avatar changed to: \x1b[32m` + iRandomAvatar + `\x1b[0m`);
-
-    }, AvatarUpdateTime * 60000);
+    bot.user.setAvatar(BotAvatarPath);
 
     iStatusUpdateInterval = setInterval (function ()
     {
