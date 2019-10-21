@@ -83,7 +83,7 @@ module.exports = async (bot, member, guild) =>
                     await gm(buffer)
                     .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 32) ? 28 : 40 )
                     .fill(szRandomBannerFont)
-                    .draw(["text 264, 115 '" + member.user.tag + "'"])
+                    .draw(["text 264, 130 '" + member.user.tag + "'"])
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szRandomBannerFont)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])

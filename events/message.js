@@ -28,6 +28,11 @@ module.exports = async (bot, message) =>
         return message.channel.send(":no_entry: Sorry, I don't reply to **Direct Messages** :upside_down: :no_entry:");
     }
 
+    if(/(?:https:?:\/)?discord(?:app.com\/invite|.gg)/gi.test(message.content))
+    {
+        return await message.delete();
+    }
+
     let GuildGetID = message.guild.id;
     await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 0);
 
