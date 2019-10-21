@@ -5,7 +5,7 @@ const SpamCmd = require("../events/message.js");
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
-const AvatarUpdateTime = 5			// BOT Avatar change every 5 minutes
+const AvatarUpdateTime = 120			// BOT Avatar change every 2 hours
 
 const RandomBotAvatars =
 [
