@@ -23,8 +23,8 @@ module.exports.run = async (bot, message, args) =>
         let szDice1Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum1 + ".png";
         let szDice2Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum2 + ".png";
 
-        const RandomDegreesDice1 = Math.floor((Math.random() * 360) + 0);
-        const RandomDegreesDice2 = Math.floor((Math.random() * 360) + 0);
+        const RandomDegreesDice1 = Math.floor((Math.random() * 360) + -360);
+        const RandomDegreesDice2 = Math.floor((Math.random() * 360) + -360);
 
         let i1 = await Jimp.read("./BOTImages/RollDice/table.jpeg");
         let i2 = await Jimp.read(szDice1Image);
