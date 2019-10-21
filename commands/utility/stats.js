@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const os = require("os");
 const CustomFunctions = require("../../functions/funcs.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
-const DiscordVersion = require("../../package.json");
+const BotVersion = require("../../package.json");
 
-const szBotVersionNow = "7.0.1";
+const szBotVersionNow = BotVersion.version;
 
 module.exports.run = async (bot, message, args) =>
 {
