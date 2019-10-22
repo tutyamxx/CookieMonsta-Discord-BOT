@@ -2,5 +2,6 @@
     "NASA_API_Key":             "",
     "DiscordBOT_Token":         "",
     "DiscordBOT_Prefix":        "!",
-    "DiscordBOT_PayPal_Link":   "https://www.google.co.uk"  
+    "DiscordBOT_PayPal_Link":   "https://www.google.co.uk",
+    "Steam_API_Token":          ""
 }
