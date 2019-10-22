@@ -28,9 +28,9 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         guildList.forEach(guild =>
         {
-            let channel = GetChannelDefault.getDefaultChannel(guild);
+            let cChannel = await GetChannelDefault.getDefaultChannel(guild);
 
-            if(channel && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+            if(cChannel && cChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
             {
                 const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | Announcement Board!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setTimestamp()
                 .setFooter("This message has been sent to every guild!")
 
-                channel.send({ embed: DiscordRichEmbed });
+                await cChannel.send({ embed: DiscordRichEmbed });
             }
         });
     }

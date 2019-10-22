@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(GuildMember.user === user)
     {
-        return await message.reply(`why would you kill yourself? There are plenty of people here available to kill... :face_palm:`);
+        return await message.reply(" why would you kill yourself? There are plenty of people here available to kill... :face_palm:");
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()

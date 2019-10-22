@@ -64,17 +64,17 @@ module.exports.run = async (bot, message, szArgs) =>
         if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
         {
             // --| If role exists // role => role.name
-            ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+            ColorRoleFind = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
             if(!ColorRoleFind)
             {
                 for(x = 0; x < ColorRoles.length; x++)
                 {
-                    const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+                    const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
                     if(role && !message.member.roles.has(ColorRoleFind))
                     {
-                        message.member.removeRole(role);
+                        await message.member.removeRole(role);
                     }
                 }
 
@@ -89,12 +89,12 @@ module.exports.run = async (bot, message, szArgs) =>
                     // I assume the above roles are the default ones... Possibly
                 }).then(async () =>
                 {
-                    var FindNewColor = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+                    let FindNewColor = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
                     await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
 
-                    message.member.addRole(FindNewColor).catch(console.error);
-                    message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
+                    await message.member.addRole(FindNewColor).catch(console.error);
+                    await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
                 });
             }
 
@@ -107,18 +107,18 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 for(x = 0; x < ColorRoles.length; x++)
                 {
-                    const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+                    const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
                     if(role && !message.member.roles.has(ColorRoleFind.id))
                     {
-                        message.member.removeRole(role);
+                        await message.member.removeRole(role);
                     }
                 }
 
                 await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
 
-                message.member.addRole(ColorRoleFind).catch(console.error);
-                message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
+                await message.member.addRole(ColorRoleFind).catch(console.error);
+                await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
             }
         }
     }

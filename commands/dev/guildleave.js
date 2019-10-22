@@ -13,14 +13,14 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: argument can't be empty! :no_entry:");
     }
 
-    let GetGuild = bot.guilds.get(szArgs[0].trim());
+    let GetGuild = await bot.guilds.get(szArgs[0].trim());
 
     if(GetGuild === undefined)
     {
         return await message.reply(" Invalid guild or I have already left that guild :id:");
     }
 
-    GetGuild.leave();
+    await GetGuild.leave();
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Guild Leave Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

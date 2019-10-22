@@ -20,9 +20,9 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    const iRandomIcon = Math.floor((Math.random() * 39) + 0);
     let ArgumentText = szArgs.join(" ");
 
+    const iRandomIcon = Math.floor((Math.random() * 39) + 0);
     const RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
 
     let AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";

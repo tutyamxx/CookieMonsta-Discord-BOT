@@ -21,21 +21,21 @@ module.exports.run = async (bot, message, args) =>
     let iRandomFish = RandomFishList[Math.floor(Math.random() * RandomFishList.length)];
     let iRandomFishPrize = Math.floor((Math.random() * 60) + 1);
 
-    GetDatabaseData.CookiesRemove(message.guild.id, user.id, 20);
+    await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 20);
 
     if(iRandomFish === ":fish:"
     || iRandomFish === ":tropical_fish:"
     || iRandomFish === ":blowfish:"
     || iRandomFish === ":dolphin:")
     {
-        GetDatabaseData.CookiesUpdate(message.guild.id, user.id, iRandomFishPrize);
+        await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, iRandomFishPrize);
 
         return await message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **" + iRandomFishPrize + "** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
     }
 
     if(iRandomFish === ":whale2:")
     {
-        GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 200);
+        await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 200);
 
         return await message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **200** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
     }

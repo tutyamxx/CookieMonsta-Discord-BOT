@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setThumbnail("https://i.imgur.com/W5oKCle.jpg")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.delete().then(() => message.channel.send({ embed: DiscordRichEmbed }));
+    await message.delete().then(async () => await message.channel.send({ embed: DiscordRichEmbed }));
 };
 
 module.exports.help =
