@@ -1,5 +1,4 @@
 const fs = require("fs");
-const CustomFunctions = require("../../functions/funcs.js");
 
 const szFilePathJSON = "./devonly/list.json";
 
@@ -11,35 +10,36 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     let guildList = bot.guilds;
+    let ArrayGuild = [];
 
-    // guildList.forEach(async (guild) =>
-    // {
-    //     let GuildObj = [];
-    //     GuildObj.push(
-    //     {
-    //         "guild_id: " + guild.id
-    //         {
-    //             guild_name: guild.name, 
-    //             guild_region: CustomFunctions.GuildLocation(guild.region), 
-    //             guild_member_count: guild.memberCount, 
-    //             guild_verification_level: CustomFunctions.GuildVerificationLevel(guild.verificationLevel)
-    //         }
-    //     });
+    guildList.forEach(async (guild) =>
+    {
+        ArrayGuild.push(
+        {
+            guild_id: parseInt(guild.id), 
+            guild_icon_url: guild.iconURL, 
+            guild_splash_url: (guild.splashURL === null) ? "No Splash URL" : guild.splashURL,
+            guild_name_acronym: guild.nameAcronym, 
+            guild_name: guild.name, 
+            guild_large: (guild.large === true) ? "Large" : "Medium",
+            guild_verified: (guild.verified === true) ? "Verified" : "Not Verified",
+            guild_available: (guild.available === true) ? "Avaliable" : "Server Outage",
+            guild_ownerid: parseInt(guild.ownerID), 
+            guild_region: guild.region, 
+            guild_member_count: guild.memberCount, 
+            guild_verification_level: parseInt(guild.verificationLevel)
+        });
 
-    //     let szOutputJSON = JSON.stringify(GuildObj);
+        fs.writeFile(szFilePathJSON, JSON.stringify(ArrayGuild, null, 4), "utf8", (err) =>
+        {
+            if(err)
+            {
+                return console.log(err);
+            };
+        });
+    });
 
-    //     fs.writeFile(szFilePathJSON, szOutputJSON, "utf8", (err) =>
-    //     {
-    //         if(err)
-    //         {
-    //             return console.log(err);
-    //         };
-    //     });
-
-    //     console.log(szOutputJSON)
-    // });
-
-    await message.channel.send(":recycle: ⇒ Your wish is my command my Lord :ok_hand:! Check your stuff dev. :wink:");
+    await message.channel.send(":recycle: ⇒ Your wish is my command my Lord :ok_hand:! Check your nerdy dev stuff. :wink:");
 };
 
 module.exports.help =
