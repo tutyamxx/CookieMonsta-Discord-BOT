@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     try
     {
-        guildList.forEach(guild =>
+        guildList.forEach(async guild =>
         {
             let cChannel = await GetChannelDefault.getDefaultChannel(guild);
 
