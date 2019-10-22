@@ -61,9 +61,9 @@ szCommandFolders.forEach((command) =>
             files.forEach((file, count) =>
             {
                 // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
-                // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, reboot = -4
+                // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, guildlist and reboot = -5
                 iCommandNumber++;
-                exports.iCommandNumber = (iCommandNumber + 3) - 4;
+                exports.iCommandNumber = (iCommandNumber + 3) - 5;
 
                 let iProps = require(`./commands/${command}/${file}`);
                 iDiscordClient.commands.set(iProps.help.name.toLowerCase(), iProps);
