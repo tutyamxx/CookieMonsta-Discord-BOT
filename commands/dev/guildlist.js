@@ -9,10 +9,10 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
     }
 
-    let guildList = bot.guilds;
+    let GuildList = bot.guilds;
     let ArrayGuild = [];
 
-    guildList.forEach(async (guild) =>
+    GuildList.forEach(async (guild) =>
     {
         ArrayGuild.push(
         {
