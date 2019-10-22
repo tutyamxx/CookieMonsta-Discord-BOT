@@ -30,8 +30,6 @@ module.exports.run = async (bot, message, szArgs) =>
             return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        let LaughOrPog = "";
-        let DotaPlayerTeam = "";
         let DotaMatchWon = "";
 
         const iDotaLastMatchID = parseInt(await response[0].match_id);
@@ -52,27 +50,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         const bTeamRadiantWin = await response[0].radiant_win;
 
-        // --| Memes check
-        if(iDotaPlayerKills < iDotaPlayerDeaths)
-        {
-            LaughOrPog = "<:kekw:636318717378297908>";
-        }
-
-        else if(iDotaPlayerKills >= iDotaPlayerDeaths)
-        {
-            LaughOrPog = "<:monkaH:636318974245601293>";
-        }
-
-        // --| Team Check
-        if(iDotaPlayerSlot >= 0 && iDotaPlayerSlot <= 127)
-        {
-            DotaPlayerTeam = "Radiant";
-        }
-
-        else if(iDotaPlayerSlot >= 128 && iDotaPlayerSlot <= 255)
-        {
-            DotaPlayerTeam = "Dire";
-        }
+        const DotaPlayerTeam = CustomFunctions.Dota2_Team_Check(iDotaPlayerSlot);
 
         // --| Win Condition check - seriously OpenDota what the fuck did you actually smoke ?
         if(bTeamRadiantWin && DotaPlayerTeam === "Radiant")
@@ -80,17 +58,17 @@ module.exports.run = async (bot, message, szArgs) =>
             DotaMatchWon = "Win :trophy:";
         }
 
-        if(!bTeamRadiantWin && DotaPlayerTeam === "Radiant")
+        else if(!bTeamRadiantWin && DotaPlayerTeam === "Radiant")
         {
             DotaMatchWon = "Lost :thumbsdown:";
         }
 
-        if(bTeamRadiantWin && DotaPlayerTeam === "Dire")
+        else if(bTeamRadiantWin && DotaPlayerTeam === "Dire")
         {
             DotaMatchWon = "Lost :thumbsdown:";
         }
 
-        if(!bTeamRadiantWin && DotaPlayerTeam === "Dire")
+        else if(!bTeamRadiantWin && DotaPlayerTeam === "Dire")
         {
             DotaMatchWon = "Win :trophy:";
         }
@@ -128,10 +106,10 @@ module.exports.run = async (bot, message, szArgs) =>
                         ":performing_arts: Player Team: **" + DotaPlayerTeam + "**\n" +
                         ":alarm_clock: Match Duration: **" + CustomFunctions.format_time_fancy(iDotaMatchDuration) + "**\n\n``Player Stats:``\n" +
                         ":statue_of_liberty: Hero Played: **" + szHeroName + "**\n" + 
-                        ":bar_chart: K/D/A: ``" + iDotaPlayerKills + "``**/**``" + iDotaPlayerDeaths + "``**/**``" + iDotaPlayerAssists + "`` " + LaughOrPog + "\n\n" +
+                        ":bar_chart: K/D/A: ``" + iDotaPlayerKills + "``/``" + iDotaPlayerDeaths + "``/``" + iDotaPlayerAssists + "`` " + CustomFunctions.Check_Dank_Meme(iDotaPlayerKills, iDotaPlayerDeaths) + "\n\n" +
                         ":stars: XPM (XP Per Minute): **" + iXPPM + "**\n" +
                         ":moneybag: GPM (Gold Per Minute): **" + iGPM + "**\n" +
-                        ":anger: Last Hits: **" + iDotaPlayerLastHits + "**\n\n``Damage and Healing::``\n" +
+                        ":anger: Last Hits: **" + iDotaPlayerLastHits + "**\n\n``Damage and Healing:``\n" +
                         ":tokyo_tower: Tower Damage: **" + iDotaPlayerTowerDamage + "**\n" +
                         ":bow_and_arrow: Hero Damage: **" + iDotaPlayerHeroDamage + "**\n" +
                         ":sun_with_face: Hero Healing: **" + iDotaPlayerHeroHealing + "**";

@@ -214,6 +214,40 @@ function format_time_fancy(time)
     return ret;
 };
 
+function Check_Dank_Meme(iKills, iDeaths)
+{
+    let szMemeEmoji = "";
+
+    if(iKills < iDeaths)
+    {
+        szMemeEmoji = "<:kekw:636318717378297908>";
+    }
+
+    else if(iKills >= iDeaths)
+    {
+        szMemeEmoji = "<:monkaH:636318974245601293>";
+    }
+
+    return szMemeEmoji;
+};
+
+function Dota2_Team_Check(iPlayerSlot)
+{
+    let DotaPlayerTeam = "";
+
+    if(iPlayerSlot >= 0 && iPlayerSlot <= 127)
+    {
+        DotaPlayerTeam = "Radiant";
+    }
+
+    else if(iPlayerSlot >= 128 && iPlayerSlot <= 255)
+    {
+        DotaPlayerTeam = "Dire";
+    }
+
+    return DotaPlayerTeam;
+};
+
 module.exports.bytesToSize = bytesToSize;
 module.exports.GuildLocation = GuildLocation;
 module.exports.GuildVerificationLevel = GuildVerificationLevel;
@@ -227,3 +261,5 @@ module.exports.measureText = measureText;
 module.exports.isInt = isInt;
 module.exports.GenerateOrcName = GenerateOrcName;
 module.exports.format_time_fancy = format_time_fancy;
+module.exports.Check_Dank_Meme = Check_Dank_Meme;
+module.exports.Dota2_Team_Check = Dota2_Team_Check;
