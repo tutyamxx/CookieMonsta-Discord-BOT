@@ -248,6 +248,109 @@ function Dota2_Team_Check(iPlayerSlot)
     return DotaPlayerTeam;
 };
 
+function Dota2_GameMode_Check(iGameMode)
+{
+    let szGameModeName = "Not Listed";
+
+    switch(parseInt(iGameMode))
+    {
+        case 1:
+            szGameModeName = "All Pick";
+            break;
+        
+        case 2:
+            szGameModeName = "Captains Mode";
+            break;
+        
+        case 3:
+            szGameModeName = "Random Draft";
+            break;
+        
+        case 4:
+            szGameModeName = "Single Draft";
+            break;
+        
+        case 5:
+            szGameModeName = "All Random";
+            break;
+        
+        case 12:
+            szGameModeName = "Least Played";
+            break;
+
+        case 13:
+            szGameModeName = "Least Played";
+            break;
+
+        case 16:
+            szGameModeName = "Captains Draft";
+            break;
+        
+        case 18:
+            szGameModeName = "Ability Draft";
+            break;
+        
+        case 20:
+            szGameModeName = "All Random Deathmatch";
+            break;
+        
+        case 21:
+            szGameModeName = "1v1 Mid";
+            break;
+        
+        case 22:
+            szGameModeName = "All Pick";
+            break;
+
+        case 23:
+            szGameModeName = "Turbo";
+            break;
+        
+        case 24:
+            szGameModeName = "Mutation";
+            break;
+    }
+
+    return szGameModeName;
+};
+
+function Dota2_GameType_Check(iGameType)
+{
+    let szGameTypeName = "Unknown";
+
+    switch(parseInt(iGameType))
+    {
+        case 0:
+            szGameTypeName = "Normal";
+            break;
+        
+        case 5:
+            szGameTypeName = "Party Ranked";
+            break;
+        
+        case 6:
+            szGameTypeName = "Solo Ranked";
+            break;
+        
+        case 7:
+            szGameTypeName = "Ranked";
+            break;
+        
+        case 9:
+            szGameTypeName = "Battle Cup";
+            break;
+    }
+
+    return szGameTypeName;
+};
+
+function Dota2_CalculateWinrate(iWonMatches, iLostMatches)
+{
+    let flCalculate = (parseInt(iWonMatches) / (parseInt(iWonMatches) + parseInt(iLostMatches))) * 100;
+
+    return parseFloat(flCalculate).toFixed(2);
+};
+
 module.exports.bytesToSize = bytesToSize;
 module.exports.GuildLocation = GuildLocation;
 module.exports.GuildVerificationLevel = GuildVerificationLevel;
@@ -263,3 +366,6 @@ module.exports.GenerateOrcName = GenerateOrcName;
 module.exports.format_time_fancy = format_time_fancy;
 module.exports.Check_Dank_Meme = Check_Dank_Meme;
 module.exports.Dota2_Team_Check = Dota2_Team_Check;
+module.exports.Dota2_GameMode_Check = Dota2_GameMode_Check;
+module.exports.Dota2_GameType_Check = Dota2_GameType_Check;
+module.exports.Dota2_CalculateWinrate = Dota2_CalculateWinrate;
