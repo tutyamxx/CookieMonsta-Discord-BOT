@@ -10,6 +10,13 @@ let Player2Health = {};
 
 let CritPercent = 5;
 
+const DeathBattleBanners =
+[
+    "/BOTImages/Deathbattle/deathbattle01.png",
+    "/BOTImages/Deathbattle/deathbattle02.png",
+    "/BOTImages/Deathbattle/deathbattle03.png"
+];
+
 module.exports.run = async (bot, message, args) =>
 {
     const GuildGetID = message.guild.id;
@@ -36,6 +43,29 @@ module.exports.run = async (bot, message, args) =>
     {
         return await message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
     }
+
+    let MemberAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+    let GuildMemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+
+    let i1 = await Jimp.read(__basedir + DeathBattleBanners[Math.floor(Math.random() * DeathBattleBanners.length)]);
+    let i2 = await Jimp.read(MemberAvatar);
+    let i3 = await Jimp.read(GuildMemberAvatar);
+
+    await Promise.all([i1, i2, i3]).then(async images =>
+    {
+        await images[1].resize(306, Jimp.AUTO).quality(100);
+        await images[2].resize(306, Jimp.AUTO).quality(100);
+
+        await images[0].composite(images[1], 57, 135).composite(images[2], 688, 135).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        {
+            if (err)
+            {
+                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            }
+
+            await message.channel.send(new Discord.Attachment(buffer, "deathbattle.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        });
+    });
 
     let HitDetection = Math.floor((Math.random() * 2) + 1);
 
@@ -190,7 +220,7 @@ module.exports.run = async (bot, message, args) =>
                     await GetDatabaseData.CookiesRemove(GuildGetID, GuildMember.user.id, 10);
                 }
 
-                szThumbnail[user.id] = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+                szThumbnail[user.id] = MemberAvatar;
 
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
@@ -215,7 +245,7 @@ module.exports.run = async (bot, message, args) =>
                     await GetDatabaseData.CookiesRemove(GuildGetID, user.id, 10);
                 }
 
-                szThumbnail[user.id] = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+                szThumbnail[user.id] = GuildMemberAvatar;
 
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
