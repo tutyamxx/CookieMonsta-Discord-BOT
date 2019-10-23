@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const Jimp = require("jimp");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const GetDatabaseData = require("../../functions/getuserdata.js");
 
@@ -43,6 +44,8 @@ module.exports.run = async (bot, message, args) =>
     {
         return await message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
     }
+
+    message.channel.startTyping();
 
     let MemberAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
     let GuildMemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
