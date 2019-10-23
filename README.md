@@ -7,7 +7,6 @@
 # CookieMonsta Discord BOT
 
 * Link to the actual website: [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html)
-
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * To see what the BOT can do, go here: https://github.com/tutyamxx/CookieMonsta-BOT
 * **BOT is ONLINE AGAIN!** - you can invite the bot to your server by clicking [**INVITE BOT**](https://discordapp.com/oauth2/authorize?client_id=412067927333011470&permissions=1379400787&scope=bot)
