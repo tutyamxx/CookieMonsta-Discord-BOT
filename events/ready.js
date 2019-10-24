@@ -13,12 +13,10 @@ global.bAlreadyOpeningGift = {};
 module.exports = bot =>
 {
     console.log(ConsoleColors.rainbow(AsciiArt));
-
     console.log(`\x1b[31m*\x1b[0m Cookie Monsta [BOT] has started, with \x1b[34m${bot.users.size}\x1b[0m users, in \x1b[32m${bot.channels.size}\x1b[0m channels of \x1b[35m${bot.guilds.size}\x1b[0m guilds.`);
 
     bot.user.setStatus("dnd");
     bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
-    bot.user.setAvatar(BotAvatarPath);
 
     iStatusUpdateInterval = setInterval (function ()
     {
