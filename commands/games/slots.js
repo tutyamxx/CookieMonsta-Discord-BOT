@@ -22,12 +22,12 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(":no_entry: you are already using the **Rolling Slots** machine! :no_entry:");
     }
 
-    let SlotNumbers = new Array(3); 											// 0 - 1 - 2
+    let SlotNumbers = new Array(3);                 // 0 - 1 - 2
     let SlotColumn, b, c;
 
     for(SlotColumn = 0; SlotColumn < SlotNumbers.length; SlotColumn++)
     {
-        SlotNumbers[SlotColumn] = new Array(9);		// 0 - 1 - 2
+        SlotNumbers[SlotColumn] = new Array(9);     // 0 - 1 - 2
                                                     // 3 - 4 - 5
                                                     // 6 - 7 - 8
     }
