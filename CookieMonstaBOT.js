@@ -43,7 +43,14 @@ fs.readdir("./events/", (err, files) =>
     });
 });
 
-const szCommandFolders = ["administrator", "animals", "dev", "fun", "games", "help", "jokes", "memes", "utility", "dota2"];
+const szCommandFolders = 
+[
+    "administrator", "animals", 
+    "dev", "fun", 
+    "games", "help", 
+    "jokes", "memes", 
+    "utility", "dota2", "crypto"
+];
 
 szCommandFolders.forEach((command) =>
 {
