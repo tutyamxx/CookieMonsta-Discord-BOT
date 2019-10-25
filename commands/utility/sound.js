@@ -65,7 +65,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     bBoolAlreadyPlayingSound = true;
                     await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
 
-                    let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray);
+                    let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray, { passes: 2, bitrate: 48000, volume: 2 });
 
                     await iDispatcher.on("end", async (end) =>
                     {
