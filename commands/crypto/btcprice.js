@@ -12,14 +12,14 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async function(response)
+    await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async (response) =>
     {
         BitCoinChartsArray[0] = JSON.stringify(await response.USD["24h"]).replace(/"/g, '');
         BitCoinChartsArray[1] = JSON.stringify(await response.GBP["24h"]).replace(/"/g, '');
         BitCoinChartsArray[2] = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
         BitCoinChartsArray[3] = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
 
-    }).catch(async function(error)
+    }).catch(async (error) =>
     {
         BitCoinChartsArray[0] = "API Error";
         BitCoinChartsArray[0] = "API Error";
@@ -27,23 +27,23 @@ module.exports.run = async (bot, message, args) =>
         BitCoinChartsArray[0] = "API Error";
     });
 
-    await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async function(response1)
+    await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async (response1) =>
     {
         BTCUSD = JSON.stringify(await response1.price).replace(/"/g, '');
 
-    }).catch(async function(error)
+    }).catch(async (error) =>
     {
         BTCUSD = "API Error";
     });
 
-    await getJSON("https://blockchain.info/ticker").then(async function(response2)
+    await getJSON("https://blockchain.info/ticker").then(async (response2) =>
     {
         BitCoinChainArray[0] = JSON.stringify(await response2.USD["15m"]).replace(/"/g, '');
         BitCoinChainArray[1] = JSON.stringify(await response2.GBP["15m"]).replace(/"/g, '');
         BitCoinChainArray[2] = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
         BitCoinChainArray[3] = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
 
-    }).catch(async function(error)
+    }).catch(async (error) =>
     {
         BitCoinChainArray[0] = "API Error";
         BitCoinChainArray[1] = "API Error";

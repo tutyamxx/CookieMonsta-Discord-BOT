@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) =>
         EthereumPrice[2] = await response.USD;
         EthereumPrice[3] = await response.JPY;
 
-    }).catch(async function (error)
+    }).catch(async  (error) =>
     {
         EthereumPrice[0] = "API Error";
         EthereumPrice[1] = "API Error";
@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
         EthereumPricePaprika[2] = await response_paprika.quotes.USD.price.toFixed(2);
         EthereumPricePaprika[3] = await response_paprika.quotes.JPY.price.toFixed(2);
 
-    }).catch(async function (error)
+    }).catch(async (error) =>
     {
         EthereumPricePaprika[0] = "API Error";
         EthereumPricePaprika[1] = "API Error";
@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, args) =>
         EthereumCoinGecko[2] = await response_gecko.ethereum.usd;
         EthereumCoinGecko[3] = await response_gecko.ethereum.jpy;
 
-    }).catch(async function (error)
+    }).catch(async (error) =>
     {
         EthereumCoinGecko[0] = "API Error";
         EthereumCoinGecko[1] = "API Error";
