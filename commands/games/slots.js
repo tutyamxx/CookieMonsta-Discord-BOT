@@ -32,7 +32,6 @@ module.exports.run = async (bot, message, args) =>
                                                     // 6 - 7 - 8
     }
 
-
     const szSlotsMessage = await message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
     let szSlotsMessageEdit = ":slot_machine:  **Rolling Slots!** :slot_machine:\n\n";
 
