@@ -7,24 +7,24 @@ module.exports.run = async (bot, message, args) =>
     const user = message.author;
 
     let BTCUSD;
-    let BtcDollar, BtcGBP, BtcEuro, BtcYen;
-    let BtcChainDollar, BtcChainGBP, BtcChainEuro, BtcChainYen;
+    let BitCoinChartsArray = [];
+    let BitCoinChainArray = [];
 
     message.channel.startTyping();
 
     await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async function(response)
     {
-        BtcDollar = JSON.stringify(await response.USD["24h"]).replace(/"/g, '');
-        BtcGBP = JSON.stringify(await response.GBP["24h"]).replace(/"/g, '');
-        BtcEuro = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
-        BtcYen = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
+        BitCoinChartsArray[0] = JSON.stringify(await response.USD["24h"]).replace(/"/g, '');
+        BitCoinChartsArray[1] = JSON.stringify(await response.GBP["24h"]).replace(/"/g, '');
+        BitCoinChartsArray[2] = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
+        BitCoinChartsArray[3] = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
 
     }).catch(async function(error)
     {
-        BtcDollar = "API Error";
-        BtcGBP = "API Error";
-        BtcEuro = "API Error";
-        BtcYen = "API Error";
+        BitCoinChartsArray[0] = "API Error";
+        BitCoinChartsArray[0] = "API Error";
+        BitCoinChartsArray[0] = "API Error";
+        BitCoinChartsArray[0] = "API Error";
     });
 
     await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async function(response1)
@@ -38,24 +38,24 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://blockchain.info/ticker").then(async function(response2)
     {
-        BtcChainDollar = JSON.stringify(await response2.USD["15m"]).replace(/"/g, '');
-        BtcChainGBP = JSON.stringify(await response2.GBP["15m"]).replace(/"/g, '');
-        BtcChainEuro = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
-        BtcChainYen = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
+        BitCoinChainArray[0] = JSON.stringify(await response2.USD["15m"]).replace(/"/g, '');
+        BitCoinChainArray[1] = JSON.stringify(await response2.GBP["15m"]).replace(/"/g, '');
+        BitCoinChainArray[2] = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
+        BitCoinChainArray[3] = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
 
     }).catch(async function(error)
     {
-        BtcChainDollar = "API Error";
-        BtcChainGBP = "API Error";
-        BtcChainEuro = "API Error";
-        BtcChainYen = "API Error";
+        BitCoinChainArray[0] = "API Error";
+        BitCoinChainArray[1] = "API Error";
+        BitCoinChainArray[2] = "API Error";
+        BitCoinChainArray[3] = "API Error";
     });
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | ₿itcoin Price", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#FFA500")
-    .addField("**BitcoinCharts**", "\n\n:euro: **EUR:** *" + BtcEuro + "*\n:pound: **GBP:** *" + BtcGBP + "*\n:dollar: **USD:** *" + BtcDollar + "*\n:yen: **YEN:** *" + BtcYen + "*", true)
-    .addField("**BlockChain**", "\n\n :euro: **EUR:** *" + BtcChainEuro + "*\n:pound: **GBP:** *" + BtcChainGBP + "*\n:dollar: **USD:** *" + BtcChainDollar + "*\n:yen: **YEN:** *" + BtcChainYen + "*", true)
+    .addField("**BitcoinCharts**", "\n\n:euro: **EUR:** *" + BitCoinChartsArray[0] + "*\n:pound: **GBP:** *" + BitCoinChartsArray[1] + "*\n:dollar: **USD:** *" + BitCoinChartsArray[2] + "*\n:yen: **YEN:** *" + BitCoinChartsArray[3] + "*", true)
+    .addField("**BlockChain**", "\n\n :euro: **EUR:** *" + BitCoinChainArray[0] + "*\n:pound: **GBP:** *" + BitCoinChainArray[1] + "*\n:dollar: **USD:** *" + BitCoinChainArray[2] + "*\n:yen: **YEN:** *" + BitCoinChainArray[3] + "*", true)
     .addBlankField(true)
     .addField("**BINANCE**", "\n\n:dollar: **BTC USDT**: *" + BTCUSD.slice(0, -6) + "*", false)
     .setThumbnail("https://i.imgur.com/kBjbSX9.png")

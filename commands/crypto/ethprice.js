@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
         EthereumPricePaprika[2] = await response_paprika.quotes.USD.price.toFixed(2);
         EthereumPricePaprika[3] = await response_paprika.quotes.JPY.price.toFixed(2);
 
-    }).catch (async function (error)
+    }).catch(async function (error)
     {
         EthereumPricePaprika[0] = "API Error";
         EthereumPricePaprika[1] = "API Error";
