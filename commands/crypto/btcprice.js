@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    let BTCUSD;
+    let BitcoinBTCUSDT;
     let BitCoinChartsArray = [];
     let BitCoinChainArray = [];
 
@@ -29,11 +29,11 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async (response1) =>
     {
-        BTCUSD = JSON.stringify(await response1.price).replace(/"/g, '');
+        BitcoinBTCUSDT = parseFloat(await response1.price);
 
     }).catch(async (error) =>
     {
-        BTCUSD = "API Error";
+        BitcoinBTCUSDT = "API Error";
     });
 
     await getJSON("https://blockchain.info/ticker").then(async (response2) =>
@@ -57,7 +57,7 @@ module.exports.run = async (bot, message, args) =>
     .addField("**BitcoinCharts**", "\n\n:euro: **EUR:** *" + BitCoinChartsArray[0] + "*\n:pound: **GBP:** *" + BitCoinChartsArray[1] + "*\n:dollar: **USD:** *" + BitCoinChartsArray[2] + "*\n:yen: **YEN:** *" + BitCoinChartsArray[3] + "*", true)
     .addField("**BlockChain**", "\n\n :euro: **EUR:** *" + BitCoinChainArray[0] + "*\n:pound: **GBP:** *" + BitCoinChainArray[1] + "*\n:dollar: **USD:** *" + BitCoinChainArray[2] + "*\n:yen: **YEN:** *" + BitCoinChainArray[3] + "*", true)
     .addBlankField(true)
-    .addField("**BINANCE**", "\n\n:dollar: **BTC USDT**: *" + BTCUSD.slice(0, -6) + "*", false)
+    .addField("**BINANCE**", "\n\n:dollar: **BTC USDT**: *" + BitcoinBTCUSDT.toFixed(2) + "*", false)
     .setThumbnail("https://i.imgur.com/kBjbSX9.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
