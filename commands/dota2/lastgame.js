@@ -56,6 +56,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const iGPM = parseInt(await response[0].gold_per_min);
 
             const bTeamRadiantWin = await response[0].radiant_win;
+            const iDotaPlayerRoaming = await response[0].is_roaming;
 
             const DotaPlayerTeam = CustomFunctions.Dota2_Team_Check(iDotaPlayerSlot);
 
@@ -115,7 +116,7 @@ module.exports.run = async (bot, message, szArgs) =>
                             ":performing_arts: Player Team: **" + DotaPlayerTeam + "**\n" +
                             ":alarm_clock: Match Duration: **" + CustomFunctions.format_time_fancy(iDotaMatchDuration) + "**\n\n``Player Stats:``\n" +
                             ":statue_of_liberty: Hero Played: **" + szHeroName + "**\n" +
-                            ":map: Lane Played: **" + CustomFunctions.Dota2_ConvertToLaneRole(iDotaPlayerLanePlayed)+ " **\n" +
+                            ":map: Lane Played: **" + (iDotaPlayerRoaming === true ? "Roaming" : CustomFunctions.Dota2_ConvertToLaneRole(iDotaPlayerLanePlayed)) + " **\n" +
                             ":bar_chart: K/D/A: ``" + iDotaPlayerKills + "``/``" + iDotaPlayerDeaths + "``/``" + iDotaPlayerAssists + "`` " + CustomFunctions.Check_Dank_Meme(iDotaPlayerKills, iDotaPlayerDeaths) + "\n\n" +
                             ":stars: XPM (XP Per Minute): **" + iXPPM + "**\n" +
                             ":moneybag: GPM (Gold Per Minute): **" + iGPM + "**\n" +
