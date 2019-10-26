@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) =>
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Ξthereum Price", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-    .setColor("##3c3c3d")
+    .setColor("#3c3c3d")
     .addField("**CryptoCompare**", "\n\n:euro: **EUR:** *" + EthereumPrice[0] + "*\n:pound: **GBP:** *" + EthereumPrice[1] + "*\n:dollar: **USD:** *" + EthereumPrice[2] + "*\n:yen: **YEN:** *" + EthereumPrice[3] + "*", true)
     .addField("**🌶️Coin Paprika**", "\n\n :euro: **EUR:** *" + EthereumPricePaprika[0] + "*\n:pound: **GBP:** *" + EthereumPricePaprika[1] + "*\n:dollar: **USD:** *" + EthereumPricePaprika[2] + "*\n:yen: **YEN:** *" + EthereumPricePaprika[3] + "*", true)
     .addBlankField(true)
