@@ -64,7 +64,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | Dota2 Player Winrate", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-                .setColor("#FF0000")
+                .setColor("#257DAE")
                 .setDescription(szDescription)
                 .setThumbnail(DotaPlayerAvatar)
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
