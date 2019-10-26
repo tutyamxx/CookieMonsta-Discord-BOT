@@ -351,6 +351,32 @@ function Dota2_CalculateWinrate(iWonMatches, iLostMatches)
     return parseFloat(flCalculate).toFixed(2);
 };
 
+function Dota2_ConvertToLaneRole(iRole)
+{
+    let szLaneRole = "Unknown";
+
+    switch(iRole)
+    {
+        case 1:
+            szLaneRole = "Safe Lane";
+            break;
+        
+        case 2:
+            szLaneRole = "Mid Lane";
+            break;
+        
+        case 3:
+            szLaneRole = "Off Lane";
+            break;
+        
+        case 4:
+            szLaneRole = "Jungle";
+            break;
+    }
+
+    return szLaneRole;
+};
+
 module.exports.bytesToSize = bytesToSize;
 module.exports.GuildLocation = GuildLocation;
 module.exports.GuildVerificationLevel = GuildVerificationLevel;
@@ -369,3 +395,4 @@ module.exports.Dota2_Team_Check = Dota2_Team_Check;
 module.exports.Dota2_GameMode_Check = Dota2_GameMode_Check;
 module.exports.Dota2_GameType_Check = Dota2_GameType_Check;
 module.exports.Dota2_CalculateWinrate = Dota2_CalculateWinrate;
+module.exports.Dota2_ConvertToLaneRole = Dota2_ConvertToLaneRole;

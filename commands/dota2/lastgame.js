@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const iDotaPlayerAssists = parseInt(await response[0].assists);
             const iDotaPlayerLastHits = parseInt(await response[0].last_hits);
             const iDotaPlayerSlot = parseInt(await response[0].player_slot);
-
+            const iDotaPlayerLanePlayed = parseInt(await response[0].lane_role);
             const iDotaPlayerHeroDamage = parseInt(await response[0].hero_damage);
             const iDotaPlayerTowerDamage = parseInt(await response[0].tower_damage);
             const iDotaPlayerHeroHealing = parseInt(await response[0].hero_healing);
@@ -50,6 +50,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const iDotaGameModePlayed = parseInt(await response[0].game_mode);
             const iDotaGameTypePlayed = parseInt(await response[0].lobby_type);
             const iDotaHeroPlayed = parseInt(await response[0].hero_id);
+
             const iDotaMatchDuration = parseInt(await response[0].duration);
             const iXPPM = parseInt(await response[0].xp_per_min);
             const iGPM = parseInt(await response[0].gold_per_min);
@@ -114,6 +115,7 @@ module.exports.run = async (bot, message, szArgs) =>
                             ":performing_arts: Player Team: **" + DotaPlayerTeam + "**\n" +
                             ":alarm_clock: Match Duration: **" + CustomFunctions.format_time_fancy(iDotaMatchDuration) + "**\n\n``Player Stats:``\n" +
                             ":statue_of_liberty: Hero Played: **" + szHeroName + "**\n" +
+                            ":map: Lane Played: **" + CustomFunctions.Dota2_ConvertToLaneRole(iDotaPlayerLanePlayed)+ " **\n" +
                             ":bar_chart: K/D/A: ``" + iDotaPlayerKills + "``/``" + iDotaPlayerDeaths + "``/``" + iDotaPlayerAssists + "`` " + CustomFunctions.Check_Dank_Meme(iDotaPlayerKills, iDotaPlayerDeaths) + "\n\n" +
                             ":stars: XPM (XP Per Minute): **" + iXPPM + "**\n" +
                             ":moneybag: GPM (Gold Per Minute): **" + iGPM + "**\n" +
