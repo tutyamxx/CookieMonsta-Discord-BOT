@@ -75,7 +75,7 @@ module.exports.run = async (bot, message, szArgs) =>
     }).catch(async (error) =>
     {
         return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-    });;
+    });
 };
 
 module.exports.help =
