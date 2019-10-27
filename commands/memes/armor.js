@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(message.mentions.members.first())
     {
-        return await message.reply(" :no_entry: please don't mention people in your truth description! :no_entry:");
+        return await message.reply(" :no_entry: please don't mention people in your armor mean text! :no_entry:");
     }
 
     message.channel.startTyping();
