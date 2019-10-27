@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) =>
     {
         const user = message.author;
 
-        const fetched = await message.channel.fetchMessages({ limit: 99 });
+        const fetched = await message.channel.fetchMessages({ limit: 100 });
         await message.channel.bulkDelete(fetched).catch(error => message.reply(`:no_entry_sign: ${error} :no_entry_sign:`));
 
         const DiscordRichEmbed = new Discord.RichEmbed()
