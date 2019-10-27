@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://some-random-api.ml/img/koala", async function (error, response)
     {
-        if (error)
+        if(error)
         {
             return await message.channel.send(":no_entry: Sorry, no koalas to generate. Try again later :koala:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }

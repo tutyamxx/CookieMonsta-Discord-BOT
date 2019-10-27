@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
 
     await getJSON("https://some-random-api.ml/facts/koala", async function (error, response)
     {
-        if (error)
+        if(error)
         {
             return await message.channel.send(":no_entry: Did you know? Koalas are so protected that, they might have disappeared? :cry:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
