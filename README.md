@@ -27,6 +27,9 @@
 sudo apt-get install ffmpeg
 sudo apt-get install build-essential
 
+sudo add-apt-repository ppa:rwky/graphicsmagick
+sudo apt-get install graphicsmagick
+
 sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
 sudo apt-get install imagemagick
 ```
