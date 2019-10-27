@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) =>
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
-            await message.react(":koala:");
+            await message.react("🐨");
         });
     });
 };
