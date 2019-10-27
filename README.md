@@ -58,4 +58,5 @@ npm install moment
 npm install --save word-wrap
 npm i steamapi
 npm i steamid
+npm i leet
 ```
