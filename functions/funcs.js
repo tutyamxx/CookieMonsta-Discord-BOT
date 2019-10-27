@@ -106,7 +106,7 @@ function GuildVerificationLevel(guild)
     }
 
     return ReturnVerificationLevel;
-}
+};
 
 function isEmpty(str)
 {
@@ -377,6 +377,28 @@ function Dota2_ConvertToLaneRole(iRole)
     return szLaneRole;
 };
 
+function Guild_GetContentFilter(iFilterLevel)
+{
+    let szFilterName = "Unknown";
+
+    switch(iFilterLevel)
+    {
+        case 0:
+            szFilterName = "No Scan";
+            break;
+
+        case 1:
+            szFilterName = "Scan Non-Roles";
+            break;
+
+        case 2:
+            szFilterName = "Scan All";
+            break;
+    }
+
+    return szFilterName;
+};
+
 module.exports.bytesToSize = bytesToSize;
 module.exports.GuildLocation = GuildLocation;
 module.exports.GuildVerificationLevel = GuildVerificationLevel;
@@ -396,3 +418,4 @@ module.exports.Dota2_GameMode_Check = Dota2_GameMode_Check;
 module.exports.Dota2_GameType_Check = Dota2_GameType_Check;
 module.exports.Dota2_CalculateWinrate = Dota2_CalculateWinrate;
 module.exports.Dota2_ConvertToLaneRole = Dota2_ConvertToLaneRole;
+module.exports.Guild_GetContentFilter = Guild_GetContentFilter;
