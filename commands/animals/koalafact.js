@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) =>
         let KoalaFactToString = JSON.stringify(await response.fact).replace(/"/g, '').replace(/\\/g, "``");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Dog Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setAuthor("Cookie Monsta | Koala Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#dddad0")
         .setDescription(KoalaFactToString)
         .setThumbnail("https://i.imgur.com/Ch7vTxz.png")
