@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                return console.log(err);
+                return message.channel.send(":recycle: ⇒ I have encountered an error sir: **" + err + "**");
             };
         });
     });
