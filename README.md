@@ -50,6 +50,7 @@ npm install ffmpeg
 npm install discord.js node-opus
 npm install --save jimp
 npm i @jimp/plugin-invert
+npm i merge-img
 npm i gm
 npm i needle
 npm i get-json
