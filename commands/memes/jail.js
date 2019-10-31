@@ -33,7 +33,10 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                return;
             }
 
             await message.channel.send(new Discord.Attachment(buffer, "jail.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

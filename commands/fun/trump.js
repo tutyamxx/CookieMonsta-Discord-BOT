@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) =>
 {
     message.channel.startTyping();
 
-    await getJSON("https://api.tronalddump.io/random/quote", async function(error, response)
+    await getJSON("https://api.tronalddump.io/random/quote", async (error, response) =>
     {
         if(error)
         {

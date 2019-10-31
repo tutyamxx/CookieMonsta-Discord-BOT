@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     const LennyMessage = await message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
 
-    await getJSON("http://lenny.today/api/v1/random", async function(error, response)
+    await getJSON("http://lenny.today/api/v1/random", async (error, response) =>
     {
         if(error)
         {

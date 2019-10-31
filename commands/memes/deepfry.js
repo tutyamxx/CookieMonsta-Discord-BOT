@@ -50,14 +50,20 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                return;
             }
 
             gm(buffer).noise("impulse").sharpen(3, 3).toBuffer(szDeepFryImage, async (err, buffer2) =>
             {
                 if(err)
                 {
-                    return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                    console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                    return;
                 }
 
                 if(iRandomInvert === 1)
@@ -68,7 +74,10 @@ module.exports.run = async (bot, message, args) =>
                     {
                         if(err)
                         {
-                            return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                            console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                            return;
                         }
                         
                         await message.channel.send(new Discord.Attachment(buffer3, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

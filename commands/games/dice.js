@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("http://roll.diceapi.com/json/2d6/", async function (error, response)
+    await getJSON("http://roll.diceapi.com/json/2d6/", async (error, response) =>
     {
         if(error)
         {
@@ -41,7 +41,10 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(err)
                 {
-                    return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                    console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                    return;
                 }
 
                 await message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

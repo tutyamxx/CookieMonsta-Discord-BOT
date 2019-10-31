@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://some-random-api.ml/meme", async function (error, response)
+    await getJSON("https://some-random-api.ml/meme", async (error, response) =>
     {
         if(error)
         {

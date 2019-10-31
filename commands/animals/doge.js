@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON('http://shibe.online/api/shibes?count=1&httpsUrls=true', async function(error, response)
+    await getJSON('http://shibe.online/api/shibes?count=1&httpsUrls=true', async (error, response) =>
     {
         if(error)
         {

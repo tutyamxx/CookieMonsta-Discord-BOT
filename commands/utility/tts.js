@@ -44,7 +44,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(voiceChannel)
     {
-        await voiceChannel.join().then(async function (connection)
+        await voiceChannel.join().then(async (connection) =>
         {
             bAlreadyPlayingTTS = true;
 
@@ -63,8 +63,8 @@ module.exports.run = async (bot, message, szArgs) =>
                 
                 await voiceChannel.leave();
             });
-        })
-        .catch(err => console.log(err));
+            
+        }).catch(err => console.log(err));
 
         await message.react("🗣");
     }

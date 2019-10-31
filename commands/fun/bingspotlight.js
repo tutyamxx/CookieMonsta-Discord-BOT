@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1", async function(error, response)
+    await getJSON("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1", async (error, response) =>
     {
         if(error)
         {

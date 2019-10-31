@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         let SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async function (error, response_player)
+        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async (error, response_player) =>
         {
             if(error)
             {
@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const DotaPlayerAvatar = await response_player.profile.avatarmedium;
             const DotaPlayerSteamProfile = await response_player.profile.profileurl;
 
-            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl", async function (error, response)
+            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl", async (error, response) =>
             {
                 if(error)
                 {
@@ -72,6 +72,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             });
         });
+        
     }).catch(async (error) =>
     {
         return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

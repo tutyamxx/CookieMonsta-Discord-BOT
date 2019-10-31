@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://some-random-api.ml/dogfact", async function(error, response)
+    await getJSON("https://some-random-api.ml/dogfact", async (error, response) =>
     {
         if(error)
         {

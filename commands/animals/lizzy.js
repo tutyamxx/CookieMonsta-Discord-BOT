@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://nekos.life/api/lizard", async function(error, response)
+    await getJSON("https://nekos.life/api/lizard", async (error, response) =>
     {
         if(error)
         {

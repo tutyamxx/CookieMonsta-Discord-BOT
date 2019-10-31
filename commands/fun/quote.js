@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://quote-garden.herokuapp.com/quotes/random", async function (error, response)
+    await getJSON("https://quote-garden.herokuapp.com/quotes/random", async (error, response) =>
     {
         if(error)
         {

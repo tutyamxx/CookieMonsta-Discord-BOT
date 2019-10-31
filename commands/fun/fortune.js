@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("http://www.yerkee.com/api/fortune/wisdom", async function(error, response)
+    await getJSON("http://www.yerkee.com/api/fortune/wisdom", async (error, response) =>
     {
         if(error)
         {

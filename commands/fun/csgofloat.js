@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ");
 
-    await getJSON(InspectSkinFormatURL, async function(error, response)
+    await getJSON(InspectSkinFormatURL, async (error, response) =>
     {
         if(error)
         {

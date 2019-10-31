@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("http://api.open-notify.org/astros.json", async function(error, response)
+    await getJSON("http://api.open-notify.org/astros.json", async (error, response) =>
     {
         if(error)
         {

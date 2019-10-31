@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://yugiohprices.com/api/card_data/" + CardName, async function(error, response)
+    await getJSON("https://yugiohprices.com/api/card_data/" + CardName, async (error, response) =>
     {
         if(error)
         {

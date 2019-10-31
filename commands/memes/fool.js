@@ -32,7 +32,10 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+
+                return;
             }
 
             await message.channel.send(new Discord.Attachment(buffer, "fool.jpeg")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

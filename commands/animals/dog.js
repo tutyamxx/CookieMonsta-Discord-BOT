@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://dog.ceo/api/breeds/image/random", async function(error, response)
+    await getJSON("https://dog.ceo/api/breeds/image/random", async (error, response) =>
     {
         if(error)
         {

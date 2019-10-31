@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("http://aws.random.cat/meow", async function(error, response)
+    await getJSON("http://aws.random.cat/meow", async (error, response) =>
     {
         if(error)
         {

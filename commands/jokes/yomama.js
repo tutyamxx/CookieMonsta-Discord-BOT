@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await Needle.get("https://api.apithis.net/yomama.php", async function(error, response)
+    await Needle.get("https://api.apithis.net/yomama.php", async (error, response) =>
     {
         if(!error && response.statusCode == 200)
         {

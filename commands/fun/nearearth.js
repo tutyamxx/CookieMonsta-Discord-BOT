@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey, async function(error, response)
+    await getJSON("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey, async (error, response) =>
     {
         if(error)
         {

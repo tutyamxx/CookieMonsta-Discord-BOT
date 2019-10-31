@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(IgnoreCase.equals(ZodiacSigns[i][0], szArgs[0]))
         {
-            await getJSON("http://horoscope-api.herokuapp.com/horoscope/today/" + ZodiacSigns[i][0], async function(error, response)
+            await getJSON("http://horoscope-api.herokuapp.com/horoscope/today/" + ZodiacSigns[i][0], async (error, response) =>
             {
                 if(error)
                 {

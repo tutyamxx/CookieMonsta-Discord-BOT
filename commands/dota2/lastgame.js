@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         let SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches", async function (error, response)
+        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches", async (error, response) =>
         {
             if(error)
             {
@@ -81,7 +81,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 DotaMatchWon = "Win :trophy:";
             }
 
-            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async function (error, response_player)
+            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async (error, response_player) =>
             {
                 if(error)
                 {
@@ -90,7 +90,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 let szHeroName = "Unknown";
 
-                await getJSON("https://api.opendota.com/api/heroes", async function (error, response_hero)
+                await getJSON("https://api.opendota.com/api/heroes", async (error, response_hero) =>
                 {
                     if(error)
                     {

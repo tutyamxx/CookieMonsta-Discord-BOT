@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
 
     let NasaMessageEdit = await message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 
-    await getJSON("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey, async function(error, response)
+    await getJSON("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey, async (error, response) =>
     {
         if(error)
         {

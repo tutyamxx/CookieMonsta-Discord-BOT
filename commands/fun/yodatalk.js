@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let ArgumentText = szArgs.join(" ");
 
-    await getJSON("http://yoda-api.appspot.com/api/v1/yodish?text=" + encodeURI(ArgumentText), async function(error, response)
+    await getJSON("http://yoda-api.appspot.com/api/v1/yodish?text=" + encodeURI(ArgumentText), async (error, response) =>
     {
         if(error)
         {

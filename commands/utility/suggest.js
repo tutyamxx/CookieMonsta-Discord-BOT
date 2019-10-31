@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, szArgs) =>
     || RandomCommand.help.name === "sendnews"
     || RandomCommand.help.name === "reboot"
     || RandomCommand.help.name === "guildleave"
+    || RandomCommand.help.name === "guildlist"
     || RandomCommand.help.name === "clear")
     {
         RandomCommand = bot.commands.random();

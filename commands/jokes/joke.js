@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
 
     message.channel.startTyping();
 
-    await getJSON("https://api.icndb.com/jokes/random", async function(error, response)
+    await getJSON("https://api.icndb.com/jokes/random", async (error, response) =>
     {
         if(error)
         {

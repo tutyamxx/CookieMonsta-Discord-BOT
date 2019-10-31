@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(":no_entry: does that look like a question to you :question:  :no_entry:");
     }
 
-    await getJSON("https://yesno.wtf/api/", async function(error, response)
+    await getJSON("https://yesno.wtf/api/", async (error, response) =>
     {
         if(error)
         {

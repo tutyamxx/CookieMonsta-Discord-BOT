@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) =>
     const iRandomComic = Math.floor((Math.random() * 1958) + 1);
     let user = message.author;
 
-    await getJSON("https://xkcd.com/" + iRandomComic + "/info.0.json", async function(error, response)
+    await getJSON("https://xkcd.com/" + iRandomComic + "/info.0.json", async (error, response) =>
     {
         if(error)
         {
