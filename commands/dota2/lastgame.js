@@ -43,9 +43,9 @@ module.exports.run = async (bot, message, szArgs) =>
             const iDotaPlayerLastHits = parseInt(await response[0].last_hits);
             const iDotaPlayerSlot = parseInt(await response[0].player_slot);
             const iDotaPlayerLanePlayed = parseInt(await response[0].lane_role);
-            const iDotaPlayerHeroDamage = parseInt(await response[0].hero_damage);
-            const iDotaPlayerTowerDamage = parseInt(await response[0].tower_damage);
-            const iDotaPlayerHeroHealing = parseInt(await response[0].hero_healing);
+            const iDotaPlayerHeroDamage = (await response[0].hero_damage === null ? "API Error" : parseInt(await response[0].hero_damage));
+            const iDotaPlayerTowerDamage = (await response[0].tower_damage === null ? "API Error" : parseInt(await response[0].tower_damage));
+            const iDotaPlayerHeroHealing = (await response[0].hero_healing === null ? "API Error" : parseInt(await response[0].hero_healing));
 
             const iDotaGameModePlayed = parseInt(await response[0].game_mode);
             const iDotaGameTypePlayed = parseInt(await response[0].lobby_type);
@@ -56,7 +56,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const iGPM = parseInt(await response[0].gold_per_min);
 
             const bTeamRadiantWin = await response[0].radiant_win;
-            const iDotaPlayerRoaming = await response[0].is_roaming;
+            const iDotaPlayerRoaming = (await response[0].is_roaming === null ? "API Error" : await response[0].is_roaming);
 
             const DotaPlayerTeam = CustomFunctions.Dota2_Team_Check(iDotaPlayerSlot);
 

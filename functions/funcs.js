@@ -353,7 +353,7 @@ function Dota2_CalculateWinrate(iWonMatches, iLostMatches)
 
 function Dota2_ConvertToLaneRole(iRole)
 {
-    let szLaneRole = "Unknown";
+    let szLaneRole = "API Error";
 
     switch(iRole)
     {
