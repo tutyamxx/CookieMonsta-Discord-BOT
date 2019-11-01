@@ -12,6 +12,7 @@ iDiscordClient.commands = new Discord.Collection();
 let UserDatabaseData;
 exports.UserDatabaseData = UserDatabaseData;
 
+let iCommandNumber = 0;
 let iCountCommandsUsed = 0;
 global.iCountCommandsUsed = iCountCommandsUsed;
 
