@@ -171,6 +171,7 @@ module.exports = async (bot, message) =>
             }
 
             await message.channel.send(user + " here is your :cat:", new Discord.Attachment(buffer, szCatFileName));
+            iCountCommandsUsed++;
         });
     }
 
@@ -204,6 +205,7 @@ module.exports = async (bot, message) =>
     if(szCmd)
     {
         szCmd.run(bot, message, szArgs);
+        iCountCommandsUsed++;
     }
 
     if(!message.member.hasPermission("ADMINISTRATOR"))
