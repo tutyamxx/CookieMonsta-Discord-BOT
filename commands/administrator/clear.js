@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) =>
         
         await message.channel.bulkDelete(ArrayFetchedMessages).catch(async (error) =>
         {
-            await message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
+            return await message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
         });
 
         const DiscordRichEmbed = new Discord.RichEmbed()
