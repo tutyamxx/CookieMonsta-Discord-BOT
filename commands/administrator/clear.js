@@ -16,9 +16,12 @@ module.exports.run = async (bot, message, args) =>
     await message.delete().then(async () =>
     {
         const user = message.author;
-
-        const fetched = await message.channel.fetchMessages({ limit: 100 });
-        await message.channel.bulkDelete(fetched).catch(error => message.reply(`:no_entry_sign: ${error} :no_entry_sign:`));
+        const ArrayFetchedMessages = await message.channel.fetchMessages({ before: message.id, limit: 100 });
+        
+        await message.channel.bulkDelete(ArrayFetchedMessages).catch(async (error) =>
+        {
+            await message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
+        });
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setColor(RandomColorsPurge[Math.floor(Math.random() * RandomColorsPurge.length)])
@@ -28,7 +31,7 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Char Purged by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed });
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) => await msg.delete(5000).catch(e => false)).catch(e => false);
     });
 };
 
