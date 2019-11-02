@@ -138,7 +138,8 @@ function CheckHalloween()
     const iDaysTillHalloween = iHalloweenDate.diff(iToday, "days");
 
     // --| If there are 12 days until halloween or actual halloween
-    if(iDaysTillHalloween <= 12 || iDaysTillHalloween === 1 || iDaysTillHalloween === 0)
+    // --| 5 days left till Halloween | Halloween is tomorrow | It's Halloween
+    if(iDaysTillHalloween >= 5 || iDaysTillHalloween === 1 || iDaysTillHalloween === 0)
     {
         return true;
     }
@@ -154,7 +155,8 @@ function CheckChristmas()
     const iDaysTillChristmas = iChristmasDate.diff(iToday, "days");
 
     // --| If there are 12 days until christmas or actual christmas
-    if(iDaysTillChristmas <= 12 || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
+    // --| 10 days left till Christmas | Christmas is tomorrow | It's Christmas!
+    if(iDaysTillChristmas >= 10 || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
     {
         return true;
     }
