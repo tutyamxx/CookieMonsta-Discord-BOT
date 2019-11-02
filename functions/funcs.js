@@ -137,14 +137,23 @@ function CheckHalloween()
     const iHalloweenDate = moment("31-10", "DD-MM");
     const iDaysTillHalloween = iHalloweenDate.diff(iToday, "days");
 
-    // --| If there are 12 days until halloween or actual halloween
+    // --| If there are 5 days until halloween or actual halloween
     // --| 5 days left till Halloween | Halloween is tomorrow | It's Halloween
-    if(iDaysTillHalloween >= 5 || iDaysTillHalloween === 1 || iDaysTillHalloween === 0)
+    if(iDaysTillHalloween === 5 
+    || iDaysTillHalloween === 4
+    || iDaysTillHalloween === 3
+    || iDaysTillHalloween === 2
+    || iDaysTillHalloween === 1 
+    || iDaysTillHalloween === 0)
     {
         return true;
     }
 
-    return false;
+    // --| Halloween passed
+    else if(iDaysTillHalloween < 0)
+    {
+        return false;
+    }
 };
 
 function CheckChristmas()
@@ -154,14 +163,22 @@ function CheckChristmas()
     const iChristmasDate = moment("25-12", "DD-MM");
     const iDaysTillChristmas = iChristmasDate.diff(iToday, "days");
 
-    // --| If there are 12 days until christmas or actual christmas
-    // --| 10 days left till Christmas | Christmas is tomorrow | It's Christmas!
-    if(iDaysTillChristmas >= 10 || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
+    // --| If there are 5 days until christmas or actual christmas
+    // --| 5 days left till Christmas | Christmas is tomorrow | It's Christmas!
+    if(iDaysTillChristmas === 5 
+    || iDaysTillChristmas === 4
+    || iDaysTillChristmas === 3
+    || iDaysTillChristmas === 2 
+    || iDaysTillChristmas === 1 
+    || iDaysTillChristmas === 0)
     {
         return true;
     }
 
-    return false;
+    else if(iDaysTillChristmas < 0)
+    {
+        return false;
+    }
 };
 
 function capitalizeFirstLetter(string)
