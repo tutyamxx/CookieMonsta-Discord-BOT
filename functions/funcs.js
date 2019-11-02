@@ -174,6 +174,7 @@ function CheckChristmas()
         return true;
     }
 
+    // --| Christmas passed
     else if(iDaysTillChristmas < 0)
     {
         return false;
