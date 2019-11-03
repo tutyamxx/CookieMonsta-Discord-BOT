@@ -62,5 +62,6 @@
     ["Hoesmad",     "./BOTSounds/hoes_mad.opus"],
     ["Hello",       "./BOTSounds/hellomotherfucker.opus"],
     ["Sadviolin",   "./BOTSounds/sadviolin.opus"],
-    ["Ricardo",     "./BOTSounds/ricardo_gotthat.opus"]
+    ["Ricardo",     "./BOTSounds/ricardo_gotthat.opus"],
+    ["KEKW",        "./BOTSounds/kekw.opus"]
 ]
