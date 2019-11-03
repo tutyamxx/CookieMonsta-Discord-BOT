@@ -57,5 +57,10 @@
     ["JohnCena",    "./BOTSounds/johncena.opus"],
     ["FastAsFuck",  "./BOTSounds/fastasfuck.opus"],
     ["Paduchi",     "./BOTSounds/paduchi.opus"],
-    ["Bruh",        "./BOTSounds/bruh.opus"]
+    ["Bruh",        "./BOTSounds/bruh.opus"],
+    ["TheyAskYou",  "./BOTSounds/they_ask_you.opus"],
+    ["Hoesmad",     "./BOTSounds/hoes_mad.opus"],
+    ["Hello",       "./BOTSounds/hellomotherfucker.opus"],
+    ["Sadviolin",   "./BOTSounds/sadviolin.opus"],
+    ["Ricardo",     "./BOTSounds/ricardo_gotthat.opus"]
 ]

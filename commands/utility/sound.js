@@ -16,16 +16,16 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: ey, invalid parameter entered. Type **!sound** ``list`` to list all available sounds to play :mute:  :no_entry:" );
     }
 
-    let SoundList = "";
+    let SoundList = [];
 
     if(szArgs[0] === "list")
     {
         for(let x = 0; x < SoundEffectsMp3.length; x++)
         {
-            SoundList += "***" + SoundEffectsMp3[x][0] + "***, ";
+            SoundList.push(SoundEffectsMp3[x][0]);
         }
 
-        return await message.reply("available sounds :musical_note: are :arrow_down:  " + SoundList);
+        return await message.reply("available sounds :musical_note: are :arrow_down:  **" + SoundList.join("**, **") + "**");
     }
 
     if(CookieMonsta.UserDatabaseData.cookies < 300)

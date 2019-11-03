@@ -37,16 +37,16 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: it seems your color parameter is empty or invalid! Try entering a color or type **!color** ``list``. :no_entry:" );
     }
 
-    let ColorList = "";
+    let ColorList = [];
 
     if(szArgs[0] === "list")
     {
         for(let i = 0; i < ColorRoles.length; i++)
         {
-            ColorList += "***" + ColorRoles[i][0] + "***, ";
+            ColorList.push(ColorRoles[i][0]);
         }
 
-        return await message.reply("available colors :art: are :arrow_right: " + ColorList);
+        return await message.reply("available colors :art: are :arrow_right: **" + ColorList.join("**, **") + "**");
     }
 
     if(CookieMonsta.UserDatabaseData.cookies < 150)
