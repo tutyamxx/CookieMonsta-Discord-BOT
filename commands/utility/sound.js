@@ -88,7 +88,7 @@ module.exports.run = async (bot, message, szArgs) =>
                         await UserVoiceChannel.leave();
                     });
 
-                }).catch(err => console.log("Caught error opn voice channel join :" + err.message));
+                }).catch(err => console.log("\x1b[31m*\x1b[0m Caught error on voice channel join: \x1b[31m" + err.message + "\x1b[0m"));
 
                 await message.react("🔊");
             }
