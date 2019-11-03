@@ -1,27 +1,41 @@
 const Discord = require("discord.js");
 const Jimp = require("jimp");
+const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
-    message.channel.startTyping();
-    
-    let BillURL = "https://belikebill.ga/billgen-API.php?default=1&name=" + message.author.username.toString() + "&sex=m" + Math.floor(Math.random() * 10000) + 1 + "&.jpg";
-
-    await Jimp.read(encodeURI(BillURL)).then(async (image) =>
+    if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        image.getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!belike** ``<M or F> `` :no_entry:");
+    }
+
+    if(szArgs[0].toLowerCase() === "m" || szArgs[0].toLowerCase() === "f")
+    {
+        message.channel.startTyping();
+        
+        let BillURL = "https://belikebill.ga/billgen-API.php?default=1&name=" + message.author.username.toString() + "&sex=" + szArgs[0].toLowerCase();
+
+        await Jimp.read(encodeURI(BillURL)).then(async (image) =>
         {
-            if(err)
+            image.getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
-                console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                if(err)
+                {
+                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
+                    console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
 
-                return;
-            }
+                    return;
+                }
 
-            await message.channel.send(new Discord.Attachment(buffer, "belikebill.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.send(new Discord.Attachment(buffer, "belikebill.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            });
         });
-    });
+    }
+
+    else
+    {
+        return await message.reply(" :no_entry: Invalid gender specified :facepalm: ! Type **!belike** ``<M or F> `` (M = male / F = female)  :no_entry:");
+    }
 };
 
 module.exports.help =
