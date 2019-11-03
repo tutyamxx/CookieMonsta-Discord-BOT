@@ -66,7 +66,8 @@ module.exports.run = async (bot, message, szArgs) =>
                     bBoolAlreadyPlayingSound = true;
                     await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
 
-                    const iDispatcher = await connection.playStream(fs.createReadStream(CatchSoundFromArray));
+                    const SoundFileToPlay = fs.createReadStream(CatchSoundFromArray);
+                    const iDispatcher = await connection.playStream(SoundFileToPlay, { volume: 2, passes: 1, bitrate: 48000 });
                    
                     await iDispatcher.on("end", async (end) =>
                     {
