@@ -47,6 +47,7 @@ sudo npm install -g node-gyp@5.0.3
 npm install --save better-sqlite3
 npm install ffmpeg
 npm i ffmpeg-static
+npm install ffmpeg-binaries
 
 npm install discord.js node-opus
 npm install bufferutil
