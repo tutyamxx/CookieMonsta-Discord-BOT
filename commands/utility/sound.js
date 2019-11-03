@@ -1,4 +1,6 @@
 const IgnoreCase = require("ignore-case");
+const fs = require("fs");
+const { join } = require("path");
 const GetDatabaseData = require("../../functions/getuserdata.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
@@ -65,8 +67,8 @@ module.exports.run = async (bot, message, szArgs) =>
                     bBoolAlreadyPlayingSound = true;
                     await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
 
-                    let iDispatcher = await connection.playArbitraryInput(CatchSoundFromArray, { passes: 2, bitrate: 48000, volume: 2 });
-
+                    const iDispatcher = await connection.playStream(fs.createReadStream(CatchSoundFromArray));
+                   
                     await iDispatcher.on("end", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
@@ -78,7 +80,16 @@ module.exports.run = async (bot, message, szArgs) =>
                         bBoolAlreadyPlayingSound = false;
                         await UserVoiceChannel.leave();
                     });
-                }).catch(err => console.log(err));
+
+                    await iDispatcher.on("finish", async () =>
+                    {
+                        bBoolAlreadyPlayingSound = false;
+
+                        await iDispatcher.destroy();
+                        await UserVoiceChannel.leave();
+                    });
+
+                }).catch(err => console.log("Caught error opn voice channel join :" + err.message));
 
                 await message.react("🔊");
             }

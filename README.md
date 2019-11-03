@@ -46,8 +46,12 @@ brew upgrade graphicsmagick
 sudo npm install -g node-gyp@5.0.3
 npm install --save better-sqlite3
 npm install ffmpeg
+npm i ffmpeg-static
 
 npm install discord.js node-opus
+npm install bufferutil
+npm install hammerandchisel/erlpack
+npm install libsodium-wrappers
 npm install --save jimp
 npm i @jimp/plugin-invert
 npm i merge-img
