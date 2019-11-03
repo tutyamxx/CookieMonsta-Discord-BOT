@@ -16,6 +16,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
+    if(message.author.id !== "266677298051153920")
+    {
+        return await message.reply(" :no_entry_sign: nah, I can't kick my own Dev <:Bruh:635506622478942219>  :no_entry_sign:");
+    }
+
     if(KickMember.user === user)
     {
         return message.reply(" :no_entry: but...... why ( ͝° ͜ʖ͡°) ? :face_palm:  :no_entry:");
