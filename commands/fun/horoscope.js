@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: missing argument! Type **!horoscope** ``Scorpio`` for example. :no_entry:");
+        return await message.reply(" :no_entry: missing argument! Type **!horoscope** ``" + ZodiacSigns[Math.floor(Math.random() * ZodiacSigns.length)][0] + "`` for example. :no_entry:");
     }
 
     let i;
