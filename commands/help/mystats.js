@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, args) =>
                         .font("./BOTFonts/Agency-FB.ttf", (iCookiesAmount.length >= 21) ? 18 : 20)
                         .fill(StatsCollection[i][3].toString())
                         .draw(["text 182, 104 '"  + iCookiesAmount + "'"])
-                        .toBuffer("stats.png", async function (err, buffer2)
+                        .toBuffer("stats.png", async (err, buffer2) =>
                         {
                             if(err)
                             {
