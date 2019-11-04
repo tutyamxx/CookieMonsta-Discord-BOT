@@ -3,22 +3,23 @@ const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
 {
-    let RandomOrcName1 = CustomFunctions.GenerateOrcName();
-    let RandomOrcName2 = CustomFunctions.GenerateOrcName();
-    let RandomOrcName3 = CustomFunctions.GenerateOrcName();
+    let OrcNameGenerated = "";
+    let RandomOrcNameArray = [];
 
-    let ThreeOrcNames = Math.floor(( Math.random() * 3 ) + 1);
+    RandomOrcNameArray[0] = CustomFunctions.GenerateOrcName();
+    RandomOrcNameArray[1] = CustomFunctions.GenerateOrcName();
+    RandomOrcNameArray[2] = CustomFunctions.GenerateOrcName();
 
-    let OrcNameGenerated;
-
-    if(ThreeOrcNames === 3)
+    const ChanceToHave3Names = Math.floor((Math.random() * 3) + 1);
+    
+    if(ChanceToHave3Names === 3)
     {
-        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcName1 + " " + RandomOrcName2 + " " + RandomOrcName3 + "** <:orc:635178458720239617>";
+        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcNameArray[0] + " " + RandomOrcNameArray[1] + " " + RandomOrcNameArray[2] + "** <:orc:635178458720239617>";
     }
 
     else
     {
-        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcName1 + " " + RandomOrcName2 + "** <:orc:635178458720239617>";
+        OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcNameArray[0] + " " + RandomOrcNameArray[1] + "** <:orc:635178458720239617>";
     }
 
     const user = message.author;
