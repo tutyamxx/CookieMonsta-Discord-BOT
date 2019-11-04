@@ -59,14 +59,14 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[0] === "list")
     {
-        let ZodiacSignsList = "";
+        let ZodiacSignsList = [];
 
         for(i = 0; i < ZodiacSigns.length; i++)
         {
-            ZodiacSignsList += ZodiacSigns[i][0] + ", ";
+            ZodiacSignsList.push(ZodiacSigns[i][0]);
         }
 
-        return await message.reply(" here is the list of zodiac signs :arrow_right: " + "***" + ZodiacSignsList + "***");
+        return await message.reply(" here is the list of zodiac signs :arrow_right: **" + ZodiacSignsList.join("**, **") + "**");
     }
 
     else
