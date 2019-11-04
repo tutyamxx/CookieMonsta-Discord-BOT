@@ -16,6 +16,8 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: it seems your number parameter is not a valid number! Try entering a valid number. :no_entry:" );
     }
 
+    message.channel.startTyping();
+
     await getJSON("http://numbersapi.com/" + szArgs[0].trim() + "?json", async (error, data) =>
     {
         if(error)
@@ -33,7 +35,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setThumbnail("https://i.imgur.com/L4RORNr.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed });
+        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 
