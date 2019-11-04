@@ -24,6 +24,7 @@ module.exports.run = async (bot, message, args) =>
         .setColor("#808080")
         .setDescription(ComicDescription)
         .setImage(ComicImageURL)
+        .setThumbnail("https://i.imgur.com/4uj0Djx.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
