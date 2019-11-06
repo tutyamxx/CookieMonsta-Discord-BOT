@@ -43,7 +43,7 @@ module.exports.run = async (bot, message, args) =>
     const iRandomBanner = Math.floor(Math.random() * StatsCollection.length);
 
     let i1 = await Jimp.read(GetUserAvatar);
-    let i2 = await Jimp.read("./BOTImages/UserStats/" + StatsCollection[iRandomBanner][1].toString());
+    let i2 = await Jimp.read("./BOTImages/UserStats/" + StatsCollection[iRandomBanner][0].toString());
 
     await Promise.all([i1, i2]).then(async (images) =>
     {
@@ -65,17 +65,17 @@ module.exports.run = async (bot, message, args) =>
             .fill("rgba(0, 0, 0, 0.5)")
             .drawRectangle(130, 13, 309, 40, 2, 2)
             .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 18) ? 14 : 29)
-            .fill(StatsCollection[iRandomBanner][2].toString())
+            .fill(StatsCollection[iRandomBanner][1].toString())
             .draw(["text 134, 36 '" + GetUserName + "'"])
             .fill("rgba(0, 0, 0, 0.5)")
             .drawRectangle(130, 43, 330, 64, 2, 2)
             .font("./BOTFonts/Agency-FB.ttf", (szUserStats.length >= 30) ? 12 : 20)
-            .fill(StatsCollection[iRandomBanner][3].toString())
+            .fill(StatsCollection[iRandomBanner][2].toString())
             .draw(["text 134, 61 '" + szUserStats + "'"])
             .fill("rgba(0, 0, 0, 0.5)")
             .drawRectangle(179, 86, 330, 104, 2, 2)
             .font("./BOTFonts/Agency-FB.ttf", (iCookiesAmount.length >= 20) ? 14 : 20)
-            .fill(StatsCollection[iRandomBanner][3].toString())
+            .fill(StatsCollection[iRandomBanner][2].toString())
             .draw(["text 182, 104 '" + iCookiesAmount + "'"])
             .toBuffer("stats.png", async (err, buffer2) =>
             {
