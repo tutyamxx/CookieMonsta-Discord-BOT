@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
-    if(iUserCookies < 1500)
+    if(iUserCookies < 25000)
     {
         return await message.reply(":no_entry: you don't have enough cookies :cookie: to do that! :no_entry:");
     }
@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(parseInt(BannersFromDatabase[i].png_file.slice(0, -4)) === parseInt(iUserBannerName))
         {
-            await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 1500);
+            await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 25000);
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
             await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + iUserBannerName.toString().padStart(2, "0") + "**. Also stole **1500** :cookie: cookies from him L3L :wink:");
 
