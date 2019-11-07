@@ -41,13 +41,13 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
     {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, Math.floor(Math.random() * 91) + 1 + ".png");
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, "01.png");
     }
 
     const iCookieAmount = parseInt(szArgs[1]);
-    const iCurrentUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id) + iCookieAmount;
+    const iCurrentUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id);
 
-    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCurrentUserCookies);
+    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCurrentUserCookies + iCookieAmount);
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
