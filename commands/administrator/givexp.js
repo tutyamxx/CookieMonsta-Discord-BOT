@@ -47,11 +47,11 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     let iTargetPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
-    iTargetPoints += ExperienceAmount;
 
-    const iTargetLevel = Math.floor(0.1 * Math.sqrt(iTargetPoints));
+    let iCalculateNewPoints = iTargetPoints + ExperienceAmount;
+    const iTargetLevel = Math.floor(0.1 * Math.sqrt(iCalculateNewPoints));
 
-    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetPoints, parseInt(iTargetLevel));
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, parseInt(iCalculateNewPoints), parseInt(iTargetLevel));
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

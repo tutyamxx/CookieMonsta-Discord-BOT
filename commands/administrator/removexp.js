@@ -46,22 +46,22 @@ module.exports.run = async (bot, message, szArgs) =>
         await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, "01.png");
     }
 
-    let iTargetCurrentPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
-    iTargetCurrentPoints -= ExperienceAmount;
-
-    if(iTargetCurrentPoints <= 0)
+    let iTargetPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
+    let iCalculateNewPoints = iTargetPoints - ExperienceAmount;
+    
+    if(iCalculateNewPoints <= 0)
     {
-        iTargetCurrentPoints = 0;
+        iCalculateNewPoints = 0;
     }
 
-    const iTargetNewLevel = Math.floor(0.1 * Math.sqrt(iTargetCurrentPoints));
+    const iTargetNewLevel = Math.floor(0.1 * Math.sqrt(iCalculateNewPoints));
 
     if(iTargetNewLevel <= 0)
     {
         iTargetNewLevel = 1;
     }
 
-    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, parseInt(iTargetCurrentPoints), parseInt(iTargetNewLevel));
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, parseInt(iCalculateNewPoints), parseInt(iTargetNewLevel));
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
