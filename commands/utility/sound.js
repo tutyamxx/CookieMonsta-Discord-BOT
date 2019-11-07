@@ -1,6 +1,6 @@
 const IgnoreCase = require("ignore-case");
 const fs = require("fs");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
 const SoundEffectsMp3 = require("../../json/soundboard.json");
@@ -10,6 +10,7 @@ let bBoolAlreadyPlayingSound = false;
 module.exports.run = async (bot, message, szArgs) =>
 {
     const user = message.author;
+    const GuildGetID = message.guild.id;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
@@ -28,7 +29,14 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply("available sounds :musical_note: are :arrow_down:  **" + SoundList.join("**, **") + "**");
     }
 
-    if(CookieMonsta.UserDatabaseData.cookies < 300)
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id);
+
+    if(iUserCookies < 300)
     {
         return await message.reply(" :no_entry: you don't have enough cookies :cookie: to play this sound! :no_entry:");
     }
@@ -64,7 +72,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 UserVoiceChannel.join().then(async (connection) =>
                 {
                     bBoolAlreadyPlayingSound = true;
-                    await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 300);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 300);
 
                     // --| Read sound from the soundboard.json file
                     const SoundFileToPlay = fs.createReadStream(CatchSoundFromArray);

@@ -1,4 +1,4 @@
-const GetDatabaseData = require("../functions/getuserdata.js");
+const DatabaseImport = require("../database/database.js");
 
 module.exports = async (bot, channel, user) =>
 {
@@ -7,5 +7,10 @@ module.exports = async (bot, channel, user) =>
         return;
     }
 
-    await GetDatabaseData.CookiesUpdate(channel.guild.id.toString(), user.id, 0);
+    const GuildID = channel.guild.id.toString();
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildID, user.id, 150, 0, 1, "01.png");
+    }
 };

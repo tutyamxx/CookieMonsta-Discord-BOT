@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 
 let UserAlreadySpinningFidget = {};
 let iSpinnerTimer = {};
@@ -7,11 +7,19 @@ let iSpinnerTimer = {};
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
+    const GetGuildID = message.guild.id;
 
     if(UserAlreadySpinningFidget[user.id] === true)
     {
         return await message.reply(":no_entry: you are already spinning a **Fidget Spinner**! Wait until it stops :alarm_clock: !  :no_entry:");
     }
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
     let szEmbedColor = "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
 
@@ -24,7 +32,6 @@ module.exports.run = async (bot, message, args) =>
     .setTimestamp()
 
     let SpinningMessage = await message.channel.send({ embed: DiscordRichEmbed });
-
     let iSpinTimeout = (Math.random() * (60 - 5 + 1)) + 5;
 
     UserAlreadySpinningFidget[user.id] = true;
@@ -42,7 +49,7 @@ module.exports.run = async (bot, message, args) =>
             .setTimestamp()
 
             await SpinningMessage.edit({ embed: DiscordRichEmbed1 });
-            await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 400);
+            await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 400);
         }
 
         else

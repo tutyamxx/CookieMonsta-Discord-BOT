@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 
 let UserAlreadyPlayingRusR = {};
@@ -25,11 +25,19 @@ const szWinMessages =
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
+    const GetGuildID = message.guild.id;
 
     if(UserAlreadyPlayingRusR[user.id] === true)
     {
         return await message.reply(":no_entry: You are already playing, please wait until you die **LUL**! :no_entry:");
     }
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
     const BulletSLot = 2;
     UserAlreadyPlayingRusR[user.id] = true;
@@ -52,7 +60,7 @@ module.exports.run = async (bot, message, args) =>
             if(!kickMember.kickable)
             {
                 await szGunMessage.edit(CantKickMessages[Math.floor(Math.random() * CantKickMessages.length)] + "\n\nCookies lost: **10** :cookie:");
-                await GetDatabaseData.CookiesRemove(message.guild.id, kickMember.id, 10);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
             }
 
             else
@@ -60,25 +68,25 @@ module.exports.run = async (bot, message, args) =>
                 await szGunMessage.edit(":anger: BANG! He lost (**" + kickMember.user + "**) LEL. So it got ``KICKED``\n\nIt also lost **10** cookies :cookie:");
 
                 await kickMember.kick("You lost LEL! You got kicked! Next time be careful playing with guns...");
-                await GetDatabaseData.CookiesRemove(message.guild.id, kickMember.id, 10);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
             }
         }
 
         else
         {
-            var RandomBonusCoin = Math.floor(( Math.random() * 2 ) + 1)
+            const RandomBonusCoin = Math.floor(( Math.random() * 2 ) + 1)
 
             switch(RandomBonusCoin)
             {
                 case 1:
                     await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou have been rewarded with **5** cookies :cookie: !");
-                    await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 5);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 5);
 
                     break;
 
                 case 2:
                     await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou won **5** cookies :cookie: but, I will give you an extra one for free! :wink:");
-                    await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 6);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 6);
 
                     break;
             }

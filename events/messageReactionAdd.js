@@ -1,4 +1,4 @@
-const GetDatabaseData = require("../functions/getuserdata.js");
+const DatabaseImport = require("../database/database.js");
 const ShellGame = require("../commands/games/shellgame.js");
 
 module.exports = async (bot, reaction, user) =>
@@ -13,13 +13,20 @@ module.exports = async (bot, reaction, user) =>
         let GetGuildID = reaction.message.guild.id.toString();
         let RandomShellPrize = Math.floor(( Math.random() * 10 ) + 1);
 
+        if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+        {
+            await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+        }
+
+        const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
+
         if(reaction.emoji.name === "\u0031\u20E3")
         {
             if(1 === ShellGame.UserShuffleShells[user.id])
             {
                 reaction.remove(user);
 
-                await GetDatabaseData.CookiesUpdate(GetGuildID, user.id, RandomShellPrize);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
                 ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:egg:	  :chestnut:     :chestnut:";
             }
 
@@ -36,7 +43,7 @@ module.exports = async (bot, reaction, user) =>
             {
                 reaction.remove(user);
 
-                await GetDatabaseData.CookiesUpdate(GetGuildID, user.id, RandomShellPrize);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
                 ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:chestnut:	  :egg:     :chestnut:";
             }
 
@@ -53,7 +60,7 @@ module.exports = async (bot, reaction, user) =>
             {
                 reaction.remove(user);
 
-                await GetDatabaseData.CookiesUpdate(GetGuildID, user.id, RandomShellPrize);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
                 ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:chestnut:	  :chestnut:     :egg:";
             }
 

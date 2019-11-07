@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
@@ -11,9 +11,8 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-
-    let GuildGetID = message.guild.id;
-    let GuildMember = message.mentions.members.first();
+    const GuildGetID = message.guild.id;
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
@@ -42,35 +41,21 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let ExperienceAmount = parseInt(szArgs[1]);
 
-    let GetTargetData = await bot.getScore.get(GuildMember.user.id, GuildGetID);
-
-    if(!GetTargetData)
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
     {
-        await GetDatabaseData.CookiesUpdate(GuildGetID, GuildMember.user.id, 0);
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, Math.floor(Math.random() * 91) + 1 + ".png");
     }
 
-    GetTargetData.points -= ExperienceAmount;
+    let iTargetCurrentPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
+    iTargetCurrentPoints -= ExperienceAmount;
 
-    if(GetTargetData.points - ExperienceAmount <= 0)
-    {
-        GetTargetData.points = 0;
-        GetTargetData.level = 1;
-    }
-
-    let TargetLevel = Math.floor(0.1 * Math.sqrt(GetTargetData.points));
-
-    if(TargetLevel <= 0)
-    {
-        TargetLevel = 1;
-    }
-
-    GetTargetData.level = TargetLevel;
-    await bot.setScore.run(GetTargetData);
+    const iTargetRefreshedLevel = Math.floor(0.1 * Math.sqrt(iTargetCurrentPoints));
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetCurrentPoints, iTargetRefreshedLevel);
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#B22222")
-    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + TargetLevel + "** :worried: !")
+    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + iTargetRefreshedLevel + "** :worried: !")
     .setThumbnail("https://i.imgur.com/S3YRHSW.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();

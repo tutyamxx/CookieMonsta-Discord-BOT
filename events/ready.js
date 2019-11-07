@@ -5,12 +5,10 @@ const SpamCmd = require("../events/message.js");
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
-const BotAvatarPath = "./BOTImages/BOTAvatar/cookie1.png";
-
 global.bUserHasGift = {};
 global.bAlreadyOpeningGift = {};
 
-module.exports = bot =>
+module.exports = async (bot) =>
 {
     console.log(ConsoleColors.rainbow(AsciiArt));
     console.log(`\x1b[31m*\x1b[0m Cookie Monsta [BOT] has started, with \x1b[34m${bot.users.size}\x1b[0m users, in \x1b[32m${bot.channels.size}\x1b[0m channels of \x1b[35m${bot.guilds.size}\x1b[0m guilds.`);
@@ -52,7 +50,7 @@ module.exports = bot =>
 
     }, 1 * 60000);
 
-    DatabaseImport.InitialiseDatabase();
+    await DatabaseImport.CookieMonsta_InitialiseDatabase();
 
     // --| Assign to everyone gift to 0
     for(user of bot.users)

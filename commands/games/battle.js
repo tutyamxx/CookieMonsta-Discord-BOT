@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 
 let UserAlreadyBattling = {};
 let UserHealthColor = {};
@@ -83,6 +83,19 @@ module.exports.run = async (bot, message, args) =>
 
     UserAlreadyBattling[user.id] = true;
     UserAlreadyBattling[GuildMember.user.id] = true;
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
+    }
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id);
+    const iTargetCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id);
 
     const DiscordRichEmbed1 = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Death Battle", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -212,15 +225,15 @@ module.exports.run = async (bot, message, args) =>
                 {
                     szBattleLog[user.id] += "\n\n:heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign:\n\n:trophy: ***" + user.username + "*** WON! :trophy:\n\nFor winning this battle, it has been awarded with **20** cookies :cookie: !\n**" + GuildMember.user.username + "** lost **10** cookies :cookie:";
 
-                    await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 20);
-                    await GetDatabaseData.CookiesRemove(GuildGetID, GuildMember.user.id, 10);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + 20);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iTargetCookies - 10);
                 }
 
                 else
                 {
                     szBattleLog[user.id] += "\n\n:heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign:\n\n:trophy: ***" + user.username + "*** WON! :trophy:\n\nFor winning this battle, it has been awarded with **20** cookies :cookie: !\n**" + GuildMember.user.username + "** lost **10** cookies :cookie:";
 
-                    await GetDatabaseData.CookiesRemove(GuildGetID, GuildMember.user.id, 10);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iTargetCookies - 10);
                 }
 
                 szThumbnail[user.id] = MemberAvatar;
@@ -237,15 +250,15 @@ module.exports.run = async (bot, message, args) =>
                 {
                     szBattleLog[user.id] += "\n\n:heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign:\n\n:trophy: ***" + GuildMember.user.username + "*** WON! :trophy:\n\nFor winning this battle, it has been awarded with **20** cookies :cookie: !\n**" + user.username + "** lost **10** cookies :cookie:";
 
-                    await GetDatabaseData.CookiesUpdate(GuildGetID, GuildMember.user.id, 20);
-                    await GetDatabaseData.CookiesRemove(GuildGetID, user.id, 10);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iTargetCookies + 20);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 10);
                 }
 
                 else
                 {
                     szBattleLog[user.id] += "\n\n:heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign:\n\n:trophy: ***" + GuildMember.user.username + "*** WON! :trophy:\n\nFor winning this battle, it has been awarded with **20** cookies :cookie: !\n**" + user.username + "** lost **10** cookies :cookie:";
 
-                    await GetDatabaseData.CookiesRemove(GuildGetID, user.id, 10);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 10);
                 }
 
                 szThumbnail[user.id] = GuildMemberAvatar;

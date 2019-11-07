@@ -1,10 +1,17 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
+    const GetGuildID = message.guild.id;
 
+    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
     const HotPercentage = Math.floor(( Math.random() * 100 ) + 1);
 
     let EmoticonHotOrNot;
@@ -22,7 +29,7 @@ module.exports.run = async (bot, message, args) =>
         ColorHotOrNot = 16724889;
 
         await message.channel.send(":heart_eyes: ***" + user.username + "*** is  **100%** HOT! For that, he won **15** cookies :cookie: ! :heart_eyes:");
-        await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, 15);
+        await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 15);
     }
 
     else

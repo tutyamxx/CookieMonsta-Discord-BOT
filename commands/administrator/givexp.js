@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
@@ -11,9 +11,8 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-
-    let GuildGetID = message.guild.id;
-    let GuildMember = message.mentions.members.first();
+    const GuildGetID = message.guild.id;
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
@@ -42,24 +41,22 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let ExperienceAmount = parseInt(szArgs[1]);
 
-    let GetTargetData = await bot.getScore.get(GuildMember.user.id, GuildGetID);
-
-    if(!GetTargetData)
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
     {
-        await GetDatabaseData.CookiesUpdate(GuildGetID, GuildMember.user.id, 0);
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, Math.floor(Math.random() * 91) + 1 + ".png");
     }
 
-    GetTargetData.points += ExperienceAmount;
+    let iTargetPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
+    iTargetPoints += ExperienceAmount;
 
-    let TargetLevel = Math.floor(0.1 * Math.sqrt(GetTargetData.points));
+    const iTargetLevel = Math.floor(0.1 * Math.sqrt(iTargetPoints));
 
-    GetTargetData.level = TargetLevel;
-    await bot.setScore.run(GetTargetData);
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetPoints, iTargetLevel);
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
-    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + TargetLevel + "** :blush: !")
+    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + iTargetLevel + "** :blush: !")
     .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();

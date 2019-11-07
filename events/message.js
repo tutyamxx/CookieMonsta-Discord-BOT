@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
 const CookieMonsta = require("../CookieMonstaBOT.js");
-const GetDatabaseData = require("../functions/getuserdata.js");
+const DatabaseImport = require("../database/database.js");
 const BotConfig = require("../config/botconfig.json");
 
 const szPrefix = BotConfig.DiscordBOT_Prefix.trim();
@@ -17,6 +17,7 @@ let iCheckIfOpenGift = {};
 module.exports = async (bot, message) =>
 {
     const user = message.author;
+    const GuildGetID = message.guild.id;
 
     if(user.bot)
     {
@@ -33,20 +34,24 @@ module.exports = async (bot, message) =>
         return await message.delete();
     }
 
-    let GuildGetID = message.guild.id;
-    await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 0);
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
+    }
 
     if(message.guild)
     {
         // --| Add XP between 15 and 25 random
-        CookieMonsta.UserDatabaseData.points += (Math.floor(Math.random() * (25 - 10 + 1)) + 10);
+        let iUserXPPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, user.id);
+        iUserXPPoints += (Math.floor(Math.random() * (25 - 10 + 1)) + 10);
 
-        const iCurentLevel = Math.floor(0.1 * Math.sqrt(CookieMonsta.UserDatabaseData.points));
+        let iLevel = await DatabaseImport.CookieMonsta_GetUserLevel(GuildGetID, user.id);
+        const iCurentLevel = Math.floor(0.1 * Math.sqrt(iUserXPPoints));
 
         // --| Level up user if it is the case
-        if(await CookieMonsta.UserDatabaseData.level < iCurentLevel)
+        if(iLevel < iCurentLevel)
         {
-            await CookieMonsta.UserDatabaseData.level++;
+            iLevel++;
 
             let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
@@ -82,7 +87,7 @@ module.exports = async (bot, message) =>
         }
 
         // --| Update the database
-        await bot.setScore.run(CookieMonsta.UserDatabaseData);
+        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, iUserXPPoints, iLevel);
 
         // --| A chance to receive a gift while being active in chat. One in 300 chance
         if(1 === Math.floor(( Math.random() * 300 ) + 1))

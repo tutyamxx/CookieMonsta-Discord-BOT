@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
@@ -11,7 +11,8 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let GuildMember = message.mentions.members.first();
+    const GuildMember = message.mentions.members.first();
+    const GuildGetID = message.guild.id;
 
     if(!GuildMember)
     {
@@ -38,14 +39,20 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I know sky is the limit, but try a number between ``1``and ``999999`` :no_entry:" );
     }
 
-    let CookieAmount = parseInt(szArgs[1]);
+    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, Math.floor(Math.random() * 91) + 1 + ".png");
+    }
 
-    await GetDatabaseData.CookiesUpdate(message.guild.id, GuildMember.user.id, CookieAmount);
+    const iCookieAmount = parseInt(szArgs[1]);
+    const iCurrentUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id) + iCookieAmount;
+
+    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCurrentUserCookies);
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
-    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + CookieAmount + "** cookies :cookie: !")
+    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + iCookieAmount + "** cookies :cookie: !")
     .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();

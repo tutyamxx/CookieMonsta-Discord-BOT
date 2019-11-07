@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const EmojiConvert = require("../../functions/emojiconvert.js");
 
 let UserAlreadyRolling = {};
@@ -7,8 +7,15 @@ let iRollTheDiceInterval = {};
 
 module.exports.run = async (bot, message, args) =>
 {
-    let GuildGetID = message.guild.id;
     const user = message.author;
+    const GetGuildID = message.guild.id;
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
     if(UserAlreadyRolling[user.id] === true)
     {
@@ -27,7 +34,7 @@ module.exports.run = async (bot, message, args) =>
         if(RandomDice === RandomNewNumber)
         {
             await message.channel.send( `:four_leaf_clover: ${user} has rolled the dice and it won! **40** cookies :cookie: awarded! :four_leaf_clover:`);
-            await GetDatabaseData.CookiesUpdate(GuildGetID, user.id, 40);
+            await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 40);
         }
 
         else

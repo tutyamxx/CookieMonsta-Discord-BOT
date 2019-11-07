@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
 const CustomFunctions = require("../../functions/funcs.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 
 const ColorRoles =
@@ -49,15 +49,23 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply("available colors :art: are :arrow_right: **" + ColorList.join("**, **") + "**");
     }
 
-    if(CookieMonsta.UserDatabaseData.cookies < 150)
+    const user = message.author;
+    const GetGuildID = message.guild.id;
+
+    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
+    {
+        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
+    }
+
+    const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
+
+    if(iUserCookies < 150)
     {
         return await message.reply(" :no_entry: you don't have enough cookies :cookie: to buy a color! :art:  :no_entry:" );
     }
 
     let i, x;
     let ColorRoleFind;
-
-    const user = message.author;
 
     for(i = 0; i < ColorRoles.length; i++)
     {
@@ -91,7 +99,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 {
                     let FindNewColor = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
-                    await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
 
                     await message.member.addRole(FindNewColor).catch(console.error);
                     await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
@@ -115,7 +123,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     }
                 }
 
-                await GetDatabaseData.CookiesRemove(message.guild.id, user.id, 150);
+                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
 
                 await message.member.addRole(ColorRoleFind).catch(console.error);
                 await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");

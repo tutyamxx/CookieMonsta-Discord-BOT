@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const GetDatabaseData = require("../../functions/getuserdata.js");
+const DatabaseImport = require("../../database/database.js");
 
 let iUnwrapTimer = {};
 
@@ -13,6 +13,7 @@ const iRandomCookiesPresent =
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
+    const GuildGetID = message.guild.id;
 
     if(bAlreadyOpeningGift[user.id] === true)
     {
@@ -34,9 +35,15 @@ module.exports.run = async (bot, message, args) =>
     {
         iUnwrapTimer[user.id] = setInterval (async function ()
         {
-            let GenerateRandomCookies = parseInt(iRandomCookiesPresent[Math.floor(Math.random() * iRandomCookiesPresent.length)]);
+            if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
+            {
+                await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
+            }
 
-            await GetDatabaseData.CookiesUpdate(message.guild.id, user.id, GenerateRandomCookies);
+            const GenerateRandomCookies = parseInt(iRandomCookiesPresent[Math.floor(Math.random() * iRandomCookiesPresent.length)]);
+            let iUpdatedUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id) + GenerateRandomCookies;
+
+            await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUpdatedUserCookies);
 
             const DiscordRichEmbed1 = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Congratulations!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

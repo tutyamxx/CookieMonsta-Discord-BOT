@@ -70,7 +70,7 @@ szCommandFolders.forEach((command) =>
             files.forEach((file, count) =>
             {
                 // --| Add: color list, sound list, horoscope list are extra but in the same cmd file = +3
-                // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, guildlist and reboot = -5
+                // --| Exclude developer commands from public which are: sendnews, guildleave, reloadcmd, guildlist, refreshbanner and reboot = -6
                 iCommandNumber++;
                 exports.iCommandNumber = (iCommandNumber + 3) - 5;
 

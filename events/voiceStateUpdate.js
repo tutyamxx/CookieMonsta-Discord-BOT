@@ -1,18 +1,21 @@
-const GetDatabaseData = require("../functions/getuserdata.js");
+const DatabaseImport = require("../database/database.js");
 
 module.exports = async (oldMember, newMember) =>
 {
-    let newUserChannel = newMember.voiceChannel
-    let oldUserChannel = oldMember.voiceChannel
+    const newUserChannel = newMember.voiceChannel
+    const oldUserChannel = oldMember.voiceChannel
 
-    let GuildID = newMember.guild.id;
+    const GuildID = newMember.guild.id;
 
     // --| Left voice channel
     if(oldUserChannel === undefined && newUserChannel !== undefined)
     {
         if(!newMember.bot)
         {
-            await GetDatabaseData.CookiesUpdate(GuildID, newMember.user.id, 0);
+            if(!await DatabaseImport.CookieMonsta_UserExists(GuildID, newMember.user.id))
+            {
+                await DatabaseImport.CookieMonsta_CreateUser(GuildID, newMember.user.id, 150, 0, 1, "01.png");
+            }
         }
     }
 
@@ -21,7 +24,10 @@ module.exports = async (oldMember, newMember) =>
     {
         if(!newMember.bot)
         {
-            await GetDatabaseData.CookiesUpdate(GuildID, newMember.user.id, 0);
+            if(!await DatabaseImport.CookieMonsta_UserExists(GuildID, newMember.user.id))
+            {
+                await DatabaseImport.CookieMonsta_CreateUser(GuildID, newMember.user.id, 150, 0, 1, "01.png");
+            }
         }
     }
 };
