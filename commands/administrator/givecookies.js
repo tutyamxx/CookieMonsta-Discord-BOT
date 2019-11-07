@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, szArgs) =>
     const iCookieAmount = parseInt(szArgs[1]);
     const iCurrentUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id);
 
-    let iCalculateNewCookies = iCurrentUserCookies - iCookieAmount;
+    let iCalculateNewCookies = iCurrentUserCookies + iCookieAmount;
 
     await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCalculateNewCookies);
 

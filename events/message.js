@@ -41,12 +41,13 @@ module.exports = async (bot, message) =>
 
     if(message.guild)
     {
-        // --| Add XP between 15 and 25 random
-        let iUserXPPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, user.id);
-        iUserXPPoints += (Math.floor(Math.random() * (25 - 10 + 1)) + 10);
-
+        const iUserCurrentXP = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, user.id);
         let iLevel = await DatabaseImport.CookieMonsta_GetUserLevel(GuildGetID, user.id);
-        const iCurentLevel = Math.floor(0.1 * Math.sqrt(iUserXPPoints));
+
+        // --| Add XP between 15 and 25 random
+        let iCalculateNewXP = iUserCurrentXP + (Math.floor(Math.random() * (25 - 10 + 1)) + 10);
+     
+        const iCurentLevel = Math.floor(0.1 * Math.sqrt(iCalculateNewXP));
 
         // --| Level up user if it is the case
         if(iLevel < iCurentLevel)
@@ -87,7 +88,7 @@ module.exports = async (bot, message) =>
         }
 
         // --| Update the database
-        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iUserXPPoints), parseInt(iLevel));
+        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
 
         // --| A chance to receive a gift while being active in chat. One in 300 chance
         if(1 === Math.floor(( Math.random() * 300 ) + 1))
