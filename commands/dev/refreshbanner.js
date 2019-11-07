@@ -1,4 +1,4 @@
-const CookieMonsta = require("../../bot.js");
+const CookieMonsta = require("../../CookieMonstaBOT.js");
 const DatabaseImport = require("../../database/database.js");
 
 // --| PNG file | username color | stats color & cookies color
