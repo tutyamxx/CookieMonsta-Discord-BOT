@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
-const CookieMonsta = require("../../bot.js");
+const CookieMonsta = require("../../CookieMonstaBOT.js");
 const DatabaseImport = require("../../database/database.js");
 
 module.exports.run = async (bot, message, args) =>
