@@ -91,7 +91,7 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
 {
     const QueryUpdateUser = "INSERT INTO `UserCookiesTable` (`user`, `guild`, `cookies`, `xp_points`, `level`, `user_banner_img`) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `user` = ?, `guild` = ?, `cookies` = ?, `xp_points` = ?, `level` = ?, `user_banner_img` = ?;";
 
-    DatabaseConnection.query(QueryUpdateUser, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 ? 1 : parseInt(iLevel)), szBannerImage.trim(), parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
+    DatabaseConnection.query(QueryUpdateUser, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
     {
         if(err)
         {
@@ -199,7 +199,7 @@ async function CookieMonsta_SetUserCookies(iGuild, iUser, iCookies)
 {
     const QueryUpdateCookies = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `cookies` = ?;";
 
-    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 ? 0 : parseInt(iCookies))], (err, results) =>
+    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies))], (err, results) =>
     {
         if(err)
         {
