@@ -55,7 +55,7 @@ module.exports.run = async (bot, message, szArgs) =>
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#B22222")
-    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + iTargetRefreshedLevel + "** :worried: !")
+    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + (isNaN(iTargetRefreshedLevel) ? 1 : iTargetRefreshedLevel) + "** :worried: !")
     .setThumbnail("https://i.imgur.com/S3YRHSW.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();

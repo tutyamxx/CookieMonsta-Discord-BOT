@@ -163,7 +163,7 @@ async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLe
 {
     const QueryUpdatePointsAndLevel = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `xp_points` = ?, `level` = ?;";
 
-    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 ? 1 : parseInt(iLevel))], (err, results) =>
+    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) || isNaN(iXPPoints) <= 0 ? 1 : parseInt(iLevel))], (err, results) =>
     {
         if(err)
         {
