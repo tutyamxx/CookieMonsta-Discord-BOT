@@ -22,7 +22,7 @@ async function CookieMonsta_InitialiseDatabase()
 
         if(Object.entries(results).length <= 0)
         {
-            const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`guild`, `user`));";
+            const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`id` VARCHAR(255) NOT NULL, `user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`id`));";
 
             DatabaseConnection.query(QueryCreateUsersCookieTable, (err, results) =>
             {
@@ -32,6 +32,16 @@ async function CookieMonsta_InitialiseDatabase()
                 }
 
                 console.log("\x1b[31m*\x1b[0m I have successfully created `\x1b[32mUserCookiesTable\x1b[0m`");
+            });
+
+            const QueryCreateUniqueIndex = "CREATE UNIQUE INDEX `unique_userid` ON `UserCookiesTable` (`guild`, `user`);";
+
+            DatabaseConnection.query(QueryCreateUniqueIndex, (err, results) =>
+            {
+                if(err)
+                {
+                    console.log("\x1b[31m*\x1b[0m Query error while creating UNIQUE INDEX: " + err + "\x1b[0m");
+                }
             });
 
             const QueryCreatePrefixTable = "CREATE TABLE IF NOT EXISTS `PrefixTable` (`guild` VARCHAR(255) NOT NULL, `prefix` TEXT NOT NULL, PRIMARY KEY (`guild`));"
@@ -68,7 +78,7 @@ async function CookieMonsta_UserExists(iGuild, iUser)
 {
     return new Promise((resolve, reject) =>
     {
-        const QueryCheckForUser = "SELECT * FROM `UserCookiesTable` WHERE user = ? AND guild = ?;";
+        const QueryCheckForUser = "SELECT * FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
         DatabaseConnection.query(QueryCheckForUser, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
@@ -89,9 +99,11 @@ async function CookieMonsta_UserExists(iGuild, iUser)
 
 async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szBannerImage)
 {
-    const QueryUpdateUser = "INSERT INTO `UserCookiesTable` (`user`, `guild`, `cookies`, `xp_points`, `level`, `user_banner_img`) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `user` = ?, `guild` = ?, `cookies` = ?, `xp_points` = ?, `level` = ?, `user_banner_img` = ?;";
+    const QueryUpdateUser = "INSERT INTO `UserCookiesTable` (`id`, `user`, `guild`, `cookies`, `xp_points`, `level`, `user_banner_img`) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `id` = ?, `user` = ?, `guild` = ?, `cookies` = ?, `xp_points` = ?, `level` = ?, `user_banner_img` = ?;";
 
-    DatabaseConnection.query(QueryUpdateUser, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
+    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+
+    DatabaseConnection.query(QueryUpdateUser, [PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
     {
         if(err)
         {
@@ -117,7 +129,7 @@ async function CookieMonsta_GetUserPoints(iGuild, iUser)
 {
     return new Promise((resolve, reject) =>
     {
-        const QueryGetUserPoints = "SELECT `xp_points` FROM `UserCookiesTable` WHERE user = ? AND guild = ?;";
+        const QueryGetUserPoints = "SELECT `xp_points` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
         DatabaseConnection.query(QueryGetUserPoints, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
@@ -140,7 +152,7 @@ async function CookieMonsta_GetUserLevel(iGuild, iUser)
 {
     return new Promise((resolve, reject) =>
     {
-        const QueryGetUserLevel = "SELECT `level` FROM `UserCookiesTable` WHERE user = ? AND guild = ?;";
+        const QueryGetUserLevel = "SELECT `level` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
         DatabaseConnection.query(QueryGetUserLevel, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
@@ -161,9 +173,11 @@ async function CookieMonsta_GetUserLevel(iGuild, iUser)
 
 async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLevel)
 {
-    const QueryUpdatePointsAndLevel = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `xp_points` = ?, `level` = ?;";
+    const QueryUpdatePointsAndLevel = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `xp_points` = ?, `level` = ? WHERE `id` = ?;";
 
-    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) || isNaN(iXPPoints) <= 0 ? 1 : parseInt(iLevel))], (err, results) =>
+    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+
+    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) || isNaN(iXPPoints) <= 0 ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -176,7 +190,7 @@ async function CookieMonsta_GetUserCookies(iGuild, iUser)
 {
     return new Promise((resolve, reject) =>
     {
-        const QueryGetUserCookies = "SELECT `cookies` FROM `UserCookiesTable` WHERE user = ? AND guild = ?;";
+        const QueryGetUserCookies = "SELECT `cookies` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
         DatabaseConnection.query(QueryGetUserCookies, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
@@ -197,9 +211,11 @@ async function CookieMonsta_GetUserCookies(iGuild, iUser)
 
 async function CookieMonsta_SetUserCookies(iGuild, iUser, iCookies)
 {
-    const QueryUpdateCookies = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `cookies` = ?;";
+    const QueryUpdateCookies = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `cookies` = ? WHERE `id` = ?;";
 
-    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies))], (err, results) =>
+    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+
+    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -212,7 +228,7 @@ async function CookieMonsta_GetUserProfileBanner(iGuild, iUser)
 {
     return new Promise((resolve, reject) =>
     {
-        const QueryGetUserBanner = "SELECT `user_banner_img` FROM `UserCookiesTable` WHERE user = ? AND guild = ?;";
+        const QueryGetUserBanner = "SELECT `user_banner_img` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
         DatabaseConnection.query(QueryGetUserBanner, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
@@ -221,7 +237,7 @@ async function CookieMonsta_GetUserProfileBanner(iGuild, iUser)
                 reject(err.message);
             }
 
-            if(results[0].length <= 0)
+            if(results.length <= 0)
             {
                 resolve("01");
             }
@@ -234,9 +250,11 @@ async function CookieMonsta_GetUserProfileBanner(iGuild, iUser)
 
 async function CookieMonsta_SetUserProfileBanner(iGuild, iUser, szBannerImageFile)
 {
-    const QueryUpdateUserBanner = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `user_banner_img` = ?;";
+    const QueryUpdateUserBanner = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `user_banner_img` = ? WHERE `id` = ?;";
 
-    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim()], (err, results) =>
+    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+
+    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim()], PrimaryKeyValue, (err, results) =>
     {
         if(err)
         {
