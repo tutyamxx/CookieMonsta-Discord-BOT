@@ -51,12 +51,12 @@ module.exports.run = async (bot, message, szArgs) =>
 
     const iTargetLevel = Math.floor(0.1 * Math.sqrt(iTargetPoints));
 
-    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetPoints, iTargetLevel);
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetPoints, parseInt(iTargetLevel));
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(2003199)
-    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + iTargetLevel + "** :blush: !")
+    .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + parseInt(iTargetLevel) + "** :blush: !")
     .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();

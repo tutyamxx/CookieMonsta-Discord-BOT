@@ -87,7 +87,7 @@ module.exports = async (bot, message) =>
         }
 
         // --| Update the database
-        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, iUserXPPoints, iLevel);
+        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iUserXPPoints), parseInt(iLevel));
 
         // --| A chance to receive a gift while being active in chat. One in 300 chance
         if(1 === Math.floor(( Math.random() * 300 ) + 1))

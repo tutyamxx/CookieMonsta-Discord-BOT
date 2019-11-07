@@ -49,13 +49,24 @@ module.exports.run = async (bot, message, szArgs) =>
     let iTargetCurrentPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
     iTargetCurrentPoints -= ExperienceAmount;
 
-    const iTargetRefreshedLevel = Math.floor(0.1 * Math.sqrt(iTargetCurrentPoints));
-    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, iTargetCurrentPoints, iTargetRefreshedLevel);
+    if(iTargetCurrentPoints <= 0)
+    {
+        iTargetCurrentPoints = 0;
+    }
+
+    const iTargetNewLevel = Math.floor(0.1 * Math.sqrt(iTargetCurrentPoints));
+
+    if(iTargetNewLevel <= 0)
+    {
+        iTargetNewLevel = 1;
+    }
+
+    await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, parseInt(iTargetCurrentPoints), parseInt(iTargetNewLevel));
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#B22222")
-    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + (isNaN(iTargetRefreshedLevel) ? 1 : iTargetRefreshedLevel) + "** :worried: !")
+    .setDescription("**" + user + "** removed from **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + parseInt(iTargetNewLevel) + "** :worried: !")
     .setThumbnail("https://i.imgur.com/S3YRHSW.jpg")
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp();
