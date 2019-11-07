@@ -177,7 +177,7 @@ async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLe
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) || isNaN(iXPPoints) <= 0 ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
+    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
