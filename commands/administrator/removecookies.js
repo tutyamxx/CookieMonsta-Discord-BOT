@@ -45,9 +45,11 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const iCookieAmount = parseInt(szArgs[1]);
-    let iUpdatedCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id) - iCookieAmount;
+    const iTargetCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id);
+    
+    let iCalculateNewCookies = iTargetCookies - iCookieAmount;
 
-    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iUpdatedCookies);
+    await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCalculateNewCookies);
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
