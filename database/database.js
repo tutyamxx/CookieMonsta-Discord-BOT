@@ -22,7 +22,7 @@ async function CookieMonsta_InitialiseDatabase()
 
         if(Object.entries(results).length <= 0)
         {
-            const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`id` INT NOT NULL AUTO_INCREMENT, `user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`id`));";
+            const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`guild`, `user`));";
 
             DatabaseConnection.query(QueryCreateUsersCookieTable, (err, results) =>
             {
@@ -95,7 +95,7 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_CreateUser): " + err + "\x1b[0m");
         }
     });
 };
@@ -108,7 +108,7 @@ async function CookieMonsta_AddBannerToTable(szPngFile, szNameHex, szStatsHex)
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_AddBannerToTable): " + err + "\x1b[0m");
         }
     });
 };
@@ -167,7 +167,7 @@ async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLe
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_UpdatePoints_And_Level): " + err + "\x1b[0m");
         }
     });
 };
@@ -203,7 +203,7 @@ async function CookieMonsta_SetUserCookies(iGuild, iUser, iCookies)
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_SetUserCookies): " + err + "\x1b[0m");
         }
     });
 };
@@ -240,7 +240,7 @@ async function CookieMonsta_SetUserProfileBanner(iGuild, iUser, szBannerImageFil
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_SetUserProfileBanner): " + err + "\x1b[0m");
         }
     });
 };
