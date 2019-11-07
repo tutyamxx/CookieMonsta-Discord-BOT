@@ -254,7 +254,7 @@ async function CookieMonsta_SetUserProfileBanner(iGuild, iUser, szBannerImageFil
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim()], PrimaryKeyValue, (err, results) =>
+    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim(), PrimaryKeyValue],(err, results) =>
     {
         if(err)
         {
