@@ -25,13 +25,24 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const iUserBannerName = parseInt(szArgs[0].trim());
+    const BannersFromDatabase = await DatabaseImport.CookieMonsta_GetAllBanners();
 
+    if(!CustomFunctions.isInt(iUserBannerName))
+    {
+        return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names can be only numbers! :no_entry:");
+    }
+    
     if(iUserBannerName < 1 || iUserBannerName > 91)
     {
-        return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo:! Banner names range is between **1** and **" + BannersFromDatabase.length + "** :no_entry:");
+        return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **" + BannersFromDatabase.length + "** :no_entry:");
     }
 
-    const BannersFromDatabase = await DatabaseImport.CookieMonsta_GetAllBanners();
+    const UserCurrentBanner = await DatabaseImport.CookieMonsta_GetUserProfileBanner(GetGuildID, user.id);
+
+    if(iUserBannerName === parseInt(UserCurrentBanner))
+    {
+        return await message.reply(" :no_entry: You aleady have this banner :frame_photo: selected, you pleb :dizzy_face:  :no_entry:");
+    }
 
     for(let i = 0; i < BannersFromDatabase.length; i++)
     {
