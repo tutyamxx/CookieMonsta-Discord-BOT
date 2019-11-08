@@ -15,7 +15,8 @@ module.exports.run = async (bot, message, args) =>
     :small_blue_diamond:   To play a **sound** on the voice channel it costs you **300** cookies.\n \
     :small_blue_diamond:   By winning a Shell Game, you get a random prize between **1** and **10** cookies. Good luck!\n \
     :small_blue_diamond:   You will lose **20** cookies for casting, win random prize for regular fish and **200** cookies for catching a whale!\n \
-    :small_blue_diamond:   Spinning a fidget spinner for more than **40** seconds, will get you **400** cookies";
+    :small_blue_diamond:   Spinning a fidget spinner for more than **40** seconds, will get you **400** cookies\n \
+    :small_blue_diamond:   Setting a custom profile card costs **25000** cookies.";
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Information and Prices", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
