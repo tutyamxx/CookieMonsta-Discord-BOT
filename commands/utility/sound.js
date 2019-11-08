@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:" );
     }
 
-    let j, x;
+    let j;
     let CatchSoundFromArray = "";
 
     for(j = 0; j < SoundEffectsMp3.length; j++)
