@@ -326,6 +326,14 @@ async function CookieMonsta_GetAllBanners()
     });
 };
 
+async function CookieMonsta_CheckCreateUser(iGuild, iUser)
+{
+    if(!await CookieMonsta_UserExists(iGuild, iUser))
+    {
+        await CookieMonsta_CreateUser(iGuild, iUser, 150, 0, 1, "01.png");
+    }
+};
+
 module.exports.CookieMonsta_InitialiseDatabase = CookieMonsta_InitialiseDatabase;
 module.exports.CookieMonsta_UserExists = CookieMonsta_UserExists;
 module.exports.CookieMonsta_CreateUser = CookieMonsta_CreateUser;
@@ -339,3 +347,4 @@ module.exports.CookieMonsta_SetUserProfileBanner = CookieMonsta_SetUserProfileBa
 module.exports.CookieMonsta_AddBannerToTable = CookieMonsta_AddBannerToTable;
 module.exports.CookieMonsta_GetBannerFromDatabase = CookieMonsta_GetBannerFromDatabase;
 module.exports.CookieMonsta_GetAllBanners = CookieMonsta_GetAllBanners;
+module.exports.CookieMonsta_CheckCreateUser = CookieMonsta_CheckCreateUser;

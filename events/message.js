@@ -34,10 +34,7 @@ module.exports = async (bot, message) =>
         return await message.delete();
     }
 
-    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
-    }
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
     if(message.guild)
     {

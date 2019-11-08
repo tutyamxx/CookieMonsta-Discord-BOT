@@ -52,11 +52,8 @@ module.exports.run = async (bot, message, szArgs) =>
     const user = message.author;
     const GetGuildID = message.guild.id;
 
-    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
-    }
-
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
+   
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
     if(iUserCookies < 150)

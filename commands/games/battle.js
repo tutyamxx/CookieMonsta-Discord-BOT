@@ -84,15 +84,8 @@ module.exports.run = async (bot, message, args) =>
     UserAlreadyBattling[user.id] = true;
     UserAlreadyBattling[GuildMember.user.id] = true;
 
-    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
-    }
-
-    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, "01.png");
-    }
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, GuildMember.user.id);
 
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id);
     const iTargetCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, GuildMember.user.id);

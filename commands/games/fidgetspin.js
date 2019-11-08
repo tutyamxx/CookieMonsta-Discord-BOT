@@ -14,10 +14,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(":no_entry: you are already spinning a **Fidget Spinner**! Wait until it stops :alarm_clock: !  :no_entry:");
     }
 
-    if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
-    }
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
 
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 

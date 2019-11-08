@@ -39,13 +39,9 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I know sky is the limit, but try a number between ``1``and ``9999999999`` :no_entry:" );
     }
 
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, GuildMember.user.id);
+
     let ExperienceAmount = parseInt(szArgs[1]);
-
-    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, GuildMember.user.id, 150, 0, 1, "01.png");
-    }
-
     const iTargetPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
 
     let iCalculateNewPoints = iTargetPoints + ExperienceAmount;

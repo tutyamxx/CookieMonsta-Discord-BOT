@@ -12,10 +12,7 @@ module.exports = async (oldMember, newMember) =>
     {
         if(!newMember.bot)
         {
-            if(!await DatabaseImport.CookieMonsta_UserExists(GuildID, newMember.user.id))
-            {
-                await DatabaseImport.CookieMonsta_CreateUser(GuildID, newMember.user.id, 150, 0, 1, "01.png");
-            }
+            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newMember.user.id);
         }
     }
 
@@ -24,10 +21,7 @@ module.exports = async (oldMember, newMember) =>
     {
         if(!newMember.bot)
         {
-            if(!await DatabaseImport.CookieMonsta_UserExists(GuildID, newMember.user.id))
-            {
-                await DatabaseImport.CookieMonsta_CreateUser(GuildID, newMember.user.id, 150, 0, 1, "01.png");
-            }
+            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newMember.user.id);
         }
     }
 };

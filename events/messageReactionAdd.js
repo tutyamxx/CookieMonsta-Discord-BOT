@@ -13,10 +13,7 @@ module.exports = async (bot, reaction, user) =>
         let GetGuildID = reaction.message.guild.id.toString();
         let RandomShellPrize = Math.floor(( Math.random() * 10 ) + 1);
 
-        if(!await DatabaseImport.CookieMonsta_UserExists(GetGuildID, user.id))
-        {
-            await DatabaseImport.CookieMonsta_CreateUser(GetGuildID, user.id, 150, 0, 1, "01.png");
-        }
+        await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
 
         const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 

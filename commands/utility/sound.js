@@ -29,10 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply("available sounds :musical_note: are :arrow_down:  **" + SoundList.join("**, **") + "**");
     }
 
-    if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
-    {
-        await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
-    }
+    await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id);
 

@@ -35,10 +35,7 @@ module.exports.run = async (bot, message, args) =>
     {
         iUnwrapTimer[user.id] = setInterval (async function ()
         {
-            if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, user.id))
-            {
-                await DatabaseImport.CookieMonsta_CreateUser(GuildGetID, user.id, 150, 0, 1, "01.png");
-            }
+            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
             const GenerateRandomCookies = parseInt(iRandomCookiesPresent[Math.floor(Math.random() * iRandomCookiesPresent.length)]);
             let iUpdatedUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GuildGetID, user.id) + GenerateRandomCookies;
