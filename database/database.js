@@ -13,7 +13,7 @@ async function CookieMonsta_InitialiseDatabase()
 {
     const QueryShowTables = "SHOW TABLES IN " + BotConfig.Database_DB.trim() + ";";
 
-    DatabaseConnection.query(QueryShowTables, (err, results) =>
+    await DatabaseConnection.query(QueryShowTables, (err, results) =>
     {
         if(err)
         {
@@ -24,7 +24,7 @@ async function CookieMonsta_InitialiseDatabase()
         {
             const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`id` VARCHAR(255) NOT NULL, `user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`id`));";
 
-            DatabaseConnection.query(QueryCreateUsersCookieTable, (err, results) =>
+            await DatabaseConnection.query(QueryCreateUsersCookieTable, (err, results) =>
             {
                 if(err)
                 {
@@ -36,7 +36,7 @@ async function CookieMonsta_InitialiseDatabase()
 
             const QueryCreateUniqueIndex = "CREATE UNIQUE INDEX `unique_userid` ON `UserCookiesTable` (`guild`, `user`);";
 
-            DatabaseConnection.query(QueryCreateUniqueIndex, (err, results) =>
+            await DatabaseConnection.query(QueryCreateUniqueIndex, (err, results) =>
             {
                 if(err)
                 {
@@ -46,7 +46,7 @@ async function CookieMonsta_InitialiseDatabase()
 
             const QueryCreatePrefixTable = "CREATE TABLE IF NOT EXISTS `PrefixTable` (`guild` VARCHAR(255) NOT NULL, `prefix` TEXT NOT NULL, PRIMARY KEY (`guild`));"
 
-            DatabaseConnection.query(QueryCreatePrefixTable, (err, results) =>
+            await DatabaseConnection.query(QueryCreatePrefixTable, (err, results) =>
             {
                 if(err)
                 {
@@ -58,7 +58,7 @@ async function CookieMonsta_InitialiseDatabase()
 
             const QueryCreateBannersTable = "CREATE TABLE IF NOT EXISTS `BannersTable` (`png_file` VARCHAR(255) NOT NULL, `username_color` VARCHAR(255) NOT NULL, `stats_color` VARCHAR(255) NOT NULL, PRIMARY KEY (`png_file`));";
 
-            DatabaseConnection.query(QueryCreateBannersTable, (err, results) =>
+            await DatabaseConnection.query(QueryCreateBannersTable, (err, results) =>
             {
                 if(err)
                 {
@@ -80,7 +80,7 @@ async function CookieMonsta_UserExists(iGuild, iUser)
     {
         const QueryCheckForUser = "SELECT * FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryCheckForUser, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        await DatabaseConnection.query(QueryCheckForUser, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
             if(err)
             {
@@ -103,7 +103,7 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdateUser, [PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
+    await DatabaseConnection.query(QueryUpdateUser, [PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
     {
         if(err)
         {
@@ -116,7 +116,7 @@ async function CookieMonsta_AddBannerToTable(szPngFile, szNameHex, szStatsHex)
 {
     const QueryAddBanner = "INSERT INTO `BannersTable` (`png_file`, `username_color`, `stats_color`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `png_file` = ?, `username_color` = ?, `stats_color` = ?;";
 
-    DatabaseConnection.query(QueryAddBanner, [szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
+    await DatabaseConnection.query(QueryAddBanner, [szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
     {
         if(err)
         {
@@ -131,7 +131,7 @@ async function CookieMonsta_GetUserPoints(iGuild, iUser)
     {
         const QueryGetUserPoints = "SELECT `xp_points` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserPoints, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        await DatabaseConnection.query(QueryGetUserPoints, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
             if(err)
             {
@@ -154,7 +154,7 @@ async function CookieMonsta_GetUserLevel(iGuild, iUser)
     {
         const QueryGetUserLevel = "SELECT `level` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserLevel, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        await DatabaseConnection.query(QueryGetUserLevel, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
             if(err)
             {
@@ -177,7 +177,7 @@ async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLe
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
+    await DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -192,7 +192,7 @@ async function CookieMonsta_GetUserCookies(iGuild, iUser)
     {
         const QueryGetUserCookies = "SELECT `cookies` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserCookies, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        await DatabaseConnection.query(QueryGetUserCookies, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
             if(err)
             {
@@ -215,7 +215,7 @@ async function CookieMonsta_SetUserCookies(iGuild, iUser, iCookies)
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), PrimaryKeyValue], (err, results) =>
+    await DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -230,7 +230,7 @@ async function CookieMonsta_GetUserProfileBanner(iGuild, iUser)
     {
         const QueryGetUserBanner = "SELECT `user_banner_img` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserBanner, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        await DatabaseConnection.query(QueryGetUserBanner, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
         {
             if(err)
             {
@@ -254,7 +254,7 @@ async function CookieMonsta_SetUserProfileBanner(iGuild, iUser, szBannerImageFil
 
     let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
 
-    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim(), PrimaryKeyValue],(err, results) =>
+    await DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim(), PrimaryKeyValue],(err, results) =>
     {
         if(err)
         {
@@ -270,7 +270,7 @@ async function CookieMonsta_GetBannerFromDatabase(szFileName)
         const QueryGetBanner = "SELECT * FROM `BannersTable` WHERE `png_file` = ?;";
         const szPngFile = szFileName + ".png";
 
-        DatabaseConnection.query(QueryGetBanner, szPngFile.toString(), (err, results) =>
+        await DatabaseConnection.query(QueryGetBanner, szPngFile.toString(), (err, results) =>
         {
             if(err)
             {
@@ -303,7 +303,7 @@ async function CookieMonsta_GetAllBanners()
     {
         const QueryGetAllBanners = "SELECT * FROM `BannersTable`;";
 
-        DatabaseConnection.query(QueryGetAllBanners, (err, results) =>
+        await DatabaseConnection.query(QueryGetAllBanners, (err, results) =>
         {
             if(err)
             {
