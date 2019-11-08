@@ -22,6 +22,7 @@ async function CookieMonsta_InitialiseDatabase()
 
         if(Object.entries(results).length <= 0)
         {
+            // --| Create users table
             const QueryCreateUsersCookieTable = "CREATE TABLE IF NOT EXISTS `UserCookiesTable` (`id` VARCHAR(255) NOT NULL, `user` VARCHAR(255) NOT NULL, `guild` VARCHAR(255) NOT NULL, `cookies` BIGINT NOT NULL, `xp_points` BIGINT NOT NULL, `level` MEDIUMINT NOT NULL, `user_banner_img` TEXT NOT NULL, PRIMARY KEY (`id`));";
 
             DatabaseConnection.query(QueryCreateUsersCookieTable, (err, results) =>
@@ -31,19 +32,20 @@ async function CookieMonsta_InitialiseDatabase()
                     console.log("\x1b[31m*\x1b[0m Query error: " + err + "\x1b[0m");
                 }
 
+                const QueryCreateUniqueIndex = "CREATE UNIQUE INDEX `unique_userid` ON `UserCookiesTable` (`guild`, `user`);";
+
+                DatabaseConnection.query(QueryCreateUniqueIndex, (err, results) =>
+                {
+                    if(err)
+                    {
+                        console.log("\x1b[31m*\x1b[0m Query error while creating UNIQUE INDEX: " + err + "\x1b[0m");
+                    }
+                });
+
                 console.log("\x1b[31m*\x1b[0m I have successfully created `\x1b[32mUserCookiesTable\x1b[0m`");
             });
 
-            const QueryCreateUniqueIndex = "CREATE UNIQUE INDEX `unique_userid` ON `UserCookiesTable` (`guild`, `user`);";
-
-            DatabaseConnection.query(QueryCreateUniqueIndex, (err, results) =>
-            {
-                if(err)
-                {
-                    console.log("\x1b[31m*\x1b[0m Query error while creating UNIQUE INDEX: " + err + "\x1b[0m");
-                }
-            });
-
+            // --| Create prefix table
             const QueryCreatePrefixTable = "CREATE TABLE IF NOT EXISTS `PrefixTable` (`guild` VARCHAR(255) NOT NULL, `prefix` TEXT NOT NULL, PRIMARY KEY (`guild`));"
 
             DatabaseConnection.query(QueryCreatePrefixTable, (err, results) =>
@@ -56,6 +58,7 @@ async function CookieMonsta_InitialiseDatabase()
                 console.log("\x1b[31m*\x1b[0m I have successfully created `\x1b[32mPrefixTable\x1b[0m`");
             });
 
+            // --| Create banners table
             const QueryCreateBannersTable = "CREATE TABLE IF NOT EXISTS `BannersTable` (`png_file` VARCHAR(255) NOT NULL, `username_color` VARCHAR(255) NOT NULL, `stats_color` VARCHAR(255) NOT NULL, PRIMARY KEY (`png_file`));";
 
             DatabaseConnection.query(QueryCreateBannersTable, (err, results) =>
