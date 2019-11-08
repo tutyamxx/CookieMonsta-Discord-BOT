@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(iUserCookies < 300)
     {
-        return await message.reply(" :no_entry: you don't have enough cookies :cookie: to play this sound! :no_entry:");
+        return await message.reply(" :no_entry: you need **300** cookies :cookie: to play this sound! :no_entry:");
     }
 
     let UserVoiceChannel = message.member.voiceChannel;

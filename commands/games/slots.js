@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(iUserCookies < 10)
     {
-        return await message.reply(":no_entry: you don't have enough cookies :cookie: to do that! :no_entry:");
+        return await message.reply(":no_entry: you need **10** cookies :cookie: to play with **Rolling Slots** machine! :no_entry:");
     }
 
     if(UserAlreadySlotting[user.id] === true)

@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(iUserCookies < 150)
     {
-        return await message.reply(" :no_entry: you don't have enough cookies :cookie: to buy a color! :art:  :no_entry:" );
+        return await message.reply(" :no_entry: you need **150** cookies :cookie: to buy a color! :art:  :no_entry:" );
     }
 
     let i, x;

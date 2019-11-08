@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(iUserCookies < 25000)
     {
-        return await message.reply(":no_entry: you don't have enough cookies :cookie: to do that! :no_entry:");
+        return await message.reply(":no_entry: you need **25000** cookies :cookie: to be able to change your profile card! :no_entry:");
     }
 
     if(CustomFunctions.isEmpty(szArgs[0]))

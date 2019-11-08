@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(iUserCookies < 20)
     {
-        return await message.reply(":no_entry: you don't have enough cookies :cookie: to do that! :no_entry:");
+        return await message.reply(":no_entry: you need **20** cookies :cookie: to go fishing! :no_entry:");
     }
 
     const RandomFishList =

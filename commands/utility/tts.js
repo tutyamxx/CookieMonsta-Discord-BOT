@@ -50,17 +50,24 @@ module.exports.run = async (bot, message, szArgs) =>
 
             let iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
-            iDispatcher.on("end", async (end) =>
+            await iDispatcher.on("end", async (end) =>
             {
                 bAlreadyPlayingTTS = false;
 
                 await voiceChannel.leave();
             });
 
-            iDispatcher.on("error", async (end) =>
+            await iDispatcher.on("error", async (end) =>
             {
                 bAlreadyPlayingTTS = false;
                 
+                await voiceChannel.leave();
+            });
+
+            await iDispatcher.on("finish", async () =>
+            {
+                bAlreadyPlayingTTS = false;
+
                 await voiceChannel.leave();
             });
             
