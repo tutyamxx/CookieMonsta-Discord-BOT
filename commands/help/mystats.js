@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) =>
 
             await gm(buffer)
             .fill("rgba(0, 0, 0, 0.5)")
-            .drawRectangle(130, 13, 309, 40, 2, 2)
+            .drawRectangle(130, 10, 309, 40, 2, 2)
             .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 18) ? 14 : 29)
             .fill(GetBannerInfo.username_color.toString())
             .draw(["text 134, 36 '" + GetUserName + "'"])
