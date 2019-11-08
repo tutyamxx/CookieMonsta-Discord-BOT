@@ -4,8 +4,6 @@ let bAlreadyPlayingTTS = false;
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    const user = message.author;
-
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!tts** ``<your text here>`` :no_entry:");
