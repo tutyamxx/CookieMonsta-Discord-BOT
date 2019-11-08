@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[1] > 9999999999 || szArgs[1] < 0)
     {
-        return await message.reply(" :no_entry: I know sky is the limit, but try a number between ``1``and ``999999`` :no_entry:" );
+        return await message.reply(" :no_entry: I know sky is the limit, but try a number between ``1``and ``9999999999`` :no_entry:" );
     }
 
     if(!await DatabaseImport.CookieMonsta_UserExists(GuildGetID, GuildMember.user.id))
