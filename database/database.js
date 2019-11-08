@@ -76,7 +76,7 @@ async function CookieMonsta_InitialiseDatabase()
 
 async function CookieMonsta_UserExists(iGuild, iUser)
 {
-    return new Promise((resolve, reject) =>
+    return new Promise(async (resolve, reject) =>
     {
         const QueryCheckForUser = "SELECT * FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
