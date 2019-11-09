@@ -335,6 +335,47 @@ async function CookieMonsta_CheckCreateUser(iGuild, iUser)
     }
 };
 
+async function CookieMonsta_GetGuildPrefix(iGuild)
+{
+    return new Promise((resolve, reject) =>
+    {
+        const QueryGetPrefix = "SELECT `prefix` FROM `PrefixTable` WHERE `guild` = ?;";
+      
+        DatabaseConnection.query(QueryGetPrefix, parseInt(iGuild), (err, results) =>
+        {
+            if(err)
+            {
+                reject(err.message);
+            }
+
+            if(Object.keys(results).length <= 0)
+            {
+                // --| If there is no result returned, there is no need to fill the database with default prefixes
+                // --| We just return "!" the default prefix
+                resolve("!");
+            }
+
+            else
+            {
+                resolve(results[0].prefix.toString());
+            }
+        });
+    });
+};
+
+async function CookieMonsta_SetGuildPrefix(iGuild, szPrefix)
+{
+    const QuerySetPrefix = "INSERT INTO `PrefixTable` (`guild`, `prefix`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `prefix` = ?";
+
+    DatabaseConnection.query(QuerySetPrefix, [parseInt(iGuild), szPrefix.trim(), szPrefix.trim()], (err, results) =>
+    {
+        if(err)
+        {
+            console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_SetGuildPrefix): " + err + "\x1b[0m");
+        }
+    });
+};
+
 module.exports.CookieMonsta_InitialiseDatabase = CookieMonsta_InitialiseDatabase;
 module.exports.CookieMonsta_UserExists = CookieMonsta_UserExists;
 module.exports.CookieMonsta_CreateUser = CookieMonsta_CreateUser;
@@ -349,3 +390,5 @@ module.exports.CookieMonsta_AddBannerToTable = CookieMonsta_AddBannerToTable;
 module.exports.CookieMonsta_GetBannerFromDatabase = CookieMonsta_GetBannerFromDatabase;
 module.exports.CookieMonsta_GetAllBanners = CookieMonsta_GetAllBanners;
 module.exports.CookieMonsta_CheckCreateUser = CookieMonsta_CheckCreateUser;
+module.exports.CookieMonsta_GetGuildPrefix = CookieMonsta_GetGuildPrefix;
+module.exports.CookieMonsta_SetGuildPrefix = CookieMonsta_SetGuildPrefix;
