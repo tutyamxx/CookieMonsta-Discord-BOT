@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners!  :no_entry:");
     }
     
-    if(iUserBannerName < 1 || iUserBannerName > 121)
+    if(iUserBannerName < 1 || iUserBannerName > parseInt(BannersFromDatabase.length))
     {
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners!  :no_entry:");
     }
