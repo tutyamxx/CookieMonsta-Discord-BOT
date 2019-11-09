@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!nameavatar** ``<your text>`` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Add some text please...  :no_entry:");
     }
 
     if(szArgs[0].length > 30)
