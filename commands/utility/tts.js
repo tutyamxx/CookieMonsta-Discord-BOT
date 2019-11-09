@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!tts** ``<your text here>`` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Add some text so I can convert it to speech?  :no_entry:");
     }
 
     if(bAlreadyPlayingTTS === true)
