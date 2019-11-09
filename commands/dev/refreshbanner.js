@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, args) =>
     let i;
     for(i = 0; i < StatsCollection.length; i++)
     {
-        await DatabaseImport.CookieMonsta_AddBannerToTable(StatsCollection[i][0], StatsCollection[i][1], StatsCollection[i][2]);
+        await DatabaseImport.CookieMonsta_AddBannerToTable(StatsCollection[i][0], StatsCollection[i][1], StatsCollection[i][2], StatsCollection[i][3]);
     }
 
     message.channel.send(`:recycle: ⇒ I have updated the database with **${i}** banners :frame_photo: my lord! :ok_hand:`);

@@ -115,11 +115,11 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
     });
 };
 
-async function CookieMonsta_AddBannerToTable(szDescription, szPngFile, szNameHex, szStatsHex)
+async function CookieMonsta_AddBannerToTable(szCardDescription, szPngFile, szNameHex, szStatsHex)
 {
     const QueryAddBanner = "INSERT INTO `BannersTable` (`card_description`, `png_file`, `username_color`, `stats_color`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `card_description` = ?, `png_file` = ?, `username_color` = ?, `stats_color` = ?;";
 
-    DatabaseConnection.query(QueryAddBanner, [szDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
+    DatabaseConnection.query(QueryAddBanner, [szCardDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szCardDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
     {
         if(err)
         {
