@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: ey, invalid parameter entered. Type **!sound** ``list`` to list all available sounds to play :mute:  :no_entry:" );
+        return await message.reply(" :no_entry: ey, invalid parameter entered. Type ``list`` as the parameter to list all available sounds to play :mute:  :no_entry:" );
     }
 
     let SoundList = [];
