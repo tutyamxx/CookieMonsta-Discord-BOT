@@ -132,7 +132,8 @@ module.exports = async (bot, message) =>
     const szArgs = message.content.slice(szPrefix).trim().split(/ +/g);
     const szCommand = szArgs.shift();
 
-    let KittyRegex = new RegExp(/!kit+y$/); // !kitty
+    // --| Prefix + kitty
+    const KittyRegex = new RegExp("\\" + await szPrefix.trim().toString() + "kit+y$");
 
     if(szCommand.match(KittyRegex))
     {
