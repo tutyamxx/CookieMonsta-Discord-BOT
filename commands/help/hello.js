@@ -1,3 +1,5 @@
+const DatabaseImport = require("../../database/database.js");
+
 const RandomHello =
 [
 	"Greetings!", "Hi.", "Howdy!", "Hello there!", "Hi to you too.",
@@ -10,9 +12,11 @@ const RandomHello =
 
 module.exports.run = async (bot, message, args) =>
 {
+    const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(message.guild.id);
+
     let szRandomGreet = RandomHello[Math.floor(Math.random() * RandomHello.length)];
 
-    await message.channel.send(szRandomGreet + " I am a funny <:cookiemonsta:634866060465537034>  **Cookie Monsta**  <:cookiemonsta:634866060465537034> that can do stuff :smile:\nType **!help** so I can teach you what I can do!\nBtw, want a cookie :cookie: ?");
+    await message.channel.send(szRandomGreet + " I am a funny <:cookiemonsta:634866060465537034>  **Cookie Monsta**  <:cookiemonsta:634866060465537034> that can do stuff :smile:\nType **" + szPrefix + "help** so I can teach you what I can do!\nBtw, want a cookie :cookie: ?");
 };
 
 module.exports.help =
