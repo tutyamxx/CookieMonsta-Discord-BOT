@@ -59,7 +59,7 @@ async function CookieMonsta_InitialiseDatabase()
             });
 
             // --| Create banners table
-            const QueryCreateBannersTable = "CREATE TABLE IF NOT EXISTS `BannersTable` (`png_file` VARCHAR(255) NOT NULL, `username_color` VARCHAR(255) NOT NULL, `stats_color` VARCHAR(255) NOT NULL, PRIMARY KEY (`png_file`));";
+            const QueryCreateBannersTable = "CREATE TABLE IF NOT EXISTS `BannersTable` (`card_description` TEXT NOT NULL, `png_file` VARCHAR(255) NOT NULL, `username_color` VARCHAR(255) NOT NULL, `stats_color` VARCHAR(255) NOT NULL, PRIMARY KEY (`png_file`));";
 
             DatabaseConnection.query(QueryCreateBannersTable, (err, results) =>
             {
@@ -115,11 +115,11 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
     });
 };
 
-async function CookieMonsta_AddBannerToTable(szPngFile, szNameHex, szStatsHex)
+async function CookieMonsta_AddBannerToTable(szDescription, szPngFile, szNameHex, szStatsHex)
 {
-    const QueryAddBanner = "INSERT INTO `BannersTable` (`png_file`, `username_color`, `stats_color`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `png_file` = ?, `username_color` = ?, `stats_color` = ?;";
+    const QueryAddBanner = "INSERT INTO `BannersTable` (`card_description`, `png_file`, `username_color`, `stats_color`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `card_description` = ?, `png_file` = ?, `username_color` = ?, `stats_color` = ?;";
 
-    DatabaseConnection.query(QueryAddBanner, [szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
+    DatabaseConnection.query(QueryAddBanner, [szDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim(), szDescription.trim(), szPngFile.trim(), szNameHex.trim(), szStatsHex.trim()], (err, results) =>
     {
         if(err)
         {
@@ -289,6 +289,7 @@ async function CookieMonsta_GetBannerFromDatabase(szFileName)
             {
                 let BannerDetailsResult =
                 {
+                    card_description: results[0].card_description,
                     png_file: results[0].png_file,
                     username_color: results[0].username_color,
                     stats_color: results[0].stats_color

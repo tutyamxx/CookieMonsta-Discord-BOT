@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners!  :no_entry:");
     }
     
-    if(iUserBannerName < 1 || iUserBannerName > 91)
+    if(iUserBannerName < 1 || iUserBannerName > 121)
     {
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners!  :no_entry:");
     }
@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 25000);
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
-            await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + iUserBannerName.toString().padStart(2, "0") + "**. Also stole **25000** :cookie: cookies from him L3L :wink:");
+            await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + BannersFromDatabase[i].card_description.toString().trim() + " (" + iUserBannerName.toString().padStart(2, "0") + ")**. Also stole **25000** :cookie: cookies from him L3L :wink:");
 
             break;
         }
