@@ -53,7 +53,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 25000);
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
-            await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + BannersFromDatabase[i].card_description.toString().trim() + "** ``(" + iUserBannerName.toString().padStart(2, "0") + ")``. Also stole **25000** :cookie: cookies from him " + RandomSmileyFace);
+            await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + BannersFromDatabase[i].card_description.toString().trim() + "** (``" + iUserBannerName.toString().padStart(2, "0") + "``). Also stole **25000** :cookie: cookies from him " + RandomSmileyFace);
 
             break;
         }
