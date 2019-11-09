@@ -49,7 +49,15 @@ module.exports.run = async (bot, message, szArgs) =>
 
     for(let i = 0; i < BannersFromDatabase.length; i++)
     {
-        if(parseInt(BannersFromDatabase[i].png_file.slice(0, -4)) === parseInt(iUserBannerName))
+        if(iUserBannerName === 1)
+        {   
+            await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
+            await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have reverted the profile banner :frame_photo: for " + user + " with the default one. This one is **FREE**.");
+
+            break;
+        }
+
+        else if(parseInt(BannersFromDatabase[i].png_file.slice(0, -4)) === parseInt(iUserBannerName))
         {
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 25000);
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
