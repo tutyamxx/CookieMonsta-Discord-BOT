@@ -4,7 +4,7 @@ const DatabaseImport = require("../../database/database.js");
 
 const szRandomEmotes =
 [
-        ":wink:", ":joy:", ":smiling_imp:", ":smirk:", ":money_mouth:", ":relieved:"
+    ":wink:", ":joy:", ":smiling_imp:", ":smirk:", ":money_mouth:", ":relieved:"
 ];
 
 module.exports.run = async (bot, message, szArgs) =>
