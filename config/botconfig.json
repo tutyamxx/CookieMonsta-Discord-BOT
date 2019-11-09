@@ -1,11 +1,10 @@
 {
     "NASA_API_Key":             "",
     "DiscordBOT_Token":         "",
-    "DiscordBOT_Prefix":        "!",
     "DiscordBOT_PayPal_Link":   "https://www.google.co.uk",
     "Steam_API_Token":          "",
-    "Database_Host": "",
-    "Database_User": "",
-    "Database_Password": "",
-    "Database_DB": ""
+    "Database_Host":            "",
+    "Database_User":            "",
+    "Database_Password":        "",
+    "Database_DB":              ""
 }
