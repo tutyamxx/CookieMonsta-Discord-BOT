@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!robohash** ``<your text here>`` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to add some text.  :no_entry:");
     }
 
     let ArgumentText = szArgs.join(" ");

@@ -3,9 +3,6 @@ const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const DatabaseImport = require("../database/database.js");
-const BotConfig = require("../config/botconfig.json");
-
-const szPrefix = BotConfig.DiscordBOT_Prefix.trim();
 
 let iCmdCooldown = new Set();
 let iCooldownTime = 5;
@@ -35,6 +32,7 @@ module.exports = async (bot, message) =>
     }
 
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
+    const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GuildGetID);
 
     if(message.guild)
     {
@@ -95,7 +93,7 @@ module.exports = async (bot, message) =>
                 const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
                 .setColor("#00BFFF")
-                .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **!opengift**")
+                .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
                 .setThumbnail("https://i.imgur.com/hNALLLd.png")
                 .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
 

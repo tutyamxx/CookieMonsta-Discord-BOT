@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: missing argument! Type **!horoscope** ``" + ZodiacSigns[Math.floor(Math.random() * ZodiacSigns.length)][0] + "`` for example. :no_entry:");
+        return await message.reply(" :no_entry: missing argument! Make sure you add ``" + ZodiacSigns[Math.floor(Math.random() * ZodiacSigns.length)][0] + "`` for example. :no_entry:");
     }
 
     let i;
@@ -71,7 +71,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     else
     {
-        return await message.reply(" :no_entry: invalid argument! Type **!horoscope** ``list`` to see available zodiac signs :no_entry:");
+        return await message.reply(" :no_entry: invalid argument! Type ``list`` as a parameter to see available zodiac signs :no_entry:");
     }
 };
 

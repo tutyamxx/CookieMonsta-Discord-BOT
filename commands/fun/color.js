@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: it seems your color parameter is empty or invalid! Try entering a color or type **!color** ``list``. :no_entry:" );
+        return await message.reply(" :no_entry: it seems your color parameter is empty or invalid! Try entering a color or type ``list`` as a parameter. :no_entry:" );
     }
 
     let ColorList = [];

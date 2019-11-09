@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, szArgs) =>
     
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!setprefix** ``<your prefix>`` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to specify a prefix for Christ sake!  :no_entry:");
     }
 
     const ArgumentPrefix = szArgs[0].trim().toString();

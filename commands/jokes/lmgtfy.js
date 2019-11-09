@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this Google search query can't be empty you scrub :facepalm: ! Type **!lmgtfy** ``<your text here>`` :no_entry:");
+        return await message.reply(" :no_entry: this Google search query can't be empty you scrub :facepalm: ! Add some text maybe?  :no_entry:");
     }
 
     if(message.mentions.members.first())

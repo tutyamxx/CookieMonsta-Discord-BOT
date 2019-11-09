@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!belike** ``<M or F> `` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a gender ``<M or F>``  :no_entry:");
     }
 
     if(szArgs[0].toLowerCase() === "m" || szArgs[0].toLowerCase() === "f")
