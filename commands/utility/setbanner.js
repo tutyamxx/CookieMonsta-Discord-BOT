@@ -16,6 +16,7 @@ module.exports.run = async (bot, message, szArgs) =>
     await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
 
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
+    const BannersFromDatabase = await DatabaseImport.CookieMonsta_GetAllBanners();
 
     if(iUserCookies < 25000)
     {
@@ -24,12 +25,11 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!setbanner** ``<one banner name from 1 to 91>``. Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners! :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Try a banner from **1** to **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners! :no_entry:");
     }
 
     const iUserBannerName = parseInt(szArgs[0].trim());
-    const BannersFromDatabase = await DatabaseImport.CookieMonsta_GetAllBanners();
-
+    
     if(!CustomFunctions.isInt(iUserBannerName))
     {
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Go here https://tutyamxx.github.io/cookie-monsta-website/features.html to see all the available banners!  :no_entry:");
