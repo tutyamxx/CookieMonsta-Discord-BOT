@@ -106,7 +106,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .drawText(0, 48, "Yellow: " + ResponseCMYK[2], "SouthEast")
             .drawText(0, 24, "Black: " + ResponseCMYK[3], "SouthEast")
             .drawText(0, 0, ResponseCMYK[4], "SouthEast")
-            .toBuffer(szFileNameColor, async function (err, buffer2)
+            .toBuffer(szFileNameColor, async (err, buffer2) =>
             {
                 if(err)
                 {
