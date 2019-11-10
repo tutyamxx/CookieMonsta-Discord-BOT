@@ -46,13 +46,14 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             bAlreadyPlayingTTS = true;
 
-            let iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
+            const iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
             await iDispatcher.on("end", async (end) =>
             {
                 bAlreadyPlayingTTS = false;
 
                 await voiceChannel.leave();
+                await iDispatcher.destroy();
             });
 
             await iDispatcher.on("error", async (end) =>
@@ -60,6 +61,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 bAlreadyPlayingTTS = false;
                 
                 await voiceChannel.leave();
+                await iDispatcher.destroy();
             });
 
             await iDispatcher.on("finish", async () =>
@@ -67,6 +69,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 bAlreadyPlayingTTS = false;
 
                 await voiceChannel.leave();
+                await iDispatcher.destroy();
             });
             
         }).catch(err => console.log(err));
