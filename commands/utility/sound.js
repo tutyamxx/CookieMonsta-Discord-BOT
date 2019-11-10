@@ -80,13 +80,17 @@ module.exports.run = async (bot, message, szArgs) =>
                     await iDispatcher.on("end", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
+
                         await UserVoiceChannel.leave();
+                        await iDispatcher.destroy();
                     });
 
                     await iDispatcher.on("error", async (end) =>
                     {
                         bBoolAlreadyPlayingSound = false;
+
                         await UserVoiceChannel.leave();
+                        await iDispatcher.destroy();
                     });
 
                     await iDispatcher.on("finish", async () =>
