@@ -14,7 +14,6 @@ let iCheckIfOpenGift = {};
 module.exports = async (bot, message) =>
 {
     const user = message.author;
-    const GuildGetID = message.guild.id;
 
     if(user.bot)
     {
@@ -31,6 +30,8 @@ module.exports = async (bot, message) =>
         return await message.delete();
     }
 
+    const GuildGetID = message.guild.id;
+    
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
     const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GuildGetID);
 
