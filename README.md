@@ -71,3 +71,7 @@ npm i steamapi
 npm i steamid
 npm i leet
 ```
+
+
+> If you are hosting an instance of Cookie Monsta yourself, make sure that is for private use only in your OWN Discord servers. Do not make it a public bot, do not advertise it as it is your own piece of work and lastly, do not add/list it on public sites.
+> I will not allow that. Strict actions will be taken if you violate this policy.
