@@ -67,9 +67,9 @@ module.exports = async (bot, message) =>
                     await gm(buffer)
                     .font("./BOTFonts/AgencyFB-Bold.ttf", 16)
                     .fill("#00FFFF")
-                    .gravity('Center')
+                    .gravity("Center")
                     .draw(["text 0, 42 '" + iCurentLevel + "'"])
-                    .toBuffer("levelup.png", async function (err, buffer2)
+                    .toBuffer("levelup.png", async (err, buffer2) =>
                     {
                         if(err)
                         {
@@ -160,12 +160,10 @@ module.exports = async (bot, message) =>
 
         let szCatFileName = szCatCommand.substring(1) + ".png";
 
-        szCatImage
-        .in("-page", "+" + iPos + "+0")
-        .in("./BOTImages/CatXD/cathead.png")
+        szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/cathead.png")
         .background("transparent")
         .mosaic()
-        .toBuffer("kitty.png", async function (err, buffer)
+        .toBuffer(szCatFileName, async (err, buffer) =>
         {
             if(err)
             {
