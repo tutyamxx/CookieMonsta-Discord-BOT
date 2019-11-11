@@ -3,6 +3,7 @@
     "DiscordBOT_Token":         "",
     "DiscordBOT_PayPal_Link":   "https://www.google.co.uk",
     "Steam_API_Token":          "",
+    "Destiny2_API_Token":       "",
     "Database_Host":            "",
     "Database_User":            "",
     "Database_Password":        "",

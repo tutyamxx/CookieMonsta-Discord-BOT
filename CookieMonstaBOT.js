@@ -47,11 +47,10 @@ fs.readdir("./events/", (err, files) =>
 
 const szCommandFolders = 
 [
-    "administrator", "animals", 
-    "dev", "fun", 
-    "games", "help", 
-    "jokes", "memes", 
-    "utility", "dota2", "crypto"
+    "administrator", "animals", "dev",
+    "fun", "games", "help", 
+    "jokes", "memes", "utility", 
+    "dota2", "crypto", "destiny2"
 ];
 
 szCommandFolders.forEach((command) =>
