@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     const PlayerAdventuresCompleted = PlayerResultsObject.adventuresCompleted.basic.displayValue;
                     const PlayerHeroicEventsCompleted = PlayerResultsObject.heroicPublicEventsCompleted.basic.displayValue;
                     const PlayerOponentsDefeated = PlayerResultsObject.opponentsDefeated.basic.displayValue;
-                    const PlayerRessurectionsPerformed = PlayerResultsObject.resurrectionsPerformed.basic.displayValue;
+                    const PlayerResurrectionsPerformed = PlayerResultsObject.resurrectionsPerformed.basic.displayValue;
                     const PlayerSuperKills = PlayerResultsObject.weaponKillsSuper.basic.displayValue;
                     const PlayerLongestKillDistance = PlayerResultsObject.longestKillDistance.basic.displayValue;
 
@@ -70,7 +70,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     ":up: Highest Character Level: **" + PlayerHighestCharacterLevel + "**\n" +
                     ":sunny: Highest Light Level: **" + PlayerHighestLightLevel + "**\n" + 
                     ":dart: Win/Loss Ratio: **" + PlayerWinLossRatio + "**\n" + 
-                    ":leaves: Ressurections Performed: **" + PlayerRessurectionsPerformed + "**\n\n" +
+                    ":leaves: Resurrections Performed: **" + PlayerResurrectionsPerformed + "**\n\n" +
                     "`Player Stats:`\n" + 
                     ":bar_chart: Combat Rating: **" + PlayerCombatRating + "**\n" + 
                     ":bookmark_tabs: Score: **" + PlayerScore + "** | Team Score: **" + PlayerTeamScore + "**\n" +
