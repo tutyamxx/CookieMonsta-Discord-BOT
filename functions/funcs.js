@@ -418,6 +418,41 @@ function Guild_GetContentFilter(iFilterLevel)
     return szFilterName;
 };
 
+function InvertColor(HEX, bw)
+{
+    if(HEX.indexOf("#") === 0)
+    {
+        HEX = HEX.slice(1);
+    }
+
+    // --| Convert 3-digit hex to 6-digits.
+    if(HEX.length === 3)
+    {
+        HEX = HEX[0] + HEX[0] + HEX[1] + HEX[1] + HEX[2] + HEX[2];
+    }
+
+    if(HEX.length !== 6)
+    {
+        throw new Error("Invalid HEX color.");
+    }
+
+    const r = parseInt(HEX.slice(0, 2), 16);
+    const g = parseInt(HEX.slice(2, 4), 16);
+    const b = parseInt(HEX.slice(4, 6), 16);
+
+    if(bw)
+    {
+        return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? "#000000" : "#FFFFFF";
+    }
+
+    // --| Invert color components
+    r = (255 - r).toString(16);
+    g = (255 - g).toString(16);
+    b = (255 - b).toString(16);
+
+    return "#" + padZero(r) + padZero(g) + padZero(b);
+};
+
 module.exports.bytesToSize = bytesToSize;
 module.exports.GuildLocation = GuildLocation;
 module.exports.GuildVerificationLevel = GuildVerificationLevel;
@@ -438,3 +473,4 @@ module.exports.Dota2_GameType_Check = Dota2_GameType_Check;
 module.exports.Dota2_CalculateWinrate = Dota2_CalculateWinrate;
 module.exports.Dota2_ConvertToLaneRole = Dota2_ConvertToLaneRole;
 module.exports.Guild_GetContentFilter = Guild_GetContentFilter;
+module.exports.InvertColor = InvertColor;

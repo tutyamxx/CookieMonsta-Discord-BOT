@@ -77,34 +77,32 @@ module.exports.run = async (bot, message, szArgs) =>
                 return;
             }
 
-            const InvertColor = (hex) => "#" + hex.match(/[a-f0-9]{2}/ig).map(e => (255 - parseInt(e, 16) | 0).toString(16).replace(/^([a-f0-9])$/, "0$1")).join("");
-
             await gm(buffer)
             .font("Agency-FB.ttf", 28)
-            .fill(InvertColor(ResponseHEXColor))
+            .fill(CustomFunctions.InvertColor(ResponseHEXColor, true))
             .drawText(0, 0, ResponseColorName, "Center")
             .font("Agency-FB.ttf", 16)
-            .fill(InvertColor(ResponseHEXColor))
+            .fill(CustomFunctions.InvertColor(ResponseHEXColor, true))
             .drawText(0, 2, "RGB", "NorthWest")
             .drawText(0, 24, "Red: " + ResponseRGB[0], "NorthWest")
             .drawText(0, 48, "Green: " + ResponseRGB[1], "NorthWest")
             .drawText(0, 72, "Blue: " + ResponseRGB[2], "NorthWest")
             .drawText(0, 98, ResponseRGB[3], "NorthWest")
             .drawText(0, 2, "HSL", "NorthEast")
-            .drawText(0, 24, "Hue: " + ResponseHSL[0], "NorthEast")
-            .drawText(0, 48, "Saturation: " + ResponseHSL[1], "NorthEast")
-            .drawText(0, 72, "Lightness: " + ResponseHSL[2], "NorthEast")
+            .drawText(0, 24, "Hue: " + ResponseHSL[0] + "°", "NorthEast")
+            .drawText(0, 48, "Saturation: " + ResponseHSL[1] + "%", "NorthEast")
+            .drawText(0, 72, "Lightness: " + ResponseHSL[2] + "%", "NorthEast")
             .drawText(0, 98, ResponseHSL[3], "NorthEast")
             .drawText(0, 98, "HSV", "SouthWest")
-            .drawText(0, 72, "Hue: " + ResponseHSV[0], "SouthWest")
-            .drawText(0, 48, "Saturation: " + ResponseHSV[1], "SouthWest")
-            .drawText(0, 24, "Value: " + ResponseHSV[2], "SouthWest")
+            .drawText(0, 72, "Hue: " + ResponseHSV[0] + "°", "SouthWest")
+            .drawText(0, 48, "Saturation: " + ResponseHSV[1] + "%", "SouthWest")
+            .drawText(0, 24, "Value: " + ResponseHSV[2] + "%", "SouthWest")
             .drawText(0, 0, ResponseHSV[3], "SouthWest")
             .drawText(0, 122, "CMYK", "SouthEast")
-            .drawText(0, 96, "Cyan: " + ResponseCMYK[0], "SouthEast")
-            .drawText(0, 72, "Magenta: " + ResponseCMYK[1], "SouthEast")
-            .drawText(0, 48, "Yellow: " + ResponseCMYK[2], "SouthEast")
-            .drawText(0, 24, "Black: " + ResponseCMYK[3], "SouthEast")
+            .drawText(0, 96, "Cyan: " + ResponseCMYK[0] + "%", "SouthEast")
+            .drawText(0, 72, "Magenta: " + ResponseCMYK[1] + "%", "SouthEast")
+            .drawText(0, 48, "Yellow: " + ResponseCMYK[2] + "%", "SouthEast")
+            .drawText(0, 24, "Black: " + ResponseCMYK[3] + "%", "SouthEast")
             .drawText(0, 0, ResponseCMYK[4], "SouthEast")
             .toBuffer(szFileNameColor, async (err, buffer2) =>
             {
@@ -119,7 +117,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             });
         });
-    });      
+    });
 };
 
 module.exports.help =
