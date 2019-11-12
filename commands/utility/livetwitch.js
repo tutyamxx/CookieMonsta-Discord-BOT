@@ -33,7 +33,8 @@ module.exports.run = async (bot, message, szArgs) =>
         .setColor("#6441a5")
         .setDescription(szDescription)
         .setThumbnail(GetUserLive.profile_avatar)
-        .setImage(GetUserLive.preview_thumbnail)
+        .attachFile({ attachment: GetUserLive.preview_thumbnail, name: "twitch_thumbnail.png" })
+        .setImage("attachment://twitch_thumbnail.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
