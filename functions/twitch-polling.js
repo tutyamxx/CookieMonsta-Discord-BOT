@@ -16,7 +16,7 @@ async function PollTwitchAPI(szUser)
 
         Needle.get("https://api.twitch.tv/helix/users?login=" + szUser, TwitchHeader, async (error, response) =>
         {
-            if(!error && response.statusCode === 200)
+            if(!error && response.statusCode === 200 && response.body.data[0] !== undefined)
             {
                 const UserTwitchID = await response.body.data[0].id;
                 const UserTwitchAvatar = await response.body.data[0].profile_image_url;
