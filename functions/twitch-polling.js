@@ -14,33 +14,44 @@ async function PollTwitchAPI(szUser)
             }
         };
 
-        Needle.get("https://api.twitch.tv/kraken/users?login=" + szUser, TwitchHeader, async (error, response) =>
+        Needle.get("https://api.twitch.tv/helix/users?login=" + szUser, TwitchHeader, async (error, response) =>
         {
             if(!error && response.statusCode === 200)
             {
-                let UsersTwitch = await response.body.users;
+                const UserTwitchID = await response.body.data[0].id;
+                const UserTwitchAvatar = await response.body.data[0].profile_image_url;
 
-                Needle.get("https://api.twitch.tv/kraken/streams/" + UsersTwitch[0]._id, TwitchHeader, async (error, response) =>
+                Needle.get("https://api.twitch.tv/helix/streams?user_id=" + UserTwitchID, TwitchHeader, async (error, response) =>
                 {
                     if(!error && response.statusCode === 200)
                     {
-                        let StreamChannel = await response.body.stream;
-                        
-                        if(StreamChannel !== null && StreamChannel.stream_type === "live" && StreamChannel.broadcast_platform === "live")
-                        {
-                            let TwitchResults =
-                            {
-                                livestream_user: StreamChannel.channel.display_name,
-                                game_played: StreamChannel.game,
-                                viewers: StreamChannel.viewers,
-                                preview_thumbnail: StreamChannel.preview.large,
-                                language: StreamChannel.channel.broadcaster_language.toUpperCase(),
-                                profile_avatar: StreamChannel.channel.logo,
-                                profile_twitch_url: StreamChannel.channel.url,
-                                stream_description: StreamChannel.channel.status
-                            };
+                        const StreamChannel = await response.body.data[0];
 
-                            resolve(TwitchResults);
+                        if(StreamChannel !== undefined && StreamChannel.type === "live")
+                        {
+                            const StreamChannelURL = "https://www.twitch.tv/" + StreamChannel.user_name;
+
+                            Needle.get("https://api.twitch.tv/helix/games?id=" + StreamChannel.game_id, TwitchHeader, async (error, response_game) =>
+                            {
+                                if(!error && response_game.statusCode === 200)
+                                {
+                                    const szGamePlayedName = await response_game.body.data[0].name;
+
+                                    let TwitchResults =
+                                    {
+                                        livestream_user: StreamChannel.user_name,
+                                        game_played: szGamePlayedName.toString(),
+                                        viewers: StreamChannel.viewer_count,
+                                        preview_thumbnail: StreamChannel.thumbnail_url.replace("{width}", "640").replace("{height}", "360"),
+                                        language: StreamChannel.language.toUpperCase(),
+                                        profile_avatar: UserTwitchAvatar.toString(),
+                                        profile_twitch_url: StreamChannelURL.toString(),
+                                        stream_description: StreamChannel.title
+                                    };
+
+                                    resolve(TwitchResults);
+                                }
+                            });
                         }
 
                         else
