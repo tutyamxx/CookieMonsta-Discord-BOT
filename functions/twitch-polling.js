@@ -42,7 +42,7 @@ async function PollTwitchAPI(szUser)
                                         livestream_user: StreamChannel.user_name,
                                         game_played: szGamePlayedName.toString(),
                                         viewers: StreamChannel.viewer_count,
-                                        preview_thumbnail: StreamChannel.thumbnail_url.replace("{width}", "640").replace("{height}", "360") + Math.floor(Math.random() * 8000) + 1,
+                                        preview_thumbnail: StreamChannel.thumbnail_url.replace("{width}", "640").replace("{height}", "360") + "&" + Math.floor(Math.random() * 8000) + 1,
                                         language: StreamChannel.language.toUpperCase(),
                                         profile_avatar: UserTwitchAvatar.toString(),
                                         profile_twitch_url: StreamChannelURL.toString(),
