@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         let szDescription = "`Twitch.TV Results:`\n" +
         ":speaking_head: User: **" + GetUserLive.livestream_user + "**\n" +
-        ":label: Stream Title: **" + GetUserLive.stream_description + "**\n" +
+        ":label: Stream Title: **" + GetUserLive.stream_description.replace(/[^a-z0-9]/gi, "") + "**\n" +
         ":link: URL: [" + GetUserLive.profile_twitch_url + "](" + GetUserLive.profile_twitch_url + ")\n\n" +
         "`Stream Information:`\n" +
         ":microphone: Stream Language: **" + GetUserLive.language + "**\n" +
