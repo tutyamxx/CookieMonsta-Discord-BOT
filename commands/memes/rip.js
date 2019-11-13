@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) =>
     message.channel.startTyping();
 
     let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    let UsernameText = GuildMember.user.username.toString();
+    let UsernameText = GuildMember.user.username.replace(/[^\w]/g, "").toString();
 
     await Jimp.read("./BOTImages/RIP/rip.png").then(async (image) =>
     {
