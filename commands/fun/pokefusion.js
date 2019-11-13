@@ -12,7 +12,8 @@ module.exports.run = async (bot, message, args) =>
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(11950939)
-    .setImage(GenLink)
+    .attachFile({ attachment: GenLink, name: "pokefusion.png" })
+    .setImage("attachment://pokefusion.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
     await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
