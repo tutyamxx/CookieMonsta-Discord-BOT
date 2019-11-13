@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     Needle.get("https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/" + encodeURIComponent(szArgs[0].trim()) + "/", Destiny2RequestOptions, async (error, response) =>
     {
-        if (!error && response.statusCode === 200)
+        if(!error && response.statusCode === 200)
         {
             let PlayerObject = await response.body.Response[0];
 
@@ -35,36 +35,37 @@ module.exports.run = async (bot, message, szArgs) =>
                 if(!error && response_player.statusCode === 200)
                 {
                     const PlayerResultsObject = await response_player.body.Response.mergedAllCharacters.merged.allTime;
+                    const szUnknownAPI = "Not Available";
 
                     const PlayerName = PlayerObject.displayName;
-                    const PlayerPlayedTime = PlayerResultsObject.secondsPlayed.basic.displayValue;
-                    const PlayerEfficiency = PlayerResultsObject.efficiency.basic.displayValue;
-                    const PlayerHighestCharacterLevel = PlayerResultsObject.highestCharacterLevel.basic.displayValue;
-                    const PlayerHighestLightLevel = PlayerResultsObject.highestLightLevel.basic.displayValue;
-                    const PlayerWinLossRatio = PlayerResultsObject.winLossRatio.basic.displayValue;
-                    const PlayerCombatRating = PlayerResultsObject.combatRating.basic.displayValue;
-                    const PlayerScore = PlayerResultsObject.score.basic.displayValue;
-                    const PlayerTeamScore = PlayerResultsObject.teamScore.basic.displayValue;
-                    const PlayerKills = PlayerResultsObject.kills.basic.displayValue;
-                    const PlayerPrecisionKills = PlayerResultsObject.precisionKills.basic.displayValue;
-                    const PlayerAssits = PlayerResultsObject.assists.basic.displayValue;
-                    const PlayerDeaths = PlayerResultsObject.deaths.basic.displayValue;
-                    const PlayerSuicideDeaths = PlayerResultsObject.suicides.basic.displayValue;
-                    const PlayerKDR = PlayerResultsObject.killsDeathsRatio.basic.displayValue;
-                    const PlayerKDA = PlayerResultsObject.killsDeathsAssists.basic.displayValue;
-                    const PlayerBestWeapon = PlayerResultsObject.weaponBestType.basic.displayValue;
-                    const PlayerMedalsEarned = PlayerResultsObject.allMedalsEarned.basic.displayValue;
-                    const PlayerObjectivesCompleted = PlayerResultsObject.objectivesCompleted.basic.displayValue;
-                    const PlayerAdventuresCompleted = PlayerResultsObject.adventuresCompleted.basic.displayValue;
-                    const PlayerHeroicEventsCompleted = PlayerResultsObject.heroicPublicEventsCompleted.basic.displayValue;
-                    const PlayerOponentsDefeated = PlayerResultsObject.opponentsDefeated.basic.displayValue;
-                    const PlayerResurrectionsPerformed = PlayerResultsObject.resurrectionsPerformed.basic.displayValue;
-                    const PlayerSuperKills = PlayerResultsObject.weaponKillsSuper.basic.displayValue;
-                    const PlayerLongestKillDistance = PlayerResultsObject.longestKillDistance.basic.displayValue;
+                    const PlayerPlayedTime = (PlayerResultsObject.hasOwnProperty("secondsPlayed")) ? PlayerResultsObject.secondsPlayed.basic.displayValue : szUnknownAPI;
+                    const PlayerEfficiency = (PlayerResultsObject.hasOwnProperty("efficiency")) ? PlayerResultsObject.efficiency.basic.displayValue : szUnknownAPI;
+                    const PlayerHighestCharacterLevel = (PlayerResultsObject.hasOwnProperty("highestCharacterLevel")) ? PlayerResultsObject.highestCharacterLevel.basic.displayValue : szUnknownAPI;
+                    const PlayerHighestLightLevel = (PlayerResultsObject.hasOwnProperty("highestLightLevel")) ? PlayerResultsObject.highestLightLevel.basic.displayValue : szUnknownAPI;
+                    const PlayerWinLossRatio = (PlayerResultsObject.hasOwnProperty("winLossRatio")) ? PlayerResultsObject.winLossRatio.basic.displayValue : szUnknownAPI;
+                    const PlayerCombatRating = (PlayerResultsObject.hasOwnProperty("combatRating")) ? PlayerResultsObject.combatRating.basic.displayValue : szUnknownAPI;
+                    const PlayerScore = (PlayerResultsObject.hasOwnProperty("score")) ? PlayerResultsObject.score.basic.displayValue : szUnknownAPI;
+                    const PlayerTeamScore = (PlayerResultsObject.hasOwnProperty("teamScore")) ? PlayerResultsObject.teamScore.basic.displayValue : szUnknownAPI;
+                    const PlayerKills = (PlayerResultsObject.hasOwnProperty("kills")) ? PlayerResultsObject.kills.basic.displayValue : szUnknownAPI;
+                    const PlayerPrecisionKills = (PlayerResultsObject.hasOwnProperty("precisionKills")) ? PlayerResultsObject.precisionKills.basic.displayValue : szUnknownAPI;
+                    const PlayerAssits = (PlayerResultsObject.hasOwnProperty("assists")) ? PlayerResultsObject.assists.basic.displayValue : szUnknownAPI;
+                    const PlayerDeaths = (PlayerResultsObject.hasOwnProperty("deaths")) ? PlayerResultsObject.deaths.basic.displayValue : szUnknownAPI;
+                    const PlayerSuicideDeaths = (PlayerResultsObject.hasOwnProperty("suicides")) ? PlayerResultsObject.suicides.basic.displayValue : szUnknownAPI;
+                    const PlayerKDR = (PlayerResultsObject.hasOwnProperty("killsDeathsRatio")) ? PlayerResultsObject.killsDeathsRatio.basic.displayValue : szUnknownAPI;
+                    const PlayerKDA = (PlayerResultsObject.hasOwnProperty("killsDeathsAssists")) ? PlayerResultsObject.killsDeathsAssists.basic.displayValue : szUnknownAPI;
+                    const PlayerBestWeapon = (PlayerResultsObject.hasOwnProperty("weaponBestType")) ? PlayerResultsObject.weaponBestType.basic.displayValue : szUnknownAPI;
+                    const PlayerMedalsEarned = (PlayerResultsObject.hasOwnProperty("allMedalsEarned")) ? PlayerResultsObject.allMedalsEarned.basic.displayValue : szUnknownAPI;
+                    const PlayerObjectivesCompleted = (PlayerResultsObject.hasOwnProperty("objectivesCompleted")) ? PlayerResultsObject.objectivesCompleted.basic.displayValue : szUnknownAPI;
+                    const PlayerAdventuresCompleted = (PlayerResultsObject.hasOwnProperty("adventuresCompleted")) ? PlayerResultsObject.adventuresCompleted.basic.displayValue : szUnknownAPI;
+                    const PlayerHeroicEventsCompleted = (PlayerResultsObject.hasOwnProperty("heroicPublicEventsCompleted")) ? PlayerResultsObject.heroicPublicEventsCompleted.basic.displayValue : szUnknownAPI;
+                    const PlayerOponentsDefeated = (PlayerResultsObject.hasOwnProperty("opponentsDefeated")) ? PlayerResultsObject.opponentsDefeated.basic.displayValue : szUnknownAPI;
+                    const PlayerResurrectionsPerformed = (PlayerResultsObject.hasOwnProperty("resurrectionsPerformed")) ? PlayerResultsObject.resurrectionsPerformed.basic.displayValue : szUnknownAPI;
+                    const PlayerSuperKills = (PlayerResultsObject.hasOwnProperty("weaponKillsSuper")) ? PlayerResultsObject.weaponKillsSuper.basic.displayValue : szUnknownAPI;
+                    const PlayerLongestKillDistance = (PlayerResultsObject.hasOwnProperty("longestKillDistance")) ? PlayerResultsObject.longestKillDistance.basic.displayValue : szUnknownAPI;
 
                     let PlayerPlatform = "None";
 
-                    switch(parseInt(PlayerObject.membershipType))
+                    switch (parseInt(PlayerObject.membershipType))
                     {
                         case 1: PlayerPlatform = "XBOX"; break;
                         case 2: PlayerPlatform = "PlayStation"; break;
