@@ -24,6 +24,18 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: nice try :smirk:, but you can't use emojis for prefix! Try again!  :no_entry:");
     }
    
+    const CheckPrintableChars = new RegExp(/^[a-z0-9!"#$%&'()*+,./:;<=>?\[\]^_{|}~-]*$/, "i");
+
+    if(!CheckPrintableChars.test(ArgumentPrefix))
+    {
+        return await message.reply(" :no_entry: nice try :smirk:, but you can't use weird characters for prefix! Try again!  :no_entry:");
+    }
+
+    if(ArgumentPrefix.length > 3)
+    {
+        return await message.reply(" :no_entry: You cannot have more than **3** characters into your prefix! Try again!  :no_entry:");
+    }
+
     const GetServerPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GetGuildID);
 
     if(ArgumentPrefix === GetServerPrefix.trim())
