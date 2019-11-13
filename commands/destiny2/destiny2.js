@@ -105,7 +105,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     .setColor("#361213")
                     .setDescription(szDescription)
                     .setThumbnail("https://i.imgur.com/xtrhgVj.jpg")
-                    .setFooter("Stats from: BUNGIE.net | Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+                    .setFooter("Stats from: BUNGIE.net • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
                     .setTimestamp()
 
                     await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
