@@ -3,6 +3,11 @@ const Needle = require("needle");
 const CustomFunctions = require("../../functions/funcs.js");
 const BotConfig = require("../../config/botconfig.json");
 
+const Destiny2RequestOptions =
+{
+    headers: { "X-API-Key": BotConfig.Destiny2_API_Token.trim() }
+};
+
 module.exports.run = async (bot, message, szArgs) =>
 {
     const user = message.author;
@@ -14,23 +19,18 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    const Destiny2RequestOptions = 
-    {
-        headers: { "X-API-Key": BotConfig.Destiny2_API_Token.trim() }
-    };
-
     Needle.get("https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/" + encodeURIComponent(szArgs[0].trim()) + "/", Destiny2RequestOptions, async (error, response) =>
     {
-        if(!error && response.statusCode === 200)
+        if (!error && response.statusCode === 200)
         {
             let PlayerObject = await response.body.Response[0];
 
             if(PlayerObject === undefined)
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szArgs[0].trim() + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            Needle.get("https://www.bungie.net/Platform/Destiny2/" + PlayerObject.membershipType + "/Account/" + PlayerObject.membershipId + "/Stats/?groups=General,Medals", Destiny2RequestOptions, async (error, response_player) =>
+            Needle.get("https://www.bungie.net/Platform/Destiny2/" + parseInt(PlayerObject.membershipType) + "/Account/" + PlayerObject.membershipId + "/Stats/?groups=General,Medals", Destiny2RequestOptions, async (error, response_player) =>
             {
                 if(!error && response_player.statusCode === 200)
                 {
@@ -62,30 +62,39 @@ module.exports.run = async (bot, message, szArgs) =>
                     const PlayerSuperKills = PlayerResultsObject.weaponKillsSuper.basic.displayValue;
                     const PlayerLongestKillDistance = PlayerResultsObject.longestKillDistance.basic.displayValue;
 
+                    let PlayerPlatform = "None";
 
-                    let szDescription = ":point_right: Destiny 2 Stats for player: **" + PlayerName + "**\n\n" + 
+                    switch(parseInt(PlayerObject.membershipType))
+                    {
+                        case 1: PlayerPlatform = "XBOX"; break;
+                        case 2: PlayerPlatform = "PlayStation"; break;
+                        case 3: PlayerPlatform = "Steam"; break;
+                        case 4: PlayerPlatform = "Blizzard"; break;
+                        case 5: PlayerPlatform = "Stadia"; break;
+                        case 10: PlayerPlatform = "Demon"; break;
+                        case 254: PlayerPlatform = "Bungie"; break;
+                    }
+
+                    let szDescription = "Destiny 2 Stats: :point_right: **" + PlayerName + "** | Platform: **" + PlayerPlatform + "**\n\n" +
                     "`Records:`\n" +
                     ":video_game: Played for: **" + PlayerPlayedTime + "**\n" +
                     ":rocket: Efficiency: **" + PlayerEfficiency + "**\n" +
-                    ":up: Highest Character Level: **" + PlayerHighestCharacterLevel + "**\n" +
-                    ":sunny: Highest Light Level: **" + PlayerHighestLightLevel + "**\n" + 
-                    ":dart: Win/Loss Ratio: **" + PlayerWinLossRatio + "**\n" + 
+                    ":up: Highest Character Level: **" + PlayerHighestCharacterLevel + "** | Highest Light Level: **" + PlayerHighestLightLevel + "**\n" +
+                    ":dart: Win/Loss Ratio: **" + PlayerWinLossRatio + "**\n" +
                     ":leaves: Resurrections Performed: **" + PlayerResurrectionsPerformed + "**\n\n" +
-                    "`Player Stats:`\n" + 
-                    ":bar_chart: Combat Rating: **" + PlayerCombatRating + "**\n" + 
+                    "`Player Stats:`\n" +
+                    ":bar_chart: Combat Rating: **" + PlayerCombatRating + "**\n" +
                     ":bookmark_tabs: Score: **" + PlayerScore + "** | Team Score: **" + PlayerTeamScore + "**\n" +
-                    ":bow_and_arrow: Total Kills: **" + PlayerKills + "**\n" +
-                    ":dart: Precision Kills: **" + PlayerPrecisionKills + "**\n" +
-                    ":eyes: Assists: **" + PlayerAssits + "**\n" + 
+                    ":dart: Total Kills: **" + PlayerKills + "** | Precision Kills: **" + PlayerPrecisionKills + "**\n" +
+                    ":eyes: Assists: **" + PlayerAssits + "**\n" +
                     ":skull: Deaths: **" + PlayerDeaths + "** | Suicides: **" + PlayerSuicideDeaths + "**\n\n" +
-                    "`Shooting Stats:`\n" + 
-                    ":chart_with_upwards_trend: Player KDR: **" + PlayerKDR + "**\n" + 
-                    ":chart_with_downwards_trend: Player KDA: **" + PlayerKDA + "**\n" + 
+                    "`Shooting Stats:`\n" +
+                    ":chart_with_upwards_trend: Player KDR: **" + PlayerKDR + "** | Player KDA: **" + PlayerKDA + "**\n" +
                     ":gun: Best Weapon: **" + PlayerBestWeapon + "**\n" +
                     ":fencer: Oponents Defeated: **" + PlayerOponentsDefeated + "**\n" +
                     ":space_invader: Kills With Super: **" + PlayerSuperKills + "**\n" +
                     ":stars: Longest Kill Distance: **" + PlayerLongestKillDistance + "**\n\n" +
-                    "`More Stats:`\n" + 
+                    "`More Stats:`\n" +
                     ":trophy: Medals Earned: **" + PlayerMedalsEarned + "**\n" +
                     ":flags: Objectives Completed: **" + PlayerObjectivesCompleted + "**\n" +
                     ":biohazard: Adventures Completed: **" + PlayerAdventuresCompleted + "**\n" +
@@ -106,7 +115,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         else
         {
-            return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szArgs[0].trim() + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
     });
 };
