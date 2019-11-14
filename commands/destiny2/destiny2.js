@@ -5,7 +5,7 @@ const BotConfig = require("../../config/botconfig.json");
 
 const Destiny2RequestOptions =
 {
-    headers: { "X-API-Key": BotConfig.Destiny2_API_Token.trim() }
+    headers: { "X-API-Key": BotConfig.Destiny2_API_Token.trim(), open_timeout: 5000 }
 };
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -110,6 +110,11 @@ module.exports.run = async (bot, message, szArgs) =>
                     .setTimestamp()
 
                     await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                }
+
+                else
+                {
+                    return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szArgs[0].trim() + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                 }
             });
         }
