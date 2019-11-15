@@ -56,6 +56,7 @@ npm install libsodium-wrappers
 npm install @discordjs/uws
 npm install --save jimp
 npm i @jimp/plugin-invert
+npm i -S @mixer/client-node
 npm i merge-img
 npm i gm
 npm i needle

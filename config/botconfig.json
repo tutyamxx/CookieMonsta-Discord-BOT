@@ -5,6 +5,7 @@
     "Steam_API_Token":          "",
     "Destiny2_API_Token":       "",
     "Twitch_API_ClientID":      "",
+    "Mixer_ClientID":           "",
     "Database_Host":            "",
     "Database_User":            "",
     "Database_Password":        "",
