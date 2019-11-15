@@ -3,7 +3,6 @@
     "version": "7.0.4",
     "description": "<p align=\"center\">   <img src=\"https://i.imgur.com/5WDYzyG.png\" widht=\"420\" height=\"290\"><br/> </p> <br/><br/>",
     "main": "CookieMonstaBOT.js",
-
     "nodemonConfig":
     {
         "ignore": [ "devonly/*" ]
@@ -20,6 +19,8 @@
     {
         "@discordjs/uws": "^11.149.1",
         "@jimp/plugin-invert": "^0.8.5",
+        "@mixer/client-node": "^3.5.0",
+        "better-sqlite3": "^5.4.3",
         "bufferutil": "^4.0.1",
         "colors": "^1.4.0",
         "discord.js": "^11.5.1",
