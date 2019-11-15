@@ -42,28 +42,35 @@ module.exports.run = async (bot, message, szArgs) =>
             const ResultGameOfficialWebsite = await ResultGame.website.toString();
             const ResultGameOfficialReddit = await ResultGame.reddit_url.toString();
             const ResultGamePlatorms = await ResultGame.platforms;
+            const ResultGameStores = await ResultGame.stores;
 
             let szPlatforms = [];
-
+            let szAvailableStores = [];
+    
             for(let i = 0; i < ResultGamePlatorms.length; i++)
             {
                 szPlatforms.push(ResultGamePlatorms[i].platform.name.toString());
             }
 
-            let szDescription = "`Game Information:`\n" + 
-            "Game Name: **" + ResultGameName + "**\n" + 
-            "Game Developer: **" + (Object.keys(ResultGameDeveloper).length <= 0 ? "Unknown" : ResultGameDeveloper[0].name.toString()) + "**\n" + 
-            "Game Publisher: **" + (Object.keys(ResultGamePublisher).length <= 0 ? "Unknown" : ResultGamePublisher[0].name.toString()) + "**\n" + 
+            for(let j = 0; j < ResultGameStores.length; j++)
+            {
+                szAvailableStores.push(ResultGameStores[j].store.name.toString());
+            }
+
+            let szDescription = (CustomFunctions.isEmpty(ResultGameOfficialWebsite) ? "" : "[Official Website](" + ResultGameOfficialWebsite + ") ") +
+            (CustomFunctions.isEmpty(ResultGameOfficialReddit) ? "" : "• [Official Reddit](" + ResultGameOfficialReddit + ")") +
+            "\n\n" + "`Game Information:`\n" +
+            "Game Name: **" + ResultGameName + "**\n" +
+            "Game Developer: **" + (Object.keys(ResultGameDeveloper).length <= 0 ? "Unknown" : ResultGameDeveloper[0].name.toString()) + "**\n" +
+            "Game Publisher: **" + (Object.keys(ResultGamePublisher).length <= 0 ? "Unknown" : ResultGamePublisher[0].name.toString()) + "**\n" +
             "Release Date: **" + (ResultGameToBeAnnounced === true ? "TBA (To Be Announced)" : (ResultGameReleaseDate === null ? "" : ResultGameReleaseDate.toString())) + "**\n" +
-            "Metacritic Score: **" + (isNaN(ResultGameMetacriticScore) ? "No Score" : ResultGameMetacriticScore) + "**\n\n" + 
-            "`Game Platforms:`\n" + szPlatforms.join(", ") + "\n\n" +
-            "`Game Webpages:`\n" +
-            "Game Website: " + (CustomFunctions.isEmpty(ResultGameOfficialWebsite) ? "None.\n" : "[Official Website](" + ResultGameOfficialWebsite + ")\n") +
-            (CustomFunctions.isEmpty(ResultGameOfficialReddit) ? "\n" : "Reddit Page: [Official Reddit](" + ResultGameOfficialReddit + ")\n");
+            "Metacritic Score: **" + (isNaN(ResultGameMetacriticScore) ? "No Score" : ResultGameMetacriticScore) + "**";
 
             const DiscordRichEmbed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Game Genie", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#C9DBED")
+            .addField("`Game Platforms:`", szPlatforms.join(", "), true)
+            .addField("`Available On:`", szAvailableStores.join(", "), true)
             .setDescription(szDescription)
             .setThumbnail("https://i.imgur.com/NWbb94q.png")
             .attachFile({ attachment: (await ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : await ResultGame.background_image), name: "game_background.png" })
