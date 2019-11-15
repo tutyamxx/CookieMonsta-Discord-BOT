@@ -23,6 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
             return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
+        console.log(response.body)
         const szGameSlug = await response.body.slug.trim();
 
         Needle.get("https://api.rawg.io/api/games/" + szGameSlug, async (error, response_game) =>
@@ -32,6 +33,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 return await message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
+            console.log(response_game.body)
             const ResultGame = await response_game.body;
             const ResultGameName = await ResultGame.name_original.toString();
             const ResultGameDeveloper = await ResultGame.developers;
@@ -70,7 +72,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .setAuthor("Cookie Monsta | Game Genie", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#C9DBED")
             .addField("`Game Platforms:`", szPlatforms.join(", "), true)
-            .addField("`Available On:`", szAvailableStores.join(", "), true)
+            .addField("`Available On:`", (Object.keys(ResultGameStores).length <= 0 ? ":man_shrugging:" : szAvailableStores.join(", ")), true)
             .setDescription(szDescription)
             .setThumbnail("https://i.imgur.com/NWbb94q.png")
             .attachFile({ attachment: (await ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : await ResultGame.background_image), name: "game_background.png" })
