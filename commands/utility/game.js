@@ -23,7 +23,6 @@ module.exports.run = async (bot, message, szArgs) =>
             return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
 
-        console.log(response.body)
         const szGameSlug = await response.body.slug.trim();
 
         Needle.get("https://api.rawg.io/api/games/" + szGameSlug, async (error, response_game) =>
@@ -33,7 +32,6 @@ module.exports.run = async (bot, message, szArgs) =>
                 return await message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
             }
 
-            console.log(response_game.body)
             const ResultGame = await response_game.body;
             const ResultGameName = await ResultGame.name_original.toString();
             const ResultGameDeveloper = await ResultGame.developers;
