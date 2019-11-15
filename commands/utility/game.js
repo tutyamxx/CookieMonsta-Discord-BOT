@@ -69,7 +69,7 @@ module.exports.run = async (bot, message, szArgs) =>
             const DiscordRichEmbed = new Discord.RichEmbed()
             .setAuthor("Cookie Monsta | Game Genie", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
             .setColor("#C9DBED")
-            .addField("`Game Platforms:`", szPlatforms.join(", "), true)
+            .addField("`Game Platforms:`", (Object.keys(ResultGamePlatorms).length <= 0 ? ":man_shrugging:" : szPlatforms.join(", ")), true)
             .addField("`Available On:`", (Object.keys(ResultGameStores).length <= 0 ? ":man_shrugging:" : szAvailableStores.join(", ")), true)
             .setDescription(szDescription)
             .setThumbnail("https://i.imgur.com/NWbb94q.png")
