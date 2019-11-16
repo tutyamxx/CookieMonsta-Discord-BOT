@@ -55,7 +55,7 @@ module.exports.run = async (bot, message, args) =>
     .setColor("#FFA500")
     .addField("**BitcoinCharts**", "\n\n:euro: **EUR:** *" + BitCoinChartsArray[0] + "*\n:pound: **GBP:** *" + BitCoinChartsArray[1] + "*\n:dollar: **USD:** *" + BitCoinChartsArray[2] + "*\n:yen: **YEN:** *" + BitCoinChartsArray[3] + "*", true)
     .addField("**BlockChain**", "\n\n :euro: **EUR:** *" + BitCoinChainArray[0] + "*\n:pound: **GBP:** *" + BitCoinChainArray[1] + "*\n:dollar: **USD:** *" + BitCoinChainArray[2] + "*\n:yen: **YEN:** *" + BitCoinChainArray[3] + "*", true)
-    .addBlankField(true)
+    .addBlankField()
     .addField("**BINANCE**", "\n\n:dollar: **BTC USDT**: *" + BitcoinBTCUSDT.toFixed(2) + "*", false)
     .setThumbnail("https://i.imgur.com/kBjbSX9.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)

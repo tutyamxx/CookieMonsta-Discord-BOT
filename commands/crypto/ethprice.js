@@ -61,8 +61,6 @@ module.exports.run = async (bot, message, args) =>
     .setColor("#3c3c3d")
     .addField("**CryptoCompare**", "\n\n:euro: **EUR:** *" + EthereumPrice[0] + "*\n:pound: **GBP:** *" + EthereumPrice[1] + "*\n:dollar: **USD:** *" + EthereumPrice[2] + "*\n:yen: **YEN:** *" + EthereumPrice[3] + "*", true)
     .addField("**🌶️Coin Paprika**", "\n\n :euro: **EUR:** *" + EthereumPricePaprika[0] + "*\n:pound: **GBP:** *" + EthereumPricePaprika[1] + "*\n:dollar: **USD:** *" + EthereumPricePaprika[2] + "*\n:yen: **YEN:** *" + EthereumPricePaprika[3] + "*", true)
-    .addBlankField(true)
-    .addBlankField(true)
     .addField("**Coin Gecko**", "\n\n :euro: **EUR:** *" + EthereumCoinGecko[0] + "*\n:pound: **GBP:** *" + EthereumCoinGecko[1] + "*\n:dollar: **USD:** *" + EthereumCoinGecko[2] + "*\n:yen: **YEN:** *" + EthereumCoinGecko[3] + "*", true)
     .setThumbnail("https://i.imgur.com/SKVol5l.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
