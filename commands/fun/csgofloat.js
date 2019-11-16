@@ -18,16 +18,16 @@ const csgofloat =
 
 module.exports.run = async (bot, message, szArgs) =>
 {
+    const user = message.author;
+
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
         return await message.reply(" :no_entry: Please enter the skin Inspect URL :gun: :no_entry:");
     }
 
-    const user = message.author;
-
     message.channel.startTyping();
 
-    let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ");
+    let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ").trim();
 
     await getJSON(InspectSkinFormatURL, async (error, response) =>
     {
@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, szArgs) =>
         szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(await response.iteminfo.paintseed).replace(/"/g, '');
 
         // --| ID of the item
-        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = JSON.stringify(await response.iteminfo.itemid);
+        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = (response.iteminfo.hasOwnProperty("itemid") ? JSON.stringify(parseInt(await response.iteminfo.itemid)) : "Unknown ID");
 
         // --| Optional: Name of the skin
         szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(await response.iteminfo.item_name).replace(/"/g, '');
