@@ -56,7 +56,6 @@ module.exports.run = async (bot, message, args) =>
         LiteCoinGecko[3] = "API Error";
     });
 
-
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Łitecoin Price", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#b8b8b8")
