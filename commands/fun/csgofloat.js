@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, szArgs) =>
         szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(await response.iteminfo.paintseed).replace(/"/g, '');
 
         // --| ID of the item
-        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = JSON.stringify(await response.iteminfo.itemid).replace(/"/g, '');;
+        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = JSON.stringify(await response.iteminfo.itemid);
 
         // --| Optional: Name of the skin
         szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(await response.iteminfo.item_name).replace(/"/g, '');
