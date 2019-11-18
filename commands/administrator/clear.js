@@ -32,6 +32,10 @@ module.exports.run = async (bot, message, args) =>
         .setTimestamp()
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) => await msg.delete(5000).catch(e => false)).catch(e => false);
+        
+    }).catch(async (error) =>
+    {
+        await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``");
     });
 };
 

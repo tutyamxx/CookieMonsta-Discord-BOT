@@ -46,7 +46,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
         await message.channel.send({ embed: DiscordRichEmbed });
 
-    }).catch(console.error);
+    }).catch(async (error) =>
+    {
+        await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **KICK** command: ``" + error.message + "``");
+    });
 };
 
 module.exports.help =

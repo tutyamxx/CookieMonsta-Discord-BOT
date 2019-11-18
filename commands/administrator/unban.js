@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
     
     catch(err)
     {
-        return await message.reply(" I have failed :scream: the **UNBAN** task, because of this reason: ``" + err.message + "``");
+        return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during **UNBAN** command: ``" + err.message + "``");
     }
 };
 
