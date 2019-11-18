@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
             SoundList.push(SoundEffectsMp3[x][0]);
         }
 
-        return await message.reply("available sounds :musical_note: are :arrow_down:  **" + SoundList.join("**, **") + "**");
+        return await message.reply(" available sounds (**" + parseInt(SoundEffectsMp3.length) + "**) :musical_note: are :arrow_down:  **" + SoundList.join("**, **") + "**");
     }
 
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
