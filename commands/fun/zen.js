@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) =>
 
             await message.channel.send({ embed: DiscordRichEmbed }).then(function (message)
             {
-                message.react(":tanabata_tree:");
+                message.react("🎋");
 
             }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
