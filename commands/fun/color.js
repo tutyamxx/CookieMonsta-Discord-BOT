@@ -100,15 +100,16 @@ module.exports.run = async (bot, message, szArgs) =>
                 {
                     let FindNewColor = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
                     
-                    await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
+                    await message.member.addRole(FindNewColor).then(async () =>
+                    {
+                        await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
+                        await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
 
-                    await message.member.addRole(FindNewColor).catch(async (error) =>
+                    }).catch(async (error) =>
                     {
                         return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                     });
-
-                    await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
-
+                    
                 }).catch(async (error) =>
                 {
                     await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
@@ -135,13 +136,15 @@ module.exports.run = async (bot, message, szArgs) =>
                     }
                 }
 
-                await message.member.addRole(ColorRoleFind).catch(async (error) =>
+                await message.member.addRole(ColorRoleFind).then(async () =>
+                {
+                    await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
+                    await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
+
+                }).catch(async (error) =>
                 {
                     return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                 });
-
-                await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
-                await message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
             }
         }
     }
