@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
     
     catch(err)
     {
-        return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during **UNBAN** command: ``" + err.message + "``");
+        return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during **UNBAN** command: ``" + err.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
     }
 };
 

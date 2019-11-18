@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) =>
         
     }).catch(async (error) =>
     {
-        await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``");
+        await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
     });
 };
 
