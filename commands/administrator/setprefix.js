@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, szArgs) =>
     const GetGuildID = message.guild.id;
     const ServerName = message.guild.name;
 
-    if(!message.member.hasPermission("ADMINISTRATOR") || !message.member.hasPermission("BAN_MEMBERS"))
+    if(!message.member.hasPermission("ADMINISTRATOR") || !message.member.hasPermission("MANAGE_GUILD"))
     {
         return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
