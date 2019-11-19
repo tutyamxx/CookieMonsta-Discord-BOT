@@ -53,6 +53,7 @@ npm install bufferutil
 npm install hammerandchisel/erlpack
 npm install libsodium-wrappers
 npm install @discordjs/uws
+npm install dblapi.js
 npm install --save jimp
 npm i @jimp/plugin-invert
 npm i -S @mixer/client-node

@@ -1,12 +1,16 @@
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const ConsoleColors = require("colors");
+const DBL = require("dblapi.js");
 const DatabaseImport = require("../database/database.js");
 const SpamCmd = require("../events/message.js");
+const BotConfig = require("../config/botconfig.json");
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
 
 global.bUserHasGift = {};
 global.bAlreadyOpeningGift = {};
+
+const DiscordBotsDBL = new DBL(BotConfig.DBL_API_Token.trim(), CookieMonsta.iDiscordClient);
 
 module.exports = async (bot) =>
 {
@@ -61,4 +65,25 @@ module.exports = async (bot) =>
             bAlreadyOpeningGift[user[1].id] = false;
         }
     }
+
+    // --| DBL API Update
+    // --| Update Discord Bots stats every 30 mins
+    setInterval(async () =>
+    {
+        await DiscordBotsDBL.postStats(bot.guilds.size);
+
+    }, 900000);
+
+    await DiscordBotsDBL.postStats(bot.guilds.size);
 };
+
+// --| DBL API Events
+DiscordBotsDBL.on("posted", () =>
+{
+    console.log("\x1b[31m*\x1b[0m DBL API server count posted successfully :)!\x1b[0m");
+});
+
+DiscordBotsDBL.on("error", (e) =>
+{
+    console.log("\x1b[31m*\x1b[0m DBL API error encountered:\n\n\x1b[31m " + e + "\x1b[0m");
+});
