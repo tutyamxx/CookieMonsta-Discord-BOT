@@ -3,6 +3,9 @@
 </p>
 <br/><br/>
 
+<p align="center">
+  <a href="https://top.gg/bot/412067927333011470" ><img src="https://top.gg/api/widget/412067927333011470.svg" alt="Cookie Monsta" /></a>
+</p>
 
 # CookieMonsta Discord BOT
 
