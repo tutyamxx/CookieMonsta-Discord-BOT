@@ -2,7 +2,7 @@ const DatabaseImport = require("../database/database.js");
 
 module.exports = async (bot, channel, user) =>
 {
-    if(user.bot || user.id === undefined)
+    if(user.bot || user === undefined)
     {
         return;
     }
