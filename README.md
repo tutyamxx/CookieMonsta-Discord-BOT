@@ -3,10 +3,6 @@
 </p>
 <br/><br/>
 
-<p align="center">
-  <a href="https://top.gg/bot/412067927333011470" ><img src="https://top.gg/api/widget/412067927333011470.svg" alt="Cookie Monsta" /></a>
-</p>
-
 # CookieMonsta Discord BOT
 
 * Link to the actual website: [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html)
@@ -79,3 +75,8 @@ npm i leet
 
 > If you are hosting an instance of **Cookie Monsta** yourself, make sure that is for **private use only** in your **own** Discord servers. Do not make it a public bot, do not advertise it as it is your own piece of work and lastly, do not add/list it on public sites.
 > I will **NOT** allow that. Strict actions will be taken if you violate this policy.
+
+
+<p align="center">
+  <a href="https://top.gg/bot/412067927333011470" ><img src="https://top.gg/api/widget/412067927333011470.svg" alt="Cookie Monsta" /></a>
+</p>
