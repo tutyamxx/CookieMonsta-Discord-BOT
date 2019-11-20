@@ -5,7 +5,7 @@ const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
 {
-    if(!message.member.hasPermission("ADMINISTRATOR") || message.author.id !== "266677298051153920")
+    if(!message.member.hasPermission("ADMINISTRATOR"))
     {
         return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
