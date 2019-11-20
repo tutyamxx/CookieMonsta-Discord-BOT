@@ -66,7 +66,7 @@ module.exports.run = async (bot, message, args) =>
                     return;
                 }
 
-                const ChanceToShowTips = Math.floor((Math.random() * 30) + 1);
+                const ChanceToShowTips = Math.floor((Math.random() * 15) + 1);
 
                 if(ChanceToShowTips === 5)
                 {
