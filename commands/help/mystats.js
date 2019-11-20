@@ -4,6 +4,8 @@ const Jimp = require("jimp");
 const CookieMonsta = require("../../CookieMonstaBOT.js");
 const DatabaseImport = require("../../database/database.js");
 
+const szStatsFileName = "stats.png";
+
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
@@ -11,6 +13,8 @@ module.exports.run = async (bot, message, args) =>
 
     let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
     let GetUserName = user.username.replace(/'/g, "`").trim();
+
+    const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(message.guild.id);
 
     const GetUserBannerImage = await DatabaseImport.CookieMonsta_GetUserProfileBanner(GetGuildID, user.id);
     const GetBannerInfo = await DatabaseImport.CookieMonsta_GetBannerFromDatabase(GetUserBannerImage);
@@ -62,7 +66,17 @@ module.exports.run = async (bot, message, args) =>
                     return;
                 }
 
-                await message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, "stats.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                const ChanceToShowTips = Math.floor((Math.random() * 30) + 1);
+
+                if(ChanceToShowTips === 5)
+                {
+                    await message.channel.send("<:cookiemonsta:634866060465537034> **|** Remember, you can change your profile card banner at any time using ``" + szPrefix + "setbanner`` command :thumbsup:\n<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                }
+
+                else
+                {
+                    await message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                }
             });
         });
     });
