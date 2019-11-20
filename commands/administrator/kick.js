@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(!message.member.hasPermission("KICK_MEMBERS"))
     {
-        return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
+        return await message.channel.send(":no_entry: You can't mate! You need ``KICK_MEMBERS`` permission for this command. :laughing: :no_entry:");
     }
 
     const user = message.author;
