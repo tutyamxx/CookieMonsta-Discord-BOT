@@ -188,7 +188,7 @@ module.exports = async (bot, message) =>
         return;
     }
 
-    if(iCmdCooldown.has(user.id))
+    if(await iCmdCooldown.has(user.id, GuildGetID))
     {
         const szWaitMessages =
         [
@@ -198,26 +198,26 @@ module.exports = async (bot, message) =>
             "Didn't read LOL! Stop spamming! <:Bruh:635506622478942219>"
         ];
 
-        return await message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then(msg => { msg.delete(1800) }));
+        return await message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then(async (msg) => { await msg.delete(3500) }));
     }
 
-    let szCmd = bot.commands.get(szCommand.slice(szPrefix.length));
+    let szCmd = await bot.commands.get(szCommand.slice(szPrefix.length));
 
     if(szCmd)
     {
-        szCmd.run(bot, message, szArgs);
+        await szCmd.run(bot, message, szArgs);
         iCountCommandsUsed++;
     }
 
     if(!message.member.hasPermission("ADMINISTRATOR"))
     {
-        iCmdCooldown.add(user.id);
+        await iCmdCooldown.add(user.id, GuildGetID);
     }
 
-    iUserCooldown[user.id] = setInterval (function ()
+    iUserCooldown[user.id] = setInterval( async () =>
     {
-        iCmdCooldown.delete(user.id);
-        bot.clearInterval(iUserCooldown[user.id]);
+        await iCmdCooldown.delete(user.id, GuildGetID);
+        await bot.clearInterval(iUserCooldown[user.id]);
 
     }, iCooldownTime * 1000);
 };
