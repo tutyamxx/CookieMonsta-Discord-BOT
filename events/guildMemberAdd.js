@@ -94,7 +94,7 @@ module.exports = async (bot, member, guild) =>
                             return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        let cChannel = DefChannel.getDefaultChannel(member.guild);
+                        let cChannel = await DefChannel.getDefaultChannel(member.guild);
 
                         if(cChannel && cChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES'))
                         {
