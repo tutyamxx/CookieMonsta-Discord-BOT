@@ -21,9 +21,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     MixerClient.request("GET", "channels/" + MixerUserArgument).then(async (response) =>
     {
-        const iUserStreaming = await response.body.online;
-
-        if(iUserStreaming)
+        if(await response.body.online)
         {
             const szUserStreamName = await response.body.user.username.toString();
             const szUserStreamAvatarURL = await response.body.user.avatarUrl.toString();
