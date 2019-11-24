@@ -11,6 +11,11 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
+    if(!message.member.guild.me.hasPermission("MANAGE_MESSAGES"))
+    {
+        return await message.reply(":no_entry: I can't start a **Shell Game** session because I don't have enough permissions! :no_entry:")
+    }
+
     if(bPlayingShell[user.id] === true)
     {
         return await message.reply(":no_entry: you are already in a **Shell Game** session! :no_entry:")
