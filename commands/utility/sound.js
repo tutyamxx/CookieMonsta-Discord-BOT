@@ -5,7 +5,7 @@ const CookieMonsta = require("../../CookieMonstaBOT.js");
 const CustomFunctions = require("../../functions/funcs.js");
 const SoundEffectsMp3 = require("../../json/soundboard.json");
 
-let bBoolAlreadyPlayingSound = false;
+let bBoolAlreadyPlayingSound = new Set();
 
 module.exports.run = async (bot, message, szArgs) =>
 {
@@ -50,7 +50,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I can't join the channel you're in :mute:  :no_entry:" );
     }
 
-    if(bBoolAlreadyPlayingSound === true)
+    if(await bBoolAlreadyPlayingSound.has(GuildGetID))
     {
         return await message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:" );
     }
@@ -68,7 +68,7 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 UserVoiceChannel.join().then(async (connection) =>
                 {
-                    bBoolAlreadyPlayingSound = true;
+                    await bBoolAlreadyPlayingSound.add(GuildGetID);
                     await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 300);
 
                     // --| Read sound from the soundboard.json file
@@ -79,7 +79,7 @@ module.exports.run = async (bot, message, szArgs) =>
                    
                     await iDispatcher.on("end", async (end) =>
                     {
-                        bBoolAlreadyPlayingSound = false;
+                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await UserVoiceChannel.leave();
                         await iDispatcher.destroy();
@@ -87,7 +87,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     await iDispatcher.on("error", async (end) =>
                     {
-                        bBoolAlreadyPlayingSound = false;
+                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await UserVoiceChannel.leave();
                         await iDispatcher.destroy();
@@ -95,7 +95,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     await iDispatcher.on("finish", async () =>
                     {
-                        bBoolAlreadyPlayingSound = false;
+                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await iDispatcher.destroy();
                         await UserVoiceChannel.leave();
