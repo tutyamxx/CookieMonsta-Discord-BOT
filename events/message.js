@@ -50,84 +50,87 @@ module.exports = async (bot, message) =>
         {
             iLevel++;
 
-            let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-
-            let i1 = Jimp.read(GetUserAvatar);
-            let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
-
-            Promise.all([i1, i2]).then(async images =>
+            if(GuildGetID !== "264445053596991498" && GuildGetID !== "446425626988249089")
             {
-                await images[0].resize(49, 49).quality(100);
-                await images[1].composite(images[0], 20, 17).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
-                {
-                    if(err)
-                    {
-                        return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-                    }
+                let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-                    await gm(buffer)
-                    .font("./BOTFonts/AgencyFB-Bold.ttf", 16)
-                    .fill("#00FFFF")
-                    .gravity("Center")
-                    .draw(["text 0, 42 '" + iCurentLevel + "'"])
-                    .toBuffer("levelup.png", async (err, buffer2) =>
+                let i1 = Jimp.read(GetUserAvatar);
+                let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
+
+                Promise.all([i1, i2]).then(async images =>
+                {
+                    await images[0].resize(49, 49).quality(100);
+                    await images[1].composite(images[0], 20, 17).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
                     {
                         if(err)
                         {
                             return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        await message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
+                        await gm(buffer)
+                        .font("./BOTFonts/AgencyFB-Bold.ttf", 16)
+                        .fill("#00FFFF")
+                        .gravity("Center")
+                        .draw(["text 0, 42 '" + iCurentLevel + "'"])
+                        .toBuffer("levelup.png", async (err, buffer2) =>
+                        {
+                            if(err)
+                            {
+                                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                            }
+
+                            await message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
+                        });
                     });
                 });
-            });
-        }
 
-        // --| Update the database
-        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
-
-        // --| A chance to receive a gift while being active in chat. One in 300 chance
-        if(1 === Math.floor(( Math.random() * 300 ) + 1))
-        {
-            if(bUserHasGift[user.id] === 0)
-            {
-                const DiscordRichEmbed = new Discord.RichEmbed()
-                .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-                .setColor("#00BFFF")
-                .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
-                .setThumbnail("https://i.imgur.com/hNALLLd.png")
-                .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-
-                await message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
+                // --| A chance to receive a gift while being active in chat. One in 300 chance
+                if(1 === Math.floor((Math.random() * 300) + 1))
                 {
-                    iCheckIfOpenGift[user.id] = setInterval (async function ()
+                    if(bUserHasGift[user.id] === 0)
                     {
-                        if(bAlreadyOpeningGift[user.id] === true)
+                        const DiscordRichEmbed = new Discord.RichEmbed()
+                        .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                        .setColor("#00BFFF")
+                        .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
+                        .setThumbnail("https://i.imgur.com/hNALLLd.png")
+                        .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+
+                        await message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
                         {
-                            bot.clearInterval(iUserGiftTimer[user.id]);
-                            bot.clearInterval(iCheckIfOpenGift[user.id]);
+                            iCheckIfOpenGift[user.id] = setInterval(async function ()
+                            {
+                                if (bAlreadyOpeningGift[user.id] === true)
+                                {
+                                    bot.clearInterval(iUserGiftTimer[user.id]);
+                                    bot.clearInterval(iCheckIfOpenGift[user.id]);
 
-                            bUserHasGift[user.id] = 0;
+                                    bUserHasGift[user.id] = 0;
 
-                            if(!msg.deleted) { await msg.delete().catch(() => {}); }
-                        }
+                                    if(!msg.deleted) { await msg.delete().catch(() => { }); }
+                                }
 
-                    }, 1000);
+                            }, 1000);
 
-                    iUserGiftTimer[user.id] = setInterval (async function ()
-                    {
-                        bot.clearInterval(iUserGiftTimer[user.id]);
+                            iUserGiftTimer[user.id] = setInterval(async function ()
+                            {
+                                bot.clearInterval(iUserGiftTimer[user.id]);
 
-                        bUserHasGift[user.id] = 0;
+                                bUserHasGift[user.id] = 0;
 
-                        if(!msg.deleted) { await msg.delete().catch(() => {}); }
+                                if(!msg.deleted) { await msg.delete().catch(() => { }); }
 
-                    }, 120000);
-                });
+                            }, 120000);
+                        });
 
-                bUserHasGift[user.id] = 1;
+                        bUserHasGift[user.id] = 1;
+                    }
+                }
             }
         }
+        
+        // --| Update the database
+        await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
     }
 
     const szArgs = message.content.slice(szPrefix).trim().split(/ +/g);
