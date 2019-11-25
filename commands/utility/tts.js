@@ -1,15 +1,17 @@
 const CustomFunctions = require("../../functions/funcs.js");
 
-let bAlreadyPlayingTTS = false;
+let bAlreadyPlayingTTS = new Set();
 
 module.exports.run = async (bot, message, szArgs) =>
 {
+    const GuildGetID = message.guild.id;
+
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Add some text so I can convert it to speech?  :no_entry:");
     }
 
-    if(bAlreadyPlayingTTS === true)
+    if(await bAlreadyPlayingTTS.has(GuildGetID))
     {
         return await message.reply(" :no_entry: man you're too spicy! I am already translating a **TTS** :loud_sound:  :no_entry:" );
     }
@@ -44,13 +46,13 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         await voiceChannel.join().then(async (connection) =>
         {
-            bAlreadyPlayingTTS = true;
+            await bAlreadyPlayingTTS.add(GuildGetID);
 
             const iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
             await iDispatcher.on("end", async (end) =>
             {
-                bAlreadyPlayingTTS = false;
+                await bAlreadyPlayingTTS.delete(GuildGetID);
 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
@@ -58,7 +60,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             await iDispatcher.on("error", async (end) =>
             {
-                bAlreadyPlayingTTS = false;
+                await bAlreadyPlayingTTS.delete(GuildGetID);
                 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
@@ -66,7 +68,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             await iDispatcher.on("finish", async () =>
             {
-                bAlreadyPlayingTTS = false;
+                await bAlreadyPlayingTTS.delete(GuildGetID);
 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
