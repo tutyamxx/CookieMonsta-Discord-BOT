@@ -137,7 +137,7 @@ module.exports = async (bot, message) =>
     const szCommand = szArgs.shift();
 
     // --| Prefix + kitty
-    const KittyRegex = new RegExp("\\" + await szPrefix.trim().toString() + "kit+y$");
+    const KittyRegex = new RegExp("\\" + await szPrefix.trim().toString() + "\\kit+y$");
 
     if(szCommand.match(KittyRegex))
     {
