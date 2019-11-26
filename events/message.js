@@ -42,22 +42,22 @@ module.exports = async (bot, message) =>
 
         // --| Add XP between 15 and 25 random
         let iCalculateNewXP = iUserCurrentXP + (Math.floor(Math.random() * (25 - 10 + 1)) + 10);
-     
+
         const iCurentLevel = Math.floor(0.1 * Math.sqrt(iCalculateNewXP));
 
-        // --| Level up user if it is the case
-        if(iLevel < iCurentLevel)
+        if(GuildGetID !== "264445053596991498" && GuildGetID !== "446425626988249089" && GuildGetID !== "110373943822540800")
         {
-            iLevel++;
-
-            if(GuildGetID !== "264445053596991498" && GuildGetID !== "446425626988249089" && GuildGetID !== "110373943822540800")
+            // --| Level up user if it is the case
+            if(iLevel < iCurentLevel)
             {
+                iLevel++;
+
                 let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
                 let i1 = Jimp.read(GetUserAvatar);
                 let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
 
-                Promise.all([i1, i2]).then(async images =>
+                await Promise.all([i1, i2]).then(async (images) =>
                 {
                     await images[0].resize(49, 49).quality(100);
                     await images[1].composite(images[0], 20, 17).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
@@ -83,48 +83,48 @@ module.exports = async (bot, message) =>
                         });
                     });
                 });
+            }
 
-                // --| A chance to receive a gift while being active in chat. One in 300 chance
-                if(1 === Math.floor((Math.random() * 300) + 1))
+            // --| A chance to receive a gift while being active in chat. One in 300 chance
+            if(1 === Math.floor((Math.random() * 300) + 1))
+            {
+                if(bUserHasGift[user.id] === 0)
                 {
-                    if(bUserHasGift[user.id] === 0)
+                    const DiscordRichEmbed = new Discord.RichEmbed()
+                    .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                    .setColor("#00BFFF")
+                    .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
+                    .setThumbnail("https://i.imgur.com/hNALLLd.png")
+                    .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+
+                    await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
                     {
-                        const DiscordRichEmbed = new Discord.RichEmbed()
-                        .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-                        .setColor("#00BFFF")
-                        .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
-                        .setThumbnail("https://i.imgur.com/hNALLLd.png")
-                        .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-
-                        await message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
+                        iCheckIfOpenGift[user.id] = setInterval(async function ()
                         {
-                            iCheckIfOpenGift[user.id] = setInterval(async function ()
+                            if(bAlreadyOpeningGift[user.id] === true)
                             {
-                                if (bAlreadyOpeningGift[user.id] === true)
-                                {
-                                    bot.clearInterval(iUserGiftTimer[user.id]);
-                                    bot.clearInterval(iCheckIfOpenGift[user.id]);
-
-                                    bUserHasGift[user.id] = 0;
-
-                                    if(!msg.deleted) { await msg.delete().catch(() => { }); }
-                                }
-
-                            }, 1000);
-
-                            iUserGiftTimer[user.id] = setInterval(async function ()
-                            {
-                                bot.clearInterval(iUserGiftTimer[user.id]);
+                                await bot.clearInterval(iUserGiftTimer[user.id]);
+                                await bot.clearInterval(iCheckIfOpenGift[user.id]);
 
                                 bUserHasGift[user.id] = 0;
 
-                                if(!msg.deleted) { await msg.delete().catch(() => { }); }
+                                if(!await msg.deleted) { await msg.delete().catch(() => { }); }
+                            }
 
-                            }, 120000);
-                        });
+                        }, 1000);
 
-                        bUserHasGift[user.id] = 1;
-                    }
+                        iUserGiftTimer[user.id] = setInterval(async function ()
+                        {
+                            await bot.clearInterval(iUserGiftTimer[user.id]);
+
+                            bUserHasGift[user.id] = 0;
+
+                            if(!await msg.deleted) { await msg.delete().catch(() => { }); }
+
+                        }, 120000);
+                    });
+
+                    bUserHasGift[user.id] = 1;
                 }
             }
         }
