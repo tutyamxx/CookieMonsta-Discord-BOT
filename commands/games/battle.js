@@ -96,14 +96,14 @@ module.exports.run = async (bot, message, args) =>
     .setDescription(user + UserHealthColor[user.id] + "(" + Player1Health[user.id] + ")		:vs:		" + GuildMember.user + UserHealthColor[GuildMember.user.id] + "(" + Player2Health[GuildMember.user.id] + ")\n\n\n***The battle will begin in a moment...***")
     .setThumbnail("https://i.imgur.com/RACcRMv.jpg")
 
-    await message.channel.send({ embed: DiscordRichEmbed1 }).then(msg =>
+    await message.channel.send({ embed: DiscordRichEmbed1 }).then(async (msg) =>
     {
         let szBattleLog = {};
         let szThumbnail = {};
 
         szThumbnail[user.id] = "https://i.imgur.com/RACcRMv.jpg";
 
-        iFightLogInterval[user.id] = setInterval( async function()
+        iFightLogInterval[user.id] = setInterval(async function()
         {
             if(Player1Health[user.id] > 0 && Player2Health[GuildMember.user.id] > 0)
             {
@@ -128,7 +128,7 @@ module.exports.run = async (bot, message, args) =>
 
                     else
                     {
-                        var RandomWeaponsPlayer1 =
+                        const RandomWeaponsPlayer1 =
                         [
                             "\r:crossed_swords:  **" + user.username + "** karate chops **" + GuildMember.user.username + "** for **" + Damage + "** damage",
                             "\r:crossed_swords:  **" + user.username + "** slices **" + GuildMember.user.username + "** with a sword for **" + Damage + "** damage",
@@ -180,7 +180,7 @@ module.exports.run = async (bot, message, args) =>
 
                     else
                     {
-                        var RandomWeaponsPlayer2 =
+                        const RandomWeaponsPlayer2 =
                         [
                             "\r:crossed_swords:  **" + GuildMember.user.username + "** karate chops **" + user.username + "** for **" + Damage + "** damage",
                             "\r:crossed_swords:  **" + GuildMember.user.username + "** slices **" + user.username + "** with a sword for **" + Damage + "** damage",
@@ -234,7 +234,7 @@ module.exports.run = async (bot, message, args) =>
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
 
-                bot.clearInterval(iFightLogInterval[user.id]);
+                await bot.clearInterval(iFightLogInterval[user.id]);
             }
 
             else if(Player1Health[user.id] <= 0)
@@ -259,7 +259,7 @@ module.exports.run = async (bot, message, args) =>
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
 
-                bot.clearInterval(iFightLogInterval[user.id]);
+                await bot.clearInterval(iFightLogInterval[user.id]);
             }
 
             const DiscordRichEmbed = new Discord.RichEmbed()
