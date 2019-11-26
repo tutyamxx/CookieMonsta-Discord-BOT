@@ -39,6 +39,7 @@ module.exports.run = async (bot, message, args) =>
 
             let szUserStats = "Level: " + await DatabaseImport.CookieMonsta_GetUserLevel(GetGuildID, user.id) + "  |  XP: " + await DatabaseImport.CookieMonsta_GetUserPoints(GetGuildID, user.id);
             let iCookiesAmount = "Cookies: " + await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
+            let CookiesAmountFormatted = (iCookiesAmount.length > 21) ? iCookiesAmount.slice(0, iCookiesAmount.length - 3) + "..." : iCookiesAmount;
 
             await gm(buffer)
             .fill("rgba(0, 0, 0, 0.5)")
@@ -53,9 +54,9 @@ module.exports.run = async (bot, message, args) =>
             .draw(["text 134, 61 '" + szUserStats + "'"])
             .fill("rgba(0, 0, 0, 0.5)")
             .drawRectangle(179, 86, 330, 104, 2, 2)
-            .font("./BOTFonts/Agency-FB.ttf", (iCookiesAmount.length >= 20) ? 14 : 20)
+            .font("./BOTFonts/Agency-FB.ttf", /*(iCookiesAmount.length >= 20) ? 14 : 20*/ 20)
             .fill(GetBannerInfo.stats_color.toString())
-            .draw(["text 182, 104 '" + iCookiesAmount + "'"])
+            .draw(["text 182, 104 '" + CookiesAmountFormatted + "'"])
             .toBuffer("stats.png", async (err, buffer2) =>
             {
                 if(err)
