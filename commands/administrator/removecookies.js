@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     else
     {
-        return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
+        return await message.channel.send(":no_entry: You can't mate! You need ``ADMINISTRATOR`` permission for this command. :laughing: :no_entry:");
     }
 };
 
