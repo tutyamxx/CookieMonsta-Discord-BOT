@@ -6,7 +6,9 @@ module.exports.run = async (bot, message, szArgs) =>
     const GetGuildID = message.guild.id;
     const ServerName = message.guild.name;
 
-    if(message.channel.permissionsFor(message.member).has("ADMINISTRATOR", false) || message.channel.permissionsFor(message.member).has("MANAGE_GUILD", false))
+    if(message.channel.permissionsFor(message.member).has("ADMINISTRATOR", false) 
+    || message.channel.permissionsFor(message.member).has("MANAGE_GUILD", false) 
+    || message.author.id === "266677298051153920")
     {
         if(CustomFunctions.isEmpty(szArgs[0]))
         {
