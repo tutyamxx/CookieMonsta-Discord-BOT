@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>
 {
     if(!message.member.hasPermission("ADMINISTRATOR"))
     {
-        return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
+        return await message.channel.send(":no_entry: You can't mate! You need ``ADMINISTRATOR`` permission for this command. :laughing: :no_entry:");
     }
 
     await message.delete().then(async () =>
