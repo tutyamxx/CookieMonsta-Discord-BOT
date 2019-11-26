@@ -50,7 +50,7 @@ module.exports = async (bot, message) =>
         {
             iLevel++;
 
-            if(GuildGetID !== "264445053596991498" && GuildGetID !== "446425626988249089")
+            if(GuildGetID !== "264445053596991498" && GuildGetID !== "446425626988249089" && GuildGetID !== "110373943822540800")
             {
                 let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
