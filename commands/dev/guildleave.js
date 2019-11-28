@@ -13,14 +13,18 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: argument can't be empty! :no_entry:");
     }
 
-    let GetGuild = await bot.guilds.get(szArgs[0].trim());
+    const MentionedGuildParam = szArgs[0].trim().toString();
+    let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
     if(GetGuild === undefined)
     {
-        return await message.reply(" Invalid guild or I have already left that guild :id:");
+        return await message.reply(" Invalid guild or I have already left this **" + MentionedGuildParam + "** guild :id: !");
     }
 
-    await GetGuild.leave();
+    await GetGuild.leave().catch(async (e) =>
+    {
+        return await message.reply(" I tried to leave this guild id :id:: **" + MentionedGuildParam + "** but I got this error: ``" + e.message + "`` !");
+    });
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Guild Leave Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
