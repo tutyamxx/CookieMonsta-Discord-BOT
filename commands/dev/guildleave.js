@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(GetGuild === undefined)
     {
-        return await message.reply(" Invalid guild or I have already left this **" + MentionedGuildParam + "** guild :id: !");
+        return await message.reply(" Invalid guild or it seems that I have already left the: **" + MentionedGuildParam + "** guild :id: !");
     }
 
     await GetGuild.leave().catch(async (e) =>
