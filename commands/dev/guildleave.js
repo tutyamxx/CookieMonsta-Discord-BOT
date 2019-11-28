@@ -5,12 +5,12 @@ module.exports.run = async (bot, message, szArgs) =>
 {
     if(bot)
     {
-        if (message.author.id !== "266677298051153920")
+        if(message.author.id !== "266677298051153920")
         {
             return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
         }
 
-        if (CustomFunctions.isEmpty(szArgs[0]))
+        if(CustomFunctions.isEmpty(szArgs[0]))
         {
             return await message.reply(" :no_entry: argument can't be empty! :no_entry:");
         }
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, szArgs) =>
         const MentionedGuildParam = szArgs[0].trim().toString();
         let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
-        if (GetGuild === undefined)
+        if(GetGuild === undefined)
         {
             return await message.reply(" Invalid guild or it seems that I have already left the: **" + MentionedGuildParam + "** guild :id: !");
         }
