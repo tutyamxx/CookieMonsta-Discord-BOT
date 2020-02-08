@@ -5,7 +5,7 @@
 
 # CookieMonsta Discord BOT
 
-* To see what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
+* To see exactly what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * If you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in **botconfig.json**).
 * Thanks to my friend [CoachAprax](https://www.youtube.com/user/freeAEgraphics) for the banners and some images.
