@@ -99,7 +99,7 @@ module.exports = async (bot, message) =>
 
                     await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
                     {
-                        iCheckIfOpenGift[user.id] = setInterval(async function ()
+                        iCheckIfOpenGift[user.id] = setInterval(async () =>
                         {
                             if(bAlreadyOpeningGift[user.id] === true)
                             {
@@ -113,7 +113,7 @@ module.exports = async (bot, message) =>
 
                         }, 1000);
 
-                        iUserGiftTimer[user.id] = setInterval(async function ()
+                        iUserGiftTimer[user.id] = setInterval(async () =>
                         {
                             await bot.clearInterval(iUserGiftTimer[user.id]);
 
@@ -164,7 +164,7 @@ module.exports = async (bot, message) =>
 
         let szCatFileName = szCatCommand.substring(1) + ".png";
 
-        szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/cathead.png")
+        await szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/cathead.png")
         .background("transparent")
         .mosaic()
         .toBuffer(szCatFileName, async (err, buffer) =>
@@ -217,7 +217,7 @@ module.exports = async (bot, message) =>
         await iCmdCooldown.add(user.id, GuildGetID);
     }
 
-    iUserCooldown[user.id] = setInterval( async () =>
+    iUserCooldown[user.id] = setInterval(async () =>
     {
         await iCmdCooldown.delete(user.id, GuildGetID);
         await bot.clearInterval(iUserCooldown[user.id]);
