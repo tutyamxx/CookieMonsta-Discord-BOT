@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(szArgs[0].toLowerCase() === "m" || szArgs[0].toLowerCase() === "f")
     {
-        message.channel.startTyping();
+        await message.channel.startTyping();
         
         let BillURL = "https://belikebill.ga/billgen-API.php?default=1&name=" + message.author.username.toString() + "&sex=" + szArgs[0].toLowerCase();
 
@@ -21,10 +21,7 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 await message.channel.send(new Discord.Attachment(buffer, "belikebill.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

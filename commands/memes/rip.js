@@ -11,14 +11,14 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
     let UsernameText = GuildMember.user.username.replace(/[^a-zA-Z0-9À-ž_ -]/g, "").toString();
 
     await Jimp.read("./BOTImages/RIP/rip.png").then(async (image) =>
     {
-        await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(async function (font)
+        await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(async (font) =>
         {
             let totalWidth = CustomFunctions.measureText(font, UsernameText);
 
@@ -29,10 +29,7 @@ module.exports.run = async (bot, message, args) =>
                 {
                     if(err)
                     {
-                        await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                         console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                        return;
                     }
 
                     await message.channel.send(new Discord.Attachment(buffer, "rip.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

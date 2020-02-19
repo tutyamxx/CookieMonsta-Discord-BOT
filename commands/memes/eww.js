@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply("eww, but... why? :facepalm:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let EwwImagePath = "./BOTImages/DankEww";
     let EwwImage = "ewww.png";
@@ -28,14 +28,11 @@ module.exports.run = async (bot, message, args) =>
     .fill("#111111")
     //.stroke("#800000")
     .draw(["rotate -55 text -430, 480 '" + GuildMember.user.username.trim() + "'"])
-    .toBuffer(EwwImage, async function (err, buffer)
+    .toBuffer(EwwImage, async (err, buffer) =>
     {
         if(err)
         {
-            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-            return;
         }
 
         await message.channel.send(new Discord.Attachment(buffer, EwwImage)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

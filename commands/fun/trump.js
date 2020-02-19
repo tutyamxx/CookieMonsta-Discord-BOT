@@ -2,7 +2,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("https://api.tronalddump.io/random/quote", async (error, response) =>
     {

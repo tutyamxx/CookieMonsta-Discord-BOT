@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
     const PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
     const RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1", async (error, response) =>
     {

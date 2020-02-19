@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Add some text so I can convert it to speech?  :no_entry:");
     }
 
-    if(await bAlreadyPlayingTTS.has(GuildGetID))
+    if(bAlreadyPlayingTTS.has(GuildGetID))
     {
         return await message.reply(" :no_entry: man you're too spicy! I am already translating a **TTS** :loud_sound:  :no_entry:" );
     }
@@ -46,13 +46,13 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         await voiceChannel.join().then(async (connection) =>
         {
-            await bAlreadyPlayingTTS.add(GuildGetID);
+            bAlreadyPlayingTTS.add(GuildGetID);
 
             const iDispatcher = await connection.playArbitraryInput(encodeURI(szTextToSpeech));
 
             await iDispatcher.on("end", async (end) =>
             {
-                await bAlreadyPlayingTTS.delete(GuildGetID);
+                bAlreadyPlayingTTS.delete(GuildGetID);
 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
@@ -60,7 +60,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             await iDispatcher.on("error", async (end) =>
             {
-                await bAlreadyPlayingTTS.delete(GuildGetID);
+                bAlreadyPlayingTTS.delete(GuildGetID);
                 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
@@ -68,7 +68,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             await iDispatcher.on("finish", async () =>
             {
-                await bAlreadyPlayingTTS.delete(GuildGetID);
+                bAlreadyPlayingTTS.delete(GuildGetID);
 
                 await voiceChannel.leave();
                 await iDispatcher.destroy();

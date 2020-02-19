@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: it seems your number parameter is not a valid number! Try entering a valid number. :no_entry:" );
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://numbersapi.com/" + szArgs[0].trim() + "?json", async (error, data) =>
     {

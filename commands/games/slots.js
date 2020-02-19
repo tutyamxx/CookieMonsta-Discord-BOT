@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) =>
         }
     }
 
-    iSlotTimeInterval[user.id] = setInterval (async function ()
+    iSlotTimeInterval[user.id] = setInterval (async () =>
     {
         i += 1;
 

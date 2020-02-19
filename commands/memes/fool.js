@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: no, you are! :joy::joy::joy:  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
     let i2 = await Jimp.read(GetUserAvatar);
     let i3 = await Jimp.read("./BOTImages/CookieFool/fool.png");
 
-    await Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async (images) =>
     {
         await images[0].resize(170, 150).quality(100);
         await images[1].resize(130, 110).rotate(4).quality(100);
@@ -32,10 +32,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await message.channel.send(new Discord.Attachment(buffer, "fool.jpeg")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: please don't mention people in your armor mean text! :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const ArmorImagePath = "./BOTImages/NothingGets/armor.png";
 
@@ -33,14 +33,11 @@ module.exports.run = async (bot, message, szArgs) =>
     .font("./BOTFonts/AgencyFB-Bold.ttf", FontSize)
     .fill("#111111")
     .draw(["text 0, 350 '" + wrap(FormattedArgumentText, { width: (FormattedArgumentText.length >= 20) ? 30 : 25 }) + "'"])
-    .toBuffer("armor.png", async function (err, buffer)
+    .toBuffer("armor.png", async (err, buffer) =>
     {
         if(err)
         {
-            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-            return;
         }
 
         await message.channel.send(new Discord.Attachment(buffer, "armor.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

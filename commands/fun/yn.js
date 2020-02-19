@@ -17,6 +17,8 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(":no_entry: does that look like a question to you :question:  :no_entry:");
     }
 
+    await message.channel.startTyping();
+
     await getJSON("https://yesno.wtf/api/", async (error, response) =>
     {
         if(error)
@@ -35,7 +37,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setImage(ReplyJson)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed });
+        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
     });
 };
 

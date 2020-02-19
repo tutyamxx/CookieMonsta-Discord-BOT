@@ -31,14 +31,14 @@ module.exports.run = async (bot, message, args) =>
 
         if(!user.bot)
         {
-            await message.channel.send({ embed: DiscordRichEmbed }).then(async msg =>
+            await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
             {
                 await msg.react("\u0031\u20E3"); // 1
                 await msg.react("\u0032\u20E3"); // 2
                 await msg.react("\u0033\u20E3"); // 3
                 await msg.react("❎");			 // end
 
-                iGameEndTimer[user.id] = setInterval (async function ()
+                iGameEndTimer[user.id] = setInterval (async () =>
                 {
                     if(bPlayingShell[user.id] === false)
                     {
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) =>
                         await msg.clearReactions();
                         await msg.edit({ embed: DiscordRichEmbed1 });
 
-                        bot.clearInterval(iGameEndTimer[user.id]);
+                        await bot.clearInterval(iGameEndTimer[user.id]);
                     }
 
                 }, 1000);

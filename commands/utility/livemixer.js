@@ -15,11 +15,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Mixer.com streamer username!  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const MixerUserArgument = szArgs[0].trim();
 
-    MixerClient.request("GET", "channels/" + MixerUserArgument).then(async (response) =>
+    await MixerClient.request("GET", "channels/" + MixerUserArgument).then((response) =>
     {
         if(await response.body.online)
         {

@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, szArgs) =>
     const user = message.author;
     let CardName = encodeURI(szArgs.join(" "));
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("https://yugiohprices.com/api/card_data/" + CardName, async (error, response) =>
     {

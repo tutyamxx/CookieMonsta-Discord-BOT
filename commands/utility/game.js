@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a game name to search for.  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const ArgumentText = szArgs.join(" ");
     const FormatArgumentText = ArgumentText.replace(/'/g, "").replace(/:/g, "").replace(/;/g, "").replace(/`/g, "").split(" ").join("-");

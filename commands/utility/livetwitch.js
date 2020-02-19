@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Twitch.TV username!  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const TwitchUserArgument = szArgs[0].trim();
     let GetUserLive = await TwitchPolling.PollTwitchAPI(TwitchUserArgument);

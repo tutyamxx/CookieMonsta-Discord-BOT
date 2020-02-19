@@ -4,7 +4,7 @@ const mergeImg = require("merge-img");
 
 module.exports.run = async (bot, message, args) =>
 {
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const GarFieldComics = [];
     let GarfieldImage = [];
@@ -23,10 +23,7 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await message.channel.send(new Discord.Attachment(buffer, "garfield_comics.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

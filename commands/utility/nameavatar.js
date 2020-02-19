@@ -14,10 +14,10 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: too many characters in this name! Maximum **30** :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let ArgumentText = szArgs.join(" ");
-    let RandomAvatar = Math.round(Math.random());
+    const RandomAvatar = Math.round(Math.random());
 
     let GenerateRandomAvatar = "https://api.adorable.io/avatar" + (RandomAvatar === 1 ? "" : "s") +  "/285/" + encodeURI(ArgumentText) + ".png";
     let GetAvatarBuffer = await Jimp.read(GenerateRandomAvatar);
@@ -26,10 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(err)
         {
-            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-            return;
         }
 
         await message.channel.send(new Discord.Attachment(buffer, "nameavatar.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

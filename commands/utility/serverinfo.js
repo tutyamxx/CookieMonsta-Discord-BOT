@@ -9,22 +9,22 @@ module.exports.run = async (bot, message, args) =>
 
     if(ServerGuild.available)
     {
-        let ServerName = ServerGuild.name;
-        let ServerID = ServerGuild.id;
-        let ServerOwner = ServerGuild.owner.user.tag;
-        let ServerCreationDate = moment(ServerGuild.createdAt).format('lll');
+        const ServerName = ServerGuild.name;
+        const ServerID = ServerGuild.id;
+        const ServerOwner = ServerGuild.owner.user.tag;
+        const ServerCreationDate = moment(ServerGuild.createdAt).format('lll');
 
-        let ServerUserCount = ServerGuild.members.filter(member => member.user).size;
-        let ServerBotsCount = ServerGuild.members.filter(member => member.user.bot).size;
-        let ServerUserOnlineCount = ServerGuild.members.filter(member => !member.user.bot && member.presence.status === "online").size;
+        const ServerUserCount = ServerGuild.members.filter(member => member.user).size;
+        const ServerBotsCount = ServerGuild.members.filter(member => member.user.bot).size;
+        const ServerUserOnlineCount = ServerGuild.members.filter(member => !member.user.bot && member.presence.status === "online").size;
 
-        let ServerChannels = message.guild.channels.size;
-        let ServerVoiceChannelsCount = ServerGuild.channels.filter(ctype => ctype.type === "voice").size;
-        let ServerTextChannelCount = ServerGuild.channels.filter(ctype => ctype.type === "text").size;
-        let ServerCategories = ServerGuild.channels.filter(ctype => ctype.type === "category").size;
+        const ServerChannels = message.guild.channels.size;
+        const ServerVoiceChannelsCount = ServerGuild.channels.filter(ctype => ctype.type === "voice").size;
+        const ServerTextChannelCount = ServerGuild.channels.filter(ctype => ctype.type === "text").size;
+        const ServerCategories = ServerGuild.channels.filter(ctype => ctype.type === "category").size;
 
-        let ServerMFALevel = ServerGuild.mfaLevel;
-        let ServerContentFilter = ServerGuild.explicitContentFilter;
+        const ServerMFALevel = ServerGuild.mfaLevel;
+        const ServerContentFilter = ServerGuild.explicitContentFilter;
 
         let szDescription = ":white_medium_small_square: Server Name: **" + ServerName +
         "**\n:white_medium_small_square: Server ID: **" + ServerID +

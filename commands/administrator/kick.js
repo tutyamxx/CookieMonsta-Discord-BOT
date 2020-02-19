@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(KickMember.user === user)
     {
-        return message.reply(" :no_entry: but...... why ( ͝° ͜ʖ͡°) ? :face_palm:  :no_entry:");
+        return await message.reply(" :no_entry: but...... why ( ͝° ͜ʖ͡°) ? :face_palm:  :no_entry:");
     }
 
     if(!KickMember.kickable)
@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, szArgs) =>
     // --| Skip @mention, remove commas from reason argument and also trim it.
     let szReason = szArgs.slice(1).join(' ').trim();
 
-    await KickMember.kick(szReason).then( async (member) =>
+    await KickMember.kick(szReason).then(async (member) =>
     {
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)

@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("https://official-joke-api.herokuapp.com/random_joke", async (error, response) =>
     {

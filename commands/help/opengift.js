@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.send({ embed: DiscordRichEmbed }).then(async msg =>
     {
-        iUnwrapTimer[user.id] = setInterval (async function ()
+        iUnwrapTimer[user.id] = setInterval (async () =>
         {
             await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
@@ -53,7 +53,7 @@ module.exports.run = async (bot, message, args) =>
             bUserHasGift[user.id] = 0;
             bAlreadyOpeningGift[user.id] = false;
 
-            bot.clearInterval(iUnwrapTimer[user.id]);
+            await bot.clearInterval(iUnwrapTimer[user.id]);
 
         }, 5 * 1000);
     });

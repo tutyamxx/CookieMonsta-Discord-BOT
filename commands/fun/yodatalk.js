@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Make sure you add some text too.  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let ArgumentText = szArgs.join(" ");
 

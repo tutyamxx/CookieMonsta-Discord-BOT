@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(`are you that lonely? :sob: Come here bro :hugging:`);
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
     let GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
     let i2 = await Jimp.read(GetUserAvatar);
     let i3 = await Jimp.read("./BOTImages/Hugs/hugpat.png");
 
-    await Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async (images) =>
     {
         await images[0].resize(120, Jimp.AUTO).quality(100).rotate(-330);
         await images[1].resize(120, Jimp.AUTO).quality(100).rotate(65).flip(true, false);
@@ -34,10 +34,7 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await message.channel.send("<:pepoComfy:634867566665400324> Hello darkness my old friend... <:pepoComfy:634867566665400324> \n\n**" + user.username + "** sends a hug to **" + GuildMember.user.username + "**!", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

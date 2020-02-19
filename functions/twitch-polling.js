@@ -3,7 +3,7 @@ const BotConfig = require("../config/botconfig.json");
 
 async function PollTwitchAPI(szUser)
 {
-    return new Promise(async (resolve, reject) =>
+    return new Promise((resolve, reject) =>
     {
         const TwitchHeader =
         {

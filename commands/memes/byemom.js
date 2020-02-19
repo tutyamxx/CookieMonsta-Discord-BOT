@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: please don't exceed **34** characters in your Google search query! :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, szArgs) =>
     let i2 = await Jimp.read(GetUserAvatar);
     let i3 = await Jimp.read("./BOTImages/ByeMom/byemom.png");
 
-    await Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async (images) =>
     {
         await images[0].resize(70, 70).quality(100);
         await images[1].resize(125, 125).quality(100);
@@ -41,24 +41,18 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await gm(buffer)
             .font("Helvetica.ttf", 20)
             .fill("#111111")
             .draw(["rotate -25 text 70, 703 '" + SearchQuery.replace(/'/g, "`").trim() + "'"])
-            .toBuffer("byemom.png", async function (err, buffer2)
+            .toBuffer("byemom.png", async (err, buffer2) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 await message.channel.send(new Discord.Attachment(buffer2, "byemom.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

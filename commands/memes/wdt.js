@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
@@ -19,17 +19,14 @@ module.exports.run = async (bot, message, szArgs) =>
 
     const szImageName = "whodidthis.png";
 
-    await Promise.all([i1, i2]).then(async images =>
+    await Promise.all([i1, i2]).then(async (images) =>
     {
         await images[0].resize(717, 408).quality(100);
         await images[1].composite(images[0], 0, 157).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await message.channel.send(new Discord.Attachment(buffer, szImageName)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

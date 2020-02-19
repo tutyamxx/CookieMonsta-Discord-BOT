@@ -31,10 +31,7 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             let szUserStats = "Level: " + await DatabaseImport.CookieMonsta_GetUserLevel(GetGuildID, user.id) + "  |  XP: " + await DatabaseImport.CookieMonsta_GetUserPoints(GetGuildID, user.id);
@@ -61,10 +58,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 const ChanceToShowTips = Math.floor((Math.random() * 15) + 1);

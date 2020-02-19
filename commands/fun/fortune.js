@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://www.yerkee.com/api/fortune/wisdom", async (error, response) =>
     {

@@ -3,7 +3,7 @@ const getJSON = require("get-json");
 
 module.exports.run = async (bot, message, args) =>
 {
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const iRandomComic = Math.floor((Math.random() * 1958) + 1);
     let user = message.author;

@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: The text cannot be empty scrub :facepalm: :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let TextToTranslate = szArgs.join(" ");
 

@@ -12,8 +12,6 @@ module.exports.run = async (bot, message, args) =>
         return await message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
 
-    const user = message.author;
-
     if(bBoolLoopStarded === false)
     {
         bBoolLoopStarded = true;
@@ -21,17 +19,17 @@ module.exports.run = async (bot, message, args) =>
         let RandomClockEmoji = RandomDiscordClockEmojis[Math.floor(Math.random() * RandomDiscordClockEmojis.length)];
         await message.channel.send(":clapper: Random Facts Captain started! :clapper:\nDisplaying random facts to everyone every " + TimeDelayLoop + " minutes " + RandomClockEmoji);
 
-        iFactsInterval = setInterval (function ()
+        iFactsInterval = setInterval (async () =>
         {
-            let iRandFact = RandomFacts[Math.floor(Math.random() * RandomFacts.length)];
-            message.channel.send(":nerd: Random Facts Captain here :nerd: :arrow_down:\n" + iRandFact);
+            const iRandFact = RandomFacts[Math.floor(Math.random() * RandomFacts.length)];
+            await message.channel.send(":nerd: Random Facts Captain here :nerd: :arrow_down:\n" + iRandFact);
 
         }, TimeDelayLoop * 60000);
     }
 
     else if(bBoolLoopStarded === true)
     {
-        bot.clearInterval(iFactsInterval);
+        await bot.clearInterval(iFactsInterval);
         await message.channel.send(":octagonal_sign: :octagonal_sign:  Random Facts Captain stopped! :octagonal_sign: :octagonal_sign:");
 
         bBoolLoopStarded = false;

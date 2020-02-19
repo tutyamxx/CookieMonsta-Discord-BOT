@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await steam.resolve(szArgs[0]).then(async (id) =>
     {

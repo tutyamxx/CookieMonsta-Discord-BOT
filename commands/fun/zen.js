@@ -5,9 +5,9 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
-    await Needle.get("https://api.github.com/zen", async function(error, response)
+    Needle.get("https://api.github.com/zen", async (error, response) =>
     {
         if(!error && response.statusCode === 200)
         {
@@ -20,9 +20,9 @@ module.exports.run = async (bot, message, args) =>
             .setDescription(":tanabata_tree: " + ZenWords)
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({ embed: DiscordRichEmbed }).then(function (message)
+            await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
             {
-                message.react("🎋");
+                await message.react("🎋");
 
             }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }

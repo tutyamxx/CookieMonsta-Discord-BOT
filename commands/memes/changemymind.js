@@ -24,38 +24,32 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: please don't mention people in your text! :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
     let i1 = await Jimp.read(GetUserAvatar);
     let i2 = await Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
 
-    await Promise.all([i1, i2]).then(async images =>
+    await Promise.all([i1, i2]).then(async (images) =>
     {
         await images[0].resize(40, 40).rotate(9);
         await images[1].composite(images[0], 175, 43).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             await gm(buffer)
             .font("Helvetica.ttf", 14)
             .fill("#111111")
             .draw(["rotate -7 text 195, 290 '" + SearchQuery.replace(/'/g, "`").trim() + "'"])
-            .toBuffer("changemymind.png", async function (err, buffer2)
+            .toBuffer("changemymind.png", async (err, buffer2) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 await message.channel.send(new Discord.Attachment(buffer2, "changemymind.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

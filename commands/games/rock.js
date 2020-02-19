@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) =>
     let szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
     let szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
 
-    iRockPaperScissorsTimer[user.id] = setInterval (async function ()
+    iRockPaperScissorsTimer[user.id] = setInterval (async () =>
     {
         switch(Math.floor(( Math.random() * 3 ) + 1))
         {
@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         UserAlreadyRps[user.id] = false;
-        bot.clearInterval(iRockPaperScissorsTimer[user.id]);
+        await bot.clearInterval(iRockPaperScissorsTimer[user.id]);
 
         await szRPSMessage.edit(szRPSEdit);
 

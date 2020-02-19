@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
     const user = message.author;
     let GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://api.open-notify.org/astros.json", async (error, response) =>
     {

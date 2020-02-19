@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) =>
     const iRandomPosterize = [5, 8];
     const iRandomInvert = Math.floor(Math.random() * 6);
 
-    await Promise.all([i1, i2, i3, i4, i5, i6]).then(async images =>
+    await Promise.all([i1, i2, i3, i4, i5, i6]).then(async (images) =>
     {
         await images[0].resize(400, 400).dither565().normalize().opaque();
 
@@ -50,20 +50,14 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
             gm(buffer).noise("impulse").sharpen(3, 3).toBuffer(szDeepFryImage, async (err, buffer2) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 if(iRandomInvert === 1)
@@ -74,10 +68,7 @@ module.exports.run = async (bot, message, args) =>
                     {
                         if(err)
                         {
-                            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                            return;
                         }
                         
                         await message.channel.send(new Discord.Attachment(buffer3, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

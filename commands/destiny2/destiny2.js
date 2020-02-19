@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: !Please specify a Destiny2 player name?  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     const szDestiny2PlayerName = szArgs[0].trim();
 

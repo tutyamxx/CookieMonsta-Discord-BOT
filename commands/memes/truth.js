@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: please don't mention people in your truth description! :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let TruthImagePath = "./BOTImages/Truth/truth.jpg";
     let FontSize = (ArgumentText.length >= 50) ? 16 : 22;
@@ -35,14 +35,11 @@ module.exports.run = async (bot, message, szArgs) =>
     .font("./BOTFonts/MangaSpeak.ttf", FontSize)
     .fill("#111111")
     .draw(["text 0, 193 '" + wrap(FormattedArgumentText, { width: (FormattedArgumentText.length >= 50) ? 21 : 15 }) + "'"])
-    .toBuffer("truth.jpg", async function (err, buffer)
+    .toBuffer("truth.jpg", async (err, buffer) =>
     {
         if(err)
         {
-            await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-            return;
         }
 
         await message.channel.send(new Discord.Attachment(buffer, "truth.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

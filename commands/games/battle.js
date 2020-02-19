@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) =>
     let i2 = await Jimp.read(MemberAvatar);
     let i3 = await Jimp.read(GuildMemberAvatar);
 
-    await Promise.all([i1, i2, i3]).then(async images =>
+    await Promise.all([i1, i2, i3]).then(async (images) =>
     {
         await images[1].resize(306, Jimp.AUTO).quality(100);
         await images[2].resize(306, Jimp.AUTO).quality(100);
@@ -103,7 +103,7 @@ module.exports.run = async (bot, message, args) =>
 
         szThumbnail[user.id] = "https://i.imgur.com/RACcRMv.jpg";
 
-        iFightLogInterval[user.id] = setInterval(async function()
+        iFightLogInterval[user.id] = setInterval(async () =>
         {
             if(Player1Health[user.id] > 0 && Player2Health[GuildMember.user.id] > 0)
             {

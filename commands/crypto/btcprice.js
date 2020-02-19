@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
     let BitCoinChartsArray = [];
     let BitCoinChainArray = [];
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async (response) =>
     {
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) =>
         BitCoinChartsArray[2] = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
         BitCoinChartsArray[3] = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
 
-    }).catch(async (error) =>
+    }).catch((error) =>
     {
         BitCoinChartsArray[0] = "API Error";
         BitCoinChartsArray[0] = "API Error";
@@ -30,7 +30,7 @@ module.exports.run = async (bot, message, args) =>
     {
         BitcoinBTCUSDT = parseFloat(await response1.price);
 
-    }).catch(async (error) =>
+    }).catch((error) =>
     {
         BitcoinBTCUSDT = "API Error";
     });
@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) =>
         BitCoinChainArray[2] = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
         BitCoinChainArray[3] = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
 
-    }).catch(async (error) =>
+    }).catch((error) =>
     {
         BitCoinChainArray[0] = "API Error";
         BitCoinChainArray[1] = "API Error";

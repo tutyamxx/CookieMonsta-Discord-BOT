@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let LitePrice = [];
     let LitePricePaprika = [];
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) =>
         LitePrice[2] = await response.USD;
         LitePrice[3] = await response.JPY;
 
-    }).catch(async function (error)
+    }).catch((error) =>
     {
         LitePrice[0] = "API Error";
         LitePrice[1] = "API Error";
@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
         LitePricePaprika[2] = await response_paprika.quotes.USD.price.toFixed(2);
         LitePricePaprika[3] = await response_paprika.quotes.JPY.price.toFixed(2);;
 
-    }).catch(async function (error)
+    }).catch((error) =>
     {
         LitePricePaprika[0] = "API Error";
         LitePricePaprika[1] = "API Error";
@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, args) =>
         LiteCoinGecko[2] = await response_gecko.litecoin.usd;
         LiteCoinGecko[3] = await response_gecko.litecoin.jpy;
 
-    }).catch(async function (error)
+    }).catch((error) =>
     {
         LiteCoinGecko[0] = "API Error";
         LiteCoinGecko[1] = "API Error";

@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(BanMember.user === user)
     {
-        return message.reply(" :no_entry: but...... why ( ͝° ͜ʖ͡°) ? :face_palm:  :no_entry:");
+        return await message.reply(" :no_entry: but...... why ( ͝° ͜ʖ͡°) ? :face_palm:  :no_entry:");
     }
 
     if(!BanMember.bannable)

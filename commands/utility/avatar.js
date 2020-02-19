@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 

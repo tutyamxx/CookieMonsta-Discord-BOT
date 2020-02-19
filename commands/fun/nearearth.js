@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
     const szRandomEarthEmoji = [":earth_africa:", ":earth_americas:", ":earth_asia:"];
     const szRandomEarthObjects = [":comet:", ":eight_pointed_black_star:", ":black_circle:", ":sparkler:", ":space_invader:"];
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey, async (error, response) =>
     {

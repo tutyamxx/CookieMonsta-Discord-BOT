@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: Please enter the skin Inspect URL :gun: :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ").trim();
 

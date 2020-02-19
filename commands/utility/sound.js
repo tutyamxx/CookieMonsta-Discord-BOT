@@ -50,7 +50,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: I can't join the channel you're in :mute:  :no_entry:" );
     }
 
-    if(await bBoolAlreadyPlayingSound.has(GuildGetID))
+    if(bBoolAlreadyPlayingSound.has(GuildGetID))
     {
         return await message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:" );
     }
@@ -68,7 +68,7 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 UserVoiceChannel.join().then(async (connection) =>
                 {
-                    await bBoolAlreadyPlayingSound.add(GuildGetID);
+                    bBoolAlreadyPlayingSound.add(GuildGetID);
                     await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 300);
 
                     // --| Read sound from the soundboard.json file
@@ -79,7 +79,7 @@ module.exports.run = async (bot, message, szArgs) =>
                    
                     await iDispatcher.on("end", async (end) =>
                     {
-                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
+                        bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await UserVoiceChannel.leave();
                         await iDispatcher.destroy();
@@ -87,7 +87,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     await iDispatcher.on("error", async (end) =>
                     {
-                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
+                        bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await UserVoiceChannel.leave();
                         await iDispatcher.destroy();
@@ -95,7 +95,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     await iDispatcher.on("finish", async () =>
                     {
-                        await bBoolAlreadyPlayingSound.delete(GuildGetID);
+                        bBoolAlreadyPlayingSound.delete(GuildGetID);
 
                         await iDispatcher.destroy();
                         await UserVoiceChannel.leave();

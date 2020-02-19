@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
 
     UserAlreadySpinningFidget[user.id] = true;
 
-    iSpinnerTimer[user.id] = setInterval (async function ()
+    iSpinnerTimer[user.id] = setInterval (async () =>
     {
         if(iSpinTimeout.toFixed(0) >= 40)
         {
@@ -58,11 +58,12 @@ module.exports.run = async (bot, message, args) =>
             .setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
+            
             await SpinningMessage.edit({ embed: DiscordRichEmbed2 });
         }
 
         UserAlreadySpinningFidget[user.id] = false;
-        bot.clearInterval(iSpinnerTimer[user.id]);
+        await bot.clearInterval(iSpinnerTimer[user.id]);
 
     }, iSpinTimeout * 1000);
 };

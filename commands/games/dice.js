@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("http://roll.diceapi.com/json/2d6/", async (error, response) =>
     {
@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) =>
         let i3 = await Jimp.read(szDice2Image);
         let i4 = await Jimp.read(GetUserAvatar);
 
-        await Promise.all([i1, i2, i3, i4]).then(async images =>
+        await Promise.all([i1, i2, i3, i4]).then(async (images) =>
         {
             await images[1].resize(80, Jimp.AUTO).rotate(RandomDegreesDice1).quality(100);
             await images[2].resize(80, Jimp.AUTO).rotate(RandomDegreesDice2).quality(100);
@@ -41,10 +41,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 await message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

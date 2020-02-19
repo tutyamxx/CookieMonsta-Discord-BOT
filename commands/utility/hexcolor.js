@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: this this is not a valid HEX color representation!  :no_entry:");
     }
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     await getJSON("https://www.thecolorapi.com/id?hex=" + HexColorArgument.replace("#", ""), async (error, response) =>
     {
@@ -71,13 +71,10 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             if(err)
             {
-                await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                 console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                return;
             }
 
-            await gm(buffer)
+            gm(buffer)
             .font("Agency-FB.ttf", 28)
             .fill(CustomFunctions.InvertColor(ResponseHEXColor, true))
             .drawText(0, 0, ResponseColorName, "Center")
@@ -108,10 +105,7 @@ module.exports.run = async (bot, message, szArgs) =>
             {
                 if(err)
                 {
-                    await message.channel.stopTyping(true).catch(err => message.channel.stopTyping(true));
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
-
-                    return;
                 }
 
                 await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));

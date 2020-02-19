@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
     let NasaMessageEdit = await message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 

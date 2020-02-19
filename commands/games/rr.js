@@ -50,7 +50,7 @@ module.exports.run = async (bot, message, args) =>
         ":anger: Hey, that's cheating! I can't kick you... Btw you lost."
     ];
 
-    iRouletteTime[user.id] = setInterval (async function ()
+    iRouletteTime[user.id] = setInterval (async () =>
     {
         if(BulletSLot === Math.floor(( Math.random() * 6 ) + 1))
         {
@@ -90,7 +90,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         UserAlreadyPlayingRusR[user.id] = false;
-        bot.clearInterval(iRouletteTime[user.id]);
+        await bot.clearInterval(iRouletteTime[user.id]);
 
     }, 3 * 1000);
 };
