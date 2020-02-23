@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -7,15 +7,10 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("https://some-random-api.ml/pikachuimg", async (error, response) =>
+    await axios.get("https://some-random-api.ml/pikachuimg").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Pika? Pika? Errorka! :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         // --| Remove "" from start and end of string
-        let PikaImageToString = JSON.stringify(await response.link).replace(/"/g, '');
+        const PikaImageToString = JSON.stringify(await response.data.link).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Pikachu", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -28,7 +23,11 @@ module.exports.run = async (bot, message, args) =>
         {
             await message.react(":pika:635524509621026850");
 
-        }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));;
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Pika? Pika? Errorka! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
