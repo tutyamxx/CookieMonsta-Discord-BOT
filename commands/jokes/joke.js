@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 const RandomLaughEmoji =
 [
@@ -12,15 +12,10 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("https://api.icndb.com/jokes/random", async (error, response) =>
+    await axios.get("https://api.icndb.com/jokes/random").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, but Chuck Norris reported some kind of problems, try again later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         // --| Remove "" from start and end of string and also replace &quot; with ""
-        let RandomJokeToString = JSON.stringify(await response.value.joke).replace(/"/g, '').replace(/&quot;/g, '\\"');
+        const RandomJokeToString = JSON.stringify(await response.data.value.joke).replace(/"/g, "").replace(/&quot;/g, '\\"');
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -29,7 +24,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/Fx73HXI.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, but Chuck Norris reported some kind of problems, try again later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
