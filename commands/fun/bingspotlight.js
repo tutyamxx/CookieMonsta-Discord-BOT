@@ -1,6 +1,5 @@
-
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -11,15 +10,10 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1", async (error, response) =>
+    await axios.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, but something went wrong during the API communication with Bing :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
-        let SpotlightImageDesc = JSON.stringify(await response.images[0].copyright).replace(/"/g, '');
-        let SpotlightDownloadURL = "https://www.bing.com" + JSON.stringify(await response.images[0].url).replace(/"/g, '');
+        const SpotlightImageDesc = JSON.stringify(await response.data.images[0].copyright).replace(/"/g, "");
+        const SpotlightDownloadURL = "https://www.bing.com" + JSON.stringify(await response.data.images[0].url).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Bing Today's Spotlight", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -29,7 +23,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/i7oFZRE.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, but something went wrong during the API communication with Bing :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
