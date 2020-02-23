@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -11,49 +11,63 @@ module.exports.run = async (bot, message, args) =>
     let EthereumPricePaprika = [];
     let EthereumCoinGecko = [];
 
-    await getJSON("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,JPY,EUR,GBP").then(async (response) =>
+    await axios.all(
+    [
+        axios.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,JPY,EUR,GBP"),
+        axios.get("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=gbp,eur,usd,jpy"),
+        axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=gbp,usd,eur,jpy")
+    
+    ]).then(await axios.spread(async (ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
-        EthereumPrice[0] = await response.EUR;
-        EthereumPrice[1] = await response.GBP;
-        EthereumPrice[2] = await response.USD;
-        EthereumPrice[3] = await response.JPY;
+        if(ResponseCryptocompare)
+        {
+            EthereumPrice[0] = await ResponseCryptocompare.data.EUR;
+            EthereumPrice[1] = await ResponseCryptocompare.data.GBP;
+            EthereumPrice[2] = await ResponseCryptocompare.data.USD;
+            EthereumPrice[3] = await ResponseCryptocompare.data.JPY;
+        }
 
-    }).catch((error) =>
-    {
-        EthereumPrice[0] = "API Error";
-        EthereumPrice[1] = "API Error";
-        EthereumPrice[2] = "API Error";
-        EthereumPrice[3] = "API Error";
-    });
+        if(ResponseCoinpaprika)
+        {
+            EthereumPricePaprika[0] = await ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
+            EthereumPricePaprika[1] = await ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
+            EthereumPricePaprika[2] = await ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
+            EthereumPricePaprika[3] = await ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
+        }
 
-    await getJSON("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=gbp,eur,usd,jpy").then(async (response_paprika) =>
-    {
-        EthereumPricePaprika[0] = await response_paprika.quotes.EUR.price.toFixed(2);
-        EthereumPricePaprika[1] = await response_paprika.quotes.GBP.price.toFixed(2);
-        EthereumPricePaprika[2] = await response_paprika.quotes.USD.price.toFixed(2);
-        EthereumPricePaprika[3] = await response_paprika.quotes.JPY.price.toFixed(2);
+        if(ResponseCoingecko)
+        {
+            EthereumCoinGecko[0] = await ResponseCoingecko.data.ethereum.eur;
+            EthereumCoinGecko[1] = await ResponseCoingecko.data.ethereum.gbp;
+            EthereumCoinGecko[2] = await ResponseCoingecko.data.ethereum.usd;
+            EthereumCoinGecko[3] = await ResponseCoingecko.data.ethereum.jpy;
+        }
 
-    }).catch((error) =>
+    })).catch((errorCryptocompare, errorCoinpaprika, errorCoingecko) =>
     {
-        EthereumPricePaprika[0] = "API Error";
-        EthereumPricePaprika[1] = "API Error";
-        EthereumPricePaprika[2] = "API Error";
-        EthereumPricePaprika[3] = "API Error";
-    });
+        if(errorCryptocompare)
+        {
+            EthereumPrice[0] = "API Error";
+            EthereumPrice[1] = "API Error";
+            EthereumPrice[2] = "API Error";
+            EthereumPrice[3] = "API Error";
+        }
 
-    await getJSON("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=gbp,usd,eur,jpy").then(async (response_gecko) =>
-    {
-        EthereumCoinGecko[0] = await response_gecko.ethereum.eur;
-        EthereumCoinGecko[1] = await response_gecko.ethereum.gbp;
-        EthereumCoinGecko[2] = await response_gecko.ethereum.usd;
-        EthereumCoinGecko[3] = await response_gecko.ethereum.jpy;
+        if(errorCoinpaprika)
+        {
+            EthereumPricePaprika[0] = "API Error";
+            EthereumPricePaprika[1] = "API Error";
+            EthereumPricePaprika[2] = "API Error";
+            EthereumPricePaprika[3] = "API Error";
+        }
 
-    }).catch((error) =>
-    {
-        EthereumCoinGecko[0] = "API Error";
-        EthereumCoinGecko[1] = "API Error";
-        EthereumCoinGecko[2] = "API Error";
-        EthereumCoinGecko[3] = "API Error";
+        if(errorCoingecko)
+        {
+            EthereumCoinGecko[0] = "API Error";
+            EthereumCoinGecko[1] = "API Error";
+            EthereumCoinGecko[2] = "API Error";
+            EthereumCoinGecko[3] = "API Error";
+        }
     });
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -66,7 +80,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 };
 
 module.exports.help =
