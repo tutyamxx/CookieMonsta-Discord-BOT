@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await axios.get("http://aws.random.cat/meow").then(async (response) =>
+    await axios.get("https://cataas.com/cat").then(async (response) =>
     {
         // --| Remove "" from start and end of string
         const CatImageToString = JSON.stringify(await response.data.file).replace(/"/g, "");
