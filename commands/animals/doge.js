@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>
     await axios.get("http://shibe.online/api/shibes?count=1&httpsUrls=true").then(async (response) =>
     {
         // --| Remove "" from start and end of string
-        const DogeToString = JSON.stringify(await response.data).replace(/"/g, "");
+        const DogeToString = JSON.stringify(await response.data[0]).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Doge", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
