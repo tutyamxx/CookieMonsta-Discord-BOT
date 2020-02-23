@@ -1,21 +1,16 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    message.channel.startTyping();
+    await message.channel.startTyping();
 
-    await getJSON("https://some-random-api.ml/catfact", async (error, response) =>
+    await axios.get("https://some-random-api.ml/catfact").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: some kind of error has occured! Try again later? :crying_cat_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         // --| Remove "" from start and end of string
-        let CatFactToString = JSON.stringify(await response.fact).replace(/"/g, '').replace(/\\/g, "``");
+        const CatFactToString = JSON.stringify(await response.data.fact).replace(/"/g, "").replace(/\\/g, "``");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Cat Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +19,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/xnTRVHO.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: some kind of error has occured! Try again later? :crying_cat_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
