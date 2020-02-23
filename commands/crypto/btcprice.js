@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -11,43 +11,57 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("http://api.bitcoincharts.com/v1/weighted_prices.json").then(async (response) =>
-    {
-        BitCoinChartsArray[0] = JSON.stringify(await response.USD["24h"]).replace(/"/g, '');
-        BitCoinChartsArray[1] = JSON.stringify(await response.GBP["24h"]).replace(/"/g, '');
-        BitCoinChartsArray[2] = JSON.stringify(await response.EUR["24h"]).replace(/"/g, '');
-        BitCoinChartsArray[3] = JSON.stringify(await response.JPY["24h"]).replace(/"/g, '');
+    await axios.all(
+    [
+        axios.get("http://api.bitcoincharts.com/v1/weighted_prices.json"),
+        axios.get("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT"),
+        axios.get("https://blockchain.info/ticker")
 
-    }).catch((error) =>
+    ]).then(await axios.spread(async (ResponseBitcoincharts, ResponseBinance, ResponseBlockchain) =>
     {
-        BitCoinChartsArray[0] = "API Error";
-        BitCoinChartsArray[0] = "API Error";
-        BitCoinChartsArray[0] = "API Error";
-        BitCoinChartsArray[0] = "API Error";
-    });
+        if(ResponseBitcoincharts)
+        {
+            BitCoinChartsArray[0] = JSON.stringify(await ResponseBitcoincharts.data.USD["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[1] = JSON.stringify(await ResponseBitcoincharts.data.GBP["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[2] = JSON.stringify(await ResponseBitcoincharts.data.EUR["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[3] = JSON.stringify(await ResponseBitcoincharts.data.JPY["24h"]).replace(/"/g, "");
+        }
 
-    await getJSON("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT").then(async (response1) =>
-    {
-        BitcoinBTCUSDT = parseFloat(await response1.price);
+        if(ResponseBinance)
+        {
+            BitcoinBTCUSDT = parseFloat(await ResponseBinance.data.price);
+        }
 
-    }).catch((error) =>
-    {
-        BitcoinBTCUSDT = "API Error";
-    });
+        if(ResponseBlockchain)
+        {
+            BitCoinChainArray[0] = JSON.stringify(await ResponseBlockchain.data.USD["15m"]).replace(/"/g, "");
+            BitCoinChainArray[1] = JSON.stringify(await ResponseBlockchain.data.GBP["15m"]).replace(/"/g, "");
+            BitCoinChainArray[2] = JSON.stringify(await ResponseBlockchain.data.EUR["15m"]).replace(/"/g, "");
+            BitCoinChainArray[3] = JSON.stringify(await ResponseBlockchain.data.JPY["15m"]).replace(/"/g, "");
+        }
 
-    await getJSON("https://blockchain.info/ticker").then(async (response2) =>
+    })).catch((errorBitcoincharts, errorBinance, errorBlockchain) =>
     {
-        BitCoinChainArray[0] = JSON.stringify(await response2.USD["15m"]).replace(/"/g, '');
-        BitCoinChainArray[1] = JSON.stringify(await response2.GBP["15m"]).replace(/"/g, '');
-        BitCoinChainArray[2] = JSON.stringify(await response2.EUR["15m"]).replace(/"/g, '');
-        BitCoinChainArray[3] = JSON.stringify(await response2.JPY["15m"]).replace(/"/g, '');
+        if(errorBitcoincharts)
+        {
+            BitCoinChartsArray[0] = "API Error";
+            BitCoinChartsArray[0] = "API Error";
+            BitCoinChartsArray[0] = "API Error";
+            BitCoinChartsArray[0] = "API Error";
+        }
 
-    }).catch((error) =>
-    {
-        BitCoinChainArray[0] = "API Error";
-        BitCoinChainArray[1] = "API Error";
-        BitCoinChainArray[2] = "API Error";
-        BitCoinChainArray[3] = "API Error";
+        if(errorBinance)
+        {
+            BitcoinBTCUSDT = "API Error";
+        }
+
+        if(errorBlockchain)
+        {
+            BitCoinChainArray[0] = "API Error";
+            BitCoinChainArray[1] = "API Error";
+            BitCoinChainArray[2] = "API Error";
+            BitCoinChainArray[3] = "API Error";
+        }
     });
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -61,7 +75,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 };
 
 module.exports.help =
