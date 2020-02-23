@@ -40,16 +40,15 @@ brew upgrade graphicsmagick
 
 ```
 sudo npm install -g node-gyp@5.0.3
+
 npm i mysql2
 npm install ffmpeg
 npm i ffmpeg-static
 npm install ffmpeg-binaries
-
-npm install discord.js node-opus
-npm install bufferutil
-npm install hammerandchisel/erlpack
-npm install libsodium-wrappers
-npm install @discordjs/uws
+npm i leet
+npm i steamid
+npm i steamapi
+npm install --save word-wrap
 npm install dblapi.js
 npm install --save jimp
 npm i @jimp/plugin-invert
@@ -64,10 +63,13 @@ npm i moji-translate
 npm i colors
 sudo npm install long
 npm install moment
-npm install --save word-wrap
-npm i steamapi
-npm i steamid
-npm i leet
+
+npm install discord.js node-opus
+npm install bufferutil
+npm install hammerandchisel/erlpack
+npm install libsodium-wrappers
+npm install @discordjs/uws
+
 ```
 
 
