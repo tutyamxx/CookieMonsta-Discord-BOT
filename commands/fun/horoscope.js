@@ -28,13 +28,13 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: missing argument! Make sure you add ``" + ZodiacSigns[Math.floor(Math.random() * ZodiacSigns.length)][0] + "`` for example. :no_entry:");
     }
 
-    await message.channel.startTyping();
-
     let i;
     for(i = 0; i < ZodiacSigns.length; i++)
     {
         if(IgnoreCase.equals(ZodiacSigns[i][0], szArgs[0]))
         {
+            await message.channel.startTyping();
+
             await axios.get("http://horoscope-api.herokuapp.com/horoscope/today/" + ZodiacSigns[i][0]).then(async (response) =>
             {
                 const StringHoroscope = JSON.stringify(await response.data.horoscope).replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "");
