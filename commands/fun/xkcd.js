@@ -1,23 +1,18 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     await message.channel.startTyping();
 
     const iRandomComic = Math.floor((Math.random() * 1958) + 1);
-    let user = message.author;
+    const user = message.author;
 
-    await getJSON("https://xkcd.com/" + iRandomComic + "/info.0.json", async (error, response) =>
+    await axios.get("https://xkcd.com/" + iRandomComic + "/info.0.json").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Comics are dead... well, at least for now... :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
-        let ComicTitle = JSON.stringify(await response.title).replace(/"/g, '');
-        let ComicDescription = JSON.stringify(await response.alt).replace(/"/g, '').replace(/\\/g, "'");
-        let ComicImageURL = JSON.stringify(await response.img).replace(/"/g, '');
+        const ComicTitle = JSON.stringify(await response.data.title).replace(/"/g, "");
+        const ComicDescription = JSON.stringify(await response.data.alt).replace(/"/g, "").replace(/\\/g, "'");
+        const ComicImageURL = JSON.stringify(await response.data.img).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | XKCD Comic Number: #" + iRandomComic + " | " + ComicTitle, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -27,7 +22,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/4uj0Djx.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Comics are dead... well, at least for now... :sob:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
