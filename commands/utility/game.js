@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Needle = require("needle");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -16,23 +16,23 @@ module.exports.run = async (bot, message, szArgs) =>
     const ArgumentText = szArgs.join(" ");
     const FormatArgumentText = ArgumentText.replace(/'/g, "").replace(/:/g, "").replace(/;/g, "").replace(/`/g, "").split(" ").join("-");
 
-    Needle.get("https://api.rawg.io/api/games/" + FormatArgumentText, async (error, response) =>
+    await axios.get("https://api.rawg.io/api/games/" + FormatArgumentText).then(async (response) =>
     {
-        if(error || await response.body.detail)
+        if(await response.data.detail)
         {
-            return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         }
+        
+        const szGameSlug = await response.data.slug.trim();
 
-        const szGameSlug = await response.body.slug.trim();
-
-        Needle.get("https://api.rawg.io/api/games/" + szGameSlug, async (error, response_game) =>
+        await axios.get("https://api.rawg.io/api/games/" + szGameSlug).then(async (response_game) =>
         {
-            if(error || await response_game.body.detail)
+            if(await response_game.data.detail)
             {
-                return await message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return await message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
 
-            const ResultGame = await response_game.body;
+            const ResultGame = await response_game.data;
             const ResultGameName = await ResultGame.name_original.toString();
             const ResultGameDeveloper = await ResultGame.developers;
             const ResultGamePublisher = await ResultGame.publishers;
@@ -78,7 +78,15 @@ module.exports.run = async (bot, message, szArgs) =>
             .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
             await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        
+        }).catch(async () =>
+        {
+            return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
+        
+    }).catch(async () =>
+    {
+        return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
