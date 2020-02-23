@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-    let GuildMember = message.mentions.members.first();
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+    const MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
     const PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
     const RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
