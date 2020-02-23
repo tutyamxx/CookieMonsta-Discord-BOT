@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -7,15 +7,10 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("http://api.open-notify.org/iss-now.json", async (error, response) =>
+    await axios.get("http://api.open-notify.org/iss-now.json").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA ISS location... :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
-        let iLocLatitude = JSON.stringify(await response.iss_position.latitude).replace(/"/g, '');
-        let iLocLongitude = JSON.stringify(await response.iss_position.longitude).replace(/"/g, '');
+        const iLocLatitude = JSON.stringify(await response.data.iss_position.latitude).replace(/"/g, "");
+        const iLocLongitude = JSON.stringify(await response.data.iss_position.longitude).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | International Space Station Location", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -25,7 +20,11 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp();
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA ISS location... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
