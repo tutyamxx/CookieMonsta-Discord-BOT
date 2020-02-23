@@ -1,18 +1,15 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://some-random-api.ml/img/birb", async (error, response) =>
-    {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, no birbs to generate. Try again later :bird:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+    await message.channel.startTyping();
 
-        let RandomBirb = JSON.stringify(await response.link).replace(/"/g, '');
+    await axios.get("https://some-random-api.ml/img/birb").then(async (response) =>
+    {
+        const RandomBirb = JSON.stringify(await response.data.link).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Birb", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +21,12 @@ module.exports.run = async (bot, message, args) =>
         {
             await message.react("🦉");
             await message.react("🐦");
-        });
+
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, no birbs to generate. Try again later :bird:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
