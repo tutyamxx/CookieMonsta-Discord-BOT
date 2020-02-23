@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     const MixerUserArgument = szArgs[0].trim();
 
-    await MixerClient.request("GET", "channels/" + MixerUserArgument).then((response) =>
+    await MixerClient.request("GET", "channels/" + MixerUserArgument).then(async (response) =>
     {
         if(await response.body.online)
         {
