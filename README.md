@@ -23,6 +23,7 @@
 sudo apt-get install ffmpeg
 sudo apt-get install build-essential
 
+sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:rwky/graphicsmagick
 sudo apt-get install graphicsmagick
 
