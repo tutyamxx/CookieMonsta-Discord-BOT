@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -7,15 +7,11 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("https://some-random-api.ml/meme", async (error, response) =>
+    await axios.get("https://some-random-api.ml/meme").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Aww snap, something went wrong lebrowsky! Try again? :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
-        let szRandomMemeImage = JSON.stringify(await response.image).replace(/"/g, '');
-        let szRandomMemeCaption = JSON.stringify(await response.caption).replace(/"/g, '');
+       
+        const szRandomMemeImage = JSON.stringify(await response.data.image).replace(/"/g, "");
+        const szRandomMemeCaption = JSON.stringify(await response.data.caption).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Meme", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -25,7 +21,11 @@ module.exports.run = async (bot, message, args) =>
         .setDescription(szRandomMemeCaption)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Aww snap, something went wrong lebrowsky! Try again? :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
