@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -12,8 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     let ArgumentText = szArgs.join(" ");
-
-    let GenerateRoboHash = "https://robohash.org/" + ArgumentText + ".png?bgset=bg1";
+    const GenerateRoboHash = "https://robohash.org/" + ArgumentText + ".png?bgset=bg1";
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | Robohash", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
