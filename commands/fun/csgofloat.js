@@ -34,34 +34,34 @@ module.exports.run = async (bot, message, szArgs) =>
         let szCSGOFloatArray = [];
 
         // --| Exterior wear of the skin in its float representation
-        szCSGOFloatArray[csgofloat.SKIN_FLOAT_VALUE] = JSON.stringify(await response.iteminfo.floatvalue).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_FLOAT_VALUE] = JSON.stringify(await response.data.iteminfo.floatvalue).replace(/"/g, "");
 
         // --| Paint ID of the weapon (skin)
-        szCSGOFloatArray[csgofloat.SKIN_PAINT_INDEX] = JSON.stringify(await response.iteminfo.paintindex).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_PAINT_INDEX] = JSON.stringify(await response.data.iteminfo.paintindex).replace(/"/g, "");
 
         // --| Seed for the RNG that defines how to place the skin texture
-        szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(await response.iteminfo.paintseed).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(await response.data.iteminfo.paintseed).replace(/"/g, "");
 
         // --| ID of the item
-        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = (response.iteminfo.hasOwnProperty("itemid") ? JSON.stringify(parseInt(await response.iteminfo.itemid)) : "Unknown ID");
+        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = (response.data.iteminfo.hasOwnProperty("itemid") ? JSON.stringify(parseInt(await response.data.iteminfo.itemid)) : "Unknown ID");
 
         // --| Optional: Name of the skin
-        szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(await response.iteminfo.item_name).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(await response.data.iteminfo.item_name).replace(/"/g, "");
 
         // --| Wear name (Factory New, Minimal Wear, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_WEAR_NAME] = JSON.stringify(await response.iteminfo.wear_name).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_WEAR_NAME] = JSON.stringify(await response.data.iteminfo.wear_name).replace(/"/g, "");
 
         // --| Weapon type name
-        szCSGOFloatArray[csgofloat.SKIN_WEAPON_NAME] = JSON.stringify(await response.iteminfo.weapon_type).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_WEAPON_NAME] = JSON.stringify(await response.data.iteminfo.weapon_type).replace(/"/g, "");
 
         // --| Quality name (Souvenir, Stattrak, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_QUALITY] = JSON.stringify(await response.iteminfo.quality_name).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_QUALITY] = JSON.stringify(await response.data.iteminfo.quality_name).replace(/"/g, "");
 
         // --| Origin name (Trade-Up, Dropped, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_ORIGIN] = JSON.stringify(await response.iteminfo.origin_name).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_ORIGIN] = JSON.stringify(await response.data.iteminfo.origin_name).replace(/"/g, "");
 
         // --| Skin image URL
-        szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL] = JSON.stringify(await response.iteminfo.imageurl).replace(/"/g, '');
+        szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL] = JSON.stringify(await response.data.iteminfo.imageurl).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | CSGO Float", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
