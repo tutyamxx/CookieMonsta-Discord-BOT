@@ -5,10 +5,10 @@ const CustomFunctions = require("../../functions/funcs.js");
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-    
+
     await message.channel.startTyping();
 
-    await axios.get("https://quote-garden.herokuapp.com/quotes/random").then(function (response)
+    await axios.get("https://quote-garden.herokuapp.com/quotes/random").then(async (response) =>
     {
         // --| Remove "" from start and end of string
         const RandomQuoteText = await response.data.quoteText.trim();
