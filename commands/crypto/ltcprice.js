@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -11,49 +11,64 @@ module.exports.run = async (bot, message, args) =>
     let LitePricePaprika = [];
     let LiteCoinGecko = [];
 
-    await getJSON("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USD,JPY,EUR,GBP").then(async (response) =>
-    {
-        LitePrice[0] = await response.EUR;
-        LitePrice[1] = await response.GBP;
-        LitePrice[2] = await response.USD;
-        LitePrice[3] = await response.JPY;
+    await axios.all(
+    [
+        axios.get("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USD,JPY,EUR,GBP"),
+        axios.get("https://api.coinpaprika.com/v1/tickers/ltc-litecoin?quotes=gbp,eur,usd,jpy"),
+        axios.get("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=gbp,usd,eur,jpy")
 
-    }).catch((error) =>
+    ]).then(await axios.spread(async (ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
-        LitePrice[0] = "API Error";
-        LitePrice[1] = "API Error";
-        LitePrice[2] = "API Error";
-        LitePrice[3] = "API Error";
-    });
+        if(ResponseCryptocompare)
+        {
+            LitePrice[0] = await ResponseCryptocompare.data.EUR;
+            LitePrice[1] = await ResponseCryptocompare.data.GBP;
+            LitePrice[2] = await ResponseCryptocompare.data.USD;
+            LitePrice[3] = await ResponseCryptocompare.data.JPY;
+        }
 
-    await getJSON("https://api.coinpaprika.com/v1/tickers/ltc-litecoin?quotes=gbp,eur,usd,jpy").then(async (response_paprika) =>
-    {
-        LitePricePaprika[0] = await response_paprika.quotes.EUR.price.toFixed(2);
-        LitePricePaprika[1] = await response_paprika.quotes.GBP.price.toFixed(2);
-        LitePricePaprika[2] = await response_paprika.quotes.USD.price.toFixed(2);
-        LitePricePaprika[3] = await response_paprika.quotes.JPY.price.toFixed(2);;
+        if(ResponseCoinpaprika)
+        {
+            LitePricePaprika[0] = await ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
+            LitePricePaprika[1] = await ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
+            LitePricePaprika[2] = await ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
+            LitePricePaprika[3] = await ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
+        }
 
-    }).catch((error) =>
-    {
-        LitePricePaprika[0] = "API Error";
-        LitePricePaprika[1] = "API Error";
-        LitePricePaprika[2] = "API Error";
-        LitePricePaprika[3] = "API Error";
-    });
+        if(ResponseCoingecko)
+        {
+            LiteCoinGecko[0] = await ResponseCoingecko.data.litecoin.eur;
+            LiteCoinGecko[1] = await ResponseCoingecko.data.litecoin.gbp;
+            LiteCoinGecko[2] = await ResponseCoingecko.data.litecoin.usd;
+            LiteCoinGecko[3] = await ResponseCoingecko.data.litecoin.jpy;
+        }
 
-    await getJSON("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=gbp,usd,eur,jpy").then(async (response_gecko) =>
+    })).catch((errorCryptocompare, errorCoinpaprika, errorCoingecko) =>
     {
-        LiteCoinGecko[0] = await response_gecko.litecoin.eur;
-        LiteCoinGecko[1] = await response_gecko.litecoin.gbp;
-        LiteCoinGecko[2] = await response_gecko.litecoin.usd;
-        LiteCoinGecko[3] = await response_gecko.litecoin.jpy;
+        if(errorCryptocompare)
+        {
+            LitePrice[0] = "API Error";
+            LitePrice[1] = "API Error";
+            LitePrice[2] = "API Error";
+            LitePrice[3] = "API Error";
+        }
 
-    }).catch((error) =>
-    {
-        LiteCoinGecko[0] = "API Error";
-        LiteCoinGecko[1] = "API Error";
-        LiteCoinGecko[2] = "API Error";
-        LiteCoinGecko[3] = "API Error";
+        if(errorCoinpaprika)
+        {
+            LitePricePaprika[0] = "API Error";
+            LitePricePaprika[1] = "API Error";
+            LitePricePaprika[2] = "API Error";
+            LitePricePaprika[3] = "API Error";
+        }
+
+        if(errorCoingecko)
+        {
+            LiteCoinGecko[0] = "API Error";
+            LiteCoinGecko[1] = "API Error";
+            LiteCoinGecko[2] = "API Error";
+            LiteCoinGecko[3] = "API Error";
+        }
+
     });
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -66,7 +81,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 };
 
 module.exports.help =
