@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await message.channel.startTyping();
 
-    let MathEquation = szArgs.slice(0).join(' ').trim();
+    let MathEquation = szArgs.slice(0).join(" ").trim();
 
     await axios.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`).then(async (response) =>
     {
