@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const SteamAPI = require("steamapi");
 const SteamID = require("steamid");
 const CustomFunctions = require("../../functions/funcs.js");
@@ -13,40 +13,30 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:");
+        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     }
 
     await message.channel.startTyping();
 
     await steam.resolve(szArgs[0]).then(async (id) =>
     {
-        let SteamAccountID3 = (new SteamID(id)).accountid;
+        const SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async (error, response_player) =>
+        await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then(async (response_player) =>
         {
-            if(error)
+            if(!await response_player.data.hasOwnProperty("profile"))
             {
-                return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
 
-            if(!await response_player.hasOwnProperty("profile"))
+            const DotaPlayerName = await response_player.data.profile.personaname;
+            const DotaPlayerAvatar = await response_player.data.profile.avatarmedium;
+            const DotaPlayerSteamProfile = await response_player.data.profile.profileurl;
+
+            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl").then(async (response) =>
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-            }
-
-            const DotaPlayerName = await response_player.profile.personaname;
-            const DotaPlayerAvatar = await response_player.profile.avatarmedium;
-            const DotaPlayerSteamProfile = await response_player.profile.profileurl;
-
-            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl", async (error, response) =>
-            {
-                if(error)
-                {
-                    return;
-                }
-
-                const iPlayerTotalWin = parseInt(await response.win);
-                const iPlayerTotalLose = parseInt(await response.lose);
+                const iPlayerTotalWin = parseInt(await response.data.win);
+                const iPlayerTotalLose = parseInt(await response.data.lose);
 
                 const iPlayerTotalMatchesPlayed = iPlayerTotalWin + iPlayerTotalLose;
                 const iPlayerWinrate = CustomFunctions.Dota2_CalculateWinrate(iPlayerTotalWin, iPlayerTotalLose);
@@ -69,13 +59,21 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setThumbnail(DotaPlayerAvatar)
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            
+            }).catch(async () =>
+            {
+                return;
             });
+
+        }).catch(async () =>
+        {
+            return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
         
     }).catch(async (error) =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
