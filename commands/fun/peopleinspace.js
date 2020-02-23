@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 const RandomMoonEmoji =
 [
@@ -9,18 +9,13 @@ const RandomMoonEmoji =
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-    let GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
+    const GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
 
     await message.channel.startTyping();
 
-    await getJSON("http://api.open-notify.org/astros.json", async (error, response) =>
+    await axios.get("http://api.open-notify.org/astros.json").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
-        let PeopleInSpace = JSON.stringify(await response.number).replace(/"/g, '');
+        let PeopleInSpace = JSON.stringify(await response.data.number).replace(/"/g, "");
 
         let szPeopleNames = "";
         let szDescription = "";
@@ -45,7 +40,7 @@ module.exports.run = async (bot, message, args) =>
 
         for(let i = 0; i < parseInt(PeopleInSpace); i++)
         {
-            AstroPersonName = JSON.stringify(response.people[i].name).replace(/"/g, '');
+            AstroPersonName = JSON.stringify(response.data.people[i].name).replace(/"/g, '');
 
             szPeopleNames += ":busts_in_silhouette: [" + AstroPersonName + "](https://en.wikipedia.org/wiki/" + encodeURI(AstroPersonName) + ")\n";
         }
@@ -57,7 +52,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/hj6ouTF.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
