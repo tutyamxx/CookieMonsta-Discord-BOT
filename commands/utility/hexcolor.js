@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const gm = require("gm").subClass({ imageMagick: true });
 const Jimp = require("jimp");
 const CustomFunctions = require("../../functions/funcs.js");
@@ -23,41 +23,36 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await message.channel.startTyping();
 
-    await getJSON("https://www.thecolorapi.com/id?hex=" + HexColorArgument.replace("#", ""), async (error, response) =>
+    await axios.get("https://www.thecolorapi.com/id?hex=" + HexColorArgument.replace("#", "")).then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, for some reason I have encountered an error!  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         // --| Remove "" from start and end of string
-        const ResponseHEXColor = JSON.stringify(await response.hex.value).replace(/"/g, '');
-        const ResponseColorName = JSON.stringify(await response.name.value).replace(/"/g, '');
+        const ResponseHEXColor = JSON.stringify(await response.data.hex.value).replace(/"/g, "");
+        const ResponseColorName = JSON.stringify(await response.data.name.value).replace(/"/g, "");
 
         const ResponseRGB = [];
-        ResponseRGB[0] = JSON.stringify(await response.rgb.r).replace(/"/g, '');
-        ResponseRGB[1] = JSON.stringify(await response.rgb.g).replace(/"/g, '');
-        ResponseRGB[2] = JSON.stringify(await response.rgb.b).replace(/"/g, '');
-        ResponseRGB[3] = JSON.stringify(await response.rgb.value).replace(/"/g, '');
+        ResponseRGB[0] = JSON.stringify(await response.data.rgb.r).replace(/"/g, "");
+        ResponseRGB[1] = JSON.stringify(await response.data.rgb.g).replace(/"/g, "");
+        ResponseRGB[2] = JSON.stringify(await response.data.rgb.b).replace(/"/g, "");
+        ResponseRGB[3] = JSON.stringify(await response.data.rgb.value).replace(/"/g, "");
 
         const ResponseHSL = [];
-        ResponseHSL[0] = JSON.stringify(await response.hsl.h).replace(/"/g, '');
-        ResponseHSL[1] = JSON.stringify(await response.hsl.s).replace(/"/g, '');
-        ResponseHSL[2] = JSON.stringify(await response.hsl.l).replace(/"/g, '');
-        ResponseHSL[3] = JSON.stringify(await response.hsl.value).replace(/"/g, '');
+        ResponseHSL[0] = JSON.stringify(await response.data.hsl.h).replace(/"/g, "");
+        ResponseHSL[1] = JSON.stringify(await response.data.hsl.s).replace(/"/g, "");
+        ResponseHSL[2] = JSON.stringify(await response.data.hsl.l).replace(/"/g, "");
+        ResponseHSL[3] = JSON.stringify(await response.data.hsl.value).replace(/"/g, "");
 
         const ResponseHSV = [];
-        ResponseHSV[0] = JSON.stringify(await response.hsv.h).replace(/"/g, '');
-        ResponseHSV[1] = JSON.stringify(await response.hsv.s).replace(/"/g, '');
-        ResponseHSV[2] = JSON.stringify(await response.hsv.v).replace(/"/g, '');
-        ResponseHSV[3] = JSON.stringify(await response.hsv.value).replace(/"/g, '');
+        ResponseHSV[0] = JSON.stringify(await response.data.hsv.h).replace(/"/g, "");
+        ResponseHSV[1] = JSON.stringify(await response.data.hsv.s).replace(/"/g, "");
+        ResponseHSV[2] = JSON.stringify(await response.data.hsv.v).replace(/"/g, "");
+        ResponseHSV[3] = JSON.stringify(await response.data.hsv.value).replace(/"/g, "");
 
         const ResponseCMYK = [];
-        ResponseCMYK[0] = JSON.stringify(await response.cmyk.c).replace(/"/g, '');
-        ResponseCMYK[1] = JSON.stringify(await response.cmyk.m).replace(/"/g, '');
-        ResponseCMYK[2] = JSON.stringify(await response.cmyk.y).replace(/"/g, '');
-        ResponseCMYK[3] = JSON.stringify(await response.cmyk.k).replace(/"/g, '');
-        ResponseCMYK[4] = JSON.stringify(await response.cmyk.value).replace(/"/g, '');
+        ResponseCMYK[0] = JSON.stringify(await response.data.cmyk.c).replace(/"/g, "");
+        ResponseCMYK[1] = JSON.stringify(await response.data.cmyk.m).replace(/"/g, "");
+        ResponseCMYK[2] = JSON.stringify(await response.data.cmyk.y).replace(/"/g, "");
+        ResponseCMYK[3] = JSON.stringify(await response.data.cmyk.k).replace(/"/g, "");
+        ResponseCMYK[4] = JSON.stringify(await response.data.cmyk.value).replace(/"/g, "");
 
         let ColorImage = new Jimp(400, 400, ResponseHEXColor, async (err, image) =>
         {
@@ -108,9 +103,13 @@ module.exports.run = async (bot, message, szArgs) =>
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             });
         });
+        
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, for some reason I have encountered an error!  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
