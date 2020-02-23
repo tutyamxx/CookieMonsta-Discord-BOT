@@ -1,19 +1,16 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://nekos.life/api/lizard", async (error, response) =>
-    {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, no lizzibois found. Try again later :lizard:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+    await message.channel.startTyping();
 
+    await axios.get("https://nekos.life/api/lizard").then(async (response) =>
+    {
         // --| Remove "" from start and end of string
-        let LizzyImageToString = JSON.stringify(await response.url).replace(/"/g, '');
+        const LizzyImageToString = JSON.stringify(await response.data.url).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Lizzy Boi", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +21,12 @@ module.exports.run = async (bot, message, args) =>
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🦎");
-        });
+
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, no lizzibois found. Try again later :lizard:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
