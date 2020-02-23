@@ -13,11 +13,11 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await message.channel.startTyping();
 
-    let MathEquation = szArgs.slice(0).join(" ").trim();
+    let MathEquation = szArgs.slice(0).join(" ").trim().replace(/\s/g, "");
 
-    await axios.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`).then(async (response) =>
+    await axios.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation)}&precision=3`).then(async (response) =>
     {
-        const MathCalc = await response.data.replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "").replace(/\\/g, '"');
+        let MathCalc = await response.data;
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Calculator", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -30,10 +30,10 @@ module.exports.run = async (bot, message, szArgs) =>
     
     }).catch(async () =>
     {
-       const DiscordRichEmbed1 = new Discord.RichEmbed()
+        const DiscordRichEmbed1 = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Calculator Error", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor("#FF0000")
-        .setDescription(":sos: **Invalid math formulae or my brain is ded!** :sos:" )
+        .setDescription(":sos: **Invalid math formulae or my brain is ded!** :sos:")
         .setThumbnail("https://i.imgur.com/AZSvouC.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
