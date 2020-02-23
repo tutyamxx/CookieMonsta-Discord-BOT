@@ -5,19 +5,18 @@ const CustomFunctions = require("../../functions/funcs.js");
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-
-    let GuildMember = message.mentions.members.first();
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
         return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :facepalm:  :no_entry:");
     }
 
-    let GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    let TargetName = GuildMember.user.username;
+    const GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+    const TargetName = GuildMember.user.username;
 
-    let GetGameName = (GuildMember.presence.game === null) ? "Nothing" : GuildMember.presence.game;
-    let GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
+    const GetGameName = (GuildMember.presence.game === null) ? "Nothing" : GuildMember.presence.game;
+    const GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Info", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
