@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const Jimp = require("jimp");
 
 module.exports.run = async (bot, message, args) =>
@@ -8,20 +8,15 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await getJSON("http://roll.diceapi.com/json/2d6/", async (error, response) =>
+    await axios.get("http://roll.diceapi.com/json/2d6/").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, I've lost the dice and you can't roll them at the moment! :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+        const GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-        let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+        const DiceNum1 = JSON.stringify(parseInt(await response.data.dice[0].value));
+        const DiceNum2 = JSON.stringify(parseInt(await response.data.dice[1].value));
 
-        let DiceNum1 = JSON.stringify(parseInt(await response.dice[0].value));
-        let DiceNum2 = JSON.stringify(parseInt(await response.dice[1].value));
-
-        let szDice1Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum1 + ".png";
-        let szDice2Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum2 + ".png";
+        const szDice1Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum1 + ".png";
+        const szDice2Image = "http://roll.diceapi.com/images/poorly-drawn/d6/" + DiceNum2 + ".png";
 
         const RandomDegreesDice1 = Math.floor((Math.random() * 360) + -360);
         const RandomDegreesDice2 = Math.floor((Math.random() * 360) + -360);
@@ -44,10 +39,14 @@ module.exports.run = async (bot, message, args) =>
                     console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                await message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                await message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
                 await message.react(":dice:634953930043817994");
             });
         });
+        
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, I've lost the dice and you can't roll them at the moment! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
