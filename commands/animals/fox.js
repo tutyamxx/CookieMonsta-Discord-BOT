@@ -1,19 +1,16 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://randomfox.ca/floof/", async (error, response) =>
-    {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Oh noes! Foxes ran away, try later perhaps?! :crying_cat_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+    await message.channel.startTyping();
 
+    await axios.get("https://randomfox.ca/floof/").then(async (response) =>
+    {
         // --| Remove "" from start and end of string
-        let FoxImageToString = JSON.stringify(await response.image).replace(/"/g, '');
+        const FoxImageToString = JSON.stringify(await response.data.image).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Fox", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +21,12 @@ module.exports.run = async (bot, message, args) =>
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🦊");
-        });
+
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Oh noes! Foxes ran away, try later perhaps?! :crying_cat_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
