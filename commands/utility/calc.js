@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Needle = require("needle");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -15,33 +15,29 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let MathEquation = szArgs.slice(0).join(' ').trim();
 
-    Needle.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`, async (error, response) =>
+    await axios.get(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(MathEquation.replace(/\s/g, ""))}&precision=3`).then(async (response) =>
     {
-        if(!error && response.statusCode == 200)
-        {
-            let MathCalc = await response.body.replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '').replace(/\\/g, '"');
+        const MathCalc = await response.data.replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "").replace(/\\/g, '"');
 
-            const DiscordRichEmbed = new Discord.RichEmbed()
-            .setAuthor("Cookie Monsta | Calculator", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-            .setColor("#00CED1")
-            .setDescription(":selfie: You wanted to calculate: **" + MathEquation.replace(/\s/g, "") + "**\n\n:1234: Result: **" + MathCalc + "**")
-            .setThumbnail("https://i.imgur.com/AZSvouC.png")
-            .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        const DiscordRichEmbed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Calculator", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor("#00CED1")
+        .setDescription(":selfie: You wanted to calculate: **" + MathEquation.replace(/\s/g, "") + "**\n\n:1234: Result: **" + MathCalc + "**")
+        .setThumbnail("https://i.imgur.com/AZSvouC.png")
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    
+    }).catch(async () =>
+    {
+       const DiscordRichEmbed1 = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Calculator Error", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setColor("#FF0000")
+        .setDescription(":sos: **Invalid math formulae or my brain is ded!** :sos:" )
+        .setThumbnail("https://i.imgur.com/AZSvouC.png")
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        else
-        {
-            const DiscordRichEmbed1 = new Discord.RichEmbed()
-            .setAuthor("Cookie Monsta | Calculator Error", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-            .setColor("#FF0000")
-            .setDescription(":sos: **Invalid math formulae or my brain is ded!** :sos:" )
-            .setThumbnail("https://i.imgur.com/AZSvouC.png")
-            .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
-
-            return await message.channel.send({ embed: DiscordRichEmbed1 }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+        return await message.channel.send({ embed: DiscordRichEmbed1 }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
