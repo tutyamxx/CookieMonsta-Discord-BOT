@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -18,15 +18,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await message.channel.startTyping();
 
-    await getJSON("http://numbersapi.com/" + szArgs[0].trim() + "?json", async (error, data) =>
+    await axios.get("http://numbersapi.com/" + szArgs[0].trim() + "?json").then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Something happened! Numbers aren't generated and the matrix is glitched! Try again later :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
-        let NumberFactString = JSON.stringify(await data.text).replace(/"/g, '').replace(/\\/g, '"');
+        const NumberFactString = JSON.stringify(await response.data.text).replace(/"/g, "").replace(/\\/g, '"');
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random fact about number: #" + szArgs[0], (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -35,7 +30,11 @@ module.exports.run = async (bot, message, szArgs) =>
         .setThumbnail("https://i.imgur.com/L4RORNr.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Something happened! Numbers aren't generated and the matrix is glitched! Try again later :sob:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
