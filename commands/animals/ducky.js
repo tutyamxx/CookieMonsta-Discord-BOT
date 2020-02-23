@@ -1,19 +1,16 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON("https://random-d.uk/api/v1/random", async (error, response) =>
-    {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, the ducks got upset! Try again later :crying_cat_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+    await message.channel.startTyping();
 
+    await axios.get("https://random-d.uk/api/v1/random").then(async (response) =>
+    {
         // --| Remove "" from start and end of string
-        let DuckImageToString = JSON.stringify(await response.url).replace(/"/g, '');
+        const DuckImageToString = JSON.stringify(await response.data.url).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Ducky", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +21,12 @@ module.exports.run = async (bot, message, args) =>
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🦆");
-        });
+
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, the ducks got upset! Try again later :crying_cat_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
