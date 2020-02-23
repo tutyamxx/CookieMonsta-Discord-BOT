@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let TextToTranslate = szArgs.join(" ");
 
-    await message.channel.send(EmojiTranslate.translate(TextToTranslate)).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send(EmojiTranslate.translate(TextToTranslate)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 };
 
 module.exports.help =
