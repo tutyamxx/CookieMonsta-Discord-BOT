@@ -1,19 +1,16 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
-    await getJSON('http://shibe.online/api/shibes?count=1&httpsUrls=true', async (error, response) =>
-    {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Such sad! Much cry! Ain't working atm, dog. :cry:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+    await message.channel.startTyping();
 
+    await axios.get("http://shibe.online/api/shibes?count=1&httpsUrls=true").then(async (response) =>
+    {
         // --| Remove "" from start and end of string
-        let DogeToString = JSON.stringify(await response[0]).replace(/"/g, '');
+        const DogeToString = JSON.stringify(await response.data).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Doge", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,7 +21,12 @@ module.exports.run = async (bot, message, args) =>
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🐶");
-        });
+
+        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Such sad! Much cry! Ain't working atm, dog. :cry:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
