@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
-const getJSON = require("get-json");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 const ZodiacSigns =
@@ -28,19 +28,16 @@ module.exports.run = async (bot, message, szArgs) =>
         return await message.reply(" :no_entry: missing argument! Make sure you add ``" + ZodiacSigns[Math.floor(Math.random() * ZodiacSigns.length)][0] + "`` for example. :no_entry:");
     }
 
+    await message.channel.startTyping();
+
     let i;
     for(i = 0; i < ZodiacSigns.length; i++)
     {
         if(IgnoreCase.equals(ZodiacSigns[i][0], szArgs[0]))
         {
-            await getJSON("http://horoscope-api.herokuapp.com/horoscope/today/" + ZodiacSigns[i][0], async (error, response) =>
+            await axios.get("http://horoscope-api.herokuapp.com/horoscope/today/" + ZodiacSigns[i][0]).then(async (response) =>
             {
-                if(error)
-                {
-                    return await message.channel.send(":no_entry: Some kind of error occured! I will email the dev. Try again later :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-                }
-
-                let StringHoroscope = JSON.stringify(await response.horoscope).replace(/"/g, '').replace(/'/g, '').replace(/\[/g, '').replace(/\]/g, '');
+                const StringHoroscope = JSON.stringify(await response.data.horoscope).replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "");
 
                 const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | Horoscope", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -50,7 +47,11 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
                 .setTimestamp()
 
-                await message.channel.send({ embed: DiscordRichEmbed });
+                await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+            }).catch(async () =>
+            {
+                return await message.channel.send(":no_entry: Some kind of error occured! I will email the dev. Try again later :sob:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             });
 
             return;
