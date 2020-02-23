@@ -36,15 +36,16 @@ brew install graphicsmagick
 brew upgrade graphicsmagick
 ```
 
-## Step 2 - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these -- IN THE SAME ORDER AS DISPLAYED -- on the bot folder (copy and paste one command at a time, in your terminal):
+## Step 2 - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these -- IN THE SAME ORDER AS DISPLAYED -- on the bot folder (copy and paste one command at a time, in your terminal, or be prepared for errors):
 
 ```
-sudo npm install -g node-gyp@5.0.3
+npm install -g node-gyp
 
 npm i mysql2
 npm install ffmpeg
 npm i ffmpeg-static
 npm install ffmpeg-binaries
+
 npm i leet
 npm i steamid
 npm i steamapi
@@ -69,7 +70,6 @@ npm install bufferutil
 npm install hammerandchisel/erlpack
 npm install libsodium-wrappers
 npm install @discordjs/uws
-
 ```
 
 
