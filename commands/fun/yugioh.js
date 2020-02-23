@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -14,28 +14,23 @@ module.exports.run = async (bot, message, szArgs) =>
 
     await message.channel.startTyping();
 
-    await getJSON("https://yugiohprices.com/api/card_data/" + CardName, async (error, response) =>
+    await axios.get("https://yugiohprices.com/api/card_data/" + CardName).then(async (response) =>
     {
-        if(error)
+        if(await response.data.status === "fail")
         {
-            return await message.reply(" :no_entry: No results found! :neutral_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            return await message.reply(" :no_entry: No results found for: ***" + decodeURI(CardName) + "***  ! :neutral_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         }
 
-        if(await response.status === "fail")
-        {
-            return await message.reply(" :no_entry: No results found for: ***" + decodeURI(CardName) +"***  ! :neutral_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
+        const szCardName = JSON.stringify(await response.data.data.name).replace(/"/g, "");
+        const szCardDescription = JSON.stringify(await response.data.data.text).replace(/"/g, "").replace(/&quot;/g, '\\"').replace(/\\/g, "``");
+        const CardType = JSON.stringify(await response.data.data.card_type).replace(/"/g, "");
 
-        let szCardName = JSON.stringify(await response.data.name).replace(/"/g, '');
-        let szCardDescription = JSON.stringify(await response.data.text).replace(/"/g, '').replace(/&quot;/g, '\\"').replace(/\\/g, "``");
-        let CardType = JSON.stringify(await response.data.card_type).replace(/"/g, '');
+        const szCardFamily = JSON.stringify(await response.data.data.family).replace(/"/g, "");
+        const szCardSpecies = JSON.stringify(await response.data.data.type).replace(/"/g, "");
 
-        let szCardFamily = JSON.stringify(await response.data.family).replace(/"/g, '');
-        let szCardSpecies = JSON.stringify(await response.data.type).replace(/"/g, '');
-
-        let iCardLevel = JSON.stringify(await response.data.level).replace(/"/g, '');
-        let iCardAttack = JSON.stringify(await response.data.atk).replace(/"/g, '');
-        let iCardDefense = JSON.stringify(await response.data.def).replace(/"/g, '');
+        const iCardLevel = JSON.stringify(await response.data.data.level).replace(/"/g, "");
+        const iCardAttack = JSON.stringify(await response.data.data.atk).replace(/"/g, "");
+        const iCardDefense = JSON.stringify(await response.data.data.def).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Yu-Gi-Oh!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -55,7 +50,11 @@ module.exports.run = async (bot, message, szArgs) =>
             .addField(":shield: **DEF:** ", "`" + parseInt(iCardDefense) + "`", true)
         }
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.reply(" :no_entry: No results found! :neutral_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
