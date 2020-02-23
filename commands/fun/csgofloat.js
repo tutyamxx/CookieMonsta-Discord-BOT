@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
 const csgofloat =
@@ -29,13 +29,8 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ").trim();
 
-    await getJSON(InspectSkinFormatURL, async (error, response) =>
+    await axios.get(InspectSkinFormatURL).then(async (response) =>
     {
-        if(error)
-        {
-            return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        }
-
         let szCSGOFloatArray = [];
 
         // --| Exterior wear of the skin in its float representation
@@ -76,7 +71,11 @@ module.exports.run = async (bot, message, szArgs) =>
         .setThumbnail("https://i.imgur.com/BYlrgPn.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
