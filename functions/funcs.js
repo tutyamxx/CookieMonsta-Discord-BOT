@@ -454,7 +454,6 @@ module.exports.CheckChristmas = CheckChristmas;
 module.exports.capitalizeFirstLetter = capitalizeFirstLetter;
 module.exports.measureText = measureText;
 module.exports.isInt = isInt;
-module.exports.GenerateOrcName = GenerateOrcName;
 module.exports.format_time_fancy = format_time_fancy;
 module.exports.Check_Dank_Meme = Check_Dank_Meme;
 module.exports.Dota2_Team_Check = Dota2_Team_Check;
