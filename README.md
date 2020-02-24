@@ -65,6 +65,7 @@ sudo npm install long
 npm install moment
 npm i orc-me
 npm i axios
+npm i amethyste-api
 
 npm install discord.js node-opus
 npm install bufferutil
