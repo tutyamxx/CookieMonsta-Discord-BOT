@@ -65,6 +65,8 @@ npm i moji-translate
 npm i colors
 sudo npm install long
 npm install moment
+npm i orc-me
+npm i axios
 
 npm install discord.js node-opus
 npm install bufferutil
