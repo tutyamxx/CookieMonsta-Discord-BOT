@@ -9,7 +9,6 @@ module.exports.run = async (bot, message, args) =>
 
     await axios.get("https://some-random-api.ml/meme").then(async (response) =>
     {
-       
         const szRandomMemeImage = JSON.stringify(await response.data.image).replace(/"/g, "");
         const szRandomMemeCaption = JSON.stringify(await response.data.caption).replace(/"/g, "");
 
