@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) =>
         {
             if(err)
             {
-                console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                console.log("\x1b[31m*\x1b[0m Error creating user \x1b[33m(My Stats)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
             }
 
             const szUserStats = "Level: " + await DatabaseImport.CookieMonsta_GetUserLevel(GetGuildID, user.id) + "  |  XP: " + await DatabaseImport.CookieMonsta_GetUserPoints(GetGuildID, user.id);
@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(err)
                 {
-                    console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                    console.log("\x1b[31m*\x1b[0m Error creating user \x1b[33m(My Stats)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                 }
 
                 const ChanceToShowTips = Math.floor((Math.random() * 15) + 1);

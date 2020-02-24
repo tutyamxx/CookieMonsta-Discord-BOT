@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(err)
         {
-            console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+            console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Armor)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
         }
 
         await message.channel.send(new Discord.Attachment(buffer, "armor.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

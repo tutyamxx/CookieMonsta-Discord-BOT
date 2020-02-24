@@ -91,7 +91,7 @@ module.exports = async (bot, member, guild) =>
                     {
                         if(err)
                         {
-                            return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                            return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
                         let cChannel = await DefChannel.getDefaultChannel(member.guild);

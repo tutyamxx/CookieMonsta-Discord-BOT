@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 if(err)
                 {
-                    console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                    console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Dice Game)\x1b[0m: \x1b[31m" + err + "\x1b[0m");
                 }
 
                 await message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
