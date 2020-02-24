@@ -5,9 +5,9 @@ module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
     const GetGuildID = message.guild.id;
-    
+
     await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
-   
+
     const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
     const HotPercentage = Math.floor(( Math.random() * 100 ) + 1);
 

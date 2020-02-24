@@ -43,7 +43,7 @@ module.exports.run = async (bot, message, args) =>
                 await message.react(":dice:634953930043817994");
             });
         });
-        
+
     }).catch(async () =>
     {
         return await message.channel.send(":no_entry: Sorry, I've lost the dice and you can't roll them at the moment! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

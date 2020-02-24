@@ -16,17 +16,17 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         ArrayGuild.push(
         {
-            guild_id: parseInt(guild.id), 
-            guild_icon_url: guild.iconURL, 
+            guild_id: parseInt(guild.id),
+            guild_icon_url: guild.iconURL,
             guild_splash_url: (guild.splashURL === null) ? "No Splash URL" : guild.splashURL,
-            guild_name_acronym: guild.nameAcronym, 
-            guild_name: guild.name, 
+            guild_name_acronym: guild.nameAcronym,
+            guild_name: guild.name,
             guild_large: (guild.large === true) ? "Large" : "Medium",
             guild_verified: (guild.verified === true) ? "Verified" : "Not Verified",
             guild_available: (guild.available === true) ? "Avaliable" : "Server Outage",
-            guild_ownerid: parseInt(guild.ownerID), 
-            guild_region: guild.region, 
-            guild_member_count: guild.memberCount, 
+            guild_ownerid: parseInt(guild.ownerID),
+            guild_region: guild.region,
+            guild_member_count: guild.memberCount,
             guild_verification_level: parseInt(guild.verificationLevel)
         });
 

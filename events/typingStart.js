@@ -8,6 +8,6 @@ module.exports = async (bot, channel, user) =>
     }
 
     const GuildID = channel.guild.id.toString();
-    
+
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, user.id);
 };

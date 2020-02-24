@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) =>
             .setThumbnail("https://i.imgur.com/1DmYV7k.jpg")
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
-            
+
             await SpinningMessage.edit({ embed: DiscordRichEmbed2 });
         }
 

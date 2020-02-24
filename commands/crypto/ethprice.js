@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
         axios.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,JPY,EUR,GBP"),
         axios.get("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=gbp,eur,usd,jpy"),
         axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=gbp,usd,eur,jpy")
-    
+
     ]).then(await axios.spread(async (ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
         if(ResponseCryptocompare)

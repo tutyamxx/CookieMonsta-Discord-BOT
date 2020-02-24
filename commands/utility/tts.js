@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, szArgs) =>
             await iDispatcher.on("error", async (end) =>
             {
                 bAlreadyPlayingTTS.delete(GuildGetID);
-                
+
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
             });
@@ -73,7 +73,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 await voiceChannel.leave();
                 await iDispatcher.destroy();
             });
-            
+
         }).catch(err => console.log(err));
 
         await message.react("🗣");

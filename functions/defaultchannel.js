@@ -7,9 +7,9 @@ async function getDefaultChannel(guild)
         return await guild.channels.get(guild.id);
     }
 
-    const generalChannel = await guild.channels.find(channel => channel.name === "general" 
-    || channel.name === "welcome" 
-    || channel.name === "bot-hell" 
+    const generalChannel = await guild.channels.find(channel => channel.name === "general"
+    || channel.name === "welcome"
+    || channel.name === "bot-hell"
     || channel.name === "who_is_using_this"
     || channel.name === "testing-1"
     || channel.name === "testing-2"

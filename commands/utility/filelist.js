@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, szArgs) =>
         let szDescription = "`FileList.ro Result:`\n" +
         ":label: Torrent Name: **" + GetTorrentName + "**\n" +
         ":scroll: Category: **" + GetTorrentCategory + "**\n" +
-        ":gear: Small Category: **" + GetTorrentSmallDesc + "**\n" + 
+        ":gear: Small Category: **" + GetTorrentSmallDesc + "**\n" +
         ":four_leaf_clover: Freelech: **" + GetFreeLeech + "**\n" +
         ":date: Upload Date: **" + GetTorrentUploadDate + "**\n\n" +
         "`Torrent Information:`\n" +

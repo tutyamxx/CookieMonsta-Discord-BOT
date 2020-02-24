@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
     RandomOrcNameArray[2] = CustomFunctions.capitalizeFirstLetter(OrcMe());
 
     const ChanceToHave3Names = Math.floor((Math.random() * 3) + 1);
-    
+
     if(ChanceToHave3Names === 3)
     {
         OrcNameGenerated = "<:orc:635178458720239617> **" + RandomOrcNameArray[0] + " " + RandomOrcNameArray[1] + " " + RandomOrcNameArray[2] + "** <:orc:635178458720239617>";

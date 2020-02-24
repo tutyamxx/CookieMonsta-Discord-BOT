@@ -110,8 +110,8 @@ module.exports.run = async (bot, message, szArgs) =>
                             let szDescription =
                             ":point_right: Last Dota2 Match for player: **[" + DotaPlayerName + "](" + DotaPlayerSteamProfile + ")**\n\n``Match Info:``\n" +
                             ":id:  Match ID: **" + iDotaLastMatchID + "**\n\n" +
-                            ":satellite: Game Type: **" + CustomFunctions.Dota2_GameType_Check(iDotaGameTypePlayed) + "**\n" + 
-                            ":juggling: Game Mode: **" + CustomFunctions.Dota2_GameMode_Check(iDotaGameModePlayed) + "**\n" + 
+                            ":satellite: Game Type: **" + CustomFunctions.Dota2_GameType_Check(iDotaGameTypePlayed) + "**\n" +
+                            ":juggling: Game Mode: **" + CustomFunctions.Dota2_GameMode_Check(iDotaGameModePlayed) + "**\n" +
                             ":mega: Match Outcome: **" + DotaMatchWon + "**\n" +
                             ":performing_arts: Player Team: **" + DotaPlayerTeam + "**\n" +
                             ":alarm_clock: Match Duration: **" + CustomFunctions.format_time_fancy(iDotaMatchDuration) + "**\n\n``Player Stats:``\n" +

@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         }
-        
+
         const szGameSlug = await response.data.slug.trim();
 
         await axios.get("https://api.rawg.io/api/games/" + szGameSlug).then(async (response_game) =>
@@ -46,7 +46,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             let szPlatforms = [];
             let szAvailableStores = [];
-    
+
             for(let i = 0; i < ResultGamePlatorms.length; i++)
             {
                 szPlatforms.push(ResultGamePlatorms[i].platform.name.toString());
@@ -78,12 +78,12 @@ module.exports.run = async (bot, message, szArgs) =>
             .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
             await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-        
+
         }).catch(async () =>
         {
             return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
-        
+
     }).catch(async () =>
     {
         return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

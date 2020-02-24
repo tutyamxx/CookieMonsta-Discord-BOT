@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) =>
         "**\n:white_medium_small_square: Users: **" + ServerUserCount + "** (**" + ServerUserOnlineCount + "** Online, **" + ServerBotsCount + "**" + ((ServerBotsCount === 1) ? " BOT" : " BOTS") + ")" +
         "\n:white_medium_small_square: Channels: **" + ServerChannels + "** (**" + ServerTextChannelCount + "** Text, **" + ServerVoiceChannelsCount + "** Voice, **" + ServerCategories + "** Categories)" +
         "\n:white_medium_small_square: Verification: **" + await CustomFunctions.GuildVerificationLevel(ServerGuild) + "**" +
-        "\n:white_medium_small_square: 2FA: **" + (ServerMFALevel >= 1 ? "On" : "Off") + "**" + 
+        "\n:white_medium_small_square: 2FA: **" + (ServerMFALevel >= 1 ? "On" : "Off") + "**" +
         "\n:white_medium_small_square: Content Filter: **" + await CustomFunctions.Guild_GetContentFilter(ServerContentFilter) + "**";
 
         const DiscordRichEmbed = new Discord.RichEmbed()

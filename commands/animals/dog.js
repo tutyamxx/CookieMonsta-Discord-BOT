@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) =>
             await message.react("🐶");
 
         }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-    
+
     }).catch(async () =>
     {
         return await message.channel.send(":no_entry: Sorry, but the canine factory isn't generating new dogos at the moment. :dog2:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

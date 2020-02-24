@@ -70,12 +70,12 @@ module.exports.run = async (bot, message, args) =>
                         {
                             console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Deepfry)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                         }
-                        
+
                         await message.channel.send(new Discord.Attachment(buffer3, szDeepFryImage)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 
                     });
                 }
-                
+
                 else
                 {
                     await message.channel.send(new Discord.Attachment(buffer2, szDeepFryImage)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

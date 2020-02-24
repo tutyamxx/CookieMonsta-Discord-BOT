@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-    
+
     }).catch(async () =>
     {
         const DiscordRichEmbed1 = new Discord.RichEmbed()

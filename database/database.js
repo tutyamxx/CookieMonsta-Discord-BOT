@@ -340,7 +340,7 @@ async function CookieMonsta_GetGuildPrefix(iGuild)
     return new Promise((resolve, reject) =>
     {
         const QueryGetPrefix = "SELECT `prefix` FROM `PrefixTable` WHERE `guild` = ?;";
-      
+
         DatabaseConnection.query(QueryGetPrefix, parseInt(iGuild), (err, results) =>
         {
             if(err)

@@ -29,12 +29,12 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const iUserBannerName = parseInt(szArgs[0].trim());
-    
+
     if(!CustomFunctions.isInt(iUserBannerName))
     {
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners!  :no_entry:");
     }
-    
+
     if(iUserBannerName < 1 || iUserBannerName > parseInt(BannersFromDatabase.length))
     {
         return await message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners!  :no_entry:");
@@ -50,7 +50,7 @@ module.exports.run = async (bot, message, szArgs) =>
     for(let i = 0; i < BannersFromDatabase.length; i++)
     {
         if(iUserBannerName === 1)
-        {   
+        {
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
             await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have reverted the profile banner :frame_photo: for " + user + " with the default one. This one is **FREE**.");
 

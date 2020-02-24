@@ -21,8 +21,8 @@ module.exports.run = async (bot, message, args) =>
     else if(GetUserVoiceChannel && GetUserVoiceChannel !== GetBotVoiceChannel)
     {
         return await message.reply(" :no_entry: Nah, you can't stop me if you're not in the **SAME** voice channel! :joy:  :no_entry:");
-    } 
-    
+    }
+
     else if(GetBotVoiceChannel === GetBotVoiceChannel)
     {
         await GetBotVoiceChannel.leave();

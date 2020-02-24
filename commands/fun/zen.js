@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) =>
             await message.react("🎋");
 
         }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-        
+
     }).catch(async () =>
     {
         return await message.channel.send(":no_entry: Something went wrong! Be patient, try again later! :sob:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

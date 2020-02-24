@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) =>
             await message.react(":pika:635524509621026850");
 
         }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-    
+
     }).catch(async () =>
     {
         return await message.channel.send(":no_entry: Pika? Pika? Errorka! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

@@ -134,11 +134,11 @@ function CheckHalloween()
 
     // --| If there are 5 days until halloween or actual halloween
     // --| 5 days left till Halloween - 0 It's Halloween
-    if(iDaysTillHalloween === 5 
+    if(iDaysTillHalloween === 5
     || iDaysTillHalloween === 4
     || iDaysTillHalloween === 3
     || iDaysTillHalloween === 2
-    || iDaysTillHalloween === 1 
+    || iDaysTillHalloween === 1
     || iDaysTillHalloween === 0)
     {
         return true;
@@ -160,9 +160,9 @@ function CheckChristmas()
 
     // --| If there are 10 days until christmas or actual christmas
     // --| 10 days left till Christmas 0 - It's Christmas
-    if(iDaysTillChristmas === 10 || iDaysTillChristmas === 9 || iDaysTillChristmas === 8 
-    || iDaysTillChristmas === 7 || iDaysTillChristmas === 6 
-    || iDaysTillChristmas === 5 || iDaysTillChristmas === 4 
+    if(iDaysTillChristmas === 10 || iDaysTillChristmas === 9 || iDaysTillChristmas === 8
+    || iDaysTillChristmas === 7 || iDaysTillChristmas === 6
+    || iDaysTillChristmas === 5 || iDaysTillChristmas === 4
     || iDaysTillChristmas === 3 || iDaysTillChristmas === 2
     || iDaysTillChristmas === 1 || iDaysTillChristmas === 0)
     {
@@ -266,23 +266,23 @@ function Dota2_GameMode_Check(iGameMode)
         case 1:
             szGameModeName = "All Pick";
             break;
-        
+
         case 2:
             szGameModeName = "Captains Mode";
             break;
-        
+
         case 3:
             szGameModeName = "Random Draft";
             break;
-        
+
         case 4:
             szGameModeName = "Single Draft";
             break;
-        
+
         case 5:
             szGameModeName = "All Random";
             break;
-        
+
         case 12:
             szGameModeName = "Least Played";
             break;
@@ -294,19 +294,19 @@ function Dota2_GameMode_Check(iGameMode)
         case 16:
             szGameModeName = "Captains Draft";
             break;
-        
+
         case 18:
             szGameModeName = "Ability Draft";
             break;
-        
+
         case 20:
             szGameModeName = "All Random Deathmatch";
             break;
-        
+
         case 21:
             szGameModeName = "1v1 Mid";
             break;
-        
+
         case 22:
             szGameModeName = "All Pick";
             break;
@@ -314,7 +314,7 @@ function Dota2_GameMode_Check(iGameMode)
         case 23:
             szGameModeName = "Turbo";
             break;
-        
+
         case 24:
             szGameModeName = "Mutation";
             break;
@@ -332,19 +332,19 @@ function Dota2_GameType_Check(iGameType)
         case 0:
             szGameTypeName = "Normal";
             break;
-        
+
         case 5:
             szGameTypeName = "Party Ranked";
             break;
-        
+
         case 6:
             szGameTypeName = "Solo Ranked";
             break;
-        
+
         case 7:
             szGameTypeName = "Ranked";
             break;
-        
+
         case 9:
             szGameTypeName = "Battle Cup";
             break;
@@ -369,15 +369,15 @@ function Dota2_ConvertToLaneRole(iRole)
         case 1:
             szLaneRole = "Safe Lane";
             break;
-        
+
         case 2:
             szLaneRole = "Mid Lane";
             break;
-        
+
         case 3:
             szLaneRole = "Off Lane";
             break;
-        
+
         case 4:
             szLaneRole = "Jungle";
             break;

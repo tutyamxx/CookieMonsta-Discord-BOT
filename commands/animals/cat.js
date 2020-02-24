@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) =>
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🐱");
-            
+
         }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 
     }).catch(async () =>

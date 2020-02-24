@@ -106,7 +106,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             });
         });
-        
+
     }).catch(async () =>
     {
         return await message.channel.send(":no_entry: Sorry, for some reason I have encountered an error!  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

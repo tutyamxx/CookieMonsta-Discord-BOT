@@ -95,11 +95,11 @@ module.exports.run = async (bot, message, szArgs) =>
                     hoist: true,
                     mentionable: false,
                     permissions: CookieRolesPermissions
-                    
+
                 }).then(async () =>
                 {
                     let FindNewColor = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
-                    
+
                     await message.member.addRole(FindNewColor).then(async () =>
                     {
                         await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
@@ -109,7 +109,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     {
                         return await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                     });
-                    
+
                 }).catch(async (error) =>
                 {
                     await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");

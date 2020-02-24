@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-    
+
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | (╯°□°)╯︵ ┻━┻", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor(16777215)

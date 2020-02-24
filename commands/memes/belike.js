@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, szArgs) =>
     if(szArgs[0].toLowerCase() === "m" || szArgs[0].toLowerCase() === "f")
     {
         await message.channel.startTyping();
-        
+
         let BillURL = "https://belikebill.ga/billgen-API.php?default=1&name=" + message.author.username.toString() + "&sex=" + szArgs[0].toLowerCase();
 
         await Jimp.read(encodeURI(BillURL)).then(async (image) =>

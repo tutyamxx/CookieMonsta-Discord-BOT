@@ -64,7 +64,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             return await message.reply(" I could not find ``" + MixerUserArgument + "`` on Mixer.com, or the user is offline.  :head_bandage:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
         }
-        
+
     });
 };
 

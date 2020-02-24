@@ -31,7 +31,7 @@ module.exports = async (bot, message) =>
     }
 
     const GuildGetID = message.guild.id;
-    
+
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
     const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GuildGetID);
 
@@ -128,7 +128,7 @@ module.exports = async (bot, message) =>
                 }
             }
         }
-        
+
         // --| Update the database
         await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
     }

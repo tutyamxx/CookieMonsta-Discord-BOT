@@ -45,10 +45,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 let szDescription =
                 ":point_right: Dota2 Winrate for player: **[" + DotaPlayerName + "](" + DotaPlayerSteamProfile + ")**\n\n" +
-                "``Player Overall Stats:``\n\n" + 
+                "``Player Overall Stats:``\n\n" +
                 ":trophy: Win: **" + iPlayerTotalWin + "**\n" +
                 ":rage: Lose: **" + iPlayerTotalLose + "**\n" +
-                ":dart: Total Matches: **" + iPlayerTotalMatchesPlayed + "**\n\n" + 
+                ":dart: Total Matches: **" + iPlayerTotalMatchesPlayed + "**\n\n" +
                 szWhatChart + " Winrate: **" + iPlayerWinrate + "%**\n\n\n``Attention:``\n" +
                 "These stats might be outdated or incorrect.\nThey are taken from **Open Dota**.";
 
@@ -60,7 +60,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
                 await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-            
+
             }).catch(async () =>
             {
                 return;
@@ -70,7 +70,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
-        
+
     }).catch(async (error) =>
     {
         return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));

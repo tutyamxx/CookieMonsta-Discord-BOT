@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) =>
     {
         const user = message.author;
         const ArrayFetchedMessages = await message.channel.fetchMessages({ before: message.id, limit: 100 });
-        
+
         await message.channel.bulkDelete(ArrayFetchedMessages).catch(async (error) =>
         {
             return await message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) =>
         .setTimestamp()
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) => await msg.delete(5000).catch(e => false)).catch(e => false);
-        
+
     }).catch(async (error) =>
     {
         await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");

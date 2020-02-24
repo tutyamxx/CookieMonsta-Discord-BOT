@@ -76,7 +76,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
                     // --| All my .OPUS files are converted to: Audio Bitrate: 64k | Sample Rate: 48000 (Discord's Default Settings)
                     const iDispatcher = await connection.playStream(SoundFileToPlay, { volume: 2, passes: 1, bitrate: 48000 });
-                   
+
                     await iDispatcher.on("end", async (end) =>
                     {
                         bBoolAlreadyPlayingSound.delete(GuildGetID);

@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
         ":link: URL: [" + GetUserLive.profile_twitch_url + "](" + GetUserLive.profile_twitch_url + ")\n\n" +
         "`Stream Information:`\n" +
         ":microphone: Stream Language: **" + GetUserLive.language + "**\n" +
-        ":video_game: Streaming: **" + GetUserLive.game_played + "**\n" + 
+        ":video_game: Streaming: **" + GetUserLive.game_played + "**\n" +
         ":busts_in_silhouette: Viewers: **" + GetUserLive.viewers + "**\n";
 
         const DiscordRichEmbed = new Discord.RichEmbed()
