@@ -57,7 +57,6 @@ npm i @jimp/plugin-invert
 npm i -S @mixer/client-node
 npm i merge-img
 npm i gm
-npm i needle
 npm i ignore-case
 npm i flip-text
 npm i moji-translate
