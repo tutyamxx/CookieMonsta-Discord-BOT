@@ -27,7 +27,6 @@
         "ffmpeg-binaries": "^3.2.2",
         "ffmpeg-static": "^2.7.0",
         "flip-text": "^1.1.0",
-        "get-json": "^1.0.1",
         "gm": "^1.23.1",
         "ignore-case": "^0.1.0",
         "jimp": "^0.8.5",
