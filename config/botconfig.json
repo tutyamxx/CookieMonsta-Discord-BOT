@@ -10,5 +10,7 @@
     "Database_Host":            "",
     "Database_User":            "",
     "Database_Password":        "",
-    "Database_DB":              ""
+    "Database_DB":              "",
+    "Filelist_Key":             "",
+    "Filelist_Username":        ""
 }
