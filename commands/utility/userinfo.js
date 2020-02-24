@@ -17,28 +17,29 @@ module.exports.run = async (bot, message, args) =>
 
     const GetGameName = (GuildMember.presence.game === null) ? "Nothing" : GuildMember.presence.game;
     const GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
-    
+    const GetUserPresenceClient = GuildMember.presence.clientStatus;
+
     let GetClientStatus;
 
-    switch(GuildMember.presence.clientStatus)
+    if(GetUserPresenceClient.hasOwnProperty("web"))
     {
-        case "web":
-            GetClientStatus = "🌐";
-            break;
-        
-        case "mobile":
-            GetClientStatus = "📱";
-            break;
-        
-        case "desktop":
-            GetClientStatus = "👨‍💻";
-            break;
+        GetClientStatus = "🌐";
+    }
+
+    else if(GetUserPresenceClient.hasOwnProperty("mobile"))
+    {
+        GetClientStatus = "📱";
+    }
+
+    else if(GetUserPresenceClient.hasOwnProperty("desktop"))
+    {
+        GetClientStatus = "👨‍💻";
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Info", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#1E90FF")
-    .addField(":id: ID:", GuildMember.user.id + "\n\n:satellite: Status:\n" + CustomFunctions.capitalizeFirstLetter(GuildMember.user.presence.status) + "(" + GetClientStatus + ")" + "\n\n:video_game: Playing:\n" + GetGameName + "\n", true)
+    .addField(":id: ID:", GuildMember.user.id + "\n\n:satellite: Status:\n" + CustomFunctions.capitalizeFirstLetter(GuildMember.user.presence.status) + " (" + GetClientStatus + ")" + "\n\n:video_game: Playing:\n" + GetGameName + "\n", true)
     .addField(":spy: Username:", TargetName + "\n\n:hash: User Tag:\n" + GuildMember.user.tag + "\n\n:floppy_disk: Joined Discord:\n" + GetTargetRegistrationDate, true)
     .setThumbnail(GetTargetAvatar)
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
