@@ -105,4 +105,4 @@ dist
 .tern-port
 
 # Config file
-config/
+.config/botconfig.json
