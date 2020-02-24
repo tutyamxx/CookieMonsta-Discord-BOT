@@ -32,14 +32,13 @@ module.exports.run = async (bot, message, szArgs) =>
         const iCardAttack = JSON.stringify(await response.data.data.atk).replace(/"/g, "");
         const iCardDefense = JSON.stringify(await response.data.data.def).replace(/"/g, "");
 
-        let GetCardImage;
+        let GetCardImage = "https://i.imgur.com/QR4uGrD.png";
 
         await axios.get("https://db.ygoprodeck.com/api/v5/cardinfo.php?name=" + CardName).then(async (response_card_image) =>
         {
-            GetCardImage = await response_card_image.data[0].card_images.image_url.toString();
+            GetCardImage = await response_card_image.data[0].card_images[0].image_url;
 
-        }).catch( () => { });
-
+        }).catch(() => { });
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Yu-Gi-Oh!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -47,7 +46,8 @@ module.exports.run = async (bot, message, szArgs) =>
         .setDescription(":flower_playing_cards: **Card Name:** " + szCardName + "\n\n:label: **Description:** " + szCardDescription + "\n\n")
         .addField(":performing_arts: **Card Type:** ", CustomFunctions.capitalizeFirstLetter(CardType), true)
         .setThumbnail("https://i.imgur.com/YidwZ0f.gif")
-        .setImage(GetCardImage)
+        .attachFile({ attachment: GetCardImage, name: "yugioh_card.png" })
+        .setImage("attachment://yugioh_card.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         if(CardType === "monster")
