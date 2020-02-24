@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 const DiscordRichEmbed = new Discord.RichEmbed()
                 .setAuthor("Cookie Monsta | Horoscope", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
                 .setColor(26316)
-                .setDescription("**Sign:** " + response.sunsign + " " + ZodiacSigns[i][1] + "\n\n" + StringHoroscope)
+                .setDescription("**Sign:** " + response.data.sunsign + " " + ZodiacSigns[i][1] + "\n\n" + StringHoroscope)
                 .setThumbnail("https://i.imgur.com/9iraNPb.png")
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
                 .setTimestamp()
