@@ -1,41 +1,43 @@
-const Needle = require("needle");
+const axios = require("axios");
 const BotConfig = require("../config/botconfig.json");
+
+const TwitchHeader =
+{
+    headers:
+    {
+        "Client-ID": BotConfig.Twitch_API_ClientID.trim(),
+        "Accept": "application/vnd.twitchtv.v5+json"
+    }
+};
 
 async function PollTwitchAPI(szUser)
 {
-    return new Promise((resolve, reject) =>
+    return new Promise((resolve) =>
     {
-        const TwitchHeader =
+        axios.get("https://api.twitch.tv/helix/users?login=" + szUser, TwitchHeader).then((response) =>
         {
-            headers:
-            {
-                "Client-ID": BotConfig.Twitch_API_ClientID.trim(),
-                "Accept": "application/vnd.twitchtv.v5+json"
-            }
-        };
+            const TwitchResponseData = response.data.data[0];
 
-        Needle.get("https://api.twitch.tv/helix/users?login=" + szUser, TwitchHeader, async (error, response) =>
-        {
-            if(!error && response.statusCode === 200 && response.body.data[0] !== undefined)
+            if(response.status === 200 && TwitchResponseData !== undefined)
             {
-                const UserTwitchID = await response.body.data[0].id;
-                const UserTwitchAvatar = await response.body.data[0].profile_image_url;
+                const UserTwitchID = TwitchResponseData.id;
+                const UserTwitchAvatar = TwitchResponseData.profile_image_url;
 
-                Needle.get("https://api.twitch.tv/helix/streams?user_id=" + UserTwitchID, TwitchHeader, async (error, response) =>
+                axios.get("https://api.twitch.tv/helix/streams?user_id=" + UserTwitchID, TwitchHeader).then((response) =>
                 {
-                    if(!error && response.statusCode === 200)
+                    if(response.status === 200)
                     {
-                        const StreamChannel = await response.body.data[0];
+                        const StreamChannel = response.data.data[0];
 
                         if(StreamChannel !== undefined && StreamChannel.type === "live")
                         {
                             const StreamChannelURL = "https://www.twitch.tv/" + StreamChannel.user_name;
 
-                            Needle.get("https://api.twitch.tv/helix/games?id=" + StreamChannel.game_id, TwitchHeader, async (error, response_game) =>
+                            axios.get("https://api.twitch.tv/helix/games?id=" + StreamChannel.game_id, TwitchHeader).then((response_game) =>
                             {
-                                if(!error && response_game.statusCode === 200)
+                                if(response_game.status === 200)
                                 {
-                                    const szGamePlayedName = await response_game.body.data[0].name;
+                                    const szGamePlayedName = response_game.data.data[0].name;
 
                                     let TwitchResults =
                                     {
