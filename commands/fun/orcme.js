@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const OrcMe = require("orc-me");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -6,9 +7,9 @@ module.exports.run = async (bot, message, args) =>
     let OrcNameGenerated = "";
     let RandomOrcNameArray = [];
 
-    RandomOrcNameArray[0] = CustomFunctions.GenerateOrcName();
-    RandomOrcNameArray[1] = CustomFunctions.GenerateOrcName();
-    RandomOrcNameArray[2] = CustomFunctions.GenerateOrcName();
+    RandomOrcNameArray[0] = CustomFunctions.capitalizeFirstLetter(OrcMe());
+    RandomOrcNameArray[1] = CustomFunctions.capitalizeFirstLetter(OrcMe());
+    RandomOrcNameArray[2] = CustomFunctions.capitalizeFirstLetter(OrcMe());
 
     const ChanceToHave3Names = Math.floor((Math.random() * 3) + 1);
     
