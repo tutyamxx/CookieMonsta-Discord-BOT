@@ -67,11 +67,11 @@ npm i orc-me
 npm i axios
 npm i amethyste-api
 
-npm install discord.js node-opus
 npm install bufferutil
 npm install hammerandchisel/erlpack
 npm install libsodium-wrappers
-npm install @discordjs/uws
+
+npm install discord.js node-opus
 ```
 
 
