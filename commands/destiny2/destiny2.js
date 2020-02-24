@@ -116,7 +116,6 @@ module.exports.run = async (bot, message, szArgs) =>
             }).catch(async () =>
             {
                 return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-
             })
         }
 
