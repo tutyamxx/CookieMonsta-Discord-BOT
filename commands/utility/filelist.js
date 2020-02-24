@@ -59,7 +59,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     }).catch(async () =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find any torrent on FileList with that name... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return await message.channel.send(":no_entry: Sorry, something went wrong this time :sad: ... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
