@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const getJSON = require("get-json");
+const axios = require("axios");
 const SteamAPI = require("steamapi");
 const SteamID = require("steamid");
 const CustomFunctions = require("../../functions/funcs.js");
@@ -22,41 +22,38 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         let SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches", async (error, response) =>
+        await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches").then(async (response) =>
         {
-            if(error)
-            {
-                return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-            }
+            const PlayerResponseData = await response.data[0];
 
-            if(await response[0] === undefined)
+            if(PlayerResponseData === undefined)
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
 
             let DotaMatchWon = "";
 
-            const iDotaLastMatchID = parseInt(await response[0].match_id);
-            const iDotaPlayerKills = parseInt(await response[0].kills);
-            const iDotaPlayerDeaths = parseInt(await response[0].deaths);
-            const iDotaPlayerAssists = parseInt(await response[0].assists);
-            const iDotaPlayerLastHits = parseInt(await response[0].last_hits);
-            const iDotaPlayerSlot = parseInt(await response[0].player_slot);
-            const iDotaPlayerLanePlayed = parseInt(await response[0].lane_role);
-            const iDotaPlayerHeroDamage = (await response[0].hero_damage === null ? "API Error" : parseInt(await response[0].hero_damage));
-            const iDotaPlayerTowerDamage = (await response[0].tower_damage === null ? "API Error" : parseInt(await response[0].tower_damage));
-            const iDotaPlayerHeroHealing = (await response[0].hero_healing === null ? "API Error" : parseInt(await response[0].hero_healing));
+            const iDotaLastMatchID = parseInt(PlayerResponseData.match_id);
+            const iDotaPlayerKills = parseInt(PlayerResponseData.kills);
+            const iDotaPlayerDeaths = parseInt(PlayerResponseData.deaths);
+            const iDotaPlayerAssists = parseInt(PlayerResponseData.assists);
+            const iDotaPlayerLastHits = parseInt(PlayerResponseData.last_hits);
+            const iDotaPlayerSlot = parseInt(PlayerResponseData.player_slot);
+            const iDotaPlayerLanePlayed = parseInt(PlayerResponseData.lane_role);
+            const iDotaPlayerHeroDamage = (PlayerResponseData.hero_damage === null ? "API Error" : parseInt(PlayerResponseData.hero_damage));
+            const iDotaPlayerTowerDamage = (PlayerResponseData.tower_damage === null ? "API Error" : parseInt(PlayerResponseData.tower_damage));
+            const iDotaPlayerHeroHealing = (PlayerResponseData.hero_healing === null ? "API Error" : parseInt(PlayerResponseData.hero_healing));
 
-            const iDotaGameModePlayed = parseInt(await response[0].game_mode);
-            const iDotaGameTypePlayed = parseInt(await response[0].lobby_type);
-            const iDotaHeroPlayed = parseInt(await response[0].hero_id);
+            const iDotaGameModePlayed = parseInt(PlayerResponseData.game_mode);
+            const iDotaGameTypePlayed = parseInt(PlayerResponseData.lobby_type);
+            const iDotaHeroPlayed = parseInt(PlayerResponseData.hero_id);
 
-            const iDotaMatchDuration = parseInt(await response[0].duration);
-            const iXPPM = parseInt(await response[0].xp_per_min);
-            const iGPM = parseInt(await response[0].gold_per_min);
+            const iDotaMatchDuration = parseInt(PlayerResponseData.duration);
+            const iXPPM = parseInt(PlayerResponseData.xp_per_min);
+            const iGPM = parseInt(PlayerResponseData.gold_per_min);
 
-            const bTeamRadiantWin = await response[0].radiant_win;
-            const iDotaPlayerRoaming = (await response[0].is_roaming === null ? "API Error" : await response[0].is_roaming);
+            const bTeamRadiantWin = PlayerResponseData.radiant_win;
+            const iDotaPlayerRoaming = (PlayerResponseData.is_roaming === null ? "API Error" : PlayerResponseData.is_roaming);
 
             const DotaPlayerTeam = CustomFunctions.Dota2_Team_Check(iDotaPlayerSlot);
 
@@ -81,31 +78,21 @@ module.exports.run = async (bot, message, szArgs) =>
                 DotaMatchWon = "Win :trophy:";
             }
 
-            await getJSON("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3), async (error, response_player) =>
+            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3).then(async (response_player) =>
             {
-                if(error)
-                {
-                    return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
-                }
-
                 let szHeroName = "Unknown";
 
-                await getJSON("https://api.opendota.com/api/heroes", async (error, response_hero) =>
+                await axios.get("https://api.opendota.com/api/heroes").then(async (response_hero) =>
                 {
-                    if(error)
+                    for(let i = 0; i < await response_hero.data.length; i++)
                     {
-                        return;
-                    }
-
-                    for(let i = 0; i < await response_hero.length; i++)
-                    {
-                        if(await response_hero[i].id === iDotaHeroPlayed)
+                        if(await response_hero.data[i].id === iDotaHeroPlayed)
                         {
-                            szHeroName = await response_hero[i].localized_name;
+                            szHeroName = await response_hero.data[i].localized_name;
 
-                            const DotaPlayerName = await response_player.profile.personaname;
-                            const DotaPlayerAvatar = await response_player.profile.avatarmedium;
-                            const DotaPlayerSteamProfile = await response_player.profile.profileurl;
+                            const DotaPlayerName = await response_player.data.profile.personaname;
+                            const DotaPlayerAvatar = await response_player.data.profile.avatarmedium;
+                            const DotaPlayerSteamProfile = await response_player.data.profile.profileurl;
 
                             let szDescription =
                             ":point_right: Last Dota2 Match for player: **[" + DotaPlayerName + "](" + DotaPlayerSteamProfile + ")**\n\n``Match Info:``\n" +
@@ -135,13 +122,22 @@ module.exports.run = async (bot, message, szArgs) =>
                             await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
                         }
                     }
-                });
-            });
+
+                }).catch(() => { });
+
+            }).catch(async () =>
+            {
+                return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            }));
+
+        }).catch(async () =>
+        {
+            return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
 
-    }).catch(async (error) =>
+    }).catch(async () =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
