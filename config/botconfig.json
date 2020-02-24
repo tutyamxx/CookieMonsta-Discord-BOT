@@ -12,5 +12,6 @@
     "Database_Password":        "",
     "Database_DB":              "",
     "Filelist_Key":             "",
-    "Filelist_Username":        ""
+    "Filelist_Username":        "",
+    "AmeAPI_Token":             ""
 }
