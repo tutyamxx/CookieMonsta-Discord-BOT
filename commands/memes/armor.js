@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, szArgs) =>
             console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
         }
 
-        await message.channel.send(new Discord.Attachment(buffer, "armor.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+        await message.channel.send(new Discord.Attachment(buffer, "armor.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
