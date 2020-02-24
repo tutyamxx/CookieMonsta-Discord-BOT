@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             const PlayerResponseData = await response.data[0];
 
-            if(PlayerResponseData === undefined)
+            if(PlayerResponseData === undefined || PlayerResponseData.length <= 0)
             {
                 return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
@@ -78,7 +78,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 DotaMatchWon = "Win :trophy:";
             }
 
-            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3).then(async (response_player) =>
+            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then(async (response_player) =>
             {
                 let szHeroName = "Unknown";
 
@@ -119,16 +119,15 @@ module.exports.run = async (bot, message, szArgs) =>
                             .setThumbnail(DotaPlayerAvatar)
                             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                            await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                            await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
                         }
                     }
-
-                }).catch(() => { });
+                });
 
             }).catch(async () =>
             {
                 return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-            }));
+            });
 
         }).catch(async () =>
         {
