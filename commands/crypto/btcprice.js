@@ -45,9 +45,9 @@ module.exports.run = async (bot, message, args) =>
         if(errorBitcoincharts)
         {
             BitCoinChartsArray[0] = "API Error";
-            BitCoinChartsArray[0] = "API Error";
-            BitCoinChartsArray[0] = "API Error";
-            BitCoinChartsArray[0] = "API Error";
+            BitCoinChartsArray[1] = "API Error";
+            BitCoinChartsArray[2] = "API Error";
+            BitCoinChartsArray[3] = "API Error";
         }
 
         if(errorBinance)
