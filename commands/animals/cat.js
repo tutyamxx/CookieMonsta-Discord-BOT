@@ -18,11 +18,11 @@ module.exports.run = async (bot, message, args) =>
 
     await axios.get("https://api.thecatapi.com/v1/images/search", CatHeader).then(async (response) =>
     {
-        const CatImageURL = response.data[0].url;
+        const CatImageURL = await response.data[0].url;
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Cat", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-        .setColor(16777215)
+        .setColor("#FECB4D")
         .setImage(CatImageURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
