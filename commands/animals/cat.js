@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) =>
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Cat", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(16777215)
-            .setImage(CatImageURL)
+        .setImage(CatImageURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
