@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         await Jimp.read(encodeURI(BillURL)).then(async (image) =>
         {
-            image.getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+            await image.getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
             {
                 if(err)
                 {
