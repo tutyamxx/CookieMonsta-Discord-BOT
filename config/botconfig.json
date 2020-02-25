@@ -13,5 +13,6 @@
     "Database_DB":              "",
     "Filelist_Key":             "",
     "Filelist_Username":        "",
-    "AmeAPI_Token":             ""
+    "AmeAPI_Token":             "",
+    "TheCatAPI_Key":            ""
 }

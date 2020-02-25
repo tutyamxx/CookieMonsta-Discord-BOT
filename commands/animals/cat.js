@@ -1,5 +1,14 @@
 const Discord = require("discord.js");
 const axios = require("axios");
+const BotConfig = require("../../config/botconfig.json");
+
+const CatHeader =
+{
+    headers:
+    {
+        "X-API-Key": BotConfig.TheCatAPI_Key.trim()
+    }
+};
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -7,15 +16,15 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await axios.get("http://aws.random.cat/meow").then(async (response) =>
+    await axios.get("https://api.thecatapi.com/v1/images/search", CatHeader).then(async (response) =>
     {
         // --| Remove "" from start and end of string
-        const CatImageToString = JSON.stringify(await response.data.file).replace(/"/g, "");
+        const CatImageURL = response.data[0].url;
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Cat", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(16777215)
-        .setImage(CatImageToString)
+            .setImage(CatImageURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
