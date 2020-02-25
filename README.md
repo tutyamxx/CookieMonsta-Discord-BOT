@@ -10,6 +10,11 @@
 * If you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in **botconfig.json**).
 * Thanks to my friend [CoachAprax](https://www.youtube.com/user/freeAEgraphics) for the banners and some images.
 
+<br/><br/>
+<p align="center">
+  <img src="https://i.imgur.com/u0z3PtR.png" height="100">
+</p>
+
 ## Now, a few things you need first:
 
 * **Linux** or **Mac OS X** only.
