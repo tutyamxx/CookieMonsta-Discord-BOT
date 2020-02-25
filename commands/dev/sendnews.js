@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     try
     {
-        guildList.forEach(async guild =>
+        guildList.forEach(async (guild) =>
         {
             let cChannel = await GetChannelDefault.getDefaultChannel(guild);
 
@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     catch(err)
     {
-        message.channel.send("I have encountered an error while sending news: **" + err + "**");
+        await message.channel.send("I have encountered an error while sending news: **" + err + "**");
         console.log("\x1b[31m*\x1b[0m Error occured while sending news: \x1b[31m" + err + "\x1b[0m");
     }
 };
