@@ -18,7 +18,6 @@ module.exports.run = async (bot, message, args) =>
 
     await axios.get("https://api.thecatapi.com/v1/images/search", CatHeader).then(async (response) =>
     {
-        // --| Remove "" from start and end of string
         const CatImageURL = response.data[0].url;
 
         const DiscordRichEmbed = new Discord.RichEmbed()
