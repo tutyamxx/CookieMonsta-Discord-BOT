@@ -20,6 +20,10 @@ module.exports.run = async (bot, message, args) =>
     await ameApi.generate("wasted", { url: GetUserAvatar }).then(async (szImageBuffer) =>
     {
         await message.channel.send(new Discord.Attachment(szImageBuffer, "wasted.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
+    }).catch(async () =>
+    {
+        return await message.channel.send(":no_entry: Uhh, something went wrong, try again? :confused:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
     });
 };
 
