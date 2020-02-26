@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     let AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";
 
-    await message.channel.send(new Discord.Attachment(encodeURI(AchievementEncodeGenerate), "achievement.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+    await message.channel.send(new Discord.Attachment(encodeURI(AchievementEncodeGenerate), "achievement.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 };
 
 module.exports.help =
