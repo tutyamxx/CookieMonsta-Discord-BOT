@@ -61,12 +61,12 @@ module.exports.run = async (bot, message, args) =>
 
         await images[0].composite(images[1], 57, 135).composite(images[2], 688, 135).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
         {
-            if (err)
+            if(err)
             {
-                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
 
-            await message.channel.send(new Discord.Attachment(buffer, "deathbattle.png")).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send(new Discord.Attachment(buffer, "deathbattle.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
         });
     });
 
