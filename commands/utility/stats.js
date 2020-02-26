@@ -16,6 +16,7 @@ module.exports.run = async (bot, message, args) =>
     .addField(":chart_with_upwards_trend: Server Stats", "Running on: **" + os.platform() + "**\nArchitecture: **" + os.arch() + "**\nVs: **" + os.release() + "**\nRAM: **" + CustomFunctions.bytesToSize(process.memoryUsage().heapUsed) + "**/**" + CustomFunctions.bytesToSize(os.totalmem()) + "**", true)
     .addField(":chart: Various Stats", "Version: **v" + szBotVersionNow + "**\nCommands Used: **" + iCountCommandsUsed + "**\nNode.JS: **" + process.version + "**\nDiscord.JS: **" + Discord.version + "**", true)
     .setFooter("🖥️ CPU: " + os.cpus()[0].model.toString() + " • CORES: " + parseInt(os.cpus().length))
+
     await message.channel.send({ embed: DiscordRichEmbed });
 };
 
