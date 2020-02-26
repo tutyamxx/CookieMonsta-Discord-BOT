@@ -77,7 +77,7 @@ module.exports.run = async (bot, message, szArgs) =>
             .setImage("attachment://game_background.png")
             .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
+            await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 
         }).catch(async () =>
         {
