@@ -5,7 +5,13 @@ module.exports.run = async (bot, message, args) =>
 {
     await message.channel.startTyping();
 
-    const iRandomComic = Math.floor((Math.random() * 2272) + 1);
+    let iComicCount;
+    await axios.get("https://xkcd.com/info.0.json").then(async (comic_response) =>
+    {
+        iComicCount = parseInt(comic_response.data.num);
+    });
+
+    const iRandomComic = Math.floor((Math.random() * iComicCount) + 1);
     const user = message.author;
 
     await axios.get("https://xkcd.com/" + iRandomComic + "/info.0.json").then(async (response) =>
