@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    await axios.get(`https://pokemon.alexonsager.net/${iRandomPokemon1}/${iRandomPokemon2}`).then(async (response) =>
+    await axios.get(`https://pokemon.alexonsager.net/${ActualRandomPokemons}/${iRandomPokemon2}`).then(async (response) =>
     {
         const $ = cheerio.load(await response.data);
 
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
         .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setDescription(`Randomly fused **${Pokemon1}** :zap: **${Pokemon2}**\n\nResult: **${FusedPokemonName}**`)
         .setColor(11950939)
-        .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${iRandomPokemon1}.png`, name: "pokefusion.png" })
+        .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${ActualRandomPokemons}.png`, name: "pokefusion.png" })
         .setImage("attachment://pokefusion.png")
         .setThumbnail("https://i.imgur.com/i6F9ntA.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
