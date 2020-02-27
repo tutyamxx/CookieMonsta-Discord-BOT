@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) =>
     let FusedPokemonName;
     await axios.get(`https://pokemon.alexonsager.net/${iRandomPokemon1}/${iRandomPokemon2}`).then(async (response) =>
     {
-        const $ = cheerio.load(response.data);
+        const $ = cheerio.load(await response.data);
 
         FusedPokemonName = $("#pk_name").text().trim();
 
