@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) =>
         .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setTitle(FusedPokemonName)
         .setColor(11950939)
-        .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon1}/${iRandomPokemon1}.${iRandomPokemon2}.png`, name: "pokefusion.png" })
+        .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${iRandomPokemon1}.png`, name: "pokefusion.png" })
         .setImage("attachment://pokefusion.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
