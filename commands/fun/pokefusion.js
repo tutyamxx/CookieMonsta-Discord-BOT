@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
     await message.channel.startTyping();
 
     let FusedPokemonName;
-    await axios.get(`http://images.alexonsager.net/pokemon/fused/${iRandomPokemon1}/${iRandomPokemon2}`).then(async (response) =>
+    await axios.get(`https://pokemon.alexonsager.net/${iRandomPokemon1}/${iRandomPokemon2}`).then(async (response) =>
     {
         const $ = cheerio.load(response.data);
 
