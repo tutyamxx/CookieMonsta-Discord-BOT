@@ -16,10 +16,10 @@ module.exports.run = async (bot, message, args) =>
     {
         const $ = cheerio.load(response.data);
 
-        FusedPokemonName = $("#pk_name").text();
+        FusedPokemonName = $("#pk_name").text().trim();
 
-        const Pokemon1 = $("#select1 option:selected").text();
-        const Pokemon2 = $("#select2 option:selected").text();
+        const Pokemon1 = $("#select1 option:selected").text().trim();
+        const Pokemon2 = $("#select2 option:selected").text().trim();
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
