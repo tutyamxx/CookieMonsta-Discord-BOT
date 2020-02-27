@@ -70,6 +70,7 @@ npm install moment
 npm i orc-me
 npm i axios
 npm i amethyste-api
+npm i cheerio
 
 npm install bufferutil
 npm install hammerandchisel/erlpack
