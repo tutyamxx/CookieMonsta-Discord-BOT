@@ -20,24 +20,17 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         await SteamRepAPI.isScammer(id, async (error, result) =>
         {
-            if(error)
+            if(!error)
             {
-                return await message.channel.send(":no_entry: Sorry, something went wrong while checking if the user is a scammer. Error: `" + error.message + "`").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));;
+                const bIsUserScammer = (result === true) ? "a :exclamation: **SCAMMER** :exclamation:" : ":white_check_mark: **CLEAN** :white_check_mark:";
+
+                await message.channel.send(`This user is ${bIsUserScammer} on **SteamRep** !`).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
 
             else
             {
-                if(result)
-                {
-                    await message.channel.send("This user is a :exclamation: **SCAMMER** :exclamation: on **SteamRep** !").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-                }
-
-                else
-                {
-                    await message.channel.send("This user is :white_check_mark: **CLEAN** :white_check_mark: on **SteamRep** !").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
-                }
+                return await message.channel.send(":no_entry: Sorry, something went wrong while checking if the user is a scammer. Error: `" + error.message + "`").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
             }
-
         });
 
     }).catch(async () =>
