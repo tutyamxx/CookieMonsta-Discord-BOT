@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) =>
     let iRandomPokemon1 = Math.floor(( Math.random() * 151 ) + 1);
     let iRandomPokemon2 = Math.floor(( Math.random() * 151 ) + 1);
 
-    let GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2 + ".png";
+    let GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2;
 
     let FusedPokemonName;
     await axios.get(GenLink).then(async (response) =>
@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) =>
     .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setTitle(FusedPokemonName)
     .setColor(11950939)
-    .attachFile({ attachment: GenLink, name: "pokefusion.png" })
+    .attachFile({ attachment: GenLink + ".png", name: "pokefusion.png" })
     .setImage("attachment://pokefusion.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
