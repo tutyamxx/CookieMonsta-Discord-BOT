@@ -71,6 +71,7 @@ npm i orc-me
 npm i axios
 npm i amethyste-api
 npm i cheerio
+npm i steamrep
 
 npm install bufferutil
 npm install hammerandchisel/erlpack
