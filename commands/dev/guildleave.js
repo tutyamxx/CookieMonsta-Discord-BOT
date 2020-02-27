@@ -16,12 +16,18 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         const MentionedGuildParam = szArgs[0].trim().toString();
-        let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
-        if(GetGuild === undefined)
+        if(isNaN(MentionedGuildParam))
         {
-            return await message.reply(" Invalid guild or it seems that I have already left the: **" + MentionedGuildParam + "** guild :id: !");
+            return await message.reply(" :no_entry: you must enter a valid guild id. Example: `634801165036421142`  :no_entry:");
         }
+
+        if(MentionedGuildParam === "634801165036421142")
+        {
+            return await message.reply(" :no_entry: NO! I won't leave this guild :anger: !  :no_entry:");
+        }
+
+        let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
         await GetGuild.leave().catch(async (e) =>
         {
@@ -36,6 +42,7 @@ module.exports.run = async (bot, message, szArgs) =>
         .setTimestamp()
 
         await message.author.send({ embed: DiscordRichEmbed });
+        await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have left the specified guild :id:: (**" + szArgs[0] + "**) !");
     }
 
     else
