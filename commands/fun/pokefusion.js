@@ -7,7 +7,9 @@ module.exports.run = async (bot, message, args) =>
     const user = message.author;
 
     let iRandomPokemon1 = Math.floor(( Math.random() * 151 ) + 1);
-    let iRandomPokemon2 = Math.floor(( Math.random() * 151 ) + 1);
+    const iRandomPokemon2 = Math.floor(( Math.random() * 151 ) + 1);
+
+    const ActualRandomPokemons = (iRandomPokemon1 === iRandomPokemon2) ? iRandomPokemon1 = Math.floor((Math.random() * 151) + 1) : iRandomPokemon1;
 
     await message.channel.startTyping();
 
