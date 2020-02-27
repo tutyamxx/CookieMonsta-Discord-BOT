@@ -11,13 +11,11 @@ module.exports.run = async (bot, message, args) =>
 
     await message.channel.startTyping();
 
-    let FusedPokemonName;
     await axios.get(`https://pokemon.alexonsager.net/${iRandomPokemon1}/${iRandomPokemon2}`).then(async (response) =>
     {
         const $ = cheerio.load(await response.data);
 
-        FusedPokemonName = $("#pk_name").text().trim();
-
+        const FusedPokemonName = $("#pk_name").text().trim();
         const Pokemon1 = $("#select1 option:selected").text().trim();
         const Pokemon2 = $("#select2 option:selected").text().trim();
 
