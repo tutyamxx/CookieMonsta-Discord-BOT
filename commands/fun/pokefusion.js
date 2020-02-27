@@ -18,12 +18,16 @@ module.exports.run = async (bot, message, args) =>
 
         FusedPokemonName = $("#pk_name").text();
 
+        const Pokemon1 = $("#select1 option:selected").text();
+        const Pokemon2 = $("#select2 option:selected").text();
+
         const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-        .setTitle(":zap: " + FusedPokemonName)
+        .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setDescription(`Randomly fused **${Pokemon1}** :zap: **${Pokemon2}**\n\nResult: **${FusedPokemonName}**`)
         .setColor(11950939)
         .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${iRandomPokemon1}.png`, name: "pokefusion.png" })
         .setImage("attachment://pokefusion.png")
+        .setThumbnail("https://i.imgur.com/i6F9ntA.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
         await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
