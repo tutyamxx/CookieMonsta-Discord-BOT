@@ -11,6 +11,8 @@ module.exports.run = async (bot, message, args) =>
 
     let GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2;
 
+    await message.channel.startTyping();
+
     let FusedPokemonName;
     await axios.get(GenLink).then(async (response) =>
     {
@@ -18,20 +20,20 @@ module.exports.run = async (bot, message, args) =>
 
         FusedPokemonName = $("#pk_name").text();
 
+        const DiscordRichEmbed = new Discord.RichEmbed()
+        .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setTitle(FusedPokemonName)
+        .setColor(11950939)
+        .attachFile({ attachment: GenLink + ".png", name: "pokefusion.png" })
+        .setImage("attachment://pokefusion.png")
+        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+
+        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+
     }).catch(() =>
     {
         FusedPokemonName = "";
     });
-
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-    .setTitle(FusedPokemonName)
-    .setColor(11950939)
-    .attachFile({ attachment: GenLink + ".png", name: "pokefusion.png" })
-    .setImage("attachment://pokefusion.png")
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
-
-    await message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(err => message.channel.stopTyping(true));
 };
 
 module.exports.help =
