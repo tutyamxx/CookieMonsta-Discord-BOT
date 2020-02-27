@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) =>
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-        .setTitle(FusedPokemonName)
+        .setTitle(":zap: " + FusedPokemonName)
         .setColor(11950939)
         .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${iRandomPokemon1}.png`, name: "pokefusion.png" })
         .setImage("attachment://pokefusion.png")
