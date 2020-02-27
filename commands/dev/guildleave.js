@@ -29,6 +29,11 @@ module.exports.run = async (bot, message, szArgs) =>
 
         let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
+        if(GetGuild === undefined)
+        {
+            return await message.reply(" Invalid guild or it seems that I have already left the: **" + MentionedGuildParam + "** guild :id: !");
+        }
+
         await GetGuild.leave().catch(async (e) =>
         {
             return await message.reply(" I tried to leave this guild id :id:: **" + MentionedGuildParam + "** but I got this error: ``" + e.message + "`` !");
