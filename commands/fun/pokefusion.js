@@ -1,3 +1,5 @@
+const cheerio = require("cheerio");
+const axios = require("axios");
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) =>
@@ -9,8 +11,21 @@ module.exports.run = async (bot, message, args) =>
 
     let GenLink = "http://images.alexonsager.net/pokemon/fused/" + iRandomPokemon1 + "/" + iRandomPokemon1 + "." + iRandomPokemon2 + ".png";
 
+    let FusedPokemonName;
+    await axios.get(GenLink).then(async (response) =>
+    {
+        const $ = cheerio.load(response.data);
+
+        FusedPokemonName = $("#pk_name").text();
+
+    }).catch(() =>
+    {
+        FusedPokemonName = "";
+    });
+
     const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    .setAuthor("Cookie Monsta | Poke Fusion: " + FusedPokemonName, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    .setTitle(FusedPokemonName)
     .setColor(11950939)
     .attachFile({ attachment: GenLink, name: "pokefusion.png" })
     .setImage("attachment://pokefusion.png")
