@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, args) =>
     const BulletSLot = 2;
     UserAlreadyPlayingRusR[user.id] = true;
 
-    const szGunMessage = message.channel.send(":flag_ru:   :regional_indicator_r::regional_indicator_u::regional_indicator_s::regional_indicator_s::regional_indicator_i::regional_indicator_a::regional_indicator_n:  :regional_indicator_r::regional_indicator_o::regional_indicator_u::regional_indicator_l::regional_indicator_e::regional_indicator_t::regional_indicator_t::regional_indicator_e:   :flag_ru:\n\n:bust_in_silhouette: 						:gun: 	***Gun clicks***");
+    let szGunMessage = await message.channel.send(":flag_ru:   :regional_indicator_r::regional_indicator_u::regional_indicator_s::regional_indicator_s::regional_indicator_i::regional_indicator_a::regional_indicator_n:  :regional_indicator_r::regional_indicator_o::regional_indicator_u::regional_indicator_l::regional_indicator_e::regional_indicator_t::regional_indicator_t::regional_indicator_e:   :flag_ru:\n\n:bust_in_silhouette: 						:gun: 	***Gun clicks***");
 
     let kickMember = message.guild.member(user);
 
