@@ -12,7 +12,7 @@ module.exports.run = (bot, message, args) =>
 
     UserAlreadyRps[user.id] = true;
 
-    let szRPSMessage = message.channel.send("***Rock, Paper, Scissors!***");
+    let szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
     let szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
 
     iRockPaperScissorsTimer[user.id] = setInterval (() =>
@@ -35,7 +35,7 @@ module.exports.run = (bot, message, args) =>
         UserAlreadyRps[user.id] = false;
         bot.clearInterval(iRockPaperScissorsTimer[user.id]);
 
-        szRPSMessage.edit(szRPSEdit);
+        await szRPSMessage.edit(szRPSEdit);
 
     }, 900);
 };
