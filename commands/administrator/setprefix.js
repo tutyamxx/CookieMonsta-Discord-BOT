@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, szArgs) =>
     {
         if(CustomFunctions.isEmpty(szArgs[0]))
         {
-            return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to specify a prefix for Christ sake!  :no_entry:");
+            return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to specify a prefix for Christ sake!  :no_entry:");
         }
 
         const ArgumentPrefix = szArgs[0].trim().toString();
@@ -20,35 +20,35 @@ module.exports.run = async (bot, message, szArgs) =>
 
         if(CheckEmojis.test(ArgumentPrefix))
         {
-            return await message.reply(" :no_entry: nice try :smirk:, but you can't use emojis for prefix! Try again!  :no_entry:");
+            return message.reply(" :no_entry: nice try :smirk:, but you can't use emojis for prefix! Try again!  :no_entry:");
         }
 
         const CheckPrintableChars = new RegExp(/^[a-z0-9!"#$%&'()*+,./:;<=>?\[\]^_{|}~-]*$/, "i");
 
         if(!CheckPrintableChars.test(ArgumentPrefix))
         {
-            return await message.reply(" :no_entry: nice try :smirk:, but you can't use weird characters for prefix! Try again!  :no_entry:");
+            return message.reply(" :no_entry: nice try :smirk:, but you can't use weird characters for prefix! Try again!  :no_entry:");
         }
 
         if(ArgumentPrefix.length > 3)
         {
-            return await message.reply(" :no_entry: You cannot have more than **3** characters into your prefix! Try again!  :no_entry:");
+            return message.reply(" :no_entry: You cannot have more than **3** characters into your prefix! Try again!  :no_entry:");
         }
 
         const GetServerPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GetGuildID);
 
         if(ArgumentPrefix === GetServerPrefix.trim())
         {
-            return await message.reply(" :no_entry: Not happening! Your new prefix is the same as the current one ``" + GetServerPrefix.trim() + "`` for **" + ServerName + "**!  :no_entry:");
+            return message.reply(" :no_entry: Not happening! Your new prefix is the same as the current one ``" + GetServerPrefix.trim() + "`` for **" + ServerName + "**!  :no_entry:");
         }
 
         await DatabaseImport.CookieMonsta_SetGuildPrefix(GetGuildID, ArgumentPrefix);
-        await message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the prefix for **" + ServerName + "** with ``" + ArgumentPrefix + "``");
+        message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the prefix for **" + ServerName + "** with ``" + ArgumentPrefix + "``");
     }
 
     else
     {
-        return await message.channel.send(":no_entry: You can't mate! You need either ``ADMINISTRATOR`` or ``MANAGE_GUILD`` permission for this command. :laughing: :no_entry:");
+        return message.channel.send(":no_entry: You can't mate! You need either ``ADMINISTRATOR`` or ``MANAGE_GUILD`` permission for this command. :laughing: :no_entry:");
     }
 };
 

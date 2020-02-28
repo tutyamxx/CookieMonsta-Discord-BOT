@@ -2,47 +2,47 @@ const Discord = require("discord.js");
 const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a game name to search for.  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a game name to search for.  :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     const ArgumentText = szArgs.join(" ");
     const FormatArgumentText = ArgumentText.replace(/'/g, "").replace(/:/g, "").replace(/;/g, "").replace(/`/g, "").split(" ").join("-");
 
-    await axios.get("https://api.rawg.io/api/games/" + FormatArgumentText).then(async (response) =>
+    axios.get("https://api.rawg.io/api/games/" + FormatArgumentText).then((response) =>
     {
-        if(await response.data.detail)
+        if(response.data.detail)
         {
-            return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
 
-        const szGameSlug = await response.data.slug.trim();
+        const szGameSlug = response.data.slug.trim();
 
-        await axios.get("https://api.rawg.io/api/games/" + szGameSlug).then(async (response_game) =>
+        axios.get("https://api.rawg.io/api/games/" + szGameSlug).then((response_game) =>
         {
-            if(await response_game.data.detail)
+            if(response_game.data.detail)
             {
-                return await message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.reply(" :no_entry: Sorry, something went wrong during the game processing. Try again later?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
-            const ResultGame = await response_game.data;
-            const ResultGameName = await ResultGame.name_original.toString();
-            const ResultGameDeveloper = await ResultGame.developers;
-            const ResultGamePublisher = await ResultGame.publishers;
-            const ResultGameReleaseDate = await ResultGame.released;
-            const ResultGameToBeAnnounced = await ResultGame.tba;
-            const ResultGameMetacriticScore = parseInt(await ResultGame.metacritic);
-            const ResultGameOfficialWebsite = await ResultGame.website.toString();
-            const ResultGameOfficialReddit = await ResultGame.reddit_url.toString();
-            const ResultGamePlatorms = await ResultGame.platforms;
-            const ResultGameStores = await ResultGame.stores;
+            const ResultGame = response_game.data;
+            const ResultGameName = ResultGame.name_original.toString();
+            const ResultGameDeveloper = ResultGame.developers;
+            const ResultGamePublisher = ResultGame.publishers;
+            const ResultGameReleaseDate = ResultGame.released;
+            const ResultGameToBeAnnounced = ResultGame.tba;
+            const ResultGameMetacriticScore = parseInt(ResultGame.metacritic);
+            const ResultGameOfficialWebsite = ResultGame.website.toString();
+            const ResultGameOfficialReddit = ResultGame.reddit_url.toString();
+            const ResultGamePlatorms = ResultGame.platforms;
+            const ResultGameStores = ResultGame.stores;
 
             let szPlatforms = [];
             let szAvailableStores = [];
@@ -73,20 +73,20 @@ module.exports.run = async (bot, message, szArgs) =>
             .addField("`Available On:`", (Object.keys(ResultGameStores).length <= 0 ? "Stand Alone Executable" : szAvailableStores.join(", ")), true)
             .setDescription(szDescription)
             .setThumbnail("https://i.imgur.com/NWbb94q.png")
-            .attachFile({ attachment: (await ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : await ResultGame.background_image), name: "game_background.png" })
+            .attachFile({ attachment: (ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : ResultGame.background_image), name: "game_background.png" })
             .setImage("attachment://game_background.png")
             .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-            await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-        }).catch(async () =>
+        }).catch(() =>
         {
-            return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.reply(" :no_entry: Sorry, I couldn't find the game you requested. Could you try simplifying the game name?  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

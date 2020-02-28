@@ -1,16 +1,16 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://some-random-api.ml/pikachuimg").then(async (response) =>
+    axios.get("https://some-random-api.ml/pikachuimg").then((response) =>
     {
         // --| Remove "" from start and end of string
-        const PikaImageToString = JSON.stringify(await response.data.link).replace(/"/g, "");
+        const PikaImageToString = JSON.stringify(response.data.link).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Pikachu", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -19,15 +19,15 @@ module.exports.run = async (bot, message, args) =>
         .setImage(PikaImageToString)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
+        message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react(":pika:635524509621026850");
 
-        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Pika? Pika? Errorka! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Pika? Pika? Errorka! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

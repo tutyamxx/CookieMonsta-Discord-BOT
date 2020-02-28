@@ -5,23 +5,23 @@ const BotConfig = require("../../config/botconfig.json");
 
 const szAPIKey = BotConfig.NASA_API_Key.trim();
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    let NasaMessageEdit = await message.channel.send("Pinging **NASA** database :satellite: for the feed...");
+    let NasaMessageEdit = message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 
-    await axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then(async (response) =>
+    axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then((response) =>
     {
-        if(JSON.stringify(await response.data.media_type).replace(/"/g, '') === "video")
+        if(JSON.stringify(response.data.media_type).replace(/"/g, '') === "video")
         {
-            return await NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
 
-        const szTitle = JSON.stringify(await response.data.title).replace(/"/g, "");
-        const szImageHDURL = JSON.stringify(await response.data.hdurl).replace(/"/g, "");
+        const szTitle = JSON.stringify(response.data.title).replace(/"/g, "");
+        const szImageHDURL = JSON.stringify(response.data.hdurl).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Astronomy Picture of the Day", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -31,11 +31,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        return await NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await NasaMessageEdit.edit(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return NasaMessageEdit.edit(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

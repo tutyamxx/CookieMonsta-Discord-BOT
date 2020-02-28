@@ -1,21 +1,21 @@
 let UserAlreadyRps = {};
 let iRockPaperScissorsTimer = {};
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
     if(UserAlreadyRps[user.id] === true)
     {
-        return await message.reply(":no_entry: You are already playing **Rock, Paper, Scissors**, wait until is finished! :no_entry:");
+        return message.reply(":no_entry: You are already playing **Rock, Paper, Scissors**, wait until is finished! :no_entry:");
     }
 
     UserAlreadyRps[user.id] = true;
 
-    let szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
+    let szRPSMessage = message.channel.send("***Rock, Paper, Scissors!***");
     let szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
 
-    iRockPaperScissorsTimer[user.id] = setInterval (async () =>
+    iRockPaperScissorsTimer[user.id] = setInterval (() =>
     {
         switch(Math.floor(( Math.random() * 3 ) + 1))
         {
@@ -33,9 +33,9 @@ module.exports.run = async (bot, message, args) =>
         }
 
         UserAlreadyRps[user.id] = false;
-        await bot.clearInterval(iRockPaperScissorsTimer[user.id]);
+        bot.clearInterval(iRockPaperScissorsTimer[user.id]);
 
-        await szRPSMessage.edit(szRPSEdit);
+        szRPSMessage.edit(szRPSEdit);
 
     }, 900);
 };

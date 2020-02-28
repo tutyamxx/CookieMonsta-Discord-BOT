@@ -1,28 +1,28 @@
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     let GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    let ImageURL = await Jimp.read(MemberAvatar);
+    let ImageURL = Jimp.read(MemberAvatar);
 
-    ImageURL.quality(1).getBuffer(Jimp.MIME_JPEG, async (err, buffer) =>
+    ImageURL.quality(1).getBuffer(Jimp.MIME_JPEG, (err, buffer) =>
     {
         if(err)
         {
             console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Needs More JPEG)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
         }
 
-        await message.channel.send(new Discord.Attachment(buffer, "needs_more_jpeg.jpeg")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send(new Discord.Attachment(buffer, "needs_more_jpeg.jpeg")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

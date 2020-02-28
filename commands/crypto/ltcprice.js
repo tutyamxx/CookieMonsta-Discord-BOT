@@ -1,46 +1,46 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     let LitePrice = [];
     let LitePricePaprika = [];
     let LiteCoinGecko = [];
 
-    await axios.all(
+    axios.all(
     [
         axios.get("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USD,JPY,EUR,GBP"),
         axios.get("https://api.coinpaprika.com/v1/tickers/ltc-litecoin?quotes=gbp,eur,usd,jpy"),
         axios.get("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=gbp,usd,eur,jpy")
 
-    ]).then(await axios.spread(async (ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
+    ]).then(axios.spread((ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
         if(ResponseCryptocompare)
         {
-            LitePrice[0] = await ResponseCryptocompare.data.EUR;
-            LitePrice[1] = await ResponseCryptocompare.data.GBP;
-            LitePrice[2] = await ResponseCryptocompare.data.USD;
-            LitePrice[3] = await ResponseCryptocompare.data.JPY;
+            LitePrice[0] = ResponseCryptocompare.data.EUR;
+            LitePrice[1] = ResponseCryptocompare.data.GBP;
+            LitePrice[2] = ResponseCryptocompare.data.USD;
+            LitePrice[3] = ResponseCryptocompare.data.JPY;
         }
 
         if(ResponseCoinpaprika)
         {
-            LitePricePaprika[0] = await ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
-            LitePricePaprika[1] = await ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
-            LitePricePaprika[2] = await ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
-            LitePricePaprika[3] = await ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
+            LitePricePaprika[0] = ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
+            LitePricePaprika[1] = ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
+            LitePricePaprika[2] = ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
+            LitePricePaprika[3] = ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
         }
 
         if(ResponseCoingecko)
         {
-            LiteCoinGecko[0] = await ResponseCoingecko.data.litecoin.eur;
-            LiteCoinGecko[1] = await ResponseCoingecko.data.litecoin.gbp;
-            LiteCoinGecko[2] = await ResponseCoingecko.data.litecoin.usd;
-            LiteCoinGecko[3] = await ResponseCoingecko.data.litecoin.jpy;
+            LiteCoinGecko[0] = ResponseCoingecko.data.litecoin.eur;
+            LiteCoinGecko[1] = ResponseCoingecko.data.litecoin.gbp;
+            LiteCoinGecko[2] = ResponseCoingecko.data.litecoin.usd;
+            LiteCoinGecko[3] = ResponseCoingecko.data.litecoin.jpy;
         }
 
     })).catch((errorCryptocompare, errorCoinpaprika, errorCoingecko) =>
@@ -81,7 +81,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 };
 
 module.exports.help =

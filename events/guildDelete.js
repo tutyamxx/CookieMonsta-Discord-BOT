@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports = async (bot, guild) =>
+module.exports = (bot, guild) =>
 {
 	/*
 	if(guild.deleted === true)
@@ -32,5 +32,5 @@ module.exports = async (bot, guild) =>
     .setFooter("Now in #" + bot.guilds.size + " guilds!")
     .setTimestamp()
 
-    await bot.channels.get("634842132808597505").send({ embed: DiscordRichEmbed });
+    bot.channels.get("634842132808597505").send({ embed: DiscordRichEmbed });
 };

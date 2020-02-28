@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const OrcMe = require("orc-me");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     let OrcNameGenerated = "";
     let RandomOrcNameArray = [];
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) =>
     .setThumbnail("https://i.imgur.com/nygjC55.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed })
+    message.channel.send({ embed: DiscordRichEmbed })
 };
 
 module.exports.help =

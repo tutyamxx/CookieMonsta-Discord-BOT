@@ -10,14 +10,14 @@ module.exports = async (bot, reaction, user) =>
             return;
         }
 
-        let GetGuildID = await reaction.message.guild.id.toString();
+        let GetGuildID = reaction.message.guild.id.toString();
         let RandomShellPrize = Math.floor(( Math.random() * 10 ) + 1);
 
         await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
 
         const iUserCookies = await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
 
-        if(await reaction.emoji.name === "\u0031\u20E3")
+        if(reaction.emoji.name === "\u0031\u20E3")
         {
             if(1 === ShellGame.UserShuffleShells[user.id])
             {
@@ -34,7 +34,7 @@ module.exports = async (bot, reaction, user) =>
             }
         }
 
-        else if(await reaction.emoji.name === "\u0032\u20E3")
+        else if(reaction.emoji.name === "\u0032\u20E3")
         {
             if(2 === ShellGame.UserShuffleShells[user.id])
             {
@@ -51,7 +51,7 @@ module.exports = async (bot, reaction, user) =>
             }
         }
 
-        else if(await reaction.emoji.name === "\u0033\u20E3")
+        else if(reaction.emoji.name === "\u0033\u20E3")
         {
             if(3 === ShellGame.UserShuffleShells[user.id])
             {
@@ -68,7 +68,7 @@ module.exports = async (bot, reaction, user) =>
             }
         }
 
-        else if(await reaction.emoji.name === "❎")
+        else if(reaction.emoji.name === "❎")
         {
             await reaction.remove(user);
             ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n\n:x:   ***GAME OVER***    :x:";

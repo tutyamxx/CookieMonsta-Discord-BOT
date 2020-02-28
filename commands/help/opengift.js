@@ -10,19 +10,19 @@ const iRandomCookiesPresent =
     "900", "950", "1000", "1250", "2000"
 ];
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
     const GuildGetID = message.guild.id;
 
     if(bAlreadyOpeningGift[user.id] === true)
     {
-        return await message.delete().catch(() => {});
+        return message.delete().catch(() => {});
     }
 
     if(bUserHasGift[user.id] === 0)
     {
-        return await message.reply(" you don't have any gift :gift: to open! It probably expired or you haven't received one yet! :pensive:");
+        return message.reply(" you don't have any gift :gift: to open! It probably expired or you haven't received one yet! :pensive:");
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) =>
     .setDescription("Hang on tight while I'm unwrapping your gift...")
     .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(async msg =>
+    message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
     {
         iUnwrapTimer[user.id] = setInterval (async () =>
         {
@@ -48,12 +48,12 @@ module.exports.run = async (bot, message, args) =>
             .setDescription("***OMNOMNOMNOM!***\n\n\n" + user + " this gift box :gift: contained **" + GenerateRandomCookies + "** cookies :cookie: !")
             .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-            await msg.edit({ embed: DiscordRichEmbed1 });
+            msg.edit({ embed: DiscordRichEmbed1 });
 
             bUserHasGift[user.id] = 0;
             bAlreadyOpeningGift[user.id] = false;
 
-            await bot.clearInterval(iUnwrapTimer[user.id]);
+            bot.clearInterval(iUnwrapTimer[user.id]);
 
         }, 5 * 1000);
     });

@@ -7,28 +7,28 @@ const BotConfig = require("../../config/botconfig.json");
 
 const steam = new SteamAPI(BotConfig.Steam_API_Token.trim());
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await steam.resolve(szArgs[0]).then(async (id) =>
+    steam.resolve(szArgs[0]).then((id) =>
     {
         let SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches").then(async (response) =>
+        axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/recentMatches").then((response) =>
         {
-            const PlayerResponseData = await response.data[0];
+            const PlayerResponseData = response.data[0];
 
             if(PlayerResponseData === undefined || PlayerResponseData.length <= 0)
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
             let DotaMatchWon = "";
@@ -78,21 +78,21 @@ module.exports.run = async (bot, message, szArgs) =>
                 DotaMatchWon = "Win :trophy:";
             }
 
-            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then(async (response_player) =>
+            axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then((response_player) =>
             {
                 let szHeroName = "Unknown";
 
-                await axios.get("https://api.opendota.com/api/heroes").then(async (response_hero) =>
+                axios.get("https://api.opendota.com/api/heroes").then((response_hero) =>
                 {
-                    for(let i = 0; i < await response_hero.data.length; i++)
+                    for(let i = 0; i < response_hero.data.length; i++)
                     {
-                        if(await response_hero.data[i].id === iDotaHeroPlayed)
+                        if(response_hero.data[i].id === iDotaHeroPlayed)
                         {
-                            szHeroName = await response_hero.data[i].localized_name;
+                            szHeroName = response_hero.data[i].localized_name;
 
-                            const DotaPlayerName = await response_player.data.profile.personaname;
-                            const DotaPlayerAvatar = await response_player.data.profile.avatarmedium;
-                            const DotaPlayerSteamProfile = await response_player.data.profile.profileurl;
+                            const DotaPlayerName = response_player.data.profile.personaname;
+                            const DotaPlayerAvatar = response_player.data.profile.avatarmedium;
+                            const DotaPlayerSteamProfile = response_player.data.profile.profileurl;
 
                             let szDescription =
                             ":point_right: Last Dota2 Match for player: **[" + DotaPlayerName + "](" + DotaPlayerSteamProfile + ")**\n\n``Match Info:``\n" +
@@ -119,24 +119,24 @@ module.exports.run = async (bot, message, szArgs) =>
                             .setThumbnail(DotaPlayerAvatar)
                             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                            await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                            message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                         }
                     }
                 });
 
-            }).catch(async () =>
+            }).catch(() =>
             {
-                return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             });
 
-        }).catch(async () =>
+        }).catch(() =>
         {
-            return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

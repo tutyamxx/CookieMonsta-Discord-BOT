@@ -7,36 +7,36 @@ const BotConfig = require("../../config/botconfig.json");
 
 const steam = new SteamAPI(BotConfig.Steam_API_Token.trim());
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Type **!lastgame** ``<Steam username/url/id>`` :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await steam.resolve(szArgs[0]).then(async (id) =>
+    steam.resolve(szArgs[0]).then((id) =>
     {
         const SteamAccountID3 = (new SteamID(id)).accountid;
 
-        await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then(async (response_player) =>
+        axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3)).then((response_player) =>
         {
-            if(!await response_player.data.hasOwnProperty("profile"))
+            if(!response_player.data.hasOwnProperty("profile"))
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.channel.send(":no_entry: Sorry, I couldn't retrieve any data from **Open Dota** for this player. Maybe he is a LoL player :joy:?  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
-            const DotaPlayerName = await response_player.data.profile.personaname;
-            const DotaPlayerAvatar = await response_player.data.profile.avatarmedium;
-            const DotaPlayerSteamProfile = await response_player.data.profile.profileurl;
+            const DotaPlayerName = response_player.data.profile.personaname;
+            const DotaPlayerAvatar = response_player.data.profile.avatarmedium;
+            const DotaPlayerSteamProfile = response_player.data.profile.profileurl;
 
-            await axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl").then(async (response) =>
+            axios.get("https://api.opendota.com/api/players/" + parseInt(SteamAccountID3) + "/wl").then((response) =>
             {
-                const iPlayerTotalWin = parseInt(await response.data.win);
-                const iPlayerTotalLose = parseInt(await response.data.lose);
+                const iPlayerTotalWin = parseInt(response.data.win);
+                const iPlayerTotalLose = parseInt(response.data.lose);
 
                 const iPlayerTotalMatchesPlayed = iPlayerTotalWin + iPlayerTotalLose;
                 const iPlayerWinrate = CustomFunctions.Dota2_CalculateWinrate(iPlayerTotalWin, iPlayerTotalLose);
@@ -59,21 +59,21 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setThumbnail(DotaPlayerAvatar)
                 .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-                await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-            }).catch(async () =>
+            }).catch(() =>
             {
                 return;
             });
 
-        }).catch(async () =>
+        }).catch(() =>
         {
-            return await message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.channel.send(":no_entry: Sorry, can't retrieve **Open Dota** data right now... Try later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
 
-    }).catch(async (error) =>
+    }).catch((error) =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, I couldn't find this Steam profile: ``" + szArgs[0] + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

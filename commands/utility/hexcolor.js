@@ -6,11 +6,11 @@ const CustomFunctions = require("../../functions/funcs.js");
 
 const szFileNameColor = "hexcolor.png";
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Try specifying a HEX color?  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Try specifying a HEX color?  :no_entry:");
     }
 
     const HexColorArgument = szArgs[0].trim().toString();
@@ -18,43 +18,43 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(!CheckHexFormat.test(HexColorArgument))
     {
-        return await message.reply(" :no_entry: this this is not a valid HEX color representation!  :no_entry:");
+        return message.reply(" :no_entry: this this is not a valid HEX color representation!  :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://www.thecolorapi.com/id?hex=" + HexColorArgument.replace("#", "")).then(async (response) =>
+    axios.get("https://www.thecolorapi.com/id?hex=" + HexColorArgument.replace("#", "")).then((response) =>
     {
         // --| Remove "" from start and end of string
-        const ResponseHEXColor = JSON.stringify(await response.data.hex.value).replace(/"/g, "");
-        const ResponseColorName = JSON.stringify(await response.data.name.value).replace(/"/g, "");
+        const ResponseHEXColor = JSON.stringify(response.data.hex.value).replace(/"/g, "");
+        const ResponseColorName = JSON.stringify(response.data.name.value).replace(/"/g, "");
 
         const ResponseRGB = [];
-        ResponseRGB[0] = JSON.stringify(await response.data.rgb.r).replace(/"/g, "");
-        ResponseRGB[1] = JSON.stringify(await response.data.rgb.g).replace(/"/g, "");
-        ResponseRGB[2] = JSON.stringify(await response.data.rgb.b).replace(/"/g, "");
-        ResponseRGB[3] = JSON.stringify(await response.data.rgb.value).replace(/"/g, "");
+        ResponseRGB[0] = JSON.stringify(response.data.rgb.r).replace(/"/g, "");
+        ResponseRGB[1] = JSON.stringify(response.data.rgb.g).replace(/"/g, "");
+        ResponseRGB[2] = JSON.stringify(response.data.rgb.b).replace(/"/g, "");
+        ResponseRGB[3] = JSON.stringify(response.data.rgb.value).replace(/"/g, "");
 
         const ResponseHSL = [];
-        ResponseHSL[0] = JSON.stringify(await response.data.hsl.h).replace(/"/g, "");
-        ResponseHSL[1] = JSON.stringify(await response.data.hsl.s).replace(/"/g, "");
-        ResponseHSL[2] = JSON.stringify(await response.data.hsl.l).replace(/"/g, "");
-        ResponseHSL[3] = JSON.stringify(await response.data.hsl.value).replace(/"/g, "");
+        ResponseHSL[0] = JSON.stringify(response.data.hsl.h).replace(/"/g, "");
+        ResponseHSL[1] = JSON.stringify(response.data.hsl.s).replace(/"/g, "");
+        ResponseHSL[2] = JSON.stringify(response.data.hsl.l).replace(/"/g, "");
+        ResponseHSL[3] = JSON.stringify(response.data.hsl.value).replace(/"/g, "");
 
         const ResponseHSV = [];
-        ResponseHSV[0] = JSON.stringify(await response.data.hsv.h).replace(/"/g, "");
-        ResponseHSV[1] = JSON.stringify(await response.data.hsv.s).replace(/"/g, "");
-        ResponseHSV[2] = JSON.stringify(await response.data.hsv.v).replace(/"/g, "");
-        ResponseHSV[3] = JSON.stringify(await response.data.hsv.value).replace(/"/g, "");
+        ResponseHSV[0] = JSON.stringify(response.data.hsv.h).replace(/"/g, "");
+        ResponseHSV[1] = JSON.stringify(response.data.hsv.s).replace(/"/g, "");
+        ResponseHSV[2] = JSON.stringify(response.data.hsv.v).replace(/"/g, "");
+        ResponseHSV[3] = JSON.stringify(response.data.hsv.value).replace(/"/g, "");
 
         const ResponseCMYK = [];
-        ResponseCMYK[0] = JSON.stringify(await response.data.cmyk.c).replace(/"/g, "");
-        ResponseCMYK[1] = JSON.stringify(await response.data.cmyk.m).replace(/"/g, "");
-        ResponseCMYK[2] = JSON.stringify(await response.data.cmyk.y).replace(/"/g, "");
-        ResponseCMYK[3] = JSON.stringify(await response.data.cmyk.k).replace(/"/g, "");
-        ResponseCMYK[4] = JSON.stringify(await response.data.cmyk.value).replace(/"/g, "");
+        ResponseCMYK[0] = JSON.stringify(response.data.cmyk.c).replace(/"/g, "");
+        ResponseCMYK[1] = JSON.stringify(response.data.cmyk.m).replace(/"/g, "");
+        ResponseCMYK[2] = JSON.stringify(response.data.cmyk.y).replace(/"/g, "");
+        ResponseCMYK[3] = JSON.stringify(response.data.cmyk.k).replace(/"/g, "");
+        ResponseCMYK[4] = JSON.stringify(response.data.cmyk.value).replace(/"/g, "");
 
-        let ColorImage = new Jimp(400, 400, ResponseHEXColor, async (err, image) =>
+        let ColorImage = new Jimp(400, 400, ResponseHEXColor, (err, image) =>
         {
             if(err)
             {
@@ -62,7 +62,7 @@ module.exports.run = async (bot, message, szArgs) =>
             }
         });
 
-        ColorImage.quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        ColorImage.quality(100).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
         {
             if(err)
             {
@@ -96,20 +96,20 @@ module.exports.run = async (bot, message, szArgs) =>
             .drawText(0, 48, `Yellow: ${ResponseCMYK[2]} %`, "SouthEast")
             .drawText(0, 24, `Black: ${ResponseCMYK[3]} %`, "SouthEast")
             .drawText(0, 0, ResponseCMYK[4], "SouthEast")
-            .toBuffer(szFileNameColor, async (err, buffer2) =>
+            .toBuffer(szFileNameColor, (err, buffer2) =>
             {
                 if(err)
                 {
                     console.log("\x1b[31m*\x1b[0m Whoops! Error creating \x1b[33m(Hex Color)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                await message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                message.channel.send(new Discord.Attachment(buffer2, szFileNameColor)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             });
         });
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, for some reason I have encountered an error!  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, for some reason I have encountered an error!  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

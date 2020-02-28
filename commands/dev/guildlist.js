@@ -2,17 +2,17 @@ const fs = require("fs");
 
 const szFilePathJSON = "./devonly/list.json";
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     if(message.author.id !== "266677298051153920")
     {
-        return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
+        return message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
     }
 
     let GuildList = bot.guilds;
     let ArrayGuild = [];
 
-    GuildList.forEach(async (guild) =>
+    GuildList.forEach((guild) =>
     {
         ArrayGuild.push(
         {
@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, szArgs) =>
         });
     });
 
-    await message.channel.send(":recycle: ⇒ Your wish is my command my Lord :ok_hand:! Check your nerdy dev stuff. :wink:");
+    message.channel.send(":recycle: ⇒ Your wish is my command my Lord :ok_hand:! Check your nerdy dev stuff. :wink:");
 };
 
 module.exports.help =

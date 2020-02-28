@@ -6,33 +6,33 @@ const BotConfig = require("../../config/botconfig.json");
 const MixerClient = new Mixer.Client(new Mixer.DefaultRequestRunner());
 MixerClient.use(new Mixer.OAuthProvider(MixerClient, { clientId: BotConfig.Mixer_ClientID.trim() }));
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Mixer.com streamer username!  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Mixer.com streamer username!  :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     const MixerUserArgument = szArgs[0].trim();
 
-    await MixerClient.request("GET", "channels/" + MixerUserArgument).then(async (response) =>
+    MixerClient.request("GET", "channels/" + MixerUserArgument).then((response) =>
     {
-        if(await response.body.online)
+        if(response.body.online)
         {
-            const szUserStreamName = await response.body.user.username.toString();
-            const szUserStreamAvatarURL = await response.body.user.avatarUrl.toString();
-            const szUserStreamGamePlayed = await response.body.type.name.toString();
-            const szUserStreamTitle = await response.body.name.toString();
-            const szUserStreamLanguage = await response.body.languageId.toString().toUpperCase();
-            const szUserStreamBannerURL = await response.body.thumbnail.url.toString();
+            const szUserStreamName = response.body.user.username.toString();
+            const szUserStreamAvatarURL = response.body.user.avatarUrl.toString();
+            const szUserStreamGamePlayed = response.body.type.name.toString();
+            const szUserStreamTitle = response.body.name.toString();
+            const szUserStreamLanguage = response.body.languageId.toString().toUpperCase();
+            const szUserStreamBannerURL = response.body.thumbnail.url.toString();
 
-            const iCurrentUserViewers = parseInt(await response.body.viewersCurrent);
-            const iUserMixerLevel = parseInt(await response.body.user.level);
-            const iUserTotalSparks = parseInt(await response.body.user.sparks);
+            const iCurrentUserViewers = parseInt(response.body.viewersCurrent);
+            const iUserMixerLevel = parseInt(response.body.user.level);
+            const iUserTotalSparks = parseInt(response.body.user.sparks);
 
             const szMixerProfileURL = "https://mixer.com/" + szUserStreamName;
 
@@ -57,12 +57,12 @@ module.exports.run = async (bot, message, szArgs) =>
             .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
 
         else
         {
-            return await message.reply(" I could not find ``" + MixerUserArgument + "`` on Mixer.com, or the user is offline.  :head_bandage:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.reply(" I could not find ``" + MixerUserArgument + "`` on Mixer.com, or the user is offline.  :head_bandage:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
     });
 };

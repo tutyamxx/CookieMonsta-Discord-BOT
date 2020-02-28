@@ -1,13 +1,13 @@
 const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to add some text.  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! You need to add some text.  :no_entry:");
     }
 
     let ArgumentText = szArgs.join(" ");
@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setImage(encodeURI(GenerateRoboHash))
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

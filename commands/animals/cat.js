@@ -10,15 +10,15 @@ const CatHeader =
     }
 };
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://api.thecatapi.com/v1/images/search", CatHeader).then(async (response) =>
+    axios.get("https://api.thecatapi.com/v1/images/search", CatHeader).then((response) =>
     {
-        const CatImageURL = await response.data[0].url;
+        const CatImageURL = response.data[0].url;
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Cat", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -26,15 +26,15 @@ module.exports.run = async (bot, message, args) =>
         .setImage(CatImageURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
+        message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🐱");
 
-        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, the purr factory isn't generating kittens at the moment :crying_cat_face:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, the purr factory isn't generating kittens at the moment :crying_cat_face:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

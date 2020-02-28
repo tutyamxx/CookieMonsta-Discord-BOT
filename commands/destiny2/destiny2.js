@@ -8,34 +8,34 @@ const Destiny2RequestOptions =
     headers: { "X-API-Key": BotConfig.Destiny2_API_Token.trim(), open_timeout: 5000 }
 };
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Destiny2 player name?  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Destiny2 player name?  :no_entry:");
     }
 
     const user = message.author;
     const szDestiny2PlayerName = szArgs[0].trim();
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/" + encodeURIComponent(szDestiny2PlayerName) + "/", Destiny2RequestOptions).then(async (response) =>
+    axios.get("https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/" + encodeURIComponent(szDestiny2PlayerName) + "/", Destiny2RequestOptions).then((response) =>
     {
         if(response.status === 200)
         {
-            let PlayerObject = await response.data.Response[0];
+            let PlayerObject = response.data.Response[0];
 
             if(PlayerObject === undefined)
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
-            await axios.get("https://www.bungie.net/Platform/Destiny2/" + parseInt(PlayerObject.membershipType) + "/Account/" + PlayerObject.membershipId + "/Stats/?groups=General,Medals", Destiny2RequestOptions).then(async (response_player) =>
+            axios.get("https://www.bungie.net/Platform/Destiny2/" + parseInt(PlayerObject.membershipType) + "/Account/" + PlayerObject.membershipId + "/Stats/?groups=General,Medals", Destiny2RequestOptions).then((response_player) =>
             {
                 if(response_player.status === 200)
                 {
-                    const PlayerResultsObject = await response_player.data.Response.mergedAllCharacters.merged.allTime;
+                    const PlayerResultsObject = response_player.data.Response.mergedAllCharacters.merged.allTime;
                     const szUnknownAPI = "Not Available";
 
                     const PlayerName = PlayerObject.displayName;
@@ -110,18 +110,18 @@ module.exports.run = async (bot, message, szArgs) =>
                     .setFooter("Stats from: BUNGIE.net • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
                     .setTimestamp()
 
-                    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                    message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
 
-            }).catch(async () =>
+            }).catch(() =>
             {
-                return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             })
         }
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

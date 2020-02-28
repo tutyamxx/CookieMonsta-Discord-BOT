@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
         EmoticonHotOrNot = ":sparkles:";
         ColorHotOrNot = 16724889;
 
-        await message.channel.send(":heart_eyes: ***" + user.username + "*** is  **100%** HOT! For that, he won **15** cookies :cookie: ! :heart_eyes:");
+        message.channel.send(":heart_eyes: ***" + user.username + "*** is  **100%** HOT! For that, he won **15** cookies :cookie: ! :heart_eyes:");
         await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 15);
     }
 
@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) =>
     .setThumbnail("https://i.imgur.com/yLMzwps.png")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

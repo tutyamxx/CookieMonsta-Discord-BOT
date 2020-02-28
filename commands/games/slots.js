@@ -18,12 +18,12 @@ module.exports.run = async (bot, message, args) =>
 
     if(iUserCookies < 10)
     {
-        return await message.reply(":no_entry: you need **10** cookies :cookie: to play with **Rolling Slots** machine! :no_entry:");
+        return message.reply(":no_entry: you need **10** cookies :cookie: to play with **Rolling Slots** machine! :no_entry:");
     }
 
     if(UserAlreadySlotting[user.id] === true)
     {
-        return await message.reply(":no_entry: you are already using the **Rolling Slots** machine! :no_entry:");
+        return message.reply(":no_entry: you are already using the **Rolling Slots** machine! :no_entry:");
     }
 
     let SlotNumbers = new Array(3);                 // 0 - 1 - 2
@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>
                                                     // 6 - 7 - 8
     }
 
-    const szSlotsMessage = await message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
+    const szSlotsMessage = message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
     let szSlotsMessageEdit = ":slot_machine:  **Rolling Slots!** :slot_machine:\n\n";
 
     let i = 0;
@@ -272,7 +272,7 @@ module.exports.run = async (bot, message, args) =>
             }
         }
 
-        await szSlotsMessage.edit(szSlotsMessageEdit);
+        szSlotsMessage.edit(szSlotsMessageEdit);
 
     }, 1000);
 };

@@ -6,16 +6,16 @@ const RandomLaughEmoji =
     ":laughing:", ":rofl:", ":call_me:", ":joy:", ":scream:", ":clap:", ":ok_hand:", ":rofl:", ":thumbsup:", ":upside_down:"
 ];
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://api.icndb.com/jokes/random").then(async (response) =>
+    axios.get("https://api.icndb.com/jokes/random").then((response) =>
     {
         // --| Remove "" from start and end of string and also replace &quot; with ""
-        const RandomJokeToString = JSON.stringify(await response.data.value.joke).replace(/"/g, "").replace(/&quot;/g, '\\"');
+        const RandomJokeToString = JSON.stringify(response.data.value.joke).replace(/"/g, "").replace(/&quot;/g, '\\"');
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -24,11 +24,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/Fx73HXI.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, but Chuck Norris reported some kind of problems, try again later. :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, but Chuck Norris reported some kind of problems, try again later. :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

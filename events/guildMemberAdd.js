@@ -33,7 +33,7 @@ const szRandomGreetBanners =
     ["/BOTImages/Banner/09.png", "#ffffff"], ["/BOTImages/Banner/10.png", "#ff0000"]
 ];
 
-module.exports = async (bot, member, guild) =>
+module.exports = (bot, member, guild) =>
 {
     if(member)
     {
@@ -68,37 +68,37 @@ module.exports = async (bot, member, guild) =>
             szRandomBannerFont = szRandomGreetBanners[iRandomIndex[2]][1];
         }
 
-        await Jimp.read(__basedir + szRandomBanner).then(async (image) =>
+        Jimp.read(__basedir + szRandomBanner).then((image) =>
         {
-            await Jimp.read(GetUserAvatar).then(async (image2) =>
+            Jimp.read(GetUserAvatar).then((image2) =>
             {
-                await image2.resize(184, Jimp.AUTO);
-                await image.composite(image2, 59, 59).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+                image2.resize(184, Jimp.AUTO);
+                image.composite(image2, 59, 59).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
                 {
                     if(err)
                     {
                         return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
                     }
 
-                    await gm(buffer)
+                    gm(buffer)
                     .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 32) ? 28 : 40 )
                     .fill(szRandomBannerFont)
                     .draw(["text 264, 130 '" + member.user.tag + "'"])
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szRandomBannerFont)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])
-                    .toBuffer("banner.png", async function (err, buffer2)
+                    .toBuffer("banner.png", function (err, buffer2)
                     {
                         if(err)
                         {
                             return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        let cChannel = await DefChannel.getDefaultChannel(member.guild);
+                        let cChannel = DefChannel.getDefaultChannel(member.guild);
 
                         if(cChannel && cChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES'))
                         {
-                            await cChannel.send(new Discord.Attachment(buffer2, "welcome.png"));
+                            cChannel.send(new Discord.Attachment(buffer2, "welcome.png"));
                         }
                     });
                 });

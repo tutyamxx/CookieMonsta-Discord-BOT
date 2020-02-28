@@ -4,18 +4,18 @@ const BotConfig = require("../../config/botconfig.json");
 
 const szAPIKey = BotConfig.NASA_API_Key.trim();
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
     const szRandomEarthEmoji = [":earth_africa:", ":earth_americas:", ":earth_asia:"];
     const szRandomEarthObjects = [":comet:", ":eight_pointed_black_star:", ":black_circle:", ":sparkler:", ":space_invader:"];
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey).then(async (response) =>
+    axios.get("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey).then((response) =>
     {
-        const iCountObjects = JSON.stringify(await response.data.element_count).replace(/"/g, "");
+        const iCountObjects = JSON.stringify(response.data.element_count).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | NASA Near Earth Object", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -25,11 +25,11 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

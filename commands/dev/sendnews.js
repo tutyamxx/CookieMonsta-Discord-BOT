@@ -7,18 +7,18 @@ const RandomEmojiNews =
     ":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
 ];
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(user.id !== "266677298051153920")
     {
-        return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
+        return message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
     }
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: you need to enter a message in order to send it! :no_entry:");
+        return message.reply(" :no_entry: you need to enter a message in order to send it! :no_entry:");
     }
 
     let NewsTextFromDev = szArgs.join(" ");
@@ -26,9 +26,9 @@ module.exports.run = async (bot, message, szArgs) =>
 
     try
     {
-        guildList.forEach(async (guild) =>
+        guildList.forEach((guild) =>
         {
-            let cChannel = await GetChannelDefault.getDefaultChannel(guild);
+            let cChannel = GetChannelDefault.getDefaultChannel(guild);
 
             if(cChannel && cChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
             {
@@ -40,14 +40,14 @@ module.exports.run = async (bot, message, szArgs) =>
                 .setTimestamp()
                 .setFooter("This message has been sent to every guild!")
 
-                await cChannel.send({ embed: DiscordRichEmbed });
+                cChannel.send({ embed: DiscordRichEmbed });
             }
         });
     }
 
     catch(err)
     {
-        await message.channel.send("I have encountered an error while sending news: **" + err + "**");
+        message.channel.send("I have encountered an error while sending news: **" + err + "**");
         console.log("\x1b[31m*\x1b[0m Error occured while sending news: \x1b[31m" + err + "\x1b[0m");
     }
 };

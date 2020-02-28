@@ -8,10 +8,10 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Twitch.TV username!  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Twitch.TV username!  :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     const TwitchUserArgument = szArgs[0].trim();
     let GetUserLive = await TwitchPolling.PollTwitchAPI(TwitchUserArgument);
@@ -38,12 +38,12 @@ module.exports.run = async (bot, message, szArgs) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     }
 
     else
     {
-        return await message.reply(" I could not find ``" + TwitchUserArgument + "`` on Twitch.TV, or the user is offline.  :head_bandage:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.reply(" I could not find ``" + TwitchUserArgument + "`` on Twitch.TV, or the user is offline.  :head_bandage:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     }
 };
 

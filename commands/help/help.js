@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
     .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL :  bot.user.avatarURL)
     .setTimestamp()
 
-    await message.author.send({ embed: DiscordRichEmbed });
+    message.author.send({ embed: DiscordRichEmbed });
 
     await message.react("🍪");
     await message.react(":cookiemonsta:634866060465537034");

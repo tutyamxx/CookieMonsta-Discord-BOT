@@ -3,7 +3,7 @@ const Jimp = require("jimp");
 const gm = require("gm").subClass({ imageMagick: true });
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
@@ -11,48 +11,48 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(SearchQuery))
     {
-        return await message.reply(" :no_entry: you need to add some text m8. :no_entry:");
+        return message.reply(" :no_entry: you need to add some text m8. :no_entry:");
     }
 
     if(SearchQuery.length > 27)
     {
-        return await message.reply(" :no_entry: please don't exceed **27** characters in your text! :no_entry:");
+        return message.reply(" :no_entry: please don't exceed **27** characters in your text! :no_entry:");
     }
 
     if(message.mentions.members.first())
     {
-        return await message.reply(" :no_entry: please don't mention people in your text! :no_entry:");
+        return message.reply(" :no_entry: please don't mention people in your text! :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
 
-    let i1 = await Jimp.read(GetUserAvatar);
-    let i2 = await Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
+    let i1 = Jimp.read(GetUserAvatar);
+    let i2 = Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
 
-    await Promise.all([i1, i2]).then(async (images) =>
+    Promise.all([i1, i2]).then((images) =>
     {
-        await images[0].resize(40, 40).rotate(9);
-        await images[1].composite(images[0], 175, 43).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        images[0].resize(40, 40).rotate(9);
+        images[1].composite(images[0], 175, 43).quality(100).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
         {
             if(err)
             {
                 console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Change My Mind)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            await gm(buffer)
+            gm(buffer)
             .font("Helvetica.ttf", 14)
             .fill("#111111")
             .draw(["rotate -7 text 195, 290 '" + SearchQuery.replace(/'/g, "`").trim() + "'"])
-            .toBuffer("changemymind.png", async (err, buffer2) =>
+            .toBuffer("changemymind.png", (err, buffer2) =>
             {
                 if(err)
                 {
                     console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Change My Mind)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                await message.channel.send(new Discord.Attachment(buffer2, "changemymind.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                message.channel.send(new Discord.Attachment(buffer2, "changemymind.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             });
         });
     });

@@ -3,25 +3,25 @@ const axios = require("axios");
 const CustomFunctions = require("../../functions/funcs.js");
 const BotConfig = require("../../config/botconfig.json");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify something to search for on FileList!  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify something to search for on FileList!  :no_entry:");
     }
 
     const user = message.author;
     const ArgumentText = szArgs.join(" ");
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://filelist.ro/api.php?username=" + BotConfig.Filelist_Username.trim() + "&passkey=" + BotConfig.Filelist_Key.trim() + "&action=search-torrents&type=name&query=" + encodeURI(ArgumentText)).then(async (response) =>
+    axios.get("https://filelist.ro/api.php?username=" + BotConfig.Filelist_Username.trim() + "&passkey=" + BotConfig.Filelist_Key.trim() + "&action=search-torrents&type=name&query=" + encodeURI(ArgumentText)).then((response) =>
     {
-        const SearchLatestTorrent = await response.data[0];
+        const SearchLatestTorrent = response.data[0];
 
         if(SearchLatestTorrent === undefined || SearchLatestTorrent.length <= 0)
         {
-            return await message.channel.send(":no_entry: Sorry, I couldn't find any torrent on FileList with that name... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            return message.channel.send(":no_entry: Sorry, I couldn't find any torrent on FileList with that name... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
 
         const GetTorrentName = SearchLatestTorrent.name;
@@ -55,11 +55,11 @@ module.exports.run = async (bot, message, szArgs) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, something went wrong this time :sad: ... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, something went wrong this time :sad: ... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

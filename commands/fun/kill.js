@@ -35,7 +35,7 @@ const RandomKillTypes =
     "WITH NO BLOOD DROPPED"
 ];
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -43,12 +43,12 @@ module.exports.run = async (bot, message, args) =>
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
+        return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
     if(GuildMember.user === user)
     {
-        return await message.reply(" why would you kill yourself? There are plenty of people here available to kill... :face_palm:");
+        return message.reply(" why would you kill yourself? There are plenty of people here available to kill... :face_palm:");
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) =>
     .setImage(RandomKillGifs[Math.floor(Math.random() * RandomKillGifs.length)])
     .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

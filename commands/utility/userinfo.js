@@ -2,14 +2,14 @@ const Discord = require("discord.js");
 const moment = require("moment");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
     const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :facepalm:  :no_entry:");
+        return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :facepalm:  :no_entry:");
     }
 
     const GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
@@ -44,7 +44,7 @@ module.exports.run = async (bot, message, args) =>
     .setThumbnail(GetTargetAvatar)
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

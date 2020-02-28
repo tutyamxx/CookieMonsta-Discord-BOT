@@ -1,13 +1,13 @@
 const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Make sure you add some text to convert.  :no_entry:");
+        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Make sure you add some text to convert.  :no_entry:");
     }
 
     let ArgumentText = szArgs.join(" ");
@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, szArgs) =>
     .setThumbnail("https://i.imgur.com/W5oKCle.jpg")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.delete().then(async () => await message.channel.send({ embed: DiscordRichEmbed }));
+    message.delete().then(() => message.channel.send({ embed: DiscordRichEmbed }));
 };
 
 module.exports.help =

@@ -6,16 +6,16 @@ const RandomMoonEmoji =
     ":first_quarter_moon:", ":full_moon:", ":last_quarter_moon:", ":new_moon:", ":waning_crescent_moon:", ":waning_gibbous_moon:", ":waxing_crescent_moon:", ":waxing_gibbous_moon:"
 ];
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
     const GenerateRandomEmoji = RandomMoonEmoji[Math.floor(Math.random() * RandomMoonEmoji.length)];
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("http://api.open-notify.org/astros.json").then(async (response) =>
+    axios.get("http://api.open-notify.org/astros.json").then((response) =>
     {
-        let PeopleInSpace = JSON.stringify(await response.data.number).replace(/"/g, "");
+        let PeopleInSpace = JSON.stringify(response.data.number).replace(/"/g, "");
 
         let szPeopleNames = "";
         let szDescription = "";
@@ -52,11 +52,11 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/hj6ouTF.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, but something went wrong! Try again later... :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

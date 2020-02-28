@@ -1,46 +1,46 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     let EthereumPrice = [];
     let EthereumPricePaprika = [];
     let EthereumCoinGecko = [];
 
-    await axios.all(
+    axios.all(
     [
         axios.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,JPY,EUR,GBP"),
         axios.get("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=gbp,eur,usd,jpy"),
         axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=gbp,usd,eur,jpy")
 
-    ]).then(await axios.spread(async (ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
+    ]).then(axios.spread((ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
         if(ResponseCryptocompare)
         {
-            EthereumPrice[0] = await ResponseCryptocompare.data.EUR;
-            EthereumPrice[1] = await ResponseCryptocompare.data.GBP;
-            EthereumPrice[2] = await ResponseCryptocompare.data.USD;
-            EthereumPrice[3] = await ResponseCryptocompare.data.JPY;
+            EthereumPrice[0] = ResponseCryptocompare.data.EUR;
+            EthereumPrice[1] = ResponseCryptocompare.data.GBP;
+            EthereumPrice[2] = ResponseCryptocompare.data.USD;
+            EthereumPrice[3] = ResponseCryptocompare.data.JPY;
         }
 
         if(ResponseCoinpaprika)
         {
-            EthereumPricePaprika[0] = await ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
-            EthereumPricePaprika[1] = await ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
-            EthereumPricePaprika[2] = await ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
-            EthereumPricePaprika[3] = await ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
+            EthereumPricePaprika[0] = ResponseCoinpaprika.data.quotes.EUR.price.toFixed(2);
+            EthereumPricePaprika[1] = ResponseCoinpaprika.data.quotes.GBP.price.toFixed(2);
+            EthereumPricePaprika[2] = ResponseCoinpaprika.data.quotes.USD.price.toFixed(2);
+            EthereumPricePaprika[3] = ResponseCoinpaprika.data.quotes.JPY.price.toFixed(2);
         }
 
         if(ResponseCoingecko)
         {
-            EthereumCoinGecko[0] = await ResponseCoingecko.data.ethereum.eur;
-            EthereumCoinGecko[1] = await ResponseCoingecko.data.ethereum.gbp;
-            EthereumCoinGecko[2] = await ResponseCoingecko.data.ethereum.usd;
-            EthereumCoinGecko[3] = await ResponseCoingecko.data.ethereum.jpy;
+            EthereumCoinGecko[0] = ResponseCoingecko.data.ethereum.eur;
+            EthereumCoinGecko[1] = ResponseCoingecko.data.ethereum.gbp;
+            EthereumCoinGecko[2] = ResponseCoingecko.data.ethereum.usd;
+            EthereumCoinGecko[3] = ResponseCoingecko.data.ethereum.jpy;
         }
 
     })).catch((errorCryptocompare, errorCoinpaprika, errorCoingecko) =>
@@ -80,7 +80,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 };
 
 module.exports.help =

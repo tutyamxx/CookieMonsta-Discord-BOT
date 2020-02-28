@@ -1,16 +1,16 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://some-random-api.ml/meme").then(async (response) =>
+    axios.get("https://some-random-api.ml/meme").then((response) =>
     {
-        const szRandomMemeImage = JSON.stringify(await response.data.image).replace(/"/g, "");
-        const szRandomMemeCaption = JSON.stringify(await response.data.caption).replace(/"/g, "");
+        const szRandomMemeImage = JSON.stringify(response.data.image).replace(/"/g, "");
+        const szRandomMemeCaption = JSON.stringify(response.data.caption).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Random Meme", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -20,11 +20,11 @@ module.exports.run = async (bot, message, args) =>
         .setDescription(szRandomMemeCaption)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Aww snap, something went wrong lebrowsky! Try again? :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Aww snap, something went wrong lebrowsky! Try again? :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -8,17 +8,17 @@ module.exports.run = async (bot, message, args) =>
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
+        return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
     if(GuildMember.user === user)
     {
-        return await message.reply(`why would you smack yourself? There are plenty of people here available to smack... :face_palm:`);
+        return message.reply(`why would you smack yourself? There are plenty of people here available to smack... :face_palm:`);
     }
 
     if(GuildMember.user.bot)
     {
-        return await message.reply(" :no_entry: come on bruh, why BOT's? We are lonely machines... :robot:  :no_entry:");
+        return message.reply(" :no_entry: come on bruh, why BOT's? We are lonely machines... :robot:  :no_entry:");
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) =>
     .setImage("https://i.imgur.com/wy3HT5E.jpg")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 }
 
 module.exports.help =

@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -9,35 +9,35 @@ module.exports.run = async (bot, message, args) =>
     let BitCoinChartsArray = [];
     let BitCoinChainArray = [];
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.all(
+    axios.all(
     [
         axios.get("http://api.bitcoincharts.com/v1/weighted_prices.json"),
         axios.get("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT"),
         axios.get("https://blockchain.info/ticker")
 
-    ]).then(await axios.spread(async (ResponseBitcoincharts, ResponseBinance, ResponseBlockchain) =>
+    ]).then(axios.spread((ResponseBitcoincharts, ResponseBinance, ResponseBlockchain) =>
     {
         if(ResponseBitcoincharts)
         {
-            BitCoinChartsArray[0] = JSON.stringify(await ResponseBitcoincharts.data.USD["24h"]).replace(/"/g, "");
-            BitCoinChartsArray[1] = JSON.stringify(await ResponseBitcoincharts.data.GBP["24h"]).replace(/"/g, "");
-            BitCoinChartsArray[2] = JSON.stringify(await ResponseBitcoincharts.data.EUR["24h"]).replace(/"/g, "");
-            BitCoinChartsArray[3] = JSON.stringify(await ResponseBitcoincharts.data.JPY["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[0] = JSON.stringify(ResponseBitcoincharts.data.USD["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[1] = JSON.stringify(ResponseBitcoincharts.data.GBP["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[2] = JSON.stringify(ResponseBitcoincharts.data.EUR["24h"]).replace(/"/g, "");
+            BitCoinChartsArray[3] = JSON.stringify(ResponseBitcoincharts.data.JPY["24h"]).replace(/"/g, "");
         }
 
         if(ResponseBinance)
         {
-            BitcoinBTCUSDT = parseFloat(await ResponseBinance.data.price);
+            BitcoinBTCUSDT = parseFloat(ResponseBinance.data.price);
         }
 
         if(ResponseBlockchain)
         {
-            BitCoinChainArray[0] = JSON.stringify(await ResponseBlockchain.data.USD["15m"]).replace(/"/g, "");
-            BitCoinChainArray[1] = JSON.stringify(await ResponseBlockchain.data.GBP["15m"]).replace(/"/g, "");
-            BitCoinChainArray[2] = JSON.stringify(await ResponseBlockchain.data.EUR["15m"]).replace(/"/g, "");
-            BitCoinChainArray[3] = JSON.stringify(await ResponseBlockchain.data.JPY["15m"]).replace(/"/g, "");
+            BitCoinChainArray[0] = JSON.stringify(ResponseBlockchain.data.USD["15m"]).replace(/"/g, "");
+            BitCoinChainArray[1] = JSON.stringify(ResponseBlockchain.data.GBP["15m"]).replace(/"/g, "");
+            BitCoinChainArray[2] = JSON.stringify(ResponseBlockchain.data.EUR["15m"]).replace(/"/g, "");
+            BitCoinChainArray[3] = JSON.stringify(ResponseBlockchain.data.JPY["15m"]).replace(/"/g, "");
         }
 
     })).catch((errorBitcoincharts, errorBinance, errorBlockchain) =>
@@ -75,7 +75,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+    message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 };
 
 module.exports.help =

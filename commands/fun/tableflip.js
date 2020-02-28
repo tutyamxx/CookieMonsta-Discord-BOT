@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
     .setImage("https://i.kinja-img.com/gawker-media/image/upload/s--iQjAucgS--/c_scale,f_auto,fl_progressive,q_80,w_800/hojkokfijt0ujov9lobq.gif")
     .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-    await message.channel.send({ embed: DiscordRichEmbed })
+    message.channel.send({ embed: DiscordRichEmbed })
 };
 
 module.exports.help =

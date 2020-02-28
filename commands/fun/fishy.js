@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(iUserCookies < 20)
     {
-        return await message.reply(":no_entry: you need **20** cookies :cookie: to go fishing! :no_entry:");
+        return message.reply(":no_entry: you need **20** cookies :cookie: to go fishing! :no_entry:");
     }
 
     const RandomFishList =
@@ -35,19 +35,19 @@ module.exports.run = async (bot, message, args) =>
     {
         await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + iRandomFishPrize);
 
-        return await message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **" + iRandomFishPrize + "** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
+        return message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **" + iRandomFishPrize + "** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
     }
 
     if(iRandomFish === ":whale2:")
     {
         await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 200);
 
-        return await message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **200** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
+        return message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " worth of **200** cookies :cookie: !\n:fishing_pole_and_fish: | You paid **20** cookies :cookie: for casting.");
     }
 
     else
     {
-        return await message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " ! You paid **20** cookies :cookie: for casting.");
+        return message.channel.send(":fishing_pole_and_fish: | **" + user.username + "**, you caught a: " + iRandomFish + " ! You paid **20** cookies :cookie: for casting.");
     }
 };
 

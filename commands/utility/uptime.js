@@ -3,7 +3,7 @@ const os = require("os");
 
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | BOT Uptime", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("⏰")
     .setTimestamp()
 
-    await message.channel.send({ embed: DiscordRichEmbed });
+    message.channel.send({ embed: DiscordRichEmbed });
 };
 
 module.exports.help =

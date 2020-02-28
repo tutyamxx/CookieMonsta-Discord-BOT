@@ -1,15 +1,15 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("https://api.github.com/zen").then(async (response) =>
+    axios.get("https://api.github.com/zen").then((response) =>
     {
-        const ZenWords = await response.data.replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "").replace(/\\/g, '"');
+        const ZenWords = response.data.replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "").replace(/\\/g, '"');
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | GitHub Zen", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -18,15 +18,15 @@ module.exports.run = async (bot, message, args) =>
         .setDescription(":tanabata_tree: " + ZenWords)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
+        message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {
             await message.react("🎋");
 
-        }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Something went wrong! Be patient, try again later! :sob:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Something went wrong! Be patient, try again later! :sob:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

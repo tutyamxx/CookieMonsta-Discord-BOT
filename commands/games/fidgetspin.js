@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(UserAlreadySpinningFidget[user.id] === true)
     {
-        return await message.reply(":no_entry: you are already spinning a **Fidget Spinner**! Wait until it stops :alarm_clock: !  :no_entry:");
+        return message.reply(":no_entry: you are already spinning a **Fidget Spinner**! Wait until it stops :alarm_clock: !  :no_entry:");
     }
 
     await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    let SpinningMessage = await message.channel.send({ embed: DiscordRichEmbed });
+    let SpinningMessage = message.channel.send({ embed: DiscordRichEmbed });
     let iSpinTimeout = (Math.random() * (60 - 5 + 1)) + 5;
 
     UserAlreadySpinningFidget[user.id] = true;
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            await SpinningMessage.edit({ embed: DiscordRichEmbed1 });
+            SpinningMessage.edit({ embed: DiscordRichEmbed1 });
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 400);
         }
 
@@ -59,11 +59,11 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            await SpinningMessage.edit({ embed: DiscordRichEmbed2 });
+            SpinningMessage.edit({ embed: DiscordRichEmbed2 });
         }
 
         UserAlreadySpinningFidget[user.id] = false;
-        await bot.clearInterval(iSpinnerTimer[user.id]);
+        bot.clearInterval(iSpinnerTimer[user.id]);
 
     }, iSpinTimeout * 1000);
 };

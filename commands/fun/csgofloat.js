@@ -16,52 +16,52 @@ const csgofloat =
     SKIN_IMAGE_URL: 9
 };
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return await message.reply(" :no_entry: Please enter the skin Inspect URL :gun: :no_entry:");
+        return message.reply(" :no_entry: Please enter the skin Inspect URL :gun: :no_entry:");
     }
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
     let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ").trim();
 
-    await axios.get(InspectSkinFormatURL).then(async (response) =>
+    axios.get(InspectSkinFormatURL).then((response) =>
     {
         let szCSGOFloatArray = [];
 
         // --| Exterior wear of the skin in its float representation
-        szCSGOFloatArray[csgofloat.SKIN_FLOAT_VALUE] = JSON.stringify(await response.data.iteminfo.floatvalue).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_FLOAT_VALUE] = JSON.stringify(response.data.iteminfo.floatvalue).replace(/"/g, "");
 
         // --| Paint ID of the weapon (skin)
-        szCSGOFloatArray[csgofloat.SKIN_PAINT_INDEX] = JSON.stringify(await response.data.iteminfo.paintindex).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_PAINT_INDEX] = JSON.stringify(response.data.iteminfo.paintindex).replace(/"/g, "");
 
         // --| Seed for the RNG that defines how to place the skin texture
-        szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(await response.data.iteminfo.paintseed).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED] = JSON.stringify(response.data.iteminfo.paintseed).replace(/"/g, "");
 
         // --| ID of the item
-        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = (response.data.iteminfo.hasOwnProperty("itemid") ? JSON.stringify(parseInt(await response.data.iteminfo.itemid)) : "Unknown ID");
+        szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] = (response.data.iteminfo.hasOwnProperty("itemid") ? JSON.stringify(parseInt(response.data.iteminfo.itemid)) : "Unknown ID");
 
         // --| Optional: Name of the skin
-        szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(await response.data.iteminfo.item_name).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_NAME] = JSON.stringify(response.data.iteminfo.item_name).replace(/"/g, "");
 
         // --| Wear name (Factory New, Minimal Wear, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_WEAR_NAME] = JSON.stringify(await response.data.iteminfo.wear_name).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_WEAR_NAME] = JSON.stringify(response.data.iteminfo.wear_name).replace(/"/g, "");
 
         // --| Weapon type name
-        szCSGOFloatArray[csgofloat.SKIN_WEAPON_NAME] = JSON.stringify(await response.data.iteminfo.weapon_type).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_WEAPON_NAME] = JSON.stringify(response.data.iteminfo.weapon_type).replace(/"/g, "");
 
         // --| Quality name (Souvenir, Stattrak, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_QUALITY] = JSON.stringify(await response.data.iteminfo.quality_name).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_QUALITY] = JSON.stringify(response.data.iteminfo.quality_name).replace(/"/g, "");
 
         // --| Origin name (Trade-Up, Dropped, etc...)
-        szCSGOFloatArray[csgofloat.SKIN_ORIGIN] = JSON.stringify(await response.data.iteminfo.origin_name).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_ORIGIN] = JSON.stringify(response.data.iteminfo.origin_name).replace(/"/g, "");
 
         // --| Skin image URL
-        szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL] = JSON.stringify(await response.data.iteminfo.imageurl).replace(/"/g, "");
+        szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL] = JSON.stringify(response.data.iteminfo.imageurl).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | CSGO Float", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -71,11 +71,11 @@ module.exports.run = async (bot, message, szArgs) =>
         .setThumbnail("https://i.imgur.com/BYlrgPn.jpg")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, but Valve's servers didn't reply in time or you have entered an invalid Inspect URL :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

@@ -7,7 +7,7 @@ let ShellGameID = {};
 let szShellGameDescription = {};
 let iGameEndTimer = {};
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) =>
     {
         if(bPlayingShell[user.id] === true)
         {
-            return await message.reply(":no_entry: you are already in a **Shell Game** session! :no_entry:")
+            return message.reply(":no_entry: you are already in a **Shell Game** session! :no_entry:")
         }
 
         ShellGameID[user.id] = user.id;
@@ -31,14 +31,14 @@ module.exports.run = async (bot, message, args) =>
 
         if(!user.bot)
         {
-            await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
+            message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
             {
                 await msg.react("\u0031\u20E3"); // 1
                 await msg.react("\u0032\u20E3"); // 2
                 await msg.react("\u0033\u20E3"); // 3
                 await msg.react("❎");			 // end
 
-                iGameEndTimer[user.id] = setInterval (async () =>
+                iGameEndTimer[user.id] = setInterval(async () =>
                 {
                     if(bPlayingShell[user.id] === false)
                     {
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) =>
                         await msg.clearReactions();
                         await msg.edit({ embed: DiscordRichEmbed1 });
 
-                        await bot.clearInterval(iGameEndTimer[user.id]);
+                        bot.clearInterval(iGameEndTimer[user.id]);
                     }
 
                 }, 1000);
@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, args) =>
 
     else
     {
-        return await message.reply(":no_entry: I can't start a **Shell Game** session because I don't have enough permissions! :no_entry:");
+        return message.reply(":no_entry: I can't start a **Shell Game** session because I don't have enough permissions! :no_entry:");
     }
 };
 

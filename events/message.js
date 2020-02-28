@@ -27,7 +27,7 @@ module.exports = async (bot, message) =>
 
     if(/(?:https:?:\/)?discord(?:app.com\/invite|.gg)/gi.test(message.content))
     {
-        return await message.delete();
+        return message.delete();
     }
 
     const GuildGetID = message.guild.id;
@@ -57,29 +57,29 @@ module.exports = async (bot, message) =>
                 let i1 = Jimp.read(GetUserAvatar);
                 let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
 
-                await Promise.all([i1, i2]).then(async (images) =>
+                Promise.all([i1, i2]).then((images) =>
                 {
-                    await images[0].resize(49, 49).quality(100);
-                    await images[1].composite(images[0], 20, 17).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+                    images[0].resize(49, 49).quality(100);
+                    images[1].composite(images[0], 20, 17).quality(100).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
                     {
                         if(err)
                         {
                             return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Level Up)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        await gm(buffer)
+                        gm(buffer)
                         .font("./BOTFonts/AgencyFB-Bold.ttf", 16)
                         .fill("#00FFFF")
                         .gravity("Center")
                         .draw(["text 0, 42 '" + iCurentLevel + "'"])
-                        .toBuffer("levelup.png", async (err, buffer2) =>
+                        .toBuffer("levelup.png", (err, buffer2) =>
                         {
                             if(err)
                             {
                                 return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Level Up)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                             }
 
-                            await message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
+                            message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
                         });
                     });
                 });
@@ -97,29 +97,29 @@ module.exports = async (bot, message) =>
                     .setThumbnail("https://i.imgur.com/hNALLLd.png")
                     .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
 
-                    await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
+                    message.channel.send({ embed: DiscordRichEmbed }).then((msg) =>
                     {
-                        iCheckIfOpenGift[user.id] = setInterval(async () =>
+                        iCheckIfOpenGift[user.id] = setInterval(() =>
                         {
                             if(bAlreadyOpeningGift[user.id] === true)
                             {
-                                await bot.clearInterval(iUserGiftTimer[user.id]);
-                                await bot.clearInterval(iCheckIfOpenGift[user.id]);
+                                bot.clearInterval(iUserGiftTimer[user.id]);
+                                bot.clearInterval(iCheckIfOpenGift[user.id]);
 
                                 bUserHasGift[user.id] = 0;
 
-                                if(!await msg.deleted) { await msg.delete().catch(() => { }); }
+                                if(!msg.deleted) { msg.delete().catch(() => { }); }
                             }
 
                         }, 1000);
 
-                        iUserGiftTimer[user.id] = setInterval(async () =>
+                        iUserGiftTimer[user.id] = setInterval(() =>
                         {
-                            await bot.clearInterval(iUserGiftTimer[user.id]);
+                            bot.clearInterval(iUserGiftTimer[user.id]);
 
                             bUserHasGift[user.id] = 0;
 
-                            if(!await msg.deleted) { await msg.delete().catch(() => { }); }
+                            if(!msg.deleted) { msg.delete().catch(() => { }); }
 
                         }, 120000);
                     });
@@ -137,7 +137,7 @@ module.exports = async (bot, message) =>
     const szCommand = szArgs.shift();
 
     // --| Prefix + kitty
-    const KittyRegex = new RegExp("\\" + await szPrefix.trim().toString() + "\\kit+y$");
+    const KittyRegex = new RegExp("\\" + szPrefix.trim().toString() + "\\kit+y$");
 
     if(szCommand.match(KittyRegex))
     {
@@ -164,17 +164,17 @@ module.exports = async (bot, message) =>
 
         let szCatFileName = szCatCommand.substring(1) + ".png";
 
-        await szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/cathead.png")
+        szCatImage.in("-page", "+" + iPos + "+0").in("./BOTImages/CatXD/cathead.png")
         .background("transparent")
         .mosaic()
-        .toBuffer(szCatFileName, async (err, buffer) =>
+        .toBuffer(szCatFileName, (err, buffer) =>
         {
             if(err)
             {
                 return console.log("\x1b[31m*\x1b[0m Error creating user \x1b[33m(Kitty)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            await message.channel.send(user + " here is your :cat:", new Discord.Attachment(buffer, szCatFileName));
+            message.channel.send(user + " here is your :cat:", new Discord.Attachment(buffer, szCatFileName));
             iCountCommandsUsed++;
         });
     }
@@ -191,7 +191,7 @@ module.exports = async (bot, message) =>
         return;
     }
 
-    if(await iCmdCooldown.has(user.id, GuildGetID))
+    if(iCmdCooldown.has(user.id, GuildGetID))
     {
         const szWaitMessages =
         [
@@ -201,26 +201,26 @@ module.exports = async (bot, message) =>
             "Didn't read LOL! Stop spamming! <:Bruh:635506622478942219>"
         ];
 
-        return await message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then(async (msg) => { await msg.delete(3500) }));
+        return message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then((msg) => { msg.delete(3500) }));
     }
 
-    let szCmd = await bot.commands.get(szCommand.slice(szPrefix.length));
+    let szCmd = bot.commands.get(szCommand.slice(szPrefix.length));
 
     if(szCmd)
     {
-        await szCmd.run(bot, message, szArgs);
+        szCmd.run(bot, message, szArgs);
         iCountCommandsUsed++;
     }
 
     if(!message.member.hasPermission("ADMINISTRATOR"))
     {
-        await iCmdCooldown.add(user.id, GuildGetID);
+        iCmdCooldown.add(user.id, GuildGetID);
     }
 
-    iUserCooldown[user.id] = setInterval(async () =>
+    iUserCooldown[user.id] = setInterval(() =>
     {
-        await iCmdCooldown.delete(user.id, GuildGetID);
-        await bot.clearInterval(iUserCooldown[user.id]);
+        iCmdCooldown.delete(user.id, GuildGetID);
+        bot.clearInterval(iUserCooldown[user.id]);
 
     }, iCooldownTime * 1000);
 };

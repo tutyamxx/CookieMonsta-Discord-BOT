@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>
 {
     if(!message.member.hasPermission("ADMINISTRATOR"))
     {
-        return await message.channel.send(":no_entry: You can't mate! You need ``ADMINISTRATOR`` permission for this command. :laughing: :no_entry:");
+        return message.channel.send(":no_entry: You can't mate! You need ``ADMINISTRATOR`` permission for this command. :laughing: :no_entry:");
     }
 
     await message.delete().then(async () =>
@@ -18,9 +18,9 @@ module.exports.run = async (bot, message, args) =>
         const user = message.author;
         const ArrayFetchedMessages = await message.channel.fetchMessages({ before: message.id, limit: 100 });
 
-        await message.channel.bulkDelete(ArrayFetchedMessages).catch(async (error) =>
+        await message.channel.bulkDelete(ArrayFetchedMessages).catch((error) =>
         {
-            return await message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
+            return message.reply(`:no_entry_sign: ${error.message} :no_entry_sign:`);
         });
 
         const DiscordRichEmbed = new Discord.RichEmbed()
@@ -31,11 +31,11 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Char Purged by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) => await msg.delete(5000).catch(e => false)).catch(e => false);
+        message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) => await msg.delete(5000).catch(e => false)).catch(e => false);
 
-    }).catch(async (error) =>
+    }).catch((error) =>
     {
-        await message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
+        message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **CLEAR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
     });
 };
 

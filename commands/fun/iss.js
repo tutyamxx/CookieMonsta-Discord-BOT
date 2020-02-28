@@ -1,16 +1,16 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get("http://api.open-notify.org/iss-now.json").then(async (response) =>
+    axios.get("http://api.open-notify.org/iss-now.json").then((response) =>
     {
-        const iLocLatitude = JSON.stringify(await response.data.iss_position.latitude).replace(/"/g, "");
-        const iLocLongitude = JSON.stringify(await response.data.iss_position.longitude).replace(/"/g, "");
+        const iLocLatitude = JSON.stringify(response.data.iss_position.latitude).replace(/"/g, "");
+        const iLocLongitude = JSON.stringify(response.data.iss_position.longitude).replace(/"/g, "");
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | International Space Station Location", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
@@ -20,11 +20,11 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp();
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(async () =>
+    }).catch(() =>
     {
-        return await message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA ISS location... :no_entry:").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        return message.channel.send(":no_entry: Sorry, something went wrong while fetching NASA ISS location... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

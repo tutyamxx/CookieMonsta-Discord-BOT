@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const moment = require("moment");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
     const ServerGuild = message.guild;
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) =>
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp()
 
-        await message.channel.send({ embed: DiscordRichEmbed });
+        message.channel.send({ embed: DiscordRichEmbed });
     }
 };
 

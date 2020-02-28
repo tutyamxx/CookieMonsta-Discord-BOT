@@ -27,22 +27,22 @@ module.exports.run = async (bot, message, args) =>
 
     if(!GuildMember)
     {
-        return await message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
+        return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
     if(GuildMember.user === user)
     {
-        return await message.reply(`why would you fight with yourself? There are plenty of people here available to fight... :face_palm:`);
+        return message.reply(`why would you fight with yourself? There are plenty of people here available to fight... :face_palm:`);
     }
 
     if(UserAlreadyBattling[GuildMember.user.id] === true)
     {
-        return await message.reply(":no_entry: user " + GuildMember.user + " is already using **Death Battle** with someone else! :no_entry:");
+        return message.reply(":no_entry: user " + GuildMember.user + " is already using **Death Battle** with someone else! :no_entry:");
     }
 
     if(UserAlreadyBattling[user.id] === true)
     {
-        return await message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
+        return message.reply(":no_entry: you are already playing **Death Battle**! :no_entry:");
     }
 
     message.channel.startTyping();
@@ -50,23 +50,23 @@ module.exports.run = async (bot, message, args) =>
     let MemberAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
     let GuildMemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-    let i1 = await Jimp.read(__basedir + DeathBattleBanners[Math.floor(Math.random() * DeathBattleBanners.length)]);
-    let i2 = await Jimp.read(MemberAvatar);
-    let i3 = await Jimp.read(GuildMemberAvatar);
+    let i1 = Jimp.read(__basedir + DeathBattleBanners[Math.floor(Math.random() * DeathBattleBanners.length)]);
+    let i2 = Jimp.read(MemberAvatar);
+    let i3 = Jimp.read(GuildMemberAvatar);
 
-    await Promise.all([i1, i2, i3]).then(async (images) =>
+    Promise.all([i1, i2, i3]).then((images) =>
     {
-        await images[1].resize(306, Jimp.AUTO).quality(100);
-        await images[2].resize(306, Jimp.AUTO).quality(100);
+        images[1].resize(306, Jimp.AUTO).quality(100);
+        images[2].resize(306, Jimp.AUTO).quality(100);
 
-        await images[0].composite(images[1], 57, 135).composite(images[2], 688, 135).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        images[0].composite(images[1], 57, 135).composite(images[2], 688, 135).quality(100).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
         {
             if(err)
             {
-                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
-            await message.channel.send(new Discord.Attachment(buffer, "deathbattle.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+            message.channel.send(new Discord.Attachment(buffer, "deathbattle.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
     });
 
@@ -96,7 +96,7 @@ module.exports.run = async (bot, message, args) =>
     .setDescription(user + UserHealthColor[user.id] + "(" + Player1Health[user.id] + ")		:vs:		" + GuildMember.user + UserHealthColor[GuildMember.user.id] + "(" + Player2Health[GuildMember.user.id] + ")\n\n\n***The battle will begin in a moment...***")
     .setThumbnail("https://i.imgur.com/RACcRMv.jpg")
 
-    await message.channel.send({ embed: DiscordRichEmbed1 }).then(async (msg) =>
+    message.channel.send({ embed: DiscordRichEmbed1 }).then((msg) =>
     {
         let szBattleLog = {};
         let szThumbnail = {};
@@ -234,7 +234,7 @@ module.exports.run = async (bot, message, args) =>
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
 
-                await bot.clearInterval(iFightLogInterval[user.id]);
+                bot.clearInterval(iFightLogInterval[user.id]);
             }
 
             else if(Player1Health[user.id] <= 0)
@@ -259,7 +259,7 @@ module.exports.run = async (bot, message, args) =>
                 UserAlreadyBattling[user.id] = false;
                 UserAlreadyBattling[GuildMember.user.id] = false;
 
-                await bot.clearInterval(iFightLogInterval[user.id]);
+                bot.clearInterval(iFightLogInterval[user.id]);
             }
 
             const DiscordRichEmbed = new Discord.RichEmbed()
@@ -268,7 +268,7 @@ module.exports.run = async (bot, message, args) =>
             .setDescription(szBattleLog[user.id])
             .setThumbnail(szThumbnail[user.id])
 
-            await msg.edit({ embed: DiscordRichEmbed });
+            msg.edit({ embed: DiscordRichEmbed });
 
         }, 2000);
     });

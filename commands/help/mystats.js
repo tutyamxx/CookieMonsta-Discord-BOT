@@ -19,15 +19,15 @@ module.exports.run = async (bot, message, args) =>
     const GetUserBannerImage = await DatabaseImport.CookieMonsta_GetUserProfileBanner(GetGuildID, user.id);
     const GetBannerInfo = await DatabaseImport.CookieMonsta_GetBannerFromDatabase(GetUserBannerImage);
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    let i1 = await Jimp.read(GetUserAvatar);
-    let i2 = await Jimp.read("./BOTImages/UserStats/" + GetBannerInfo.png_file.toString());
+    let i1 = Jimp.read(GetUserAvatar);
+    let i2 = Jimp.read("./BOTImages/UserStats/" + GetBannerInfo.png_file.toString());
 
-    await Promise.all([i1, i2]).then(async (images) =>
+    Promise.all([i1, i2]).then((images) =>
     {
-        await images[0].resize(82, Jimp.AUTO);
-        await images[1].composite(images[0], 39, 14).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
+        images[0].resize(82, Jimp.AUTO);
+        images[1].composite(images[0], 39, 14).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
         {
             if(err)
             {
@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) =>
             const iCookiesAmount = "Cookies: " + await DatabaseImport.CookieMonsta_GetUserCookies(GetGuildID, user.id);
             const CookiesAmountFormatted = (iCookiesAmount.length > 21) ? iCookiesAmount.slice(0, iCookiesAmount.length - 3) + "..." : iCookiesAmount;
 
-            await gm(buffer)
+            gm(buffer)
             .fill("rgba(0, 0, 0, 0.5)")
             .drawRectangle(130, 10, 309, 40, 2, 2)
             .font("./BOTFonts/Agency-FB.ttf", (GetUserName.length >= 18) ? 14 : 29)
@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) =>
             .font("./BOTFonts/Agency-FB.ttf", /*(iCookiesAmount.length >= 20) ? 14 : 20*/ 20)
             .fill(GetBannerInfo.stats_color.toString())
             .draw(["text 182, 104 '" + CookiesAmountFormatted + "'"])
-            .toBuffer("stats.png", async (err, buffer2) =>
+            .toBuffer("stats.png", (err, buffer2) =>
             {
                 if(err)
                 {
@@ -65,12 +65,12 @@ module.exports.run = async (bot, message, args) =>
 
                 if(ChanceToShowTips === 5)
                 {
-                    await message.channel.send("<:cookiemonsta:634866060465537034> **|** Remember, you can change your profile card banner at any time using ``" + szPrefix + "setbanner`` command :thumbsup:\n<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                    message.channel.send("<:cookiemonsta:634866060465537034> **|** Remember, you can change your profile card banner at any time using ``" + szPrefix + "setbanner`` command :thumbsup:\n<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
 
                 else
                 {
-                    await message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+                    message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
             });
         });

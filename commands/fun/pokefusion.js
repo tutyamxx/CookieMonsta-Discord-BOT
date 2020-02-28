@@ -2,7 +2,7 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const Discord = require("discord.js");
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
 
@@ -11,11 +11,11 @@ module.exports.run = async (bot, message, args) =>
 
     const ActualRandomPokemons = (iRandomPokemon1 === iRandomPokemon2) ? iRandomPokemon1 = Math.floor((Math.random() * 151) + 1) : iRandomPokemon1;
 
-    await message.channel.startTyping();
+    message.channel.startTyping();
 
-    await axios.get(`https://pokemon.alexonsager.net/${ActualRandomPokemons}/${iRandomPokemon2}`).then(async (response) =>
+    axios.get(`https://pokemon.alexonsager.net/${ActualRandomPokemons}/${iRandomPokemon2}`).then((response) =>
     {
-        const $ = cheerio.load(await response.data);
+        const $ = cheerio.load(response.data);
 
         const FusedPokemonName = $("#pk_name").text().trim();
         const Pokemon1 = $("#select1 option:selected").text().trim();
@@ -30,7 +30,7 @@ module.exports.run = async (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/i6F9ntA.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        await message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
+        message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {

@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(UserAlreadyPlayingRusR[user.id] === true)
     {
-        return await message.reply(":no_entry: You are already playing, please wait until you die **LUL**! :no_entry:");
+        return message.reply(":no_entry: You are already playing, please wait until you die **LUL**! :no_entry:");
     }
 
     await DatabaseImport.CookieMonsta_CheckCreateUser(GetGuildID, user.id);
@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, args) =>
     const BulletSLot = 2;
     UserAlreadyPlayingRusR[user.id] = true;
 
-    const szGunMessage = await message.channel.send(":flag_ru:   :regional_indicator_r::regional_indicator_u::regional_indicator_s::regional_indicator_s::regional_indicator_i::regional_indicator_a::regional_indicator_n:  :regional_indicator_r::regional_indicator_o::regional_indicator_u::regional_indicator_l::regional_indicator_e::regional_indicator_t::regional_indicator_t::regional_indicator_e:   :flag_ru:\n\n:bust_in_silhouette: 						:gun: 	***Gun clicks***");
+    const szGunMessage = message.channel.send(":flag_ru:   :regional_indicator_r::regional_indicator_u::regional_indicator_s::regional_indicator_s::regional_indicator_i::regional_indicator_a::regional_indicator_n:  :regional_indicator_r::regional_indicator_o::regional_indicator_u::regional_indicator_l::regional_indicator_e::regional_indicator_t::regional_indicator_t::regional_indicator_e:   :flag_ru:\n\n:bust_in_silhouette: 						:gun: 	***Gun clicks***");
 
     let kickMember = message.guild.member(user);
 
@@ -56,15 +56,15 @@ module.exports.run = async (bot, message, args) =>
         {
             if(!kickMember.kickable)
             {
-                await szGunMessage.edit(CantKickMessages[Math.floor(Math.random() * CantKickMessages.length)] + "\n\nCookies lost: **10** :cookie:");
+                szGunMessage.edit(CantKickMessages[Math.floor(Math.random() * CantKickMessages.length)] + "\n\nCookies lost: **10** :cookie:");
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
             }
 
             else
             {
-                await szGunMessage.edit(":anger: BANG! He lost (**" + kickMember.user + "**) LEL. So it got ``KICKED``\n\nIt also lost **10** cookies :cookie:");
+                szGunMessage.edit(":anger: BANG! He lost (**" + kickMember.user + "**) LEL. So it got ``KICKED``\n\nIt also lost **10** cookies :cookie:");
 
-                await kickMember.kick("You lost LEL! You got kicked! Next time be careful playing with guns...");
+                kickMember.kick("You lost LEL! You got kicked! Next time be careful playing with guns...");
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
             }
         }
@@ -76,13 +76,13 @@ module.exports.run = async (bot, message, args) =>
             switch(RandomBonusCoin)
             {
                 case 1:
-                    await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou have been rewarded with **5** cookies :cookie: !");
+                    szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou have been rewarded with **5** cookies :cookie: !");
                     await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 5);
 
                     break;
 
                 case 2:
-                    await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou won **5** cookies :cookie: but, I will give you an extra one for free! :wink:");
+                    szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou won **5** cookies :cookie: but, I will give you an extra one for free! :wink:");
                     await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 6);
 
                     break;
@@ -90,7 +90,7 @@ module.exports.run = async (bot, message, args) =>
         }
 
         UserAlreadyPlayingRusR[user.id] = false;
-        await bot.clearInterval(iRouletteTime[user.id]);
+        bot.clearInterval(iRouletteTime[user.id]);
 
     }, 3 * 1000);
 };

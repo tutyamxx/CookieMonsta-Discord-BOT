@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) =>
 {
     if(message.author.id !== "266677298051153920")
     {
-        return await message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
+        return message.reply(" :no_entry_sign: you're not the Dev pleb :facepalm:  :no_entry_sign:");
     }
 
     let i;
