@@ -14,7 +14,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    axios.get("https://yugiohprices.com/api/card_data/" + CardName).then((response) =>
+    axios.get("https://yugiohprices.com/api/card_data/" + CardName).then(async (response) =>
     {
         if(response.data.status === "fail")
         {
@@ -34,7 +34,7 @@ module.exports.run = (bot, message, szArgs) =>
 
         let GetCardImage = "https://i.imgur.com/QR4uGrD.png";
 
-        axios.get("https://db.ygoprodeck.com/api/v5/cardinfo.php?name=" + CardName).then((response_card_image) =>
+        await axios.get("https://db.ygoprodeck.com/api/v5/cardinfo.php?name=" + CardName).then((response_card_image) =>
         {
             GetCardImage = response_card_image.data[0].card_images[0].image_url;
 
