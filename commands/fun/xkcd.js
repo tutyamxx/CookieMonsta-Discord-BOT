@@ -1,12 +1,12 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     message.channel.startTyping();
 
     let iComicCount;
-    axios.get("https://xkcd.com/info.0.json").then((comic_response) =>
+    await axios.get("https://xkcd.com/info.0.json").then((comic_response) =>
     {
         iComicCount = parseInt(comic_response.data.num);
     });
