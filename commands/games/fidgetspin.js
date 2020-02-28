@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>
 
     UserAlreadySpinningFidget[user.id] = true;
 
-    iSpinnerTimer[user.id] = setInterval (async () =>
+    iSpinnerTimer[user.id] = setInterval(async () =>
     {
         if(iSpinTimeout.toFixed(0) >= 40)
         {
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            SpinningMessage.edit({ embed: DiscordRichEmbed1 });
+            await SpinningMessage.edit({ embed: DiscordRichEmbed1 });
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 400);
         }
 
@@ -59,7 +59,7 @@ module.exports.run = async (bot, message, args) =>
             .setFooter("Spinner ended for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
             .setTimestamp()
 
-            SpinningMessage.edit({ embed: DiscordRichEmbed2 });
+            await SpinningMessage.edit({ embed: DiscordRichEmbed2 });
         }
 
         UserAlreadySpinningFidget[user.id] = false;
