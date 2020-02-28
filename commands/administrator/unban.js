@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = (bot, message, szArgs) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     if(!message.member.hasPermission("BAN_MEMBERS"))
     {
@@ -18,7 +18,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     try
     {
-        let Bans = message.guild.fetchBans();
+        let Bans = await message.guild.fetchBans();
         let Banned = Bans.get(szSearch) || Bans.find(u => u.tag.toLowerCase().includes(szSearch.toLowerCase()));
 
         if(!Banned)
@@ -26,7 +26,7 @@ module.exports.run = (bot, message, szArgs) =>
             return message.reply(" I could not find a banned user by this :id: or ``name``.");
         }
 
-        message.guild.unban(Banned);
+        await message.guild.unban(Banned);
 
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
