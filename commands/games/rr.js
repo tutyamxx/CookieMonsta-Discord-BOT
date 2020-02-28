@@ -50,19 +50,19 @@ module.exports.run = async (bot, message, args) =>
         ":anger: Hey, that's cheating! I can't kick you... Btw you lost."
     ];
 
-    iRouletteTime[user.id] = setInterval (async () =>
+    iRouletteTime[user.id] = setInterval(async () =>
     {
         if(BulletSLot === Math.floor(( Math.random() * 6 ) + 1))
         {
             if(!kickMember.kickable)
             {
-                szGunMessage.edit(CantKickMessages[Math.floor(Math.random() * CantKickMessages.length)] + "\n\nCookies lost: **10** :cookie:");
+                await szGunMessage.edit(CantKickMessages[Math.floor(Math.random() * CantKickMessages.length)] + "\n\nCookies lost: **10** :cookie:");
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
             }
 
             else
             {
-                szGunMessage.edit(":anger: BANG! He lost (**" + kickMember.user + "**) LEL. So it got ``KICKED``\n\nIt also lost **10** cookies :cookie:");
+                await szGunMessage.edit(":anger: BANG! He lost (**" + kickMember.user + "**) LEL. So it got ``KICKED``\n\nIt also lost **10** cookies :cookie:");
 
                 kickMember.kick("You lost LEL! You got kicked! Next time be careful playing with guns...");
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, kickMember.id, iUserCookies - 10);
@@ -76,13 +76,13 @@ module.exports.run = async (bot, message, args) =>
             switch(RandomBonusCoin)
             {
                 case 1:
-                    szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou have been rewarded with **5** cookies :cookie: !");
+                    await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou have been rewarded with **5** cookies :cookie: !");
                     await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 5);
 
                     break;
 
                 case 2:
-                    szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou won **5** cookies :cookie: but, I will give you an extra one for free! :wink:");
+                    await szGunMessage.edit(szWinMessages[Math.floor(Math.random() * szWinMessages.length)] + "\n\nYou won **5** cookies :cookie: but, I will give you an extra one for free! :wink:");
                     await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + 6);
 
                     break;
