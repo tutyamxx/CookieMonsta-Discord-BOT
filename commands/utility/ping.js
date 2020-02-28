@@ -6,10 +6,10 @@ const szRandomFetchingMessages =
     "Yup, incoming", "Executing metasploit command"
 ];
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
-    const szMessagePing = message.channel.send("<:cookiemonsta:634866060465537034> **|** " + szRandomFetchingMessages[Math.floor(Math.random() * szRandomFetchingMessages.length)] + " :satellite: ...");
-    szMessagePing.edit(`<:cookiemonsta:634866060465537034> **|** :ping_pong: Latency is **${szMessagePing.createdTimestamp - message.createdTimestamp}ms**. API Latency is **${Math.round(bot.ping)}ms**`);
+    const szMessagePing = await message.channel.send("<:cookiemonsta:634866060465537034> **|** " + szRandomFetchingMessages[Math.floor(Math.random() * szRandomFetchingMessages.length)] + " :satellite: ...");
+    await szMessagePing.edit(`<:cookiemonsta:634866060465537034> **|** :ping_pong: Latency is **${szMessagePing.createdTimestamp - message.createdTimestamp}ms**. API Latency is **${Math.round(bot.ping)}ms**`);
 };
 
 module.exports.help =
