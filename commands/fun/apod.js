@@ -5,7 +5,7 @@ const BotConfig = require("../../config/botconfig.json");
 
 const szAPIKey = BotConfig.NASA_API_Key.trim();
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
