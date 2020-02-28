@@ -33,7 +33,7 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
     {
-        iUnwrapTimer[user.id] = setInterval (async () =>
+        iUnwrapTimer[user.id] = setInterval(async () =>
         {
             await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
@@ -48,7 +48,7 @@ module.exports.run = (bot, message, args) =>
             .setDescription("***OMNOMNOMNOM!***\n\n\n" + user + " this gift box :gift: contained **" + GenerateRandomCookies + "** cookies :cookie: !")
             .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-            msg.edit({ embed: DiscordRichEmbed1 });
+            await msg.edit({ embed: DiscordRichEmbed1 });
 
             bUserHasGift[user.id] = 0;
             bAlreadyOpeningGift[user.id] = false;
