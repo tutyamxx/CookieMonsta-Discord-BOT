@@ -19,7 +19,7 @@ module.exports.run = (bot, message, args) =>
         let RandomClockEmoji = RandomDiscordClockEmojis[Math.floor(Math.random() * RandomDiscordClockEmojis.length)];
         message.channel.send(":clapper: Random Facts Captain started! :clapper:\nDisplaying random facts to everyone every " + TimeDelayLoop + " minutes " + RandomClockEmoji);
 
-        iFactsInterval = setInterval (() =>
+        iFactsInterval = setInterval(() =>
         {
             const iRandFact = RandomFacts[Math.floor(Math.random() * RandomFacts.length)];
             message.channel.send(":nerd: Random Facts Captain here :nerd: :arrow_down:\n" + iRandFact);
