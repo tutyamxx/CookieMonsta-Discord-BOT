@@ -4,11 +4,11 @@ const axios = require("axios");
 module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
-    const LennyMessage = message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
+    let LennyMessage = await message.channel.send("Fetching some lenny's ( ͜。 ͡ʖ ͜。) ...");
 
     message.channel.startTyping();
 
-    axios.get("http://lenny.today/api/v1/random").then((response) =>
+    axios.get("http://lenny.today/api/v1/random").then(async (response) =>
     {
         // --| Remove "" from start and end of string
         const LennyFace = JSON.stringify(response.data[0].face).replace(/"/g, "");
@@ -20,7 +20,7 @@ module.exports.run = (bot, message, args) =>
         .setThumbnail("https://i.imgur.com/TxUxdfi.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        LennyMessage.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        await LennyMessage.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {
