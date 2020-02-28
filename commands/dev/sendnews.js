@@ -26,9 +26,9 @@ module.exports.run = (bot, message, szArgs) =>
 
     try
     {
-        guildList.forEach((guild) =>
+        guildList.forEach(async (guild) =>
         {
-            let cChannel = GetChannelDefault.getDefaultChannel(guild);
+            let cChannel = await GetChannelDefault.getDefaultChannel(guild);
 
             if(cChannel && cChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
             {
