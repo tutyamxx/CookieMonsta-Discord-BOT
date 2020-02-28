@@ -11,13 +11,13 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    let NasaMessageEdit = message.channel.send("Pinging **NASA** database :satellite: for the feed...");
+    let NasaMessageEdit = await message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 
     axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then(async (response) =>
     {
         if(JSON.stringify(response.data.media_type).replace(/"/g, '') === "video")
         {
-            return NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+            return await NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
 
         const szTitle = JSON.stringify(response.data.title).replace(/"/g, "");
