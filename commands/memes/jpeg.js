@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const Jimp = require("jimp");
 
-module.exports.run = (bot, message, szArgs) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     let GuildMember = message.mentions.members.first();
 
@@ -13,7 +13,7 @@ module.exports.run = (bot, message, szArgs) =>
     message.channel.startTyping();
 
     let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    let ImageURL = Jimp.read(MemberAvatar);
+    let ImageURL = await Jimp.read(MemberAvatar);
 
     ImageURL.quality(1).getBuffer(Jimp.MIME_JPEG, (err, buffer) =>
     {
