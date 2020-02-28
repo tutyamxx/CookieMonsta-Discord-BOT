@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, GuildMember.user.id);
 
-        const iTargetPoints = DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
+        const iTargetPoints = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, GuildMember.user.id);
         let iCalculateNewPoints = iTargetPoints - ExperienceAmount;
 
         if(iCalculateNewPoints <= 0)
