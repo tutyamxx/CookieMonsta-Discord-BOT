@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 const DefChannel = require("../functions/defaultchannel.js");
 
-module.exports = (bot, guild) =>
+module.exports = async (bot, guild) =>
 {
-    let cDefaultChannel = DefChannel.getDefaultChannel(guild);
+    let cDefaultChannel = await DefChannel.getDefaultChannel(guild);
 
     if(cDefaultChannel && cDefaultChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     {
