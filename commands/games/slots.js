@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>
                                                     // 6 - 7 - 8
     }
 
-    const szSlotsMessage = message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
+    let szSlotsMessage = await message.channel.send(":slot_machine:  **Rolling Slots!** :slot_machine:");
     let szSlotsMessageEdit = ":slot_machine:  **Rolling Slots!** :slot_machine:\n\n";
 
     let i = 0;
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) =>
         }
     }
 
-    iSlotTimeInterval[user.id] = setInterval (async () =>
+    iSlotTimeInterval[user.id] = setInterval(async () =>
     {
         i += 1;
 
@@ -91,7 +91,7 @@ module.exports.run = async (bot, message, args) =>
             // |    X|
             // |  X  |
             // |X    |
-            else if( SlotNumbers[2][2] === SlotNumbers[1][4] && SlotNumbers[1][4] === SlotNumbers[2][2]
+            else if(SlotNumbers[2][2] === SlotNumbers[1][4] && SlotNumbers[1][4] === SlotNumbers[2][2]
             && SlotNumbers[1][4] === SlotNumbers[0][6] && SlotNumbers[0][6] === SlotNumbers[1][4]
             && SlotNumbers[0][6] === SlotNumbers[2][2] && SlotNumbers[2][2] === SlotNumbers[0][6])
             {
@@ -272,7 +272,7 @@ module.exports.run = async (bot, message, args) =>
             }
         }
 
-        szSlotsMessage.edit(szSlotsMessageEdit);
+        await szSlotsMessage.edit(szSlotsMessageEdit);
 
     }, 1000);
 };
