@@ -70,17 +70,17 @@ module.exports.run = async (bot, message, szArgs) =>
         if(IgnoreCase.equals(szArgs[0], ColorRoles[i][0]))
         {
             // --| If role exists // role => role.name
-            ColorRoleFind = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+            ColorRoleFind = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
             if(!ColorRoleFind)
             {
                 for(x = 0; x < ColorRoles.length; x++)
                 {
-                    const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+                    const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
                     if(role && !message.member.roles.has(ColorRoleFind))
                     {
-                        message.member.removeRole(role).catch(async (error) =>
+                        await message.member.removeRole(role).catch((error) =>
                         {
                             message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                         });
@@ -88,7 +88,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 }
 
                 // --| Create new Color Cookie if doesn't exist
-                message.guild.createRole(
+                await message.guild.createRole(
                 {
                     name: ColorRoles[i][0] + " Cookie",
                     color: ColorRoles[i][1].toString(),
@@ -98,19 +98,19 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 }).then(async () =>
                 {
-                    let FindNewColor = message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
+                    let FindNewColor = await message.guild.roles.find(role => role.name === ColorRoles[i][0] + " Cookie");
 
-                    message.member.addRole(FindNewColor).then(async () =>
+                    await message.member.addRole(FindNewColor).then(async () =>
                     {
                         await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
                         message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
 
-                    }).catch(async (error) =>
+                    }).catch((error) =>
                     {
                         return message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                     });
 
-                }).catch(async (error) =>
+                }).catch((error) =>
                 {
                     message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                 });
@@ -125,23 +125,23 @@ module.exports.run = async (bot, message, szArgs) =>
 
                 for(x = 0; x < ColorRoles.length; x++)
                 {
-                    const role = message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
+                    const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
                     if(role && !message.member.roles.has(ColorRoleFind.id))
                     {
-                        message.member.removeRole(role).catch(async (error) =>
+                        await message.member.removeRole(role).catch((error) =>
                         {
                             message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                         });
                     }
                 }
 
-                message.member.addRole(ColorRoleFind).then(async () =>
+                await message.member.addRole(ColorRoleFind).then(async () =>
                 {
                     await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 150);
                     message.channel.send(user + " has bought the color: **" + ColorRoles[i][0] + "** :art: for **150** cookies :cookie:");
 
-                }).catch(async (error) =>
+                }).catch((error) =>
                 {
                     return message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error during the **COLOR** command: ``" + error.message + "``\n<:cookiemonsta:634866060465537034> **|** You might want to take a look here: (https://tutyamxx.github.io/cookie-monsta-website/tutorial.html)");
                 });
