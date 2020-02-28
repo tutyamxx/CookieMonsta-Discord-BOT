@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
@@ -11,13 +11,13 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    axios.all(
+    await axios.all(
     [
         axios.get("http://api.bitcoincharts.com/v1/weighted_prices.json"),
         axios.get("https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT"),
         axios.get("https://blockchain.info/ticker")
 
-    ]).then(axios.spread((ResponseBitcoincharts, ResponseBinance, ResponseBlockchain) =>
+    ]).then(await axios.spread((ResponseBitcoincharts, ResponseBinance, ResponseBlockchain) =>
     {
         if(ResponseBitcoincharts)
         {

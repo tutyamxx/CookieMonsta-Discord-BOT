@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const axios = require("axios");
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
@@ -11,13 +11,13 @@ module.exports.run = (bot, message, args) =>
     let LitePricePaprika = [];
     let LiteCoinGecko = [];
 
-    axios.all(
+    await axios.all(
     [
         axios.get("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USD,JPY,EUR,GBP"),
         axios.get("https://api.coinpaprika.com/v1/tickers/ltc-litecoin?quotes=gbp,eur,usd,jpy"),
         axios.get("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=gbp,usd,eur,jpy")
 
-    ]).then(axios.spread((ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
+    ]).then(await axios.spread((ResponseCryptocompare, ResponseCoinpaprika, ResponseCoingecko) =>
     {
         if(ResponseCryptocompare)
         {
