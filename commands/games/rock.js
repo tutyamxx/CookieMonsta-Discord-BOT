@@ -1,7 +1,7 @@
 let UserAlreadyRps = {};
 let iRockPaperScissorsTimer = {};
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
 
