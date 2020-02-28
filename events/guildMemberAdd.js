@@ -87,14 +87,14 @@ module.exports = (bot, member, guild) =>
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szRandomBannerFont)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])
-                    .toBuffer("banner.png", function (err, buffer2)
+                    .toBuffer("banner.png", async (err, buffer2) =>
                     {
                         if(err)
                         {
                             return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        let cChannel = DefChannel.getDefaultChannel(member.guild);
+                        let cChannel = await DefChannel.getDefaultChannel(member.guild);
 
                         if(cChannel && cChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES'))
                         {
