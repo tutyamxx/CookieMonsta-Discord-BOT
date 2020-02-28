@@ -13,7 +13,7 @@ module.exports.run = (bot, message, args) =>
 
     let NasaMessageEdit = message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 
-    axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then((response) =>
+    axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then(async (response) =>
     {
         if(JSON.stringify(response.data.media_type).replace(/"/g, '') === "video")
         {
@@ -31,11 +31,11 @@ module.exports.run = (bot, message, args) =>
         .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
 
-        return NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        return await NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
-    }).catch(() =>
+    }).catch(async () =>
     {
-        return NasaMessageEdit.edit(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        return await NasaMessageEdit.edit(":no_entry: Sorry, something went wrong while fetching NASA API... :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 
