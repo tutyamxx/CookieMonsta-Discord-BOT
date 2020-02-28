@@ -15,7 +15,7 @@ module.exports.run = (bot, message, args) =>
     let szRPSMessage = await message.channel.send("***Rock, Paper, Scissors!***");
     let szRPSEdit = "***Rock, Paper, Scissors!***\n\n";
 
-    iRockPaperScissorsTimer[user.id] = setInterval (() =>
+    iRockPaperScissorsTimer[user.id] = setInterval(async () =>
     {
         switch(Math.floor(( Math.random() * 3 ) + 1))
         {
