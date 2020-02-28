@@ -96,7 +96,7 @@ module.exports.run = async (bot, message, args) =>
     .setDescription(user + UserHealthColor[user.id] + "(" + Player1Health[user.id] + ")		:vs:		" + GuildMember.user + UserHealthColor[GuildMember.user.id] + "(" + Player2Health[GuildMember.user.id] + ")\n\n\n***The battle will begin in a moment...***")
     .setThumbnail("https://i.imgur.com/RACcRMv.jpg")
 
-    message.channel.send({ embed: DiscordRichEmbed1 }).then((msg) =>
+    message.channel.send({ embed: DiscordRichEmbed1 }).then(async (msg) =>
     {
         let szBattleLog = {};
         let szThumbnail = {};
@@ -268,7 +268,7 @@ module.exports.run = async (bot, message, args) =>
             .setDescription(szBattleLog[user.id])
             .setThumbnail(szThumbnail[user.id])
 
-            msg.edit({ embed: DiscordRichEmbed });
+            await msg.edit({ embed: DiscordRichEmbed });
 
         }, 2000);
     });
