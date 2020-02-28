@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) =>
 
     const GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
 
-    await ameApi.generate("subzero", { url: GetUserAvatar }).then(async (szImageBuffer) =>
+    await ameApi.generate("respect", { url: GetUserAvatar }).then(async (szImageBuffer) =>
     {
         await message.channel.send(new Discord.Attachment(szImageBuffer, "respect.png")).then(async () => await message.channel.stopTyping(true)).catch(async () => await message.channel.stopTyping(true));
 
