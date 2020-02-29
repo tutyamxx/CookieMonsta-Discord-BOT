@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
 
-module.exports.run = (bot, message, szArgs) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     if(bot)
     {
@@ -27,14 +27,14 @@ module.exports.run = (bot, message, szArgs) =>
             return message.reply(" :no_entry: NO! I won't leave this guild :anger: !  :no_entry:");
         }
 
-        let GetGuild = bot.guilds.get(MentionedGuildParam);
+        let GetGuild = await bot.guilds.get(MentionedGuildParam);
 
         if(GetGuild === undefined)
         {
             return message.reply(" Invalid guild or it seems that I have already left the: **" + MentionedGuildParam + "** guild :id: !");
         }
 
-        GetGuild.leave().catch((e) =>
+        await GetGuild.leave().catch((e) =>
         {
             return message.reply(" I tried to leave this guild id :id:: **" + MentionedGuildParam + "** but I got this error: ``" + e.message + "`` !");
         });
