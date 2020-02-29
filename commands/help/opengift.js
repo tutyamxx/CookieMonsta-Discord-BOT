@@ -10,14 +10,14 @@ const iRandomCookiesPresent =
     "900", "950", "1000", "1250", "2000"
 ];
 
-module.exports.run = (bot, message, args) =>
+module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
     const GuildGetID = message.guild.id;
 
     if(bAlreadyOpeningGift[user.id] === true)
     {
-        return message.delete().catch(() => {});
+        return await message.delete().catch(() => { });
     }
 
     if(bUserHasGift[user.id] === 0)
@@ -31,7 +31,7 @@ module.exports.run = (bot, message, args) =>
     .setDescription("Hang on tight while I'm unwrapping your gift...")
     .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
-    message.channel.send({ embed: DiscordRichEmbed }).then(msg =>
+    message.channel.send({ embed: DiscordRichEmbed }).then((msg) =>
     {
         iUnwrapTimer[user.id] = setInterval(async () =>
         {
