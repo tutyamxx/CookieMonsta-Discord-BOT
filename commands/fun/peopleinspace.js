@@ -21,9 +21,7 @@ module.exports.run = (bot, message, args) =>
         let szDescription = "";
         let AstroPersonName = "";
 
-        if(parseInt(PeopleInSpace) <= 0
-        || PeopleInSpace === undefined
-        || PeopleInSpace === null)
+        if(parseInt(PeopleInSpace) <= 0 || PeopleInSpace === undefined || PeopleInSpace === null)
         {
             szDescription = "There is nobody in space right now! " + GenerateRandomEmoji;
         }
@@ -38,7 +36,8 @@ module.exports.run = (bot, message, args) =>
             szDescription = "There are **" + parseInt(PeopleInSpace) + "** people in space right now! " + GenerateRandomEmoji;
         }
 
-        for(let i = 0; i < parseInt(PeopleInSpace); i++)
+        let i;
+        for(i = 0; i < parseInt(PeopleInSpace); i++)
         {
             AstroPersonName = JSON.stringify(response.data.people[i].name).replace(/"/g, '');
 
