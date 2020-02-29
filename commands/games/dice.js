@@ -32,7 +32,7 @@ module.exports.run = (bot, message, args) =>
             images[2].resize(80, Jimp.AUTO).rotate(RandomDegreesDice2).quality(100);
             images[3].resize(100, 100).quality(100);
 
-            images[0].composite(images[3], 0, 0).composite(images[1], 68, 90).composite(images[2], 180, 200).quality(100).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
+            images[0].composite(images[3], 0, 0).composite(images[1], 68, 90).composite(images[2], 180, 200).quality(100).getBuffer(Jimp.MIME_PNG, async (err, buffer) =>
             {
                 if(err)
                 {
@@ -40,7 +40,7 @@ module.exports.run = (bot, message, args) =>
                 }
 
                 message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
-                message.react(":dice:634953930043817994");
+                await message.react(":dice:634953930043817994");
             });
         });
 
