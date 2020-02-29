@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const axios = require("axios");
 const BotConfig = require("../../config/botconfig.json");
 
-const szAPIKey = BotConfig.NASA_API_Key.trim();
-
 module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
@@ -13,7 +11,7 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    axios.get("https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=" + szAPIKey).then((response) =>
+    axios.get(`https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=${BotConfig.NASA_API_Key.trim()}`).then((response) =>
     {
         const iCountObjects = JSON.stringify(response.data.element_count).replace(/"/g, "");
 
