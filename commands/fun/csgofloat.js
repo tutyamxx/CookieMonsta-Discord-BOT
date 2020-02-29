@@ -27,9 +27,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    let InspectSkinFormatURL = "https://api.csgofloat.com/?url=" + szArgs.join(" ").trim();
-
-    axios.get(InspectSkinFormatURL).then((response) =>
+    axios.get(`https://api.csgofloat.com/?url=${szArgs.join(" ").trim()}`).then((response) =>
     {
         let szCSGOFloatArray = [];
 
