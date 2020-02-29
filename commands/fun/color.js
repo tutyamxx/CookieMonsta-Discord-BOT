@@ -78,7 +78,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 {
                     const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
-                    if(role && !message.member.roles.has(ColorRoleFind))
+                    if(role && !await message.member.roles.has(ColorRoleFind))
                     {
                         await message.member.removeRole(role).catch((error) =>
                         {
@@ -118,7 +118,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
             else
             {
-                if(message.member.roles.has(ColorRoleFind.id))
+                if(await message.member.roles.has(ColorRoleFind.id))
                 {
                     return message.reply(" :no_entry: you already have this color applied! :art:  :no_entry:");
                 }
@@ -127,7 +127,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 {
                     const role = await message.member.guild.roles.find(role => role.name === ColorRoles[x][0] + " Cookie");
 
-                    if(role && !message.member.roles.has(ColorRoleFind.id))
+                    if(role && !await message.member.roles.has(ColorRoleFind.id))
                     {
                         await message.member.removeRole(role).catch((error) =>
                         {
