@@ -63,7 +63,7 @@ module.exports.run = (bot, message, szArgs) =>
             "Game Name: **" + ResultGameName + "**\n" +
             "Game Developer: **" + (Object.keys(ResultGameDeveloper).length <= 0 ? "Unknown" : ResultGameDeveloper[0].name.toString()) + "**\n" +
             "Game Publisher: **" + (Object.keys(ResultGamePublisher).length <= 0 ? "Unknown" : ResultGamePublisher[0].name.toString()) + "**\n" +
-            "Release Date: **" + (ResultGameToBeAnnounced === true ? "TBA (To Be Announced)" : (ResultGameReleaseDate === null ? "" : ResultGameReleaseDate.toString())) + "**\n" +
+            "Release Date: **" + (ResultGameToBeAnnounced === true ? "TBA (To Be Announced)" : (ResultGameReleaseDate === null ? "Unknown" : ResultGameReleaseDate.toString())) + "**\n" +
             "Metacritic Score: **" + (isNaN(ResultGameMetacriticScore) ? "No Score" : ResultGameMetacriticScore) + "**";
 
             const DiscordRichEmbed = new Discord.RichEmbed()
