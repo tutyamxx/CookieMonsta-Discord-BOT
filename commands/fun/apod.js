@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) =>
 
     axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then(async (response) =>
     {
-        if(JSON.stringify(response.data.media_type).replace(/"/g, '') === "video")
+        if(JSON.stringify(response.data.media_type).replace(/"/g, "") === "video")
         {
             return await NasaMessageEdit.edit(":no_entry: Sorry, there is **no picture** :milky_way: available for today! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         }
