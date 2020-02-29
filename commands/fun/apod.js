@@ -3,8 +3,6 @@ const Discord = require("discord.js");
 const axios = require("axios");
 const BotConfig = require("../../config/botconfig.json");
 
-const szAPIKey = BotConfig.NASA_API_Key.trim();
-
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
@@ -13,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
 
     let NasaMessageEdit = await message.channel.send("Pinging **NASA** database :satellite: for the feed...");
 
-    axios.get("https://api.nasa.gov/planetary/apod?api_key=" + szAPIKey).then(async (response) =>
+    axios.get(`https://api.nasa.gov/planetary/apod?api_key=${BotConfig.NASA_API_Key.trim()}`).then(async (response) =>
     {
         if(JSON.stringify(response.data.media_type).replace(/"/g, "") === "video")
         {
