@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
 const Jimp = require("jimp");
 
-module.exports.run = (bot, message, szArgs) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
@@ -20,7 +20,7 @@ module.exports.run = (bot, message, szArgs) =>
     const RandomAvatar = Math.round(Math.random());
 
     const GenerateRandomAvatar = "https://api.adorable.io/avatar" + (RandomAvatar === 1 ? "" : "s") +  "/285/" + encodeURI(ArgumentText) + ".png";
-    let GetAvatarBuffer = Jimp.read(GenerateRandomAvatar);
+    let GetAvatarBuffer = await Jimp.read(GenerateRandomAvatar);
 
     GetAvatarBuffer.getBuffer(Jimp.MIME_PNG, (err, buffer) =>
     {
