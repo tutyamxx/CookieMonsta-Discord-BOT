@@ -7,7 +7,7 @@ const RandomEmojiNews =
     ":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
 ];
 
-module.exports.run = (bot, message, szArgs) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     const user = message.author;
 
@@ -22,7 +22,7 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     let NewsTextFromDev = szArgs.join(" ");
-    let guildList = bot.guilds.array();
+    let guildList = await bot.guilds.array();
 
     try
     {
@@ -47,8 +47,8 @@ module.exports.run = (bot, message, szArgs) =>
 
     catch(err)
     {
-        message.channel.send("I have encountered an error while sending news: **" + err + "**");
-        console.log("\x1b[31m*\x1b[0m Error occured while sending news: \x1b[31m" + err + "\x1b[0m");
+        message.channel.send("I have encountered an error while sending news: **" + err.message + "**");
+        console.log("\x1b[31m*\x1b[0m Error occured while sending news: \x1b[31m" + err.message + "\x1b[0m");
     }
 };
 
