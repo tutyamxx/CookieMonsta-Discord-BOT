@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) =>
     .setFooter("Spinner started for: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
     .setTimestamp()
 
-    let SpinningMessage = message.channel.send({ embed: DiscordRichEmbed });
+    let SpinningMessage = await message.channel.send({ embed: DiscordRichEmbed });
     let iSpinTimeout = (Math.random() * (60 - 5 + 1)) + 5;
 
     UserAlreadySpinningFidget[user.id] = true;
