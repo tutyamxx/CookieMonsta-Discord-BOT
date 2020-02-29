@@ -15,7 +15,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    axios.get("https://filelist.ro/api.php?username=" + BotConfig.Filelist_Username.trim() + "&passkey=" + BotConfig.Filelist_Key.trim() + "&action=search-torrents&type=name&query=" + encodeURI(ArgumentText)).then((response) =>
+    axios.get(`https://filelist.ro/api.php?username=${BotConfig.Filelist_Username.trim()}&passkey=${BotConfig.Filelist_Key.trim()}&action=search-torrents&type=name&query=${encodeURI(ArgumentText)}`).then((response) =>
     {
         const SearchLatestTorrent = response.data[0];
 
