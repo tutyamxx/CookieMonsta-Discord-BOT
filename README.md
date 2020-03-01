@@ -33,6 +33,8 @@ sudo apt-get install graphicsmagick
 
 sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
 sudo apt-get install imagemagick
+
+sudo apt-get install -y node-gyp
 ```
 
 ## For Mac:
@@ -44,8 +46,6 @@ brew upgrade graphicsmagick
 ## Step 2 - You need [NPM (Node Package Manager)](https://www.npmjs.com/) and [Node.JS](https://nodejs.org/en/). After that, install these -- IN THE SAME ORDER AS DISPLAYED -- on the bot folder (copy and paste one command at a time, in your terminal, or be prepared for errors):
 
 ```
-npm install -g node-gyp
-
 npm i mysql2
 npm install ffmpeg
 npm i ffmpeg-static
