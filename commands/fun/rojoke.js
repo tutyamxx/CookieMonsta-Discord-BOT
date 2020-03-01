@@ -18,7 +18,7 @@ module.exports.run = (bot, message, args) =>
         const DiscordRichEmbed = new Discord.RichEmbed()
         .setAuthor("Cookie Monsta | Romanian Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
         .setColor(RandomHexColors[Math.floor(Math.random() * RandomHexColors.length)])
-        .setDescription("`Joke Type`: " + RomanianJokeCategory + "\n\n`Joke`: \n" + RomanianJoke)
+        .setDescription("`Joke Type`:\n" + RomanianJokeCategory + "\n\n`Joke`: \n" + RomanianJoke)
         .setThumbnail("https://raw.githubusercontent.com/tutyamxx/Romanian-Jokes-API/master/joke.png")
         .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
         .setTimestamp();
