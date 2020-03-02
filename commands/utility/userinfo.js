@@ -39,6 +39,11 @@ module.exports.run = (bot, message, args) =>
         }
     }
 
+    else
+    {
+        GetClientStatus.push("🚫");
+    }
+
     const DiscordRichEmbed = new Discord.RichEmbed()
     .setAuthor("Cookie Monsta | User Info", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
     .setColor("#1E90FF")
