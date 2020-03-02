@@ -21,19 +21,22 @@ module.exports.run = (bot, message, args) =>
 
     let GetClientStatus = [];
 
-    if(GetUserPresenceClient.hasOwnProperty("web"))
+    if(GetUserPresenceClient !== null)
     {
-        GetClientStatus.push("🌐");
-    }
+        if(GetUserPresenceClient.hasOwnProperty("web"))
+        {
+            GetClientStatus.push("🌐");
+        }
 
-    if(GetUserPresenceClient.hasOwnProperty("mobile"))
-    {
-        GetClientStatus.push("📱");
-    }
+        if(GetUserPresenceClient.hasOwnProperty("mobile"))
+        {
+            GetClientStatus.push("📱");
+        }
 
-    if(GetUserPresenceClient.hasOwnProperty("desktop"))
-    {
-        GetClientStatus.push("👨‍💻");
+        if(GetUserPresenceClient.hasOwnProperty("desktop"))
+        {
+            GetClientStatus.push("👨‍💻");
+        }
     }
 
     const DiscordRichEmbed = new Discord.RichEmbed()
