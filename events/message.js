@@ -31,9 +31,7 @@ module.exports = async (bot, message) =>
     }
 
     const GuildGetID = message.guild.id;
-
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
-    const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(GuildGetID);
 
     if(message.guild)
     {
@@ -99,7 +97,7 @@ module.exports = async (bot, message) =>
 
                     message.channel.send({ embed: DiscordRichEmbed }).then((msg) =>
                     {
-                        iCheckIfOpenGift[user.id] = setInterval(() =>
+                        iCheckIfOpenGift[user.id] = setInterval(async () =>
                         {
                             if(bAlreadyOpeningGift[user.id] === true)
                             {
@@ -108,18 +106,18 @@ module.exports = async (bot, message) =>
 
                                 bUserHasGift[user.id] = 0;
 
-                                if(!msg.deleted) { msg.delete().catch(() => { }); }
+                                if(!await msg.deleted) { await msg.delete().catch(() => { }); }
                             }
 
                         }, 1000);
 
-                        iUserGiftTimer[user.id] = setInterval(() =>
+                        iUserGiftTimer[user.id] = setInterval(async () =>
                         {
                             bot.clearInterval(iUserGiftTimer[user.id]);
 
                             bUserHasGift[user.id] = 0;
 
-                            if(!msg.deleted) { msg.delete().catch(() => { }); }
+                            if(!await msg.deleted) { await msg.delete().catch(() => { }); }
 
                         }, 120000);
                     });
@@ -133,6 +131,7 @@ module.exports = async (bot, message) =>
         await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
     }
 
+    const szPrefix = (message.guild.config === undefined) ? "!" : message.guild.config.prefix;
     const szArgs = message.content.slice(szPrefix).trim().split(/ +/g);
     const szCommand = szArgs.shift();
 
