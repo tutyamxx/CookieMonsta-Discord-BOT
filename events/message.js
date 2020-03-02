@@ -33,6 +33,8 @@ module.exports = async (bot, message) =>
     const GuildGetID = message.guild.id;
     await DatabaseImport.CookieMonsta_CheckCreateUser(GuildGetID, user.id);
 
+    const szPrefix = (message.guild.config === undefined) ? "!" : message.guild.config.prefix;
+
     if(message.guild)
     {
         const iUserCurrentXP = await DatabaseImport.CookieMonsta_GetUserPoints(GuildGetID, user.id);
@@ -131,7 +133,6 @@ module.exports = async (bot, message) =>
         await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, user.id, parseInt(iCalculateNewXP), parseInt(iLevel));
     }
 
-    const szPrefix = (message.guild.config === undefined) ? "!" : message.guild.config.prefix;
     const szArgs = message.content.slice(szPrefix).trim().split(/ +/g);
     const szCommand = szArgs.shift();
 
