@@ -53,7 +53,7 @@ module.exports.run = (bot, message, args) =>
                 console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Deepfry)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            gm(buffer).noise("impulse").sharpen(3, 3).toBuffer(szDeepFryImage, (err, buffer2) =>
+            gm(buffer).noise("impulse").sharpen(3, 3).toBuffer(szDeepFryImage, async (err, buffer2) =>
             {
                 if(err)
                 {
@@ -62,7 +62,7 @@ module.exports.run = (bot, message, args) =>
 
                 if(iRandomInvert === 1)
                 {
-                    const iFriedImage = Jimp.read(buffer2);
+                    const iFriedImage = await Jimp.read(buffer2);
 
                     iFriedImage.invert().getBuffer(Jimp.MIME_PNG, (err, buffer3) =>
                     {
