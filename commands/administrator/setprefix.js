@@ -43,6 +43,18 @@ module.exports.run = async (bot, message, szArgs) =>
         }
 
         await DatabaseImport.CookieMonsta_SetGuildPrefix(GetGuildID, ArgumentPrefix);
+
+        const GuildsList = await DatabaseImport.CookieMonsta_GetAllFromPrefix();
+
+        for(const QueryResult of GuildsList)
+        {
+            const DiscordGuild = bot.guilds.get(QueryResult.guild);
+
+            if(!DiscordGuild) continue;
+
+            DiscordGuild.config = QueryResult;
+        }
+
         message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the prefix for **" + ServerName + "** with ``" + ArgumentPrefix + "``");
     }
 

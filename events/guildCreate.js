@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const DefChannel = require("../functions/defaultchannel.js");
+const DatabaseImport = require("../database/database.js");
 
 module.exports = async (bot, guild) =>
 {
@@ -35,5 +36,17 @@ module.exports = async (bot, guild) =>
         }
     }
 
+    const GuildsList = await DatabaseImport.CookieMonsta_GetAllFromPrefix();
+
+    for(const QueryResult of GuildsList)
+    {
+        const DiscordGuild = bot.guilds.get(QueryResult.guild);
+
+        if(!DiscordGuild) continue;
+
+        DiscordGuild.config = QueryResult;
+    }
+
     console.log("\x1b[31m*\x1b[0m Joined a new guild: (\x1b[33m" + guild.name + "\x1b[0m)");
+    console.log("\x1b[31m*\x1b[0m I have successfully cached guild prefixes!");
 };

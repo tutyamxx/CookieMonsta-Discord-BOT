@@ -1,8 +1,7 @@
 const CookieMonsta = require("../CookieMonstaBOT.js");
 const ConsoleColors = require("colors");
-const DBL = require("dblapi.js");
 const DatabaseImport = require("../database/database.js");
-const SpamCmd = require("../events/message.js");
+const DBL = require("dblapi.js");
 const BotConfig = require("../config/botconfig.json");
 
 let AsciiArt = "\n\n\t\t\t\t\tStarting process:\n\n  #####                                   #     #                                   \n #     #  ####   ####  #    # # ######    ##   ##  ####  #    #  ####  #####   ##   \n #       #    # #    # #   #  # #         # # # # #    # ##   # #        #    #  #  \n #       #    # #    # ####   # #####     #  #  # #    # # #  #  ####    #   #    # \n #       #    # #    # #  #   # #         #     # #    # #  # #      #   #   ###### \n #     # #    # #    # #   #  # #         #     # #    # #   ## #    #   #   #    # \n  #####   ####   ####  #    # # ######    #     #  ####  #    #  ####    #   #    # \n                                                                                    \n\n\n";
@@ -20,7 +19,7 @@ module.exports = async (bot) =>
     bot.user.setStatus("dnd");
     bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
 
-    iStatusUpdateInterval = setInterval (function ()
+    iStatusUpdateInterval = setInterval(() =>
     {
         const ActivityUpdate =
         [
@@ -50,11 +49,28 @@ module.exports = async (bot) =>
 
         let StatusArray = ActivityUpdate[Math.floor(Math.random() * ActivityUpdate.length)];
 
-        bot.user.setActivity(StatusArray[0], { type: StatusArray[1] }).catch(() => {});
+        bot.user.setActivity(StatusArray[0], { type: StatusArray[1] }).catch(() => { });
 
     }, 1 * 60000);
 
     await DatabaseImport.CookieMonsta_InitialiseDatabase();
+
+    setTimeout(async () =>
+    {
+        const GuildsList = await DatabaseImport.CookieMonsta_GetAllFromPrefix();
+
+        for(const QueryResult of GuildsList)
+        {
+            const DiscordGuild = bot.guilds.get(QueryResult.guild);
+
+            if(!DiscordGuild) continue;
+
+            DiscordGuild.config = QueryResult;
+        }
+
+        console.log("\x1b[31m*\x1b[0m I have successfully cached guild prefixes!");
+
+    }, 1000);
 
     // --| Assign to everyone gift to 0
     for(user of bot.users)

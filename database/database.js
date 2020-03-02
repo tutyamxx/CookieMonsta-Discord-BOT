@@ -83,7 +83,7 @@ async function CookieMonsta_UserExists(iGuild, iUser)
     {
         const QueryCheckForUser = "SELECT * FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryCheckForUser, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        DatabaseConnection.query(QueryCheckForUser, [iUser, iGuild], (err, results) =>
         {
             if(err)
             {
@@ -104,9 +104,9 @@ async function CookieMonsta_CreateUser(iGuild, iUser, iCookies, iXP, iLevel, szB
 {
     const QueryUpdateUser = "INSERT INTO `UserCookiesTable` (`id`, `user`, `guild`, `cookies`, `xp_points`, `level`, `user_banner_img`) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `id` = ?, `user` = ?, `guild` = ?, `cookies` = ?, `xp_points` = ?, `level` = ?, `user_banner_img` = ?;";
 
-    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+    const PrimaryKeyValue = iGuild + "-" + iUser;
 
-    DatabaseConnection.query(QueryUpdateUser, [PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), PrimaryKeyValue, parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
+    DatabaseConnection.query(QueryUpdateUser, [PrimaryKeyValue, iUser, iGuild, (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim(), PrimaryKeyValue, iUser, iGuild, (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), (parseInt(iXP) <= 0 || isNaN(iXP) ? 0 : parseInt(iXP)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), szBannerImage.trim()], (err, results) =>
     {
         if(err)
         {
@@ -134,7 +134,7 @@ async function CookieMonsta_GetUserPoints(iGuild, iUser)
     {
         const QueryGetUserPoints = "SELECT `xp_points` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserPoints, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        DatabaseConnection.query(QueryGetUserPoints, [iUser, iGuild], (err, results) =>
         {
             if(err)
             {
@@ -157,7 +157,7 @@ async function CookieMonsta_GetUserLevel(iGuild, iUser)
     {
         const QueryGetUserLevel = "SELECT `level` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserLevel, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        DatabaseConnection.query(QueryGetUserLevel, [iUser, iGuild], (err, results) =>
         {
             if(err)
             {
@@ -178,9 +178,9 @@ async function CookieMonsta_UpdatePoints_And_Level(iGuild, iUser, iXPPoints, iLe
 {
     const QueryUpdatePointsAndLevel = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `xp_points` = ?, `level` = ? WHERE `id` = ?;";
 
-    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+    const PrimaryKeyValue = iGuild + "-" + iUser;
 
-    DatabaseConnection.query(QueryUpdatePointsAndLevel, [parseInt(iUser), parseInt(iGuild), (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
+    DatabaseConnection.query(QueryUpdatePointsAndLevel, [iUser, iGuild, (parseInt(iXPPoints) <= 0 || isNaN(iXPPoints) ? 0 : parseInt(iXPPoints)), (parseInt(iLevel) <= 0 || isNaN(iLevel) ? 1 : parseInt(iLevel)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -195,7 +195,7 @@ async function CookieMonsta_GetUserCookies(iGuild, iUser)
     {
         const QueryGetUserCookies = "SELECT `cookies` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserCookies, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        DatabaseConnection.query(QueryGetUserCookies, [iUser, iGuild], (err, results) =>
         {
             if(err)
             {
@@ -216,9 +216,9 @@ async function CookieMonsta_SetUserCookies(iGuild, iUser, iCookies)
 {
     const QueryUpdateCookies = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `cookies` = ? WHERE `id` = ?;";
 
-    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+    const PrimaryKeyValue = iGuild + "-" + iUser;
 
-    DatabaseConnection.query(QueryUpdateCookies, [parseInt(iUser), parseInt(iGuild), (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), PrimaryKeyValue], (err, results) =>
+    DatabaseConnection.query(QueryUpdateCookies, [iUser, iGuild, (parseInt(iCookies) <= 0 || isNaN(iCookies) ? 0 : parseInt(iCookies)), PrimaryKeyValue], (err, results) =>
     {
         if(err)
         {
@@ -233,7 +233,7 @@ async function CookieMonsta_GetUserProfileBanner(iGuild, iUser)
     {
         const QueryGetUserBanner = "SELECT `user_banner_img` FROM `UserCookiesTable` WHERE `user` = ? AND `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetUserBanner, [parseInt(iUser), parseInt(iGuild)], (err, results) =>
+        DatabaseConnection.query(QueryGetUserBanner, [iUser, iGuild], (err, results) =>
         {
             if(err)
             {
@@ -255,9 +255,9 @@ async function CookieMonsta_SetUserProfileBanner(iGuild, iUser, szBannerImageFil
 {
     const QueryUpdateUserBanner = "UPDATE `UserCookiesTable` SET `user` = ?, `guild` = ?, `user_banner_img` = ? WHERE `id` = ?;";
 
-    let PrimaryKeyValue = parseInt(iGuild) + "-" + parseInt(iUser);
+    const PrimaryKeyValue = iGuild + "-" + iUser;
 
-    DatabaseConnection.query(QueryUpdateUserBanner, [parseInt(iUser), parseInt(iGuild), szBannerImageFile.trim(), PrimaryKeyValue],(err, results) =>
+    DatabaseConnection.query(QueryUpdateUserBanner, [iUser, iGuild, szBannerImageFile.trim(), PrimaryKeyValue],(err, results) =>
     {
         if(err)
         {
@@ -341,7 +341,7 @@ async function CookieMonsta_GetGuildPrefix(iGuild)
     {
         const QueryGetPrefix = "SELECT `prefix` FROM `PrefixTable` WHERE `guild` = ?;";
 
-        DatabaseConnection.query(QueryGetPrefix, parseInt(iGuild), (err, results) =>
+        DatabaseConnection.query(QueryGetPrefix, iGuild, (err, results) =>
         {
             if(err)
             {
@@ -367,12 +367,30 @@ async function CookieMonsta_SetGuildPrefix(iGuild, szPrefix)
 {
     const QuerySetPrefix = "INSERT INTO `PrefixTable` (`guild`, `prefix`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `prefix` = ?";
 
-    DatabaseConnection.query(QuerySetPrefix, [parseInt(iGuild), szPrefix.trim(), szPrefix.trim()], (err, results) =>
+    DatabaseConnection.query(QuerySetPrefix, [iGuild, szPrefix.trim(), szPrefix.trim()], (err, results) =>
     {
         if(err)
         {
             console.log("\x1b[31m*\x1b[0m Query error on (CookieMonsta_SetGuildPrefix): " + err + "\x1b[0m");
         }
+    });
+};
+
+async function CookieMonsta_GetAllFromPrefix()
+{
+    return new Promise((resolve, reject) =>
+    {
+        const QueryGetAll = "SELECT * FROM `PrefixTable`";
+
+        DatabaseConnection.query(QueryGetAll, (err, results) =>
+        {
+            if(err)
+            {
+                reject(err.message);
+            }
+
+            resolve(results);
+        });
     });
 };
 
@@ -390,5 +408,6 @@ module.exports.CookieMonsta_AddBannerToTable = CookieMonsta_AddBannerToTable;
 module.exports.CookieMonsta_GetBannerFromDatabase = CookieMonsta_GetBannerFromDatabase;
 module.exports.CookieMonsta_GetAllBanners = CookieMonsta_GetAllBanners;
 module.exports.CookieMonsta_CheckCreateUser = CookieMonsta_CheckCreateUser;
-module.exports.CookieMonsta_GetGuildPrefix = CookieMonsta_GetGuildPrefix;
+module.exports.CookieMonsta_GetGuildPrefix = CookieMonsta_GetGuildPrefix
 module.exports.CookieMonsta_SetGuildPrefix = CookieMonsta_SetGuildPrefix;
+module.exports.CookieMonsta_GetAllFromPrefix = CookieMonsta_GetAllFromPrefix;
