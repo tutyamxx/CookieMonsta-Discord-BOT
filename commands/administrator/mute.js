@@ -28,6 +28,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry:  You can't 🔇 **MUTE** a member that has a role equal or higher than yours :cold_face: !  :no_entry:");
     }
 
+    if(MuteTargetMember.id === "683822854462111754" || MuteTargetMember.id === "412067927333011470")
+    {
+        return message.reply(" :no_entry: Really? Me? :angry: NO!  :no_entry:");
+    }
+
     let MutedRole = await message.guild.roles.find(role => role.name === "🔇 MUTED");
 
     if(!MutedRole)
@@ -64,6 +69,13 @@ module.exports.run = async (bot, message, szArgs) =>
     if(MuteTargetMember.roles.has(MutedRole.id))
     {
         return message.reply(" :no_entry: This user is already 🔇 **MUTED** !  :no_entry:");
+    }
+
+    const TargetVoiceChannel = MuteTargetMember.voiceChannel;
+
+    if(TargetVoiceChannel !== undefined)
+    {
+        await TargetVoiceChannel.leave();
     }
 
     await MuteTargetMember.addRole(MutedRole);
