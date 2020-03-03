@@ -28,6 +28,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry:  You can't 🔊 **UNMUTE** a member that has a role equal or higher than yours :cold_face: !  :no_entry:");
     }
 
+    if(TargetMember.id === "683822854462111754" || TargetMember.id === "412067927333011470")
+    {
+        return message.reply(" :no_entry: Really? Me? :angry: NO!  :no_entry:");
+    }
+
     const MutedRole = await message.guild.roles.find(role => role.name === "🔇 MUTED");
 
     if(!MutedRole || !TargetMember.roles.has(MutedRole.id))
