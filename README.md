@@ -7,6 +7,7 @@
   <img src="https://discordbots.org/api/widget/status/412067927333011470.svg">
   <img src="https://discordbots.org/api/widget/servers/412067927333011470.svg">
   <img src="https://discordbots.org/api/widget/upvotes/412067927333011470.svg">
+  <img src="https://discordbots.org/api/widget/owner/412067927333011470.svg">
 </p>
 
 * To see exactly what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
