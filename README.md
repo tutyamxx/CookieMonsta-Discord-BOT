@@ -3,6 +3,11 @@
 </p>
 
 # CookieMonsta Discord BOT
+<p align="center">
+  <img src="https://discordbots.org/api/widget/status/412067927333011470.svg">
+  <img src="https://discordbots.org/api/widget/servers/412067927333011470.svg">
+  <img src="https://discordbots.org/api/widget/upvotes/412067927333011470.svg">
+</p>
 
 * To see exactly what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
