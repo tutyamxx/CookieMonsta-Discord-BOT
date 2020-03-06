@@ -75,7 +75,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(TargetVoiceChannel !== undefined)
     {
-        await TargetVoiceChannel.leave();
+        await MuteTargetMember.setVoiceChannel(null);
     }
 
     await MuteTargetMember.addRole(MutedRole);

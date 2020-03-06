@@ -106,3 +106,4 @@ dist
 
 # Config file
 .config/botconfig.json
+.DS_Store
