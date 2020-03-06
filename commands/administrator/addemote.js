@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const IgnoreCase = require("ignore-case");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -21,11 +22,11 @@ module.exports.run = async (bot, message, szArgs) =>
             return message.reply(" :no_entry: You need to specify an emote ``NAME`` !  :no_entry:");
         }
 
-        const FindExistingEmoji = bot.emojis.find(emoji => emoji.name === szEmoteName);
+        const FindExistingEmoji = bot.emojis.find(emoji => IgnoreCase.equals(emoji.name, szEmoteName));
 
         if(FindExistingEmoji !== null)
         {
-            return message.reply(` :no_entry: There is already an existing emote with the name: **${FindExistingEmoji.name}** ! Try a different emote perhaps? :thinking:  :no_entry:`);
+            return message.reply(` :no_entry: There is already an existing emote with similar or the same name which is: **${FindExistingEmoji.name}** ! Try a different emote perhaps? :thinking:  :no_entry:`);
         }
 
         const GetGuild = message.guild;
