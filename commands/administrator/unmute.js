@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, szArgs) =>
     || !message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES", false)
     || message.author.id !== "266677298051153920")
     {
-        return message.channel.send(":no_entry: You don't have permission to use this command! :laughing: :no_entry:");
+        return message.channel.send(":no_entry: You can't mate! You need either ``ADMINISTRATOR`` or ``MANAGE_MESSAGES`` permission for this command. :laughing: :no_entry:");
     }
 
     const user = message.author;
