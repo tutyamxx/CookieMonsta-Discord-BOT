@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const IgnoreCase = require("ignore-case");
+const validUrl = require("valid-url");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -13,6 +14,11 @@ module.exports.run = async (bot, message, szArgs) =>
         if(CustomFunctions.isEmpty(szEmoteURL) || !szEmoteURL)
         {
             return message.reply(" :no_entry: You need to specify an emote ``URL`` first!  :no_entry:");
+        }
+
+        if(!validUrl.isUri(szEmoteURL))
+        {
+            return message.reply(" :no_entry: Please try to specify a valid emote ``URL``!  :no_entry:");
         }
 
         const szEmoteName = szArgs.slice(1).join("");

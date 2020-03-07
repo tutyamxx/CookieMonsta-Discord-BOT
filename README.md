@@ -78,6 +78,7 @@ npm i axios
 npm i amethyste-api
 npm i cheerio
 npm i steamrep
+npm i valid-url
 
 npm install bufferutil
 npm install hammerandchisel/erlpack
