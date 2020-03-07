@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, szArgs) =>
             return message.reply(" :no_entry: You need to specify an emote ``URL`` first!  :no_entry:");
         }
 
-        const szEmoteName = szArgs[1];
+        const szEmoteName = szArgs.slice(1).join("");
 
         if(CustomFunctions.isEmpty(szEmoteName) || !szEmoteName)
         {
