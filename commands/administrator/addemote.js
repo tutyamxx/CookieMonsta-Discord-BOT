@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         if(GetGuild)
         {
-            await GetGuild.createEmoji(szEmoteURL.toString(), szEmoteName.toString()).then((emote) =>
+            await GetGuild.createEmoji(szEmoteURL.toString(), szEmoteName.replace(/[^0-9a-z]/gi, "").toString()).then((emote) =>
             {
                 return message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have successfully added emote ${emote} to the guild emotes list!`);
 
