@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         const GetGuild = message.guild;
 
-        if(GetGuild)
+        if(GetGuild.available)
         {
             await GetGuild.createEmoji(szEmoteURL.toString(), szEmoteName.replace(/[^0-9a-z]/gi, "").toString()).then((emote) =>
             {
