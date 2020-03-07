@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             await GetGuild.createEmoji(szEmoteURL.toString(), szEmoteName.replace(/[^0-9a-z]/gi, "").toString()).then((emote) =>
             {
-                return message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have successfully added emote ${emote} to the **${GetGuild.name}** emotes list!`);
+                return message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have successfully added the emote ${emote} (**:${emote.name}:**) to the **${GetGuild.name}**'s emotes list!`);
 
             }).catch((err) =>
             {
