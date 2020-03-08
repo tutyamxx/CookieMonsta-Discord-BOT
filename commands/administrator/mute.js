@@ -43,7 +43,6 @@ module.exports.run = async (bot, message, szArgs) =>
 
             message.guild.channels.cache.forEach(async (channel) =>
             {
-                console.log(`I have updated the role ${MutedRole.name} on channel: ${channel.name}`);
                 await channel.updateOverwrite(MutedRole, { USE_EXTERNAL_EMOJIS: false, ADD_REACTIONS: false, SEND_MESSAGES: false, SEND_TTS_MESSAGES: false, EMBED_LINKS: false, ATTACH_FILES: false, MENTION_EVERYONE: false, CONNECT: false, SPEAK: false, USE_VAD: false, PRIORITY_SPEAKER: false });
             });
         }
