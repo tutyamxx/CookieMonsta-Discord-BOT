@@ -12,11 +12,9 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    const GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-
-    axios.get(encodeURI("https://nekobot.xyz/api/imagegen?type=trash&url=") + GetUserAvatar).then((response) =>
+    axios.get(encodeURI(`https://nekobot.xyz/api/imagegen?type=trash&url=${GuildMember.user.displayAvatarURL({ format: "png", size: 2048 })}`)).then((response) =>
     {
-        message.channel.send(new Discord.Attachment(encodeURI(response.data.message), "trash_anime.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        message.channel.send(new Discord.MessageAttachment(encodeURI(response.data.message), "trash_anime.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {

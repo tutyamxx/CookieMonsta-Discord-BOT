@@ -52,9 +52,7 @@ module.exports = async (bot, message) =>
             {
                 iLevel++;
 
-                let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-
-                let i1 = Jimp.read(GetUserAvatar);
+                let i1 = Jimp.read(user.displayAvatarURL({ format: "png", size: 2048 }));
                 let i2 = Jimp.read("./BOTImages/LevelUp/levelup.png");
 
                 Promise.all([i1, i2]).then((images) =>
@@ -79,7 +77,7 @@ module.exports = async (bot, message) =>
                                 return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Level Up)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                             }
 
-                            message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.Attachment(buffer2, "levelup.png"));
+                            message.channel.send("<:cookiemonsta:634866060465537034> **|** ***" + user.username + "*** **leveled** :up:", new Discord.MessageAttachment(buffer2, "levelup.png"));
                         });
                     });
                 });
@@ -90,12 +88,12 @@ module.exports = async (bot, message) =>
             {
                 if(bUserHasGift[user.id] === 0)
                 {
-                    const DiscordRichEmbed = new Discord.RichEmbed()
-                    .setAuthor("Cookie Monsta | You have received a gift!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                    const DiscordRichEmbed = new Discord.MessageEmbed()
+                    .setAuthor("Cookie Monsta | You have received a gift!", bot.user.displayAvatarURL())
                     .setColor("#00BFFF")
-                    .setDescription(user + " you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **" + szPrefix + "opengift**")
+                    .setDescription(`${user}, you have received a gift! :gift:\n\n\nYou only have **2** minutes to open it by typing **${szPrefix}opengift**`)
                     .setThumbnail("https://i.imgur.com/hNALLLd.png")
-                    .setFooter("Gifted by: @" + bot.user.username, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                    .setFooter("Gifted by: @" + bot.user.username, bot.user.displayAvatarURL())
 
                     message.channel.send({ embed: DiscordRichEmbed }).then((msg) =>
                     {
@@ -174,7 +172,7 @@ module.exports = async (bot, message) =>
                 return console.log("\x1b[31m*\x1b[0m Error creating user \x1b[33m(Kitty)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            message.channel.send(user + " here is your :cat:", new Discord.Attachment(buffer, szCatFileName));
+            message.channel.send(user + " here is your :cat:", new Discord.MessageAttachment(buffer, szCatFileName));
             iCountCommandsUsed++;
         });
     }
@@ -201,7 +199,7 @@ module.exports = async (bot, message) =>
             "Didn't read LOL! Stop spamming! <:Bruh:635506622478942219>"
         ];
 
-        return message.delete().then(() => message.reply( " " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then((msg) => { msg.delete(3500) }));
+        return await message.delete().then(() => message.reply(" " + szWaitMessages[Math.floor(Math.random() * szWaitMessages.length)]).then(async (msg) => { await msg.delete({ timeout: 5000 }) }));
     }
 
     let szCmd = bot.commands.get(szCommand.slice(szPrefix.length));

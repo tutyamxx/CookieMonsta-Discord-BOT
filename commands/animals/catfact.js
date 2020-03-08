@@ -12,12 +12,12 @@ module.exports.run = (bot, message, args) =>
         // --| Remove "" from start and end of string
         const CatFactToString = JSON.stringify(response.data.fact).replace(/"/g, "").replace(/\\/g, "``");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Cat Facts", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Cat Facts", bot.user.displayAvatarURL())
         .setColor("#E6E6FA")
         .setDescription(CatFactToString)
         .setThumbnail("https://i.imgur.com/xnTRVHO.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

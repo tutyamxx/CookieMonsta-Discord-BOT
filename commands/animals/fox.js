@@ -12,11 +12,11 @@ module.exports.run = (bot, message, args) =>
         // --| Remove "" from start and end of string
         const FoxImageToString = JSON.stringify(response.data.image).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Fox", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Fox", bot.user.displayAvatarURL())
         .setColor(11674146)
         .setImage(FoxImageToString)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {

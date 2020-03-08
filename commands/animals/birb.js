@@ -11,11 +11,11 @@ module.exports.run = (bot, message, args) =>
     {
         const RandomBirb = JSON.stringify(response.data.link).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Birb", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Birb", bot.user.displayAvatarURL())
         .setColor(11001920)
         .setImage(RandomBirb)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {

@@ -26,7 +26,7 @@ module.exports.run = (bot, message, args) =>
                 console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Garfield)\x1b[0m comics: \x1b[31m" + err + "\x1b[0m");
             }
 
-            message.channel.send(new Discord.Attachment(buffer, "garfield_comics.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+            message.channel.send(new Discord.MessageAttachment(buffer, "garfield_comics.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
     });
 };

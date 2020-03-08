@@ -112,12 +112,12 @@ module.exports.run = (bot, message, szArgs) =>
                             ":bow_and_arrow: Hero Damage: **" + iDotaPlayerHeroDamage + "**\n" +
                             ":sun_with_face: Hero Healing: **" + iDotaPlayerHeroHealing + "**";
 
-                            const DiscordRichEmbed = new Discord.RichEmbed()
-                            .setAuthor("Cookie Monsta | Dota2 Last Game Check", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                            const DiscordRichEmbed = new Discord.MessageEmbed()
+                            .setAuthor("Cookie Monsta | Dota2 Last Game Check", bot.user.displayAvatarURL())
                             .setColor((DotaPlayerTeam === "Radiant" ? "#598307" : "#A83806"))
                             .setDescription(szDescription)
                             .setThumbnail(DotaPlayerAvatar)
-                            .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+                            .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
                             message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                         }

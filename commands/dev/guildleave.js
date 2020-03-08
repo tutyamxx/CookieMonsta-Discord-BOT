@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, szArgs) =>
             return message.reply(" :no_entry: NO! I won't leave this guild :anger: !  :no_entry:");
         }
 
-        let GetGuild = await bot.guilds.get(MentionedGuildParam);
+        const GetGuild = await bot.guilds.cache.get(MentionedGuildParam);
 
         if(GetGuild === undefined)
         {
@@ -39,11 +39,11 @@ module.exports.run = async (bot, message, szArgs) =>
             return message.reply(" I tried to leave this guild id :id:: **" + MentionedGuildParam + "** but I got this error: ``" + e.message + "`` !");
         });
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Guild Leave Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Guild Leave Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("I have left the specified guild\n\n:id:: (**" + szArgs[0] + "**) !")
-        .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        .setDescription(`I have left the specified Guild ID\n\n:id: (**${szArgs[0]}**) !`)
+        .setThumbnail(bot.user.displayAvatarURL())
         .setTimestamp()
 
         message.author.send({ embed: DiscordRichEmbed });

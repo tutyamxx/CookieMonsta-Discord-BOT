@@ -18,8 +18,8 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-    let GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
+    const GetUserAvatar = user.displayAvatarURL({ format: "png", size: 2048 });
+    const GetTargetAvatar = GuildMember.user.displayAvatarURL({ format: "png", size: 2048 });
 
     let i1 = Jimp.read(GetTargetAvatar);
     let i2 = Jimp.read(GetUserAvatar);

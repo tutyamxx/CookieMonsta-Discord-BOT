@@ -15,13 +15,13 @@ module.exports.run = (bot, message, args) =>
         const SpotlightImageDesc = JSON.stringify(response.data.images[0].copyright).replace(/"/g, "");
         const SpotlightDownloadURL = "https://www.bing.com" + JSON.stringify(response.data.images[0].url).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Bing Today's Spotlight", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Bing Today's Spotlight", bot.user.displayAvatarURL())
         .setColor("#" + (Math.random() * 0xFFFFFF << 0).toString(16))
         .setDescription("\n\n" + RandomPicEmojis + " " + SpotlightImageDesc + "\n\n:link: [Download FullHD Image](" + SpotlightDownloadURL + ") :link:")
         .setImage(SpotlightDownloadURL)
         .setThumbnail("https://i.imgur.com/i7oFZRE.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

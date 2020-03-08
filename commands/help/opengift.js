@@ -25,8 +25,8 @@ module.exports.run = async (bot, message, args) =>
         return message.reply(" you don't have any gift :gift: to open! It probably expired or you haven't received one yet! :pensive:");
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Unwrapping your gift...", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Unwrapping your gift...", bot.user.displayAvatarURL())
     .setColor("#00BFFF")
     .setDescription("Hang on tight while I'm unwrapping your gift...")
     .setThumbnail("https://i.imgur.com/hNALLLd.png")
@@ -42,10 +42,10 @@ module.exports.run = async (bot, message, args) =>
 
             await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUpdatedUserCookies);
 
-            const DiscordRichEmbed1 = new Discord.RichEmbed()
-            .setAuthor("Cookie Monsta | Congratulations!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+            const DiscordRichEmbed1 = new Discord.MessageEmbed()
+            .setAuthor("Cookie Monsta | Congratulations!", bot.user.displayAvatarURL())
             .setColor("#00BFFF")
-            .setDescription("***OMNOMNOMNOM!***\n\n\n" + user + " this gift box :gift: contained **" + GenerateRandomCookies + "** cookies :cookie: !")
+            .setDescription(`***OMNOMNOMNOM!***\n\n\n${user}, this gift box :gift: contained **${GenerateRandomCookies}** cookies :cookie: !`)
             .setThumbnail("https://i.imgur.com/hNALLLd.png")
 
             await msg.edit({ embed: DiscordRichEmbed1 });

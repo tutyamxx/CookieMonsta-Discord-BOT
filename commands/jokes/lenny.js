@@ -13,12 +13,12 @@ module.exports.run = async (bot, message, args) =>
         // --| Remove "" from start and end of string
         const LennyFace = JSON.stringify(response.data[0].face).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Your random Lenny", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Your random Lenny", bot.user.displayAvatarURL())
         .setColor(0)
         .setDescription("``" + LennyFace + "``")
         .setThumbnail("https://i.imgur.com/TxUxdfi.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         await LennyMessage.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

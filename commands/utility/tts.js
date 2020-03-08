@@ -28,7 +28,7 @@ module.exports.run = (bot, message, szArgs) =>
         return message.reply(" :no_entry: please don't mention people in your text! :no_entry:");
     }
 
-    const voiceChannel = message.member.voiceChannel;
+    const voiceChannel = message.member.voice.channel;
 
     if(!voiceChannel)
     {
@@ -48,7 +48,7 @@ module.exports.run = (bot, message, szArgs) =>
         {
             bAlreadyPlayingTTS.add(GuildGetID);
 
-            const iDispatcher = connection.playArbitraryInput(encodeURI(szTextToSpeech));
+            const iDispatcher = connection.play(encodeURI(szTextToSpeech));
 
             iDispatcher.on("end", (end) =>
             {

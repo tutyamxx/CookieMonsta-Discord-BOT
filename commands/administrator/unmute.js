@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let TargetMember = message.mentions.members.first();
+    const TargetMember = message.mentions.members.first();
 
     if(!TargetMember)
     {
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: You can't 🔊 **UNMUTE** yourself LMFAO! :face_palm:  :no_entry:");
     }
 
-    if(TargetMember.highestRole.position >= message.member.highestRole.position)
+    if(TargetMember.roles.highest.position >= message.member.roles.highest.position)
     {
         return message.reply(" :no_entry:  You can't 🔊 **UNMUTE** a member that has a role equal or higher than yours :cold_face: !  :no_entry:");
     }
@@ -33,21 +33,21 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: Really? Me? :angry: NO!  :no_entry:");
     }
 
-    const MutedRole = await message.guild.roles.find(role => role.name === "🔇 MUTED");
+    const MutedRole = await message.guild.roles.cache.find(role => role.name === "🔇 MUTED");
 
-    if(!MutedRole || !TargetMember.roles.has(MutedRole.id))
+    if(!MutedRole || !TargetMember.roles.cache.has(MutedRole.id))
     {
         return message.reply(" :no_entry: This user is not 🔇 **MUTED** :cold_face: !  :no_entry:");
     }
 
-    await TargetMember.removeRole(MutedRole);
+    await TargetMember.roles.remove(MutedRole);
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
     .setColor(2003199)
-    .setDescription("**" + user + "** 🔊 **UNMUTED** " + TargetMember.user)
+    .setDescription(`${user}  🔊 **UNMUTED**  ${TargetMember.user}`)
     .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
-    .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Used by: @" + user.username, user.displayAvatarURL())
     .setTimestamp();
 
     message.channel.send({ embed: DiscordRichEmbed });

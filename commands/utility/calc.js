@@ -19,23 +19,23 @@ module.exports.run = (bot, message, szArgs) =>
     {
         let MathCalc = response.data;
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Calculator", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Calculator", bot.user.displayAvatarURL())
         .setColor("#00CED1")
         .setDescription(":selfie: You wanted to calculate: **" + MathEquation.replace(/\s/g, "") + "**\n\n:1234: Result: **" + MathCalc + "**")
         .setThumbnail("https://i.imgur.com/AZSvouC.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {
-        const DiscordRichEmbed1 = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Calculator Error", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed1 = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Calculator Error", bot.user.displayAvatarURL())
         .setColor("#FF0000")
         .setDescription(":sos: **Invalid math formulae or my brain is ded!** :sos:")
         .setThumbnail("https://i.imgur.com/AZSvouC.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         return message.channel.send({ embed: DiscordRichEmbed1 }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });

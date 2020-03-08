@@ -25,9 +25,9 @@ module.exports.run = (bot, message, szArgs) =>
     const iRandomIcon = Math.floor((Math.random() * 39) + 0);
     const RandomAchievementHeader = [ "Achievement Earned!", "Achievement Unlocked!", "Achievement Get!", "Achievement Completed!"];
 
-    const AchievementEncodeGenerate = "https://www.minecraftskinstealer.com/achievement/a.php?i=" + iRandomIcon + "&h=" + RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)] + "&t=" + ArgumentText + "&.png";
+    const AchievementEncodeGenerate = `https://www.minecraftskinstealer.com/achievement/a.php?i=${iRandomIcon}&h=${RandomAchievementHeader[Math.floor(Math.random() * RandomAchievementHeader.length)]}&t=${ArgumentText}&.png`;
 
-    message.channel.send(new Discord.Attachment(encodeURI(AchievementEncodeGenerate), "achievement.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+    message.channel.send(new Discord.MessageAttachment(encodeURI(AchievementEncodeGenerate), "achievement.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 };
 
 module.exports.help =

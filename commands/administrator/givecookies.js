@@ -45,12 +45,12 @@ module.exports.run = async (bot, message, szArgs) =>
 
         await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, GuildMember.user.id, iCalculateNewCookies);
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("**" + user + "** gave **" + GuildMember + "** **" + iCookieAmount + "** cookies :cookie: !")
+        .setDescription(`**${user}** gave **${GuildMember}** **${iCookieAmount}** cookies :cookie: !`)
         .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
-        .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed });

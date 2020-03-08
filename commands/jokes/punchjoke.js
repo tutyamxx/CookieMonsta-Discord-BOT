@@ -14,12 +14,12 @@ module.exports.run = (bot, message, args) =>
         const GetRandomJoke = JSON.stringify(response.data.setup).replace(/"/g, "").replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
         const GetJokePunchline = JSON.stringify(response.data.punchline).replace(/"/g, "").replace(/\\/g, "'").replace(/&quot;/g, '\\"').replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Punchline Jokes | " + CustomFunctions.capitalizeFirstLetter(GetJokeType), (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Punchline Jokes | " + CustomFunctions.capitalizeFirstLetter(GetJokeType), bot.user.displayAvatarURL())
         .setColor("#32CD32")
         .setDescription(":black_joker: " + GetRandomJoke + "\n\n:right_facing_fist::dash: " + GetJokePunchline)
         .setThumbnail("https://static-cdn.jtvnw.net/emoticons/v1/425618/3.0")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

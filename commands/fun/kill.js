@@ -38,8 +38,7 @@ const RandomKillTypes =
 module.exports.run = (bot, message, args) =>
 {
     const user = message.author;
-
-    let GuildMember = message.mentions.members.first();
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
@@ -51,12 +50,12 @@ module.exports.run = (bot, message, args) =>
         return message.reply(" why would you kill yourself? There are plenty of people here available to kill... :face_palm:");
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Kill Confirmed", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Kill Confirmed", bot.user.displayAvatarURL())
     .setColor(16711680)
-    .setDescription(user + "  ***KILLED***  " + GuildMember.user + " ***" + RandomKillTypes[Math.floor(Math.random() * RandomKillTypes.length)] + "***  !")
+    .setDescription(`${user} ***KILLED*** ${GuildMember.user} **${RandomKillTypes[Math.floor(Math.random() * RandomKillTypes.length)]}**  !`)
     .setImage(RandomKillGifs[Math.floor(Math.random() * RandomKillGifs.length)])
-    .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Used by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed });
 };

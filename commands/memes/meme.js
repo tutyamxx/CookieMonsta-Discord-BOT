@@ -12,13 +12,13 @@ module.exports.run = (bot, message, args) =>
         const szRandomMemeImage = JSON.stringify(response.data.image).replace(/"/g, "");
         const szRandomMemeCaption = JSON.stringify(response.data.caption).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Meme", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Meme", bot.user.displayAvatarURL())
         .setColor("#66ff33")
         .setImage(szRandomMemeImage)
         .setThumbnail("https://i.imgur.com/VfYk6YT.png")
         .setDescription(szRandomMemeCaption)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

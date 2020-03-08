@@ -23,8 +23,8 @@ module.exports.run = (bot, message, args) =>
 
         UserShuffleShells[user.id] = Math.floor(( Math.random() * 3 ) + 1);
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Shell Game", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Shell Game", bot.user.displayAvatarURL())
         .setColor(12582656)
         .setDescription("**Shell Game**\n\nYou have to guess on which one of the shells is the :egg: hidden.\n\nChoose one of the shells to see if you were right, or click ❎ to end the game!\n\n\n:chestnut:	  :chestnut:     :chestnut:")
         .setThumbnail("https://i.imgur.com/HeqXIRR.jpg")
@@ -33,22 +33,22 @@ module.exports.run = (bot, message, args) =>
         {
             message.channel.send({ embed: DiscordRichEmbed }).then(async (msg) =>
             {
-                await msg.react("\u0031\u20E3"); // 1
-                await msg.react("\u0032\u20E3"); // 2
-                await msg.react("\u0033\u20E3"); // 3
-                await msg.react("❎");			 // end
+                await msg.react("\u0031\u20E3");    // 1
+                await msg.react("\u0032\u20E3");    // 2
+                await msg.react("\u0033\u20E3");    // 3
+                await msg.react("❎");              // end
 
                 iGameEndTimer[user.id] = setInterval(async () =>
                 {
                     if(bPlayingShell[user.id] === false)
                     {
-                        const DiscordRichEmbed1 = new Discord.RichEmbed()
-                        .setAuthor("Cookie Monsta | Shell Game", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                        const DiscordRichEmbed1 = new Discord.MessageEmbed()
+                        .setAuthor("Cookie Monsta | Shell Game", bot.user.displayAvatarURL())
                         .setColor(12582656)
                         .setDescription(szShellGameDescription[user.id])
                         .setThumbnail("https://i.imgur.com/HeqXIRR.jpg")
 
-                        await msg.clearReactions();
+                        await msg.reactions.removeAll();
                         await msg.edit({ embed: DiscordRichEmbed1 });
 
                         bot.clearInterval(iGameEndTimer[user.id]);
@@ -61,7 +61,7 @@ module.exports.run = (bot, message, args) =>
 
     else
     {
-        return message.reply(":no_entry: I can't start a **Shell Game** session because I don't have enough permissions! :no_entry:");
+        return message.reply(":no_entry: I can't start a **Shell Game** session because I don't have `MANAGE_MESSAGES` and/or `ADD_REACTIONS` permissions! :no_entry:");
     }
 };
 

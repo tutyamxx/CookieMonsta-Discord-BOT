@@ -21,13 +21,13 @@ module.exports.run = async (bot, message, args) =>
         const szTitle = JSON.stringify(response.data.title).replace(/"/g, "");
         const szImageHDURL = JSON.stringify(response.data.hdurl).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Astronomy Picture of the Day", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Astronomy Picture of the Day", bot.user.displayAvatarURL())
         .setColor("#8A2BE2")
         .setDescription(":milky_way: **Picture Name:** `" + szTitle + "`\n\n\n\n:link: [Download FullHD Image](" + szImageHDURL + ") :link:")
         .setImage(szImageHDURL)
-        .setThumbnail((bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setThumbnail(bot.user.displayAvatarURL())
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         return await NasaMessageEdit.edit({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

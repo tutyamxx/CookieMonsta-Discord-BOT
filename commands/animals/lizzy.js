@@ -12,11 +12,11 @@ module.exports.run = (bot, message, args) =>
         // --| Remove "" from start and end of string
         const LizzyImageToString = JSON.stringify(response.data.url).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Lizzy Boi", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Lizzy Boi", bot.user.displayAvatarURL())
         .setColor(4443520)
         .setImage(LizzyImageToString)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {

@@ -22,12 +22,12 @@ module.exports.run = (bot, message, args) =>
             break;
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Coin Flip", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Coin Flip", bot.user.displayAvatarURL())
     .setColor(14667180)
     .setDescription("You got :point_right:  ***" + CoinTextNumber + "***")
     .setImage(CoinImageNumber)
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed });
 };

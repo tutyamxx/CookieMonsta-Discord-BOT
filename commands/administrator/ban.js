@@ -9,7 +9,7 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let BanMember = message.mentions.members.first();
+    const BanMember = message.mentions.members.first();
 
     if(!BanMember)
     {
@@ -32,16 +32,16 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     // --| Skip @mention, remove commas from reason argument and also trim it.
-    let szReason = szArgs.slice(1).join(" ").trim();
+    const szReason = szArgs.slice(1).join(" ").trim();
 
-    BanMember.ban(szReason).then((member) =>
+    message.guild.members.ban(BanMember, { reason: szReason }).then((member) =>
     {
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("**" + user + "** **BANNED** **" + BanMember.user + "** out from this server :rage:\n\n\n**Reason:**   " + (CustomFunctions.isEmpty(szReason) ? "No reason added." : szReason))
+        .setDescription(`**${user}** **BANNED** **${BanMember.user}** out from this server :rage:\n\n\n**Reason:** ${(CustomFunctions.isEmpty(szReason) ? "No reason added." : szReason)}`)
         .setThumbnail("https://i.imgur.com/Y3C3kKF.png")
-        .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed });

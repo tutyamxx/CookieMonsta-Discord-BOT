@@ -5,8 +5,8 @@ module.exports.run = (bot, message, args) =>
         return message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
     }
 
-    let GetBotVoiceChannel = message.guild.me.voiceChannel;
-    let GetUserVoiceChannel = message.member.voiceChannel;
+    const GetBotVoiceChannel = message.guild.me.voice.channel;
+    const GetUserVoiceChannel = message.member.voice.channel;
 
     if(!GetBotVoiceChannel)
     {

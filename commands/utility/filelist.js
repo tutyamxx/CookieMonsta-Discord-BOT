@@ -47,12 +47,12 @@ module.exports.run = (bot, message, szArgs) =>
         ":inbox_tray: Downloads: **" + GetTorrentDownloads + "**\n" +
         ":file_folder: Files in torrent: **" + GetTorrentFiles + "**";
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | FileList Search: " + ArgumentText, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | FileList Search: " + ArgumentText, bot.user.displayAvatarURL())
         .setColor("#2956aa")
         .setDescription(szDescription)
         .setThumbnail("https://i.imgur.com/9OSd2BD.jpg")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp()
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

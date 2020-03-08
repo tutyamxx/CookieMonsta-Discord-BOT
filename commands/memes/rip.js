@@ -13,7 +13,6 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    let GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
     let UsernameText = GuildMember.user.username.replace(/[^a-zA-Z0-9À-ž_ -]/g, "").toString();
 
     Jimp.read("./BOTImages/RIP/rip.png").then((image) =>
@@ -22,7 +21,7 @@ module.exports.run = (bot, message, args) =>
         {
             let totalWidth = CustomFunctions.measureText(font, UsernameText);
 
-            Jimp.read(GetUserAvatar).then((image2) =>
+            Jimp.read(GuildMember.user.displayAvatarURL({ format: "png", size: 2048 })).then((image2) =>
             {
                 image2.resize(70, 70).greyscale();
                 image.print(font, Math.floor(image.bitmap.width / 2 - totalWidth / 2), 160, UsernameText).composite(image2, (image.bitmap.width / 2) - 37, 190).getBuffer(Jimp.MIME_PNG, (err, buffer) =>
@@ -32,7 +31,7 @@ module.exports.run = (bot, message, args) =>
                         console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(RIP)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                     }
 
-                    message.channel.send(new Discord.Attachment(buffer, "rip.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                    message.channel.send(new Discord.MessageAttachment(buffer, "rip.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 });
             });
         });

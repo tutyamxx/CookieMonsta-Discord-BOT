@@ -61,13 +61,13 @@ module.exports.run = (bot, message, szArgs) =>
         // --| Skin image URL
         szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL] = JSON.stringify(response.data.iteminfo.imageurl).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | CSGO Float", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | CSGO Float", bot.user.displayAvatarURL())
         .setColor("#708090")
         .setDescription(":gun: " + szCSGOFloatArray[csgofloat.SKIN_QUALITY] + " " + szCSGOFloatArray[csgofloat.SKIN_WEAPON_NAME] + " | " + szCSGOFloatArray[csgofloat.SKIN_NAME] + " " + "(" + szCSGOFloatArray[csgofloat.SKIN_WEAR_NAME] + ")" + "\n\n:mag: **Float:** " + szCSGOFloatArray[csgofloat.SKIN_FLOAT_VALUE] + "\n\n:id: **Item ID:** " + szCSGOFloatArray[csgofloat.SKIN_ITEM_ID] + "\n\n:package: **Origin:** " + szCSGOFloatArray[csgofloat.SKIN_ORIGIN] + "\n\n:paintbrush: **Paint Index:** " + szCSGOFloatArray[csgofloat.SKIN_PAINT_INDEX] + "\n\n:art: **Paint Seed:** " + szCSGOFloatArray[csgofloat.SKIN_PAINT_SEED])
         .setImage(szCSGOFloatArray[csgofloat.SKIN_IMAGE_URL])
         .setThumbnail("https://i.imgur.com/BYlrgPn.jpg")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

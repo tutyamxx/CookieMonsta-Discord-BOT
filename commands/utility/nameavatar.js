@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, szArgs) =>
             console.log("\x1b[31m*\x1b[0m Error while creating \x1b[33m(Nameavatar)\x1b[0m: \x1b[31m" + err + "\x1b[0m");
         }
 
-        message.channel.send(new Discord.Attachment(buffer, "nameavatar.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        message.channel.send(new Discord.MessageAttachment(buffer, "nameavatar.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     });
 };
 

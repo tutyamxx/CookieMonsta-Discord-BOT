@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(CustomFunctions.isEmpty(szArgs[0]))
     {
-        return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Try a banner from **1** to **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners! :no_entry:");
+        return message.reply(` :no_entry: this parameter can't be empty you scrub :facepalm: ! Try a banner from **1** to **${parseInt(BannersFromDatabase.length)}**. Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners! :no_entry:`);
     }
 
     const iUserBannerName = parseInt(szArgs[0].trim());
@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
     if(iUserBannerName < 1 || iUserBannerName > parseInt(BannersFromDatabase.length))
     {
-        return message.reply(" :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **" + parseInt(BannersFromDatabase.length) + "**. Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners!  :no_entry:");
+        return message.reply(` :no_entry: I couldn't find that banner name :frame_photo: ! Banner names range is between **1** and **${parseInt(BannersFromDatabase.length)}**. Go here https://tutyamxx.github.io/cookie-monsta-website/banners.html to see all the available banners!  :no_entry:`);
     }
 
     const UserCurrentBanner = await DatabaseImport.CookieMonsta_GetUserProfileBanner(GetGuildID, user.id);
@@ -52,7 +52,7 @@ module.exports.run = async (bot, message, szArgs) =>
         if(iUserBannerName === 1)
         {
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
-            message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have reverted the profile banner :frame_photo: for " + user + " with the default one. This one is **FREE**.");
+            message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have reverted the profile banner :frame_photo: for ${user} with the default one. This one is **FREE**.`);
 
             break;
         }
@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, szArgs) =>
         {
             await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies - 25000);
             await DatabaseImport.CookieMonsta_SetUserProfileBanner(GetGuildID, user.id, iUserBannerName.toString().padStart(2, "0") + ".png");
-            message.channel.send("<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for " + user + " with: **" + BannersFromDatabase[i].card_description.toString().trim() + "** (``" + iUserBannerName.toString().padStart(2, "0") + "``). Also stole **25000** :cookie: cookies from him " + RandomSmileyFace);
+            message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have updated the profile banner :frame_photo: for ${user} with: **` + BannersFromDatabase[i].card_description.toString().trim() + "** (``" + iUserBannerName.toString().padStart(2, "0") + "``). Also stole **25000** :cookie: cookies from him " + RandomSmileyFace);
 
             break;
         }

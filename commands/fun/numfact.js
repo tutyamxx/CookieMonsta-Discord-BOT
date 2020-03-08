@@ -18,17 +18,17 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    axios.get("http://numbersapi.com/" + szArgs[0].trim() + "?json").then((response) =>
+    axios.get(`http://numbersapi.com/${szArgs[0].trim()}?json`).then((response) =>
     {
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
         const NumberFactString = JSON.stringify(response.data.text).replace(/"/g, "").replace(/\\/g, '"');
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random fact about number: #" + szArgs[0], (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random fact about number: #" + szArgs[0], bot.user.displayAvatarURL())
         .setColor(4402687)
         .setDescription(NumberFactString)
         .setThumbnail("https://i.imgur.com/L4RORNr.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

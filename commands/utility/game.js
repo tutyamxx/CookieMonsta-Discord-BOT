@@ -66,16 +66,16 @@ module.exports.run = (bot, message, szArgs) =>
             "Release Date: **" + (ResultGameToBeAnnounced === true ? "TBA (To Be Announced)" : (ResultGameReleaseDate === null ? "Unknown" : ResultGameReleaseDate.toString())) + "**\n" +
             "Metacritic Score: **" + (isNaN(ResultGameMetacriticScore) ? "No Score" : ResultGameMetacriticScore) + "**";
 
-            const DiscordRichEmbed = new Discord.RichEmbed()
-            .setAuthor("Cookie Monsta | Game Genie", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+            const DiscordRichEmbed = new Discord.MessageEmbed()
+            .setAuthor("Cookie Monsta | Game Genie", bot.user.displayAvatarURL())
             .setColor("#C9DBED")
             .addField("`Game Platforms:`", (Object.keys(ResultGamePlatorms).length <= 0 ? ":man_shrugging:" : szPlatforms.join(", ")), true)
             .addField("`Available On:`", (Object.keys(ResultGameStores).length <= 0 ? "Stand Alone Executable" : szAvailableStores.join(", ")), true)
             .setDescription(szDescription)
             .setThumbnail("https://i.imgur.com/NWbb94q.png")
-            .attachFile({ attachment: (ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : ResultGame.background_image), name: "game_background.png" })
+            .attachFiles({ attachment: (ResultGame.background_image === null ? "https://i.imgur.com/udvekQS.png" : ResultGame.background_image), name: "game_background.png" })
             .setImage("attachment://game_background.png")
-            .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+            .setFooter("Stats from: RAWG.io • Requested by: @" + user.username, user.displayAvatarURL())
 
             message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

@@ -18,12 +18,12 @@ module.exports.run = (bot, message, args) =>
     :small_blue_diamond:   Spinning a fidget spinner for more than **40** seconds, will get you **400** cookies\n \
     :small_blue_diamond:   Setting a custom profile card costs **25000** cookies.";
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Information and Prices", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Information and Prices", bot.user.displayAvatarURL())
     .setColor(2003199)
     .setDescription(FormatMessage)
     .setThumbnail("https://i.imgur.com/KaqBWI9.png")
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed }).then(async () => await message.react("🍪"));
 };

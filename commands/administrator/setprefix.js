@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, szArgs) =>
 
         for(const QueryResult of GuildsList)
         {
-            const DiscordGuild = bot.guilds.get(QueryResult.guild);
+            const DiscordGuild = bot.guilds.cache.get(QueryResult.guild);
 
             if(!DiscordGuild) continue;
 

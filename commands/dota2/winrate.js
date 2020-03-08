@@ -52,12 +52,12 @@ module.exports.run = (bot, message, szArgs) =>
                 szWhatChart + " Winrate: **" + iPlayerWinrate + "%**\n\n\n``Attention:``\n" +
                 "These stats might be outdated or incorrect.\nThey are taken from **Open Dota**.";
 
-                const DiscordRichEmbed = new Discord.RichEmbed()
-                .setAuthor("Cookie Monsta | Dota2 Player Winrate", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                const DiscordRichEmbed = new Discord.MessageEmbed()
+                .setAuthor("Cookie Monsta | Dota2 Player Winrate", bot.user.displayAvatarURL())
                 .setColor("#257DAE")
                 .setDescription(szDescription)
                 .setThumbnail(DotaPlayerAvatar)
-                .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+                .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
                 message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

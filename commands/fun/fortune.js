@@ -12,12 +12,12 @@ module.exports.run = (bot, message, args) =>
         // --| Remove "" from start and end of string, remove \n, \t, \ from string
         const FortuneToString = JSON.stringify(response.data.fortune).replace(/"/g, "").replace(/\\n/g, " ").replace(/\\t/g, " ").replace(/\\/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Your fortune says...", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Your fortune says...", bot.user.displayAvatarURL())
         .setColor(16747520)
         .setDescription(":label: " + FortuneToString)
         .setThumbnail("https://i.imgur.com/sYWuVKG.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

@@ -28,18 +28,17 @@ module.exports.run = async (bot, message, szArgs) =>
             return message.reply(" :no_entry: You need to specify an emote ``NAME`` !  :no_entry:");
         }
 
-        const FindExistingEmoji = await bot.emojis.find(emoji => IgnoreCase.equals(emoji.name, szEmoteName));
+        const GetGuild = message.guild;
+        const FindExistingEmoji = bot.emojis.cache.find(emoji => IgnoreCase.equals(emoji.name, szEmoteName));
 
-        if(FindExistingEmoji !== null)
+        if(FindExistingEmoji !== undefined)
         {
             return message.reply(` :no_entry: There is already an existing emote with similar or the same name which is: **${FindExistingEmoji.name}** ! Try a different emote perhaps? :thinking:  :no_entry:`);
         }
 
-        const GetGuild = message.guild;
-
         if(GetGuild.available)
         {
-            await GetGuild.createEmoji(szEmoteURL.toString(), szEmoteName.replace(/[^0-9a-z]/gi, "").toString()).then((emote) =>
+            await GetGuild.emojis.create(szEmoteURL.toString(), szEmoteName.replace(/[^0-9a-z]/gi, "").toString()).then((emote) =>
             {
                 return message.channel.send(`<:cookiemonsta:634866060465537034> **|** Okay, I have successfully added the emote ${emote} (**:${emote.name}:**) to the **${GetGuild.name}**'s emotes list!`);
 

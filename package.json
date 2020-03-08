@@ -1,6 +1,6 @@
 {
     "name": "discordbot",
-    "version": "7.0.5",
+    "version": "8.0.0",
     "description": "<p align=\"center\">   <img src=\"https://i.imgur.com/5WDYzyG.png\" widht=\"420\" height=\"290\"><br/> </p> <br/><br/>",
     "main": "CookieMonstaBOT.js",
     "nodemonConfig": {
@@ -14,6 +14,7 @@
     "author": "tuty",
     "license": "GPL-3.0",
     "dependencies": {
+        "@discordjs/opus": "^0.1.0",
         "@jimp/plugin-invert": "^0.9.3",
         "@mixer/client-node": "^3.5.0",
         "amethyste-api": "^1.1.2",
@@ -22,7 +23,7 @@
         "cheerio": "^1.0.0-rc.3",
         "colors": "^1.4.0",
         "dblapi.js": "^2.3.1",
-        "discord.js": "^11.5.1",
+        "discord.js": "^12.0.1",
         "erlpack": "github:hammerandchisel/erlpack",
         "ffmpeg": "0.0.4",
         "ffmpeg-static": "^4.0.1",

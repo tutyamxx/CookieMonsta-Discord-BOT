@@ -25,12 +25,12 @@ module.exports.run = (bot, message, szArgs) =>
         const ReplyJson = JSON.stringify(response.data.image).replace(/"/g, "");
         const AnswerJson = JSON.stringify(response.data.answer).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Yes/No", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Yes/No", bot.user.displayAvatarURL())
         .setColor((AnswerJson === "yes") ? "#0080ff" : "#ff4000")
         .setDescription("***Your Question:***  " + CustomFunctions.capitalizeFirstLetter(szQuestion) + "\n\n***My answer:***  `` " + CustomFunctions.capitalizeFirstLetter(AnswerJson) + " ``")
         .setImage(ReplyJson)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

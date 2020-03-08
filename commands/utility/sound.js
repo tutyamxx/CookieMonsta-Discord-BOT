@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: you need **300** cookies :cookie: to play this sound! :no_entry:");
     }
 
-    let UserVoiceChannel = message.member.voiceChannel;
+    let UserVoiceChannel = message.member.voice.channel;
 
     if(!UserVoiceChannel)
     {
@@ -75,7 +75,7 @@ module.exports.run = async (bot, message, szArgs) =>
                     const SoundFileToPlay = fs.createReadStream(CatchSoundFromArray);
 
                     // --| All my .OPUS files are converted to: Audio Bitrate: 64k | Sample Rate: 48000 (Discord's Default Settings)
-                    const iDispatcher = connection.playStream(SoundFileToPlay, { volume: 2, passes: 1, bitrate: 48000 });
+                    const iDispatcher = connection.play(SoundFileToPlay, { volume: 2, passes: 1, bitrate: 48000 });
 
                     iDispatcher.on("end", (end) =>
                     {

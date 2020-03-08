@@ -1,27 +1,24 @@
 const DatabaseImport = require("../database/database.js");
 
-module.exports = async (oldMember, newMember) =>
+module.exports = async (oldState, newState) =>
 {
-    const newUserChannel = newMember.voiceChannel
-    const oldUserChannel = oldMember.voiceChannel
+    const UserOldChannel = newState.channelID;
+    const UserNewChannel = oldState.channelID;
 
-    const GuildID = newMember.guild.id;
+    const GuildID = newState.guild.id;
 
-    // --| Left voice channel
-    if(oldUserChannel === undefined && newUserChannel !== undefined)
+    if(!newState.bot || !oldState.bot)
     {
-        if(!newMember.bot)
+        // --| User has joined a voice channel
+        if((UserOldChannel === undefined && UserNewChannel === undefined) || (UserOldChannel === null && UserNewChannel === undefined))
         {
-            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newMember.user.id);
+            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newState.id);
         }
-    }
 
-    // -- | Joined voice channel
-    else if(newUserChannel === undefined)
-    {
-        if(!newMember.bot)
+        // --| User has left a voice channel
+        else if((UserOldChannel !== undefined && UserNewChannel === undefined) || (UserNewChannel !== undefined && UserNewChannel === undefined))
         {
-            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newMember.user.id);
+            await DatabaseImport.CookieMonsta_CheckCreateUser(GuildID, newState.id);
         }
     }
 };

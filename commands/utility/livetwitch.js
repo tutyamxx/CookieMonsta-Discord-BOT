@@ -28,14 +28,14 @@ module.exports.run = async (bot, message, szArgs) =>
         ":video_game: Streaming: **" + GetUserLive.game_played + "**\n" +
         ":busts_in_silhouette: Viewers: **" + GetUserLive.viewers + "**\n";
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Twitch LIVE Check", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Twitch LIVE Check", bot.user.displayAvatarURL())
         .setColor("#6441a5")
         .setDescription(szDescription)
         .setThumbnail(GetUserLive.profile_avatar)
-        .attachFile({ attachment: GetUserLive.preview_thumbnail, name: "twitch_thumbnail.png" })
+        .attachFiles({ attachment: GetUserLive.preview_thumbnail, name: "twitch_thumbnail.png" })
         .setImage("attachment://twitch_thumbnail.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp()
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

@@ -2,13 +2,17 @@ const DatabaseImport = require("../database/database.js");
 
 module.exports = async (bot, oldMember, newMember) =>
 {
-    if(oldMember.user.bot || newMember.user.bot)
+    if(oldMember !== undefined && newMember !== undefined)
     {
-        return;
-    }
+        const UserOld = oldMember.user;
+        const UserNew = newMember.user;
 
-    if(newMember.presence.status !== oldMember.presence.status)
-    {
-        await DatabaseImport.CookieMonsta_CheckCreateUser(newMember.guild.id, newMember.user.id);
+        if(!UserOld.bot && !UserNew.bot)
+        {
+            if(UserOld.id === UserNew.id)
+            {
+                await DatabaseImport.CookieMonsta_CheckCreateUser(newMember.guild.id, UserNew.id);
+            }
+        }
     }
 };

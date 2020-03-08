@@ -14,6 +14,7 @@
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * If you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in **botconfig.json**).
 * Thanks to my friend [CoachAprax](https://www.youtube.com/user/freeAEgraphics) for the banners and some images.
+* UPDATED TO DISCORD.JS VERSION 12!
 
 <br/><br/>
 <p align="center">
@@ -84,7 +85,7 @@ npm install bufferutil
 npm install hammerandchisel/erlpack
 npm install libsodium-wrappers
 
-npm install discord.js node-opus
+npm install discord.js @discordjs/opus
 ```
 
 

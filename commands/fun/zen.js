@@ -11,12 +11,12 @@ module.exports.run = (bot, message, args) =>
     {
         const ZenWords = response.data.replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "").replace(/\\/g, '"');
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | GitHub Zen", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | GitHub Zen", bot.user.displayAvatarURL())
         .setColor(16777037)
         .setThumbnail("https://i.imgur.com/6pFPKvA.png")
-        .setDescription(":tanabata_tree: " + ZenWords)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setDescription(`:tanabata_tree: ${ZenWords}`)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(async (message) =>
         {

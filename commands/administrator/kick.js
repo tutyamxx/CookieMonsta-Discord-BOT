@@ -9,7 +9,7 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let KickMember = message.mentions.members.first();
+    const KickMember = message.mentions.members.first();
 
     if(!KickMember)
     {
@@ -32,16 +32,16 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     // --| Skip @mention, remove commas from reason argument and also trim it.
-    let szReason = szArgs.slice(1).join(' ').trim();
+    const szReason = szArgs.slice(1).join(' ').trim();
 
     KickMember.kick(szReason).then((member) =>
     {
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("**" + user + "** KICKED **" + KickMember.user + "** out from this server :rage:\n\n\n**Reason:**   " + (CustomFunctions.isEmpty(szReason) ? "No reason added." : szReason))
+        .setDescription(`**${user}** KICKED **${KickMember.user}** out from this server :rage:\n\n\n**Reason:** ${(CustomFunctions.isEmpty(szReason) ? "No reason added." : szReason)}`)
         .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
-        .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed });

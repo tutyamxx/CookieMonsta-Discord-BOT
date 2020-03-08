@@ -12,18 +12,61 @@ module.exports.run = (bot, message, args) =>
         return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :facepalm:  :no_entry:");
     }
 
-    const GetTargetAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    const TargetName = GuildMember.user.username;
-
-    const GetGameName = (GuildMember.presence.game === null) ? "Nothing" : GuildMember.presence.game;
-    const GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format('lll') + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
+    const GetTargetAvatar = GuildMember.user.avatarURL();
+    const GetTargetName = GuildMember.user.username;
+    const GetTargetRegistrationDate = moment(GuildMember.user.createdAt).format("lll") + " *(" + moment(new Date()).diff(GuildMember.user.createdAt, "days") + " days ago)*";
     const GetUserPresenceClient = GuildMember.presence.clientStatus;
+
+    let GenerateCustomActivityName;
+    let GetUserGameName;
+
+    if(GuildMember.presence.activities.length > 0)
+    {
+        switch(GuildMember.presence.activities[0].type)
+        {
+            case "STREAMING":
+                GenerateCustomActivityName = ":earth_africa: Streaming:";
+                GetUserGameName = `[${GuildMember.presence.activities[0].name}](${GuildMember.presence.activities[0].url})`;
+
+                break;
+
+            case "LISTENING":
+                GenerateCustomActivityName = ":musical_note: Listening:";
+                GetUserGameName = GuildMember.presence.activities[0].name;
+
+                break;
+
+            case "PLAYING":
+                GenerateCustomActivityName = ":video_game: Playing:";
+                GetUserGameName = GuildMember.presence.activities[0].name;
+
+                break;
+
+            case "WATCHING":
+                GenerateCustomActivityName = ":eyes: Watching:";
+                GetUserGameName = GuildMember.presence.activities[0].name;
+
+                break;
+
+            case "CUSTOM_STATUS":
+                GenerateCustomActivityName = `${GuildMember.presence.activities[0].emoji} Custom Status:`;
+                GetUserGameName = GuildMember.presence.activities[0].state;
+
+                break;
+        }
+    }
+
+    else
+    {
+        GenerateCustomActivityName = ":zzz:";
+        GetUserGameName = "Nothing";
+    }
 
     let GetClientStatus = [];
 
     if(GetUserPresenceClient !== null)
     {
-        if(GetUserPresenceClient.hasOwnProperty("web"))
+        if(GetUserPresenceClient.hasOwnProperty("web") || Object.keys(GetUserPresenceClient).length <= 0)
         {
             GetClientStatus.push("🌐");
         }
@@ -44,13 +87,13 @@ module.exports.run = (bot, message, args) =>
         GetClientStatus.push("🚫");
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | User Info", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | User Info", bot.user.avatarURL())
     .setColor("#1E90FF")
-    .addField(":id: ID:", GuildMember.user.id + "\n\n:satellite: Status:\n" + CustomFunctions.capitalizeFirstLetter(GuildMember.user.presence.status) + " (" + GetClientStatus.join(", ") + ")" + "\n\n:video_game: Playing:\n" + GetGameName + "\n", true)
-    .addField(":spy: Username:", TargetName + "\n\n:hash: User Tag:\n" + GuildMember.user.tag + "\n\n:floppy_disk: Joined Discord:\n" + GetTargetRegistrationDate, true)
+    .addField(":id: ID:", GuildMember.user.id + "\n\n:satellite: Status:\n" + CustomFunctions.capitalizeFirstLetter(GuildMember.user.presence.status) + " (" + GetClientStatus.join(", ") + ")" + `\n\n${GenerateCustomActivityName}\n` + GetUserGameName + "\n", true)
+    .addField(":spy: Username:", GetTargetName + "\n\n:hash: User Tag:\n" + GuildMember.user.tag + "\n\n:floppy_disk: Joined Discord:\n" + GetTargetRegistrationDate, true)
     .setThumbnail(GetTargetAvatar)
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed });
 };

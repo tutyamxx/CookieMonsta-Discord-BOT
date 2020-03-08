@@ -20,12 +20,9 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    const GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    const GetUserUsername = GuildMember.user.username;
-
-    axios.get(encodeURI(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${GetUserAvatar}&text=${TextComment}&username=${GetUserUsername}`)).then((response) =>
+    axios.get(encodeURI(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${GuildMember.user.displayAvatarURL({ format: "png", size: 2048 })}&text=${TextComment}&username=${GuildMember.user.username}`)).then((response) =>
     {
-        message.channel.send(new Discord.Attachment(encodeURI(response.data.message), "phub.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        message.channel.send(new Discord.MessageAttachment(encodeURI(response.data.message), "phub.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {

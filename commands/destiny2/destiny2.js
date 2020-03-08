@@ -20,7 +20,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    axios.get("https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/" + encodeURIComponent(szDestiny2PlayerName) + "/", Destiny2RequestOptions).then((response) =>
+    axios.get(`https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/${encodeURIComponent(szDestiny2PlayerName)}/`, Destiny2RequestOptions).then((response) =>
     {
         if(response.status === 200)
         {
@@ -31,7 +31,7 @@ module.exports.run = (bot, message, szArgs) =>
                 return message.channel.send(":no_entry: Sorry, I couldn't find this Destiny 2: player ``" + szDestiny2PlayerName + "``  :disappointed_relieved:  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             }
 
-            axios.get("https://www.bungie.net/Platform/Destiny2/" + parseInt(PlayerObject.membershipType) + "/Account/" + PlayerObject.membershipId + "/Stats/?groups=General,Medals", Destiny2RequestOptions).then((response_player) =>
+            axios.get(`https://www.bungie.net/Platform/Destiny2/${parseInt(PlayerObject.membershipType)}/Account/${PlayerObject.membershipId}/Stats/?groups=General,Medals`, Destiny2RequestOptions).then((response_player) =>
             {
                 if(response_player.status === 200)
                 {
@@ -102,12 +102,12 @@ module.exports.run = (bot, message, szArgs) =>
                     ":biohazard: Adventures Completed: **" + PlayerAdventuresCompleted + "**\n" +
                     ":muscle: Heroic Public Events Completed: **" + PlayerHeroicEventsCompleted + "**";
 
-                    const DiscordRichEmbed = new Discord.RichEmbed()
-                    .setAuthor("Cookie Monsta | Destiny 2 Player Stats", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                    const DiscordRichEmbed = new Discord.MessageEmbed()
+                    .setAuthor("Cookie Monsta | Destiny 2 Player Stats", bot.user.displayAvatarURL())
                     .setColor("#361213")
                     .setDescription(szDescription)
                     .setThumbnail("https://i.imgur.com/xtrhgVj.jpg")
-                    .setFooter("Stats from: BUNGIE.net • Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+                    .setFooter("Stats from: BUNGIE.net • Requested by: @" + user.username, user.displayAvatarURL())
                     .setTimestamp()
 
                     message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

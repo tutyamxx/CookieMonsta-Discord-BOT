@@ -7,7 +7,7 @@ const RandomEmojiNews =
     ":smiley:", ":yum:", ":sweat_smile:", ":upside_down:", ":blush:", ":slight_smile:", ":smirk:", ":boy:", ":v:", ":ok_hand:", ":call_me:"
 ];
 
-module.exports.run = async (bot, message, szArgs) =>
+module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
@@ -21,19 +21,19 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: you need to enter a message in order to send it! :no_entry:");
     }
 
-    let NewsTextFromDev = szArgs.join(" ");
-    let guildList = await bot.guilds.array();
+    const NewsTextFromDev = szArgs.join(" ");
+    const guildList = bot.guilds.cache.array();
 
     try
     {
-        guildList.forEach(async (guild) =>
+        guildList.forEach((guild) =>
         {
-            let cChannel = await GetChannelDefault.getDefaultChannel(guild);
+            let cChannel = GetChannelDefault.getDefaultChannel(guild);
 
-            if(cChannel && cChannel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+            if(cChannel && cChannel.permissionsFor(guild.me).has("SEND_MESSAGES"))
             {
-                const DiscordRichEmbed = new Discord.RichEmbed()
-                .setAuthor("Cookie Monsta | Announcement Board!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                const DiscordRichEmbed = new Discord.MessageEmbed()
+                .setAuthor("Cookie Monsta | Announcement Board!", bot.user.displayAvatarURL())
                 .setColor(16777215)
                 .setDescription(":label: **From:** " + user.tag + "\n\n\n:desktop: **To:** All guilds." + "\n\n\n\n" + ":newspaper: **Message:** " + NewsTextFromDev + " " + RandomEmojiNews[Math.floor(Math.random() * RandomEmojiNews.length)] + "\n")
                 .setThumbnail("https://i.imgur.com/Lfm6maV.jpg")
@@ -43,11 +43,13 @@ module.exports.run = async (bot, message, szArgs) =>
                 cChannel.send({ embed: DiscordRichEmbed });
             }
         });
+
+        message.channel.send(`<:cookiemonsta:634866060465537034> **|** I have successfully sent the news :newspaper: !`);
     }
 
     catch(err)
     {
-        message.channel.send("I have encountered an error while sending news: **" + err.message + "**");
+        message.channel.send("<:cookiemonsta:634866060465537034> **|** I have encountered an error while sending news: **" + err.message + "**");
         console.log("\x1b[31m*\x1b[0m Error occured while sending news: \x1b[31m" + err.message + "\x1b[0m");
     }
 };

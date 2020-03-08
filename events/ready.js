@@ -14,17 +14,17 @@ const DiscordBotsDBL = new DBL(BotConfig.DBL_API_Token.trim(), CookieMonsta.iDis
 module.exports = async (bot) =>
 {
     console.log(ConsoleColors.rainbow(AsciiArt));
-    console.log(`\x1b[31m*\x1b[0m Cookie Monsta [BOT] has started, with \x1b[34m${bot.users.size}\x1b[0m users, in \x1b[32m${bot.channels.size}\x1b[0m channels of \x1b[35m${bot.guilds.size}\x1b[0m guilds.`);
+    console.log(`\x1b[31m*\x1b[0m Cookie Monsta [BOT] has started, with \x1b[34m${bot.users.cache.size}\x1b[0m users, in \x1b[32m${bot.channels.cache.size}\x1b[0m channels of \x1b[35m${bot.guilds.cache.size}\x1b[0m guilds.`);
 
     bot.user.setStatus("dnd");
-    bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => {});
+    bot.user.setActivity("If you type !help for info.", { type: 'WATCHING' }).catch(() => { });
 
     iStatusUpdateInterval = setInterval(() =>
     {
         const ActivityUpdate =
         [
             ["If you type !help for info.", 'WATCHING'],
-            ["On: (" + bot.guilds.size + ") servers.", 'WATCHING'],
+            ["On: (" + bot.guilds.cache.size + ") servers.", 'WATCHING'],
             ["🍪 ME WANT COOKIES 🍪", 'PLAYING'],
             ["If you type !hello to say hi to me", 'LISTENING'],
             ["!help | 🍪  Munching cookies...", 'PLAYING'],
@@ -37,8 +37,8 @@ module.exports = async (bot) =>
             ["Early bird gets the worm. But cookie taste better than worm.", 'LISTENING'],
             ["Sometimes I think, what is friend? 🍪", 'PLAYING'],
             ["COOKIES? 👀", 'WATCHING'],
-            ["Over (" + bot.users.size + ") users.", 'WATCHING'],
-            ["(" + bot.users.size + ") user requests 👂", 'LISTENING'],
+            ["Over (" + bot.users.cache.size + ") users.", 'WATCHING'],
+            ["(" + bot.users.cache.size + ") user requests 👂", 'LISTENING'],
             ["Save the EARTH! It's the only planet with cookies! 🍪", 'PLAYING'],
             ["If you want to steal me cookies?! 🍪🍪🍪 👀", 'WATCHING'],
             ["(Ginger Pubes DUBSTEP) 🔊", 'LISTENING'],
@@ -61,7 +61,7 @@ module.exports = async (bot) =>
 
         for(const QueryResult of GuildsList)
         {
-            const DiscordGuild = bot.guilds.get(QueryResult.guild);
+            const DiscordGuild = bot.guilds.cache.get(QueryResult.guild);
 
             if(!DiscordGuild) continue;
 
@@ -70,10 +70,10 @@ module.exports = async (bot) =>
 
         console.log("\x1b[31m*\x1b[0m I have successfully cached guild prefixes!");
 
-    }, 1000);
+    }, 1500);
 
     // --| Assign to everyone gift to 0
-    for(user of bot.users)
+    for(user of bot.users.cache)
     {
         if(!user[1].bot)
         {

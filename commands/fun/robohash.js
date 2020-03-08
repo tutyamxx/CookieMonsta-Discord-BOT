@@ -11,13 +11,12 @@ module.exports.run = (bot, message, szArgs) =>
     }
 
     let ArgumentText = szArgs.join(" ");
-    const GenerateRoboHash = "https://robohash.org/" + ArgumentText + ".png?bgset=bg1";
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Robohash", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Robohash", bot.user.displayAvatarURL())
     .setColor("#" + (Math.random() * 0xFFFFFF << 0).toString(16))
-    .setImage(encodeURI(GenerateRoboHash))
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setImage(encodeURI(`https://robohash.org/${ArgumentText}.png?bgset=bg1`))
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed });
 };

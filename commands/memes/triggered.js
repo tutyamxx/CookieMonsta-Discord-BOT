@@ -15,11 +15,9 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    const GetUserAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-
-    ameApi.generate("triggered", { url: GetUserAvatar }).then((szImageBuffer) =>
+    ameApi.generate("triggered", { url: GuildMember.user.displayAvatarURL({ format: "png", size: 2048 }) }).then((szImageBuffer) =>
     {
-        message.channel.send(new Discord.Attachment(szImageBuffer, "triggered.gif")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+        message.channel.send(new Discord.MessageAttachment(szImageBuffer, "triggered.gif")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
     }).catch(() =>
     {

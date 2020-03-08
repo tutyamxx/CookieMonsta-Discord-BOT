@@ -14,10 +14,9 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     let ArgumentText = szArgs.join(" ");
+    const TextToQR = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&bgcolor=${(Math.random() * 0xFFFFFF << 0).toString(16)}&data=${ArgumentText}`;
 
-    let TextToQR = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&bgcolor=" + (Math.random() * 0xFFFFFF << 0).toString(16) + "&data=" + ArgumentText;
-
-    message.channel.send("Your :regional_indicator_q::regional_indicator_r:  :arrow_heading_down:", await new Discord.Attachment(encodeURI(TextToQR), "qrcode.png"));
+    message.channel.send("Your :regional_indicator_q::regional_indicator_r:  :arrow_heading_down:", await new Discord.MessageAttachment(encodeURI(TextToQR), "qrcode.png"));
 };
 
 module.exports.help =

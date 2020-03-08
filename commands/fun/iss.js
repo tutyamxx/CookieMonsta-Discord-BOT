@@ -12,12 +12,12 @@ module.exports.run = (bot, message, args) =>
         const iLocLatitude = JSON.stringify(response.data.iss_position.latitude).replace(/"/g, "");
         const iLocLongitude = JSON.stringify(response.data.iss_position.longitude).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | International Space Station Location", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | International Space Station Location", bot.user.displayAvatarURL())
         .setColor("#00BFFF")
         .setDescription(":satellite_orbital: **Location:** :satellite_orbital:\n\n:satellite: **Latitude:** " + iLocLatitude + "°\n:satellite: **Longitude:** " + iLocLongitude + "°")
         .setThumbnail("https://i.imgur.com/T3zXl0F.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

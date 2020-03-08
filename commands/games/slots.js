@@ -84,7 +84,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.10);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -97,7 +97,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.10);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -110,7 +110,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.25);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -123,7 +123,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.25);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -136,7 +136,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.25);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -149,7 +149,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.08);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -162,7 +162,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.08);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -175,7 +175,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.08);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -188,7 +188,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 0.08);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -209,7 +209,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 1.50);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -230,7 +230,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 1.50);
 
-                szSlotsMessageEdit += "\n" + user + ", you won. Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you won. Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -260,7 +260,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 UserCoinsWon[user.id] = parseInt(iUserCookies * 5.00);
 
-                szSlotsMessageEdit += "\n" + user + ", you :money_with_wings: :money_with_wings: : **WON THE JACKPOT!** :money_with_wings: :money_with_wings:\n**CONGRATULATIONS !** Cookies awarded: **" + UserCoinsWon[user.id] + "** :cookie:";
+                szSlotsMessageEdit += `\n${user}, you :money_with_wings: :money_with_wings: **WON THE JACKPOT!** :money_with_wings: :money_with_wings:\n**CONGRATULATIONS !** Cookies awarded: **${UserCoinsWon[user.id]}** :cookie:`;
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies + UserCoinsWon[user.id]);
             }
 
@@ -268,7 +268,7 @@ module.exports.run = async (bot, message, args) =>
             {
                 // --| Losing 10 cookies for every play
                 await DatabaseImport.CookieMonsta_SetUserCookies(GuildGetID, user.id, iUserCookies - 10);
-                szSlotsMessageEdit += "\n" + user + ", you lose. **0** cookies :cookie: awarded. Here's a :potato: for you!";
+                szSlotsMessageEdit += `\n${user}, you lose. **0** cookies :cookie: awarded. Here's a :potato: for you!`;
             }
         }
 

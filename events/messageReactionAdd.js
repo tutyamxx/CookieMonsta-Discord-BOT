@@ -21,16 +21,16 @@ module.exports = async (bot, reaction, user) =>
         {
             if(1 === ShellGame.UserShuffleShells[user.id])
             {
-                await reaction.remove(user);
+                await reaction.users.remove();
 
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:egg:	  :chestnut:     :chestnut:";
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\n:confetti_ball:  Congratulations ${user}, you won **${RandomShellPrize}** cookies :cookie: this time!\n\n\n:egg:	  :chestnut:     :chestnut:`;
             }
 
             else
             {
-                await reaction.remove(user);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\nSorry " + user + ", you lost! Good luck next time!\n\n\n:x:	  :chestnut:     :chestnut:";
+                await reaction.users.remove();
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\nSorry ${user}, you lost! Good luck next time!\n\n\n:x:	  :chestnut:     :chestnut:`;
             }
         }
 
@@ -38,16 +38,16 @@ module.exports = async (bot, reaction, user) =>
         {
             if(2 === ShellGame.UserShuffleShells[user.id])
             {
-                await reaction.remove(user);
+                await reaction.users.remove();
 
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:chestnut:	  :egg:     :chestnut:";
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\n:confetti_ball:  Congratulations ${user}, you won **${RandomShellPrize}** cookies :cookie: this time!\n\n\n:chestnut:	  :egg:     :chestnut:`;
             }
 
             else
             {
-                await reaction.remove(user);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\nSorry " + user + ", you lost! Good luck next time!\n\n\n:chestnut:	  :x:     :chestnut:";
+                await reaction.users.remove();
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\nSorry ${user}, you lost! Good luck next time!\n\n\n:chestnut:	  :x:     :chestnut:`;
             }
         }
 
@@ -55,23 +55,23 @@ module.exports = async (bot, reaction, user) =>
         {
             if(3 === ShellGame.UserShuffleShells[user.id])
             {
-                await reaction.remove(user);
+                await reaction.users.remove();
 
                 await DatabaseImport.CookieMonsta_SetUserCookies(GetGuildID, user.id, iUserCookies + RandomShellPrize);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n:confetti_ball:  Congratulations " + user + ", you won **" + RandomShellPrize + "** cookies :cookie: this time!\n\n\n:chestnut:	  :chestnut:     :egg:";
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\n:confetti_ball:  Congratulations ${user}, you won **${RandomShellPrize}** cookies :cookie: this time!\n\n\n:chestnut:	  :chestnut:     :egg:`;
             }
 
             else
             {
-                await reaction.remove(user);
-                ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\nSorry " + user + ", you lost! Good luck next time!\n\n\n:chestnut:	  :chestnut:     :x:";
+                await reaction.users.remove();
+                ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\nSorry ${user}, you lost! Good luck next time!\n\n\n:chestnut:	  :chestnut:     :x:`;
             }
         }
 
         else if(reaction.emoji.name === "❎")
         {
-            await reaction.remove(user);
-            ShellGame.szShellGameDescription[user.id] = "**Shell Game**\n\n\n\n\n:x:   ***GAME OVER***    :x:";
+            await reaction.users.remove();
+            ShellGame.szShellGameDescription[user.id] = `**Shell Game**\n\n\n\n\n:x:   ***GAME OVER***    :x:`;
         }
 
         ShellGame.bPlayingShell[user.id] = false;

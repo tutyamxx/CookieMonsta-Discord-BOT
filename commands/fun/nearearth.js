@@ -15,12 +15,12 @@ module.exports.run = (bot, message, args) =>
     {
         const iCountObjects = JSON.stringify(response.data.element_count).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | NASA Near Earth Object", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | NASA Near Earth Object", bot.user.displayAvatarURL())
         .setColor("#D2691E")
         .setDescription("There are **" + parseInt(iCountObjects) + "** near-earth " + szRandomEarthEmoji[Math.floor(Math.random() * szRandomEarthEmoji.length)] + " objects " + szRandomEarthObjects[Math.floor(Math.random() * szRandomEarthObjects.length)] + " circulating around the globe right now!")
         .setThumbnail("https://i.imgur.com/lprxAaW.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp()
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

@@ -12,16 +12,17 @@ module.exports.run = (bot, message, args) =>
         const ServerName = ServerGuild.name;
         const ServerID = ServerGuild.id;
         const ServerOwner = ServerGuild.owner.user.tag;
-        const ServerCreationDate = moment(ServerGuild.createdAt).format('lll');
+        const ServerCreationDate = moment(ServerGuild.createdAt).format("lll");
 
-        const ServerUserCount = ServerGuild.members.filter(member => member.user).size;
-        const ServerBotsCount = ServerGuild.members.filter(member => member.user.bot).size;
-        const ServerUserOnlineCount = ServerGuild.members.filter(member => !member.user.bot && member.presence.status === "online").size;
+        const ServerUserCount = ServerGuild.memberCount;
+        const ServerBotsCount = ServerGuild.members.cache.filter(member => member.user.bot).size;
+        const ServerUserOnlineCount = ServerGuild.members.cache.filter(member => !member.user.bot && member.presence.status === "online").size;
 
-        const ServerChannels = message.guild.channels.size;
-        const ServerVoiceChannelsCount = ServerGuild.channels.filter(ctype => ctype.type === "voice").size;
-        const ServerTextChannelCount = ServerGuild.channels.filter(ctype => ctype.type === "text").size;
-        const ServerCategories = ServerGuild.channels.filter(ctype => ctype.type === "category").size;
+        const ServerChannels = message.guild.channels.cache.size;
+
+        const ServerVoiceChannelsCount = ServerGuild.channels.cache.filter(ctype => ctype.type === "voice").size;
+        const ServerTextChannelCount = ServerGuild.channels.cache.filter(ctype => ctype.type === "text").size;
+        const ServerCategories = ServerGuild.channels.cache.filter(ctype => ctype.type === "category").size;
 
         const ServerMFALevel = ServerGuild.mfaLevel;
         const ServerContentFilter = ServerGuild.explicitContentFilter;
@@ -37,12 +38,12 @@ module.exports.run = (bot, message, args) =>
         "\n:white_medium_small_square: 2FA: **" + (ServerMFALevel >= 1 ? "On" : "Off") + "**" +
         "\n:white_medium_small_square: Content Filter: **" + CustomFunctions.Guild_GetContentFilter(ServerContentFilter) + "**";
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Server Information", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Server Information", bot.user.displayAvatarURL())
         .setDescription(szDescription)
         .setColor(2003199)
-        .setThumbnail((ServerGuild.iconURL === null) ? ServerGuild.owner.user.defaultAvatarURL : ServerGuild.iconURL)
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setThumbnail((ServerGuild.iconURL() === null) ? ServerGuild.owner.user.displayAvatarURL() : ServerGuild.iconURL())
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp()
 
         message.channel.send({ embed: DiscordRichEmbed });

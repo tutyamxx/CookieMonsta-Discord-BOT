@@ -13,9 +13,7 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-
-    let i1 = Jimp.read(MemberAvatar);
+    let i1 = Jimp.read(GuildMember.user.displayAvatarURL({ format: "png", size: 2048 }));
     let i2 = Jimp.read("./BOTImages/DeepFry/okhand.png");
     let i3 = Jimp.read("./BOTImages/DeepFry/100emoji.png");
     let i4 = Jimp.read("./BOTImages/DeepFry/laughingemoji.png");
@@ -71,14 +69,14 @@ module.exports.run = (bot, message, args) =>
                             console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Deepfry)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        message.channel.send(new Discord.Attachment(buffer3, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                        message.channel.send(new Discord.MessageAttachment(buffer3, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 
                     });
                 }
 
                 else
                 {
-                    message.channel.send(new Discord.Attachment(buffer2, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                    message.channel.send(new Discord.MessageAttachment(buffer2, szDeepFryImage)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
             });
         });

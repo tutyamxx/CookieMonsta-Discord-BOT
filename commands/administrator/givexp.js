@@ -46,12 +46,12 @@ module.exports.run = async (bot, message, szArgs) =>
 
         await DatabaseImport.CookieMonsta_UpdatePoints_And_Level(GuildGetID, GuildMember.user.id, parseInt(iCalculateNewPoints), parseInt(iTargetLevel));
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("**" + user + "** gave **" + GuildMember + "** **" + ExperienceAmount + "** XP :trophy: !\n\n\n" + GuildMember + "'s level is now: **" + parseInt(iTargetLevel) + "** :blush: !")
+        .setDescription(`**${user}** gave **${GuildMember}** **${ExperienceAmount}** XP :trophy: !\n\n\n${GuildMember}'s level is now: **${parseInt(iTargetLevel)}** :blush: !`)
         .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
-        .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed });

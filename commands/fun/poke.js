@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = (bot, message, args) =>
 {
-    let GuildMember = message.mentions.members.first();
+    const GuildMember = message.mentions.members.first();
 
     if(!GuildMember)
     {
@@ -11,10 +11,10 @@ module.exports.run = (bot, message, args) =>
 
     if(GuildMember.user === message.author)
     {
-        return message.reply(` oh my god why would you poke yourself? :joy:`);
+        return message.reply(" oh my god why would you poke yourself? :joy:");
     }
 
-    message.channel.send(message.author + " just poked :point_right: " + GuildMember + "  :eyes:");
+    message.channel.send(`<:cookiemonsta:634866060465537034> **|** ${message.author} just poked :point_right: ${GuildMember} <:zoomeyes:685988596053835796>`);
 };
 
 module.exports.help =

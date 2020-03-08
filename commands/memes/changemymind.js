@@ -7,7 +7,7 @@ module.exports.run = (bot, message, szArgs) =>
 {
     const user = message.author;
 
-    let SearchQuery = szArgs.slice(0).join(' ');
+    let SearchQuery = szArgs.slice(0).join(" ");
 
     if(CustomFunctions.isEmpty(SearchQuery))
     {
@@ -26,9 +26,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    let GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
-
-    let i1 = Jimp.read(GetUserAvatar);
+    let i1 = Jimp.read(user.displayAvatarURL({ format: "png", size: 2048 }));
     let i2 = Jimp.read("./BOTImages/ChangeMyMind/changemymind.jpg");
 
     Promise.all([i1, i2]).then((images) =>
@@ -52,7 +50,7 @@ module.exports.run = (bot, message, szArgs) =>
                     console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Change My Mind)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                message.channel.send(new Discord.Attachment(buffer2, "changemymind.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                message.channel.send(new Discord.MessageAttachment(buffer2, "changemymind.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             });
         });
     });

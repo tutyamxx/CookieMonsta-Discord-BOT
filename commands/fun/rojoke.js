@@ -15,12 +15,12 @@ module.exports.run = (bot, message, args) =>
         const RomanianJokeCategory = CustomFunctions.capitalizeFirstLetter(response.data.joketype.toString());
         const RomanianJoke = response.data.joke.toString();
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Romanian Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Romanian Joke", bot.user.displayAvatarURL())
         .setColor(RandomHexColors[Math.floor(Math.random() * RandomHexColors.length)])
         .setDescription("`Joke Type`:\n" + RomanianJokeCategory + "\n\n`Joke`: \n" + RomanianJoke)
         .setThumbnail("https://raw.githubusercontent.com/tutyamxx/Romanian-Jokes-API/master/joke.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

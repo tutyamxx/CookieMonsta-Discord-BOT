@@ -12,17 +12,15 @@ module.exports.run = (bot, message, args) =>
 
     message.channel.startTyping();
 
-    const MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-
     const PicEmojis = [ ":mount_fuji:", ":mountain:", ":mountain_snow:", ":sunrise_over_mountains:", ":sunrise:", ":city_sunset:" ];
     const RandomPicEmojis = PicEmojis[Math.floor(Math.random() * PicEmojis.length)];
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | User Avatar ", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
-    .setDescription(RandomPicEmojis + " Here is " + GuildMember.user + "'s avatar :small_red_triangle_down:")
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | User Avatar ", bot.user.displayAvatarURL())
+    .setDescription(`${RandomPicEmojis} Here is ${GuildMember.user}'s avatar :small_red_triangle_down:`)
     .setColor(2003199)
-    .setImage(MemberAvatar)
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setImage(GuildMember.user.displayAvatarURL({ size: 2048 }))
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 };

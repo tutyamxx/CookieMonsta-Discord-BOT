@@ -79,23 +79,23 @@ function GuildVerificationLevel(guild)
 
     switch(guild.verificationLevel)
     {
-        case 0:
+        case "NONE":
             ReturnVerificationLevel = "None";
             break;
 
-        case 1:
+        case "LOW":
             ReturnVerificationLevel = "Low";
             break;
 
-        case 2:
+        case "MEDIUM":
             ReturnVerificationLevel = "Medium";
             break;
 
-        case 3:
+        case "HIGH":
             ReturnVerificationLevel = "(╯°□°）╯︵ ┻━┻";
             break;
 
-        case 4:
+        case "VERY_HIGH":
             ReturnVerificationLevel = "┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻";
             break;
     }
@@ -392,15 +392,15 @@ function Guild_GetContentFilter(iFilterLevel)
 
     switch(iFilterLevel)
     {
-        case 0:
+        case "DISABLED":
             szFilterName = "No Scan";
             break;
 
-        case 1:
+        case "MEMBERS_WITHOUT_ROLES":
             szFilterName = "Scan Non-Roles";
             break;
 
-        case 2:
+        case "ALL_MEMBERS":
             szFilterName = "Scan All";
             break;
     }

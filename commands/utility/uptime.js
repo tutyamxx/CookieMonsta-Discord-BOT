@@ -5,8 +5,8 @@ const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = (bot, message, args) =>
 {
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | BOT Uptime", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | BOT Uptime", bot.user.displayAvatarURL())
     .setColor(26367)
     .setDescription(`:robot: **Uptime:** ${CustomFunctions.secondsToString(process.uptime())}\n\n:desktop: **Uptime:** ${CustomFunctions.secondsToString(os.uptime())}`)
     .setThumbnail("https://i.imgur.com/df79Q6S.png")

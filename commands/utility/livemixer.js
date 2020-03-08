@@ -47,14 +47,14 @@ module.exports.run = (bot, message, szArgs) =>
             ":video_game: Streaming: **" + szUserStreamGamePlayed + "**\n" +
             ":busts_in_silhouette: Viewers: **" + iCurrentUserViewers + "**\n";
 
-            const DiscordRichEmbed = new Discord.RichEmbed()
-            .setAuthor("Cookie Monsta | Mixer LIVE Check", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+            const DiscordRichEmbed = new Discord.MessageEmbed()
+            .setAuthor("Cookie Monsta | Mixer LIVE Check", bot.user.displayAvatarURL())
             .setColor("#02052")
             .setDescription(szDescription)
             .setThumbnail(szUserStreamAvatarURL)
-            .attachFile({ attachment: szUserStreamBannerURL, name: "mixer_thumbnail.png" })
+            .attachFiles({ attachment: szUserStreamBannerURL, name: "mixer_thumbnail.png" })
             .setImage("attachment://mixer_thumbnail.png")
-            .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+            .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
             .setTimestamp()
 
             message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

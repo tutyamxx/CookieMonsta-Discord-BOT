@@ -12,9 +12,7 @@ module.exports.run = (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-
-    let i1 = Jimp.read(MemberAvatar);
+    let i1 = Jimp.read(GuildMember.user.displayAvatarURL({ format: "png", size: 2048 }));
     let i2 = Jimp.read("./BOTImages/Disabled/disabled.png");
 
     Promise.all([i1, i2]).then((images) =>
@@ -28,7 +26,7 @@ module.exports.run = (bot, message, szArgs) =>
                 console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Disabled)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            message.channel.send(new Discord.Attachment(buffer, "disabled.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+            message.channel.send(new Discord.MessageAttachment(buffer, "disabled.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
     });
 };

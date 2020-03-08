@@ -10,7 +10,7 @@ module.exports.run = (bot, message, args) =>
 
     axios.get("http://roll.diceapi.com/json/2d6/").then((response) =>
     {
-        const GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+        const GetUserAvatar = user.displayAvatarURL({ format: "png", size: 2048 });
 
         const DiceNum1 = JSON.stringify(parseInt(response.data.dice[0].value));
         const DiceNum2 = JSON.stringify(parseInt(response.data.dice[1].value));
@@ -39,7 +39,7 @@ module.exports.run = (bot, message, args) =>
                     console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Dice Game)\x1b[0m: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                message.channel.send(user + "You rolled **" + DiceNum1 + "** and **" + DiceNum2 + "** :point_down:", { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                message.channel.send(`${user}, You rolled **${DiceNum1}** and **${DiceNum2}** :point_down:`, { files: [buffer] }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 await message.react(":dice:634953930043817994");
             });
         });

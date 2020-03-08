@@ -37,8 +37,8 @@ module.exports = (bot, member, guild) =>
 {
     if(member)
     {
-        let GetUserAvatar = (member.user.avatarURL === null) ? member.user.defaultAvatarURL : member.user.avatarURL;
-        let GetUserName = member.user.username.replace(/'/g, "`").trim();
+        const GetUserAvatar = member.user.displayAvatarURL({ format: "png", size: 2048 });
+        const GetUserName = member.user.username.replace(/'/g, "`").trim();
 
         let szRandomBanner = "";
         let szRandomBannerFont = "";
@@ -77,7 +77,7 @@ module.exports = (bot, member, guild) =>
                 {
                     if(err)
                     {
-                        return console.log("\x1b[31m*\x1b[0m Whoops! There is your error: \x1b[31m" + err + "\x1b[0m");
+                        return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                     }
 
                     gm(buffer)
@@ -87,18 +87,18 @@ module.exports = (bot, member, guild) =>
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szRandomBannerFont)
                     .draw(["text 264, 220 'Member: #"  + member.guild.memberCount + "'"])
-                    .toBuffer("banner.png", async (err, buffer2) =>
+                    .toBuffer("banner.png", (err, buffer2) =>
                     {
                         if(err)
                         {
                             return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        let cChannel = await DefChannel.getDefaultChannel(member.guild);
+                        const cChannel = DefChannel.getDefaultChannel(member.guild);
 
-                        if(cChannel && cChannel.permissionsFor(member.guild.me).has('SEND_MESSAGES'))
+                        if(cChannel && cChannel.permissionsFor(member.guild.me).has("SEND_MESSAGES", "VIEW_CHANNEL"))
                         {
-                            cChannel.send(new Discord.Attachment(buffer2, "welcome.png"));
+                            cChannel.send(new Discord.MessageAttachment(buffer2, "welcome_banner.png"));
                         }
                     });
                 });

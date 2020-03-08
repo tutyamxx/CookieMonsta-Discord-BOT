@@ -14,19 +14,19 @@ module.exports.run = async (bot, message, args) =>
     const iRandomComic = Math.floor((Math.random() * iComicCount) + 1);
     const user = message.author;
 
-    axios.get("https://xkcd.com/" + iRandomComic + "/info.0.json").then((response) =>
+    axios.get(`https://xkcd.com/${iRandomComic}/info.0.json`).then((response) =>
     {
         const ComicTitle = JSON.stringify(response.data.title).replace(/"/g, "");
         const ComicDescription = JSON.stringify(response.data.alt).replace(/"/g, "").replace(/\\/g, "'");
         const ComicImageURL = JSON.stringify(response.data.img).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | XKCD Comic Number: #" + iRandomComic + " | " + ComicTitle, (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | XKCD Comic Number: #" + iRandomComic + " | " + ComicTitle, bot.user.displayAvatarURL())
         .setColor("#808080")
         .setDescription(ComicDescription)
         .setImage(ComicImageURL)
         .setThumbnail("https://i.imgur.com/4uj0Djx.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

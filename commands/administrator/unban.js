@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const IgnoreCase = require("ignore-case");
 const CustomFunctions = require("../../functions/funcs.js");
 
 module.exports.run = async (bot, message, szArgs) =>
@@ -9,7 +10,7 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let szSearch = szArgs.join(" ");
+    const szSearch = szArgs.join(" ");
 
     if(!szSearch || CustomFunctions.isEmpty(szSearch))
     {
@@ -19,21 +20,21 @@ module.exports.run = async (bot, message, szArgs) =>
     try
     {
         let Bans = await message.guild.fetchBans();
-        let Banned = Bans.get(szSearch) || Bans.find(u => u.tag.toLowerCase().includes(szSearch.toLowerCase()));
+        let Banned = Bans.find(userbanned => IgnoreCase.equals(userbanned.user.username, szSearch)) || Bans.find(userbanned => userbanned.user.id === szSearch);
 
         if(!Banned)
         {
             return message.reply(" I could not find a banned user by this :id: or ``name``.");
         }
 
-        await message.guild.unban(Banned);
+        await message.guild.members.unban(Banned.user.id, `Ban appealed by ${user.username} using (UNBAN) command from ${bot.user.tag}`);
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription("**" + user + "** removed the **BAN** from **" + Banned.tag + "** :smirk:")
+        .setDescription(`**${user}** removed the **BAN** from **${Banned.user.tag}** :smirk:`)
         .setThumbnail("https://i.imgur.com/p6nQ6Dk.jpg")
-        .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
 
         message.channel.send({ embed: DiscordRichEmbed });

@@ -21,14 +21,14 @@ module.exports.run = (bot, message, args) =>
         const Pokemon1 = $("#select1 option:selected").text().trim();
         const Pokemon2 = $("#select2 option:selected").text().trim();
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Poke Fusion", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Poke Fusion", bot.user.displayAvatarURL())
         .setDescription(`Randomly fused **${Pokemon1}** :zap: **${Pokemon2}**\n\nResult: **${FusedPokemonName}**`)
         .setColor(11950939)
-        .attachFile({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${ActualRandomPokemons}.png`, name: "pokefusion.png" })
+        .attachFiles({ attachment: `http://images.alexonsager.net/pokemon/fused/${iRandomPokemon2}/${iRandomPokemon2}.${ActualRandomPokemons}.png`, name: "pokefusion.png" })
         .setImage("attachment://pokefusion.png")
         .setThumbnail("https://i.imgur.com/i6F9ntA.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

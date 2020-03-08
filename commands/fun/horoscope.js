@@ -39,12 +39,12 @@ module.exports.run = (bot, message, szArgs) =>
             {
                 const StringHoroscope = JSON.stringify(response.data.horoscope).replace(/"/g, "").replace(/'/g, "").replace(/\[/g, "").replace(/\]/g, "");
 
-                const DiscordRichEmbed = new Discord.RichEmbed()
-                .setAuthor("Cookie Monsta | Horoscope", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+                const DiscordRichEmbed = new Discord.MessageEmbed()
+                .setAuthor("Cookie Monsta | Horoscope", bot.user.displayAvatarURL())
                 .setColor(26316)
                 .setDescription("**Sign:** " + response.data.sunsign + " " + ZodiacSigns[i][1] + "\n\n" + StringHoroscope)
                 .setThumbnail("https://i.imgur.com/9iraNPb.png")
-                .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+                .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
                 .setTimestamp()
 
                 message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));

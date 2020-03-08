@@ -14,12 +14,12 @@ module.exports.run = (bot, message, args) =>
         const RandomQuoteText = response.data.quoteText.trim();
         const RandomQuoteAuthor = response.data.quoteAuthor;
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Quote", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Quote", bot.user.displayAvatarURL())
         .setColor("#cc33ff")
         .setDescription(":speech_left:  *" + RandomQuoteText + "*\n\n\n**-** :label: " + (CustomFunctions.isEmpty(RandomQuoteAuthor) ? "Unknown Author" : RandomQuoteAuthor))
         .setThumbnail("https://i.imgur.com/BdjxI8e.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

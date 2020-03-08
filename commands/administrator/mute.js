@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, szArgs) =>
     }
 
     const user = message.author;
-    let MuteTargetMember = message.mentions.members.first();
+    const MuteTargetMember = message.mentions.members.first();
 
     if(!MuteTargetMember)
     {
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: You can't 🔇 **MUTE** yourself LMFAO! :face_palm:  :no_entry:");
     }
 
-    if(MuteTargetMember.highestRole.position >= message.member.highestRole.position)
+    if(MuteTargetMember.roles.highest.position >= message.member.roles.highest.position)
     {
         return message.reply(" :no_entry:  You can't 🔇 **MUTE** a member that has a role equal or higher than yours :cold_face: !  :no_entry:");
     }
@@ -33,30 +33,18 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: Really? Me? :angry: NO!  :no_entry:");
     }
 
-    let MutedRole = await message.guild.roles.find(role => role.name === "🔇 MUTED");
+    let MutedRole = await message.guild.roles.cache.find(role => role.name === "🔇 MUTED");
 
     if(!MutedRole)
     {
         try
         {
-            MutedRole = await message.guild.createRole({ name: "🔇 MUTED", color: "#FF0000", hoist: true, mentionable: false, permissions: [] });
+            MutedRole = await message.guild.roles.create({ data: { name: "🔇 MUTED", color: "#FF0000", hoist: true, mentionable: false, permissions: [] } });
 
-            message.guild.channels.forEach(async (channel, id) =>
+            message.guild.channels.cache.forEach(async (channel) =>
             {
-                await channel.overwritePermissions(MutedRole,
-                {
-                    USE_EXTERNAL_EMOJIS: false,
-                    ADD_REACTIONS: false,
-                    SEND_MESSAGES: false,
-                    SEND_TTS_MESSAGES: false,
-                    EMBED_LINKS: false,
-                    ATTACH_FILES: false,
-                    MENTION_EVERYONE: false,
-                    CONNECT: false,
-                    SPEAK: false,
-                    USE_VAD: false,
-                    PRIORITY_SPEAKER: false
-                });
+                console.log(`I have updated the role ${MutedRole.name} on channel: ${channel.name}`);
+                await channel.updateOverwrite(MutedRole, { USE_EXTERNAL_EMOJIS: false, ADD_REACTIONS: false, SEND_MESSAGES: false, SEND_TTS_MESSAGES: false, EMBED_LINKS: false, ATTACH_FILES: false, MENTION_EVERYONE: false, CONNECT: false, SPEAK: false, USE_VAD: false, PRIORITY_SPEAKER: false });
             });
         }
 
@@ -66,26 +54,24 @@ module.exports.run = async (bot, message, szArgs) =>
         }
     }
 
-    if(MuteTargetMember.roles.has(MutedRole.id))
+    if(MuteTargetMember.roles.cache.has(MutedRole.id))
     {
         return message.reply(" :no_entry: This user is already 🔇 **MUTED** !  :no_entry:");
     }
 
-    const TargetVoiceChannel = MuteTargetMember.voiceChannel;
-
-    if(TargetVoiceChannel !== undefined)
+    if(MuteTargetMember.voice.channel !== undefined)
     {
-        await MuteTargetMember.setVoiceChannel(null);
+        await MuteTargetMember.voice.setChannel(null);
     }
 
-    await MuteTargetMember.addRole(MutedRole);
+    await MuteTargetMember.roles.add(MutedRole);
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Admin Log", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
     .setColor(2003199)
-    .setDescription("**" + user + "** 🔇 **MUTED** " + MuteTargetMember.user)
+    .setDescription(`**${user}**  🔇 **MUTED**  **${MuteTargetMember.user}** !`)
     .setThumbnail("https://i.imgur.com/h17kd5m.png")
-    .setFooter("Used by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Used by: @" + user.username, user.displayAvatarURL())
     .setTimestamp();
 
     message.channel.send({ embed: DiscordRichEmbed });

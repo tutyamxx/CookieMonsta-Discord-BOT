@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>
     const user = message.author;
     const GetGuildID = message.guild.id;
 
-    const GetUserAvatar = (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL;
+    const GetUserAvatar = user.displayAvatarURL({ format: "png", size: 2048 });
     const GetUserName = user.username.replace(/'/g, "`").trim();
 
     const szPrefix = await DatabaseImport.CookieMonsta_GetGuildPrefix(message.guild.id);
@@ -65,12 +65,12 @@ module.exports.run = async (bot, message, args) =>
 
                 if(ChanceToShowTips === 5)
                 {
-                    message.channel.send("<:cookiemonsta:634866060465537034> **|** Remember, you can change your profile card banner at any time using ``" + szPrefix + "setbanner`` command :thumbsup:\n<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                    message.channel.send("<:cookiemonsta:634866060465537034> **|** Remember, you can change your profile card banner at any time using ``" + szPrefix + "setbanner`` command :thumbsup:\n<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.MessageAttachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
 
                 else
                 {
-                    message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.Attachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                    message.channel.send("<:cookiemonsta:634866060465537034> **|** **Server stats :bar_chart: for:** ***" + GetUserName + "***", new Discord.MessageAttachment(buffer2, szStatsFileName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
                 }
             });
         });

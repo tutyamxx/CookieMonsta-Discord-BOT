@@ -13,10 +13,8 @@ module.exports.run = async (bot, message, szArgs) =>
 
     message.channel.startTyping();
 
-    let MemberAvatar = (GuildMember.user.avatarURL === null) ? GuildMember.user.defaultAvatarURL : GuildMember.user.avatarURL;
-    let ImageURL = await Jimp.read(MemberAvatar);
-
     const szDrawnImageName = "draw.png";
+    let ImageURL = await Jimp.read(GuildMember.user.displayAvatarURL({ format: "png", size: 2048 }));
 
     ImageURL.getBuffer(Jimp.MIME_PNG, (err, buffer) =>
     {
@@ -32,7 +30,7 @@ module.exports.run = async (bot, message, szArgs) =>
                 console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Draw)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
             }
 
-            message.channel.send(new Discord.Attachment(buffer2, szDrawnImageName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+            message.channel.send(new Discord.MessageAttachment(buffer2, szDrawnImageName)).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
     });
 };

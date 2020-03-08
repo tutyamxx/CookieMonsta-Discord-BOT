@@ -20,12 +20,12 @@ module.exports.run = (bot, message, szArgs) =>
         OutputBinary += ArgumentText[i].charCodeAt(0).toString(2) + " ";
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | Your binary", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | Your binary", bot.user.displayAvatarURL())
     .setColor(1173635)
     .setDescription(OutputBinary)
     .setThumbnail("https://i.imgur.com/W5oKCle.jpg")
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.delete().then(() => message.channel.send({ embed: DiscordRichEmbed }));
 };

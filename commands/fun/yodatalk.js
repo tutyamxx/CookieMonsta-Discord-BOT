@@ -15,17 +15,17 @@ module.exports.run = (bot, message, szArgs) =>
 
     let ArgumentText = szArgs.join(" ");
 
-    axios.get("http://yoda-api.appspot.com/api/v1/yodish?text=" + encodeURI(ArgumentText)).then((response) =>
+    axios.get(`http://yoda-api.appspot.com/api/v1/yodish?text=${encodeURI(ArgumentText)}`).then((response) =>
     {
         // --| Remove "" from start and end of string
         const YodishString = JSON.stringify(response.data.yodish).replace(/"/g, "");
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Yoda Talk", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Yoda Talk", bot.user.displayAvatarURL())
         .setColor(9419919)
         .setDescription(YodishString)
         .setThumbnail("https://i.imgur.com/9H5dC0O.jpg")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

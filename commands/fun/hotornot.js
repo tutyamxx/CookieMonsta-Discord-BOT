@@ -35,12 +35,12 @@ module.exports.run = async (bot, message, args) =>
         ColorHotOrNot = 14833698;
     }
 
-    const DiscordRichEmbed = new Discord.RichEmbed()
-    .setAuthor("Cookie Monsta | HOT or NOT!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+    const DiscordRichEmbed = new Discord.MessageEmbed()
+    .setAuthor("Cookie Monsta | HOT or NOT!", bot.user.displayAvatarURL())
     .setColor(ColorHotOrNot)
-    .setDescription(user + `, you're **${HotPercentage}%** HOT ` + EmoticonHotOrNot)
+    .setDescription(`${user}, you're **${HotPercentage}%** HOT ${EmoticonHotOrNot}`)
     .setThumbnail("https://i.imgur.com/yLMzwps.png")
-    .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+    .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
     message.channel.send({ embed: DiscordRichEmbed });
 };

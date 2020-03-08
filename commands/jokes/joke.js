@@ -17,12 +17,12 @@ module.exports.run = (bot, message, args) =>
         // --| Remove "" from start and end of string and also replace &quot; with ""
         const RandomJokeToString = JSON.stringify(response.data.value.joke).replace(/"/g, "").replace(/&quot;/g, '\\"');
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Random Joke", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Random Joke", bot.user.displayAvatarURL())
         .setColor(10526880)
         .setDescription(RandomJokeToString + " " + RandomLaughEmoji[Math.floor(Math.random() * RandomLaughEmoji.length)])
         .setThumbnail("https://i.imgur.com/Fx73HXI.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         message.channel.send({ embed: DiscordRichEmbed }).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
 

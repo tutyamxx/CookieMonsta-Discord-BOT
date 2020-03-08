@@ -40,15 +40,15 @@ module.exports.run = (bot, message, szArgs) =>
 
         }).catch(() => { });
 
-        const DiscordRichEmbed = new Discord.RichEmbed()
-        .setAuthor("Cookie Monsta | Yu-Gi-Oh!", (bot.user.avatarURL === null) ? bot.user.defaultAvatarURL : bot.user.avatarURL)
+        const DiscordRichEmbed = new Discord.MessageEmbed()
+        .setAuthor("Cookie Monsta | Yu-Gi-Oh!", bot.user.displayAvatarURL())
         .setColor(0xBE5F1F)
         .setDescription(":flower_playing_cards: **Card Name:** " + szCardName + "\n\n:label: **Description:** " + szCardDescription + "\n\n")
         .addField(":performing_arts: **Card Type:** ", CustomFunctions.capitalizeFirstLetter(CardType), true)
         .setThumbnail("https://i.imgur.com/YidwZ0f.gif")
-        .attachFile({ attachment: GetCardImage, name: "yugioh_card.png" })
+        .attachFiles({ attachment: GetCardImage, name: "yugioh_card.png" })
         .setImage("attachment://yugioh_card.png")
-        .setFooter("Requested by: @" + user.username, (user.avatarURL === null) ? user.defaultAvatarURL : user.avatarURL)
+        .setFooter("Requested by: @" + user.username, user.displayAvatarURL())
 
         if(CardType === "monster")
         {

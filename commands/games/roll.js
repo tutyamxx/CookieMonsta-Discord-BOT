@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>
 
         else
         {
-            message.channel.send( `:game_die:  ${user} has rolled the dice and it lost! He got number:  ` + EmojiConvert.NumberToDiscordEmoji(RandomDice) + "  :triumph: :triumph:");
+            message.channel.send( `:game_die: ${user} has rolled the dice and it lost! He got number:  ` + EmojiConvert.NumberToDiscordEmoji(RandomDice) + "  :triumph: :triumph:");
         }
 
         UserAlreadyRolling[user.id] = false;

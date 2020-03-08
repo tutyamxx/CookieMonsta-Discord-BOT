@@ -13,9 +13,7 @@ module.exports.run = (bot, message, szArgs) =>
     {
         message.channel.startTyping();
 
-        let BillURL = "https://belikebill.ga/billgen-API.php?default=1&name=" + message.author.username.toString() + "&sex=" + szArgs[0].toLowerCase();
-
-        Jimp.read(encodeURI(BillURL)).then((image) =>
+        Jimp.read(encodeURI(`https://belikebill.ga/billgen-API.php?default=1&name=${message.author.username}&sex=${szArgs[0].toLowerCase()}`)).then((image) =>
         {
             image.getBuffer(Jimp.MIME_PNG, (err, buffer) =>
             {
@@ -24,7 +22,7 @@ module.exports.run = (bot, message, szArgs) =>
                     console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Be Like Bill)\x1b[0m meme: \x1b[31m" + err + "\x1b[0m");
                 }
 
-                message.channel.send(new Discord.Attachment(buffer, "belikebill.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
+                message.channel.send(new Discord.MessageAttachment(buffer, "belikebill.png")).then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
             });
         });
     }
