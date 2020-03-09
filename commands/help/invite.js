@@ -1,16 +1,9 @@
 const Discord = require("discord.js");
 
-const iBotPermissions =
-[
-    "MANAGE_ROLES", "MANAGE_CHANNELS", "KICK_MEMBERS", "BAN_MEMBERS", "CREATE_INSTANT_INVITE", "MANAGE_EMOJIS",
-    "VIEW_CHANNEL", "SEND_MESSAGES", "SEND_TTS_MESSAGES", "MANAGE_MESSAGES", "EMBED_LINKS", "ATTACH_FILES", "READ_MESSAGE_HISTORY",
-    "MENTION_EVERYONE", "ADD_REACTIONS", "USE_EXTERNAL_EMOJIS", "CONNECT", "SPEAK", "USE_VAD"
-];
-
 module.exports.run = async (bot, message, args) =>
 {
     const user = message.author;
-    const szGeneratedInvite = await bot.generateInvite(iBotPermissions).catch(console.error);
+    const szGeneratedInvite = await bot.generateInvite("ADMINISTRATOR").catch(console.error);
 
     const DiscordRichEmbed = new Discord.MessageEmbed()
     .setAuthor("Cookie Monsta | Invite Generator", bot.user.displayAvatarURL())
