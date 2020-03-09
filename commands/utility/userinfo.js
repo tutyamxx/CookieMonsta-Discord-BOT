@@ -49,7 +49,7 @@ module.exports.run = (bot, message, args) =>
                 break;
 
             case "CUSTOM_STATUS":
-                GenerateCustomActivityName = `${GuildMember.presence.activities[0].emoji} Custom Status:`;
+                GenerateCustomActivityName = `${(GuildMember.presence.activities[0].emoji === null ? ":jigsaw:" : GuildMember.presence.activities[0].emoji)} Custom Status:`;
                 GetUserGameName = GuildMember.presence.activities[0].state;
 
                 break;
