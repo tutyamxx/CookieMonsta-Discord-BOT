@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const CustomFunctions = require("../../functions/funcs.js");
-const GetChannelDefault = require("../../functions/defaultchannel.js");
+const DefChannel = require("../../functions/defaultchannel.js");
 
 const RandomEmojiNews =
 [
@@ -26,11 +26,11 @@ module.exports.run = (bot, message, szArgs) =>
 
     try
     {
-        guildList.forEach((guild) =>
+        guildList.forEach(async (guild) =>
         {
-            let cChannel = GetChannelDefault.getDefaultChannel(guild);
+            const cChannel = DefChannel.getDefaultChannel(member.guild);
 
-            if(cChannel && cChannel.permissionsFor(guild.me).has("SEND_MESSAGES"))
+            if(cChannel && cChannel.permissionsFor(guild.me).has("SEND_MESSAGES", "VIEW_CHANNEL"))
             {
                 const DiscordRichEmbed = new Discord.MessageEmbed()
                 .setAuthor("Cookie Monsta | Announcement Board!", bot.user.displayAvatarURL())
@@ -40,7 +40,7 @@ module.exports.run = (bot, message, szArgs) =>
                 .setTimestamp()
                 .setFooter("This message has been sent to every guild!")
 
-                cChannel.send({ embed: DiscordRichEmbed });
+                await cChannel.send({ embed: DiscordRichEmbed });
             }
         });
 
