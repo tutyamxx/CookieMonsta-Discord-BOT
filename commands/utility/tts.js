@@ -1,6 +1,7 @@
 const CustomFunctions = require("../../functions/funcs.js");
 
 let bAlreadyPlayingTTS = new Set();
+global.bAlreadyPlayingTTS = bAlreadyPlayingTTS;
 
 module.exports.run = (bot, message, szArgs) =>
 {
@@ -11,9 +12,9 @@ module.exports.run = (bot, message, szArgs) =>
         return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Add some text so I can convert it to speech?  :no_entry:");
     }
 
-    if(bAlreadyPlayingTTS.has(GuildGetID))
+    if(bAlreadyPlayingTTS.has(GuildGetID) || bBoolAlreadyPlayingSound.has(GuildGetID))
     {
-        return message.reply(" :no_entry: man you're too spicy! I am already translating a **TTS** :loud_sound:  :no_entry:" );
+        return message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:");
     }
 
     let ArgumentText = szArgs.join(" ");

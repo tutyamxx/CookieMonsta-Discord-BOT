@@ -6,6 +6,7 @@ const CustomFunctions = require("../../functions/funcs.js");
 const SoundEffectsMp3 = require("../../json/soundboard.json");
 
 let bBoolAlreadyPlayingSound = new Set();
+global.bBoolAlreadyPlayingSound = bBoolAlreadyPlayingSound;
 
 module.exports.run = async (bot, message, szArgs) =>
 {
@@ -50,7 +51,7 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: I can't join the channel you're in :mute:  :no_entry:" );
     }
 
-    if(bBoolAlreadyPlayingSound.has(GuildGetID))
+    if(bBoolAlreadyPlayingSound.has(GuildGetID) || bAlreadyPlayingTTS.has(GuildGetID))
     {
         return message.reply(" :no_entry: man you're too spicy! I am already playing a sound :loud_sound:  :no_entry:" );
     }

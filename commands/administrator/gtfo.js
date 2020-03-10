@@ -7,6 +7,7 @@ module.exports.run = (bot, message, args) =>
 
     const GetBotVoiceChannel = message.guild.me.voice.channel;
     const GetUserVoiceChannel = message.member.voice.channel;
+    const GuildGetID = message.guild.id;
 
     if(!GetBotVoiceChannel)
     {
@@ -25,6 +26,16 @@ module.exports.run = (bot, message, args) =>
 
     else if(GetBotVoiceChannel === GetBotVoiceChannel)
     {
+        if(bBoolAlreadyPlayingSound.has(GuildGetID))
+        {
+            bBoolAlreadyPlayingSound.delete(GuildGetID);
+        }
+
+        if(bAlreadyPlayingTTS.has(GuildGetID))
+        {
+            bAlreadyPlayingTTS.delete(GuildGetID);
+        }
+
         GetBotVoiceChannel.leave();
         message.reply(" Aight, chill lebr0wsky <:Bruh:635506622478942219>, I'm out :mute:");
     }
