@@ -11,6 +11,11 @@ module.exports.run = async (bot, message, szArgs) =>
         return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Twitch.TV username!  :no_entry:");
     }
 
+    if(message.mentions.members.first())
+    {
+        return message.reply(" :no_entry: please don't mention people, just type the Twitch.TV username! :no_entry:");
+    }
+
     message.channel.startTyping();
 
     const TwitchUserArgument = szArgs[0].trim();

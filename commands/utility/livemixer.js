@@ -15,6 +15,11 @@ module.exports.run = (bot, message, szArgs) =>
         return message.reply(" :no_entry: this parameter can't be empty you scrub :facepalm: ! Please specify a Mixer.com streamer username!  :no_entry:");
     }
 
+    if(message.mentions.members.first())
+    {
+        return message.reply(" :no_entry: please don't mention people, just type the Mixer.com username! :no_entry:");
+    }
+
     message.channel.startTyping();
 
     const MixerUserArgument = szArgs[0].trim();
