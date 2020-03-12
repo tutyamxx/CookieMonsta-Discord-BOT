@@ -48,7 +48,7 @@ module.exports.run = (bot, message, szArgs) =>
         const DiscordRichEmbed = new Discord.MessageEmbed()
         .setAuthor("Cookie Monsta | Admin Log", bot.user.displayAvatarURL())
         .setColor(2003199)
-        .setDescription(`**${user}**  **MOVED**  **${TargetAFK.user}** to **${GetGuild.afkChannel.name}** !`)
+        .setDescription(`**${user}**  **MOVED**  **${TargetAFK.user}** to **AFK** channel :point_right: **${GetGuild.afkChannel.name}** !`)
         .setThumbnail("https://i.imgur.com/tRUSOjl.jpg")
         .setFooter("Used by: @" + user.username, user.displayAvatarURL())
         .setTimestamp();
