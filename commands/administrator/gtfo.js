@@ -1,8 +1,8 @@
 module.exports.run = (bot, message, args) =>
 {
-    if(!message.member.hasPermission("ADMINISTRATOR"))
+    if(!message.member.hasPermission("ADMINISTRATOR") || !message.member.hasPermission("MOVE_MEMBERS"))
     {
-        return message.channel.send(":no_entry: You can't mate! Fucking biblical... :laughing: :no_entry:");
+        return message.channel.send(":no_entry: You can't mate! You need `ADMINISTRATOR` or `MOVE_MEMBERS` permission to do this! :laughing: :no_entry:");
     }
 
     const GetBotVoiceChannel = message.guild.me.voice.channel;
