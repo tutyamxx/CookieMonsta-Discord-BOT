@@ -15,11 +15,6 @@ module.exports.run = (bot, message, szArgs) =>
         return message.reply(" :no_entry: not happening! Please mention a valid member of this server! :boy:  :no_entry:");
     }
 
-    if(TargetAFK.roles.highest.position >= message.member.roles.highest.position)
-    {
-        return message.reply(" :no_entry:  You can't move a member to an **AFK** channel if that member has a role equal or higher than yours :cold_face: !  :no_entry:");
-    }
-
     const GetTargetVoiceChannel = TargetAFK.voice.channel;
 
     if(!GetTargetVoiceChannel)
