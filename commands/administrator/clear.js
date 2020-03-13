@@ -2,17 +2,19 @@ const Discord = require("discord.js");
 
 const RandomColorsPurge = [ 9699539, 4915330, 255, 65280, 16776960, 16744192, 16711680, 13189184 ];
 
-module.exports.run = async (bot, message, args) =>
+module.exports.run = async (bot, message, szArgs) =>
 {
     if(!message.member.hasPermission("ADMINISTRATOR"))
     {
         return message.channel.send(":no_entry: You can't mate! You need ``ADMINISTRATOR`` permission for this command. :laughing: :no_entry:");
     }
 
+    const iMessagesAmount = parseInt(szArgs[0]);
+
     await message.delete().then(async () =>
     {
         const user = message.author;
-        const ArrayFetchedMessages = await message.channel.messages.fetch({ before: message.id, limit: 100 });
+        const ArrayFetchedMessages = await message.channel.messages.fetch({ before: message.id, limit: (isNaN(iMessagesAmount) ? 100 : ((iMessagesAmount > 100) ? 100 : iMessagesAmount)) });
 
         await message.channel.bulkDelete(ArrayFetchedMessages).catch((error) =>
         {
