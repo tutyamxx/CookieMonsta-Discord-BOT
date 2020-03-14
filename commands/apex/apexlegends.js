@@ -67,13 +67,13 @@ module.exports.run = (bot, message, szArgs) =>
 
         }).catch(() =>
         {
-            return message.channel.send(":no_entry: Sorry, I couldn't find this Apex Legends player: `" + szApexPlayer + "` on the: `" + szApexPlatform.toUpperCase() + "` platform! :no_entry:");
+            return message.channel.send(":no_entry: Sorry, I couldn't find this Apex Legends player: `" + szApexPlayer + "` on the: `" + szApexPlatform.toUpperCase() + "` platform! :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
         });
     }
 
     else
     {
-        return message.reply(" :no_entry: eyy, wrong parameter specified! Please specify a platform name such as: `PS4`, `XBOX` or `PC` !  :no_entry:");
+        return message.reply(" :no_entry: eyy, wrong parameter specified! Please specify a platform name such as: `PS4`, `XBOX` or `PC` !  :no_entry:").then(() => message.channel.stopTyping(true)).catch(() => message.channel.stopTyping(true));
     }
 };
 
