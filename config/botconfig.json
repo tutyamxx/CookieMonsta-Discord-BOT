@@ -14,5 +14,6 @@
     "Filelist_Key":             "",
     "Filelist_Username":        "",
     "AmeAPI_Token":             "",
-    "TheCatAPI_Key":            ""
+    "TheCatAPI_Key":            "",
+    "ApexLegendsAPI_Key":       ""
 }
