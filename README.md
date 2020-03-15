@@ -80,6 +80,7 @@ npm i amethyste-api
 npm i cheerio
 npm i steamrep
 npm i valid-url
+npm i figlet
 
 npm install bufferutil
 npm install hammerandchisel/erlpack
