@@ -35,9 +35,7 @@ const szRandomGreetBanners =
 
 module.exports = (bot, member, guild) =>
 {
-    const ServerGuild = member.guild;
-
-    if(member && ServerGuild.available && ServerGuild !== undefined)
+    if(member && guild.available && guild !== undefined)
     {
         const GetUserAvatar = member.user.displayAvatarURL({ format: "png", size: 2048 });
         const GetUserName = member.user.username.replace(/'/g, "`").trim();
@@ -88,7 +86,7 @@ module.exports = (bot, member, guild) =>
                     .draw(["text 264, 130 '" + member.user.tag + "'"])
                     .font("./BOTFonts/Agency-FB.ttf", 42)
                     .fill(szRandomBannerFont)
-                    .draw(["text 264, 220 'Member: #" + ServerGuild.memberCount + "'"])
+                    .draw(["text 264, 220 'Member: #" + guild.memberCount + "'"])
                     .toBuffer("banner.png", (err, buffer2) =>
                     {
                         if(err)
@@ -96,9 +94,9 @@ module.exports = (bot, member, guild) =>
                             return console.log("\x1b[31m*\x1b[0m Error creating \x1b[33m(Welcome Banner)\x1b[0m image: \x1b[31m" + err + "\x1b[0m");
                         }
 
-                        const cChannel = DefChannel.getDefaultChannel(ServerGuild);
+                        const cChannel = DefChannel.getDefaultChannel(guild);
 
-                        if(cChannel && cChannel.permissionsFor(ServerGuild.me).has("SEND_MESSAGES", "VIEW_CHANNEL"))
+                        if(cChannel && cChannel.permissionsFor(guild.me).has("SEND_MESSAGES", "VIEW_CHANNEL"))
                         {
                             cChannel.send(new Discord.MessageAttachment(buffer2, "welcome_banner.png"));
                         }
