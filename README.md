@@ -10,6 +10,7 @@
   <img src="https://discordbots.org/api/widget/owner/412067927333011470.svg">
 </p>
 
+* **BOT IS NO LONGER ONLINE - SORRY!**
 * To see exactly what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
 * This was my private **Discord BOT** and has been written using [**Discord.JS library**](https://discord.js.org/#/)
 * If you want to run it or host it, make sure you read the files, you might need some **API keys** here and there (you can find what you need in **botconfig.json**).
