@@ -10,7 +10,10 @@
   <img src="https://discordbots.org/api/widget/owner/412067927333011470.svg">
 </p>
 
-**BOT HAS BEEN OFFICIALLY APPROVED AND VERIFIED BY OFFICIAL DISCORD DEVELOPERS!**
+<p align="center">
+  <b>BOT HAS BEEN OFFICIALLY APPROVED AND VERIFIED BY OFFICIAL DISCORD DEVELOPERS!</b> <br />
+  <img src="https://raw.githubusercontent.com/tutyamxx/CookieMonsta-Discord-BOT/master/verified.png">
+</p>
 
 * **BOT IS NO LONGER ONLINE - SORRY!**
 * To see exactly what is this bot about: ➡️ [**CLICK HERE**](https://tutyamxx.github.io/cookie-monsta-website/index.html) ⬅️
