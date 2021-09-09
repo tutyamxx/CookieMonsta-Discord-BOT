@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <b>I KNOW CODE IS CRINGE AND OLD AND I COULD IMPROVE IT DRASTICALLY, BUT I STRUGGLE TO FIND THE MOTIVATION TO DO IT XD</b>
   <b>BOT HAS BEEN OFFICIALLY APPROVED AND VERIFIED BY OFFICIAL DISCORD DEVELOPERS!</b> <br />
   <img src="https://raw.githubusercontent.com/tutyamxx/CookieMonsta-Discord-BOT/master/verified.png">
 </p>
